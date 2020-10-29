@@ -1,0 +1,10 @@
+@mixin HeaderWrapper {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+}
+@mixin DisplayFlex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -1,0 +1,33 @@
+//header
+.header_top {
+  background-color: #000;
+  width: 100%;
+  height: 100px;
+}
+.header_wrapper {
+  @include HeaderWrapper;
+  @include DisplayFlex;
+}
+.logo_fabrique {
+  width: 60%;
+  img {
+    width: 15%;
+  }
+}
+.header_nav {
+  li {
+    font-family: $firstFont;
+    transition: 0.8s;
+    &:hover {
+      cursor:pointer;
+      color: blue;
+    }
+  }
+}
+.hero {
+  width: 100%;
+  video {
+    width: 100%;
+    height: 500px;
+  }
+}
