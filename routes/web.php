@@ -21,9 +21,9 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 // home films
-Route::get('/films', function () {
-    return view('films');
-})->name('films');
+Route::get('/projects', function () {
+    return view('projects');
+})->name('projects');
 // home news
 Route::get('/news', function () {
     return view('news');

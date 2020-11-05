@@ -1,9 +1,13 @@
 //header
+//header top
 .header_top {
   background-color: #000;
   width: 100%;
-  height: 100px;
+  height: 70px;
+  position: fixed;
+  z-index: 1;
 }
+// header wrapper 
 .header_wrapper {
   @include HeaderWrapper;
   @include DisplayFlex;
@@ -11,23 +15,13 @@
 .logo_fabrique {
   width: 60%;
   img {
-    width: 15%;
+    width: 10%;
   }
 }
+//header nav
 .header_nav {
   li {
-    font-family: $firstFont;
-    transition: 0.8s;
-    &:hover {
-      cursor:pointer;
-      color: blue;
-    }
+    font-family: $secondFont;
   }
 }
-.hero {
-  width: 100%;
-  video {
-    width: 100%;
-    height: 500px;
-  }
-}
+// end header

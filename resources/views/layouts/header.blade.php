@@ -12,7 +12,7 @@
    <nav class="header_nav">
     <li><a href='{{route('home')}}'>Home</a></li>
     <li><a href='{{route('about')}}'>About</a></li>
-    <li><a href='{{route('films')}}'>Films</a></li>
+    <li><a href='{{route('projects')}}'>Projects</a></li>
     <li><a href='{{route('news')}}'>News</a></li>
     <li><a href='{{route('contacts')}}'>Contacts</a></li>
    </nav>
@@ -21,10 +21,5 @@
   {{-- end wrapper --}}
  </div>
  {{-- end header top --}}
- {{-- hero --}}
- <div class="hero">
-  <video src="Fabrique_E_Logo_Animato.mp4"></video>
- </div>
- {{-- end hero --}}
 </header>
 {{-- end header --}}

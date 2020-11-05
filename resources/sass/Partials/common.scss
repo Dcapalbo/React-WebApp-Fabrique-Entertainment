@@ -11,5 +11,10 @@ li {
 }
 a {
   text-decoration: none;
-  color: crimson;
+  color: red;
+  opacity: 0.8;
+}
+body {
+  overflow-x: hidden;
+  background-color: #000;
 }
