@@ -1,16 +1,58 @@
 //main
+//voice_container 
+.voices_container {
+    margin: 30px;
+    @include VoicesWrapper;
+    @include DisplayFlexColumn;
+    a {
+        color: red;
+        opacity: 0.8;
+    }
+    h5 {
+        margin-top: 50px;
+        line-height: 40px;
+        color: #fff;
+        font-size: 18px;
+        font-family: $secondFont;
+    }
+
+}
 // main wrapper
 .main_wrapper {
     @include MainWrapper;
     @include DisplayFlex;
+    div {
+        color: #fff;
+    }
 }
-.projects_voice {
-    opacity: 0.8;
+.about_voice {
+    margin-top: 50px;
+    a {
+    opacity: 0.6;
     color: red;
     font-weight: bolder;
-    text-align: center;
+    font-family: $secondFont;
+    transition: 0.3s;
+    }
+    &:hover {
+        color: #fff;
+        transform: scale(1.01);
+    }
+}
+.projects_voice {
     margin-top: 50px;
-    font-family: $secondFont;;
+    a {
+    opacity: 0.6;
+    color: red;
+    font-weight: bolder;
+    
+    font-family: $secondFont;
+    transition: 0.3s;
+    }
+    &:hover {
+        color: #fff;
+        transform: scale(1.01);
+    }
 }
 // films card
 .films_card {

@@ -14,12 +14,22 @@
 {{-- start main --}}
 {{-- start first main section --}}
      <section>
-
+        <div class="voices_container">
+            <h2 class="about_voice"><a href="{{route('about')}}">About us</a></h2>
+            <h5>Fabrique Entertainment è una società di produzione cinematografica indipendente fondata a Roma nel 2014.
+                <br> 
+                Il suo sguardo artistico produttivo si colloca nel cinema d’autore nazionale ed internazionale.
+                Il team è composto da Giovanni Capalbo, Renata Di Leone e Domenico Capalbo.
+                <br> 
+                Fabrique Entertainment is an independent film production company founded in Rome in 2014. 
+                Its vision moves around national and international author's cinema.
+                The team is formed by Giovanni Capalbo, Renata Di Leone and Domenico Capalbo.</h5>
+            <h2 class="projects_voice"><a href="{{route('projects')}}">Projects</a></h2>
+        </div>
      </section>
 {{-- end first main section --}}
      <section>
         {{-- second section  --}}
-        <h2 class="projects_voice">Projects</h2>
         {{-- main wrapper --}}
         <div class="main_wrapper">
         {{-- films card --}}
@@ -29,7 +39,7 @@
                 <h3>Lucania</h3>
                 <h4>Directeby by Gigi Roccati</h4>
                 <h4>Produced by Fabrique Entertainment</h4>
-                <h4>Synopsis</p>
+                <h4>Synopsis</p>    
                 <h4>An ancient dying land is brought back to life by the primal force of a young mute girl, who witnesses the fatal clash between two fathers.</h4>
             </div>
             {{-- film cover --}}

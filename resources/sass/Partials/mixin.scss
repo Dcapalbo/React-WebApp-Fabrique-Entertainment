@@ -13,3 +13,14 @@
   justify-content: space-around;
   align-items: center;
 }
+@mixin VoicesWrapper {
+  width: 30%;
+  height: 100%;
+  margin: auto;
+}
+@mixin DisplayFlexColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

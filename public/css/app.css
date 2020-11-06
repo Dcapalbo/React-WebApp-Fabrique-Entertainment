@@ -57,6 +57,30 @@ body {
   color: #fff;
 }
 
+.voices_container {
+  margin: 30px;
+  width: 30%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.voices_container a {
+  color: red;
+  opacity: 0.8;
+}
+
+.voices_container h5 {
+  margin-top: 50px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Ubuntu", sans-serif;
+}
+
 .main_wrapper {
   width: 90%;
   height: 100%;
@@ -66,13 +90,42 @@ body {
   align-items: center;
 }
 
-.projects_voice {
-  opacity: 0.8;
+.main_wrapper div {
+  color: #fff;
+}
+
+.about_voice {
+  margin-top: 50px;
+}
+
+.about_voice a {
+  opacity: 0.6;
   color: red;
   font-weight: bolder;
-  text-align: center;
-  margin-top: 50px;
   font-family: "Ubuntu", sans-serif;
+  transition: 0.3s;
+}
+
+.about_voice:hover {
+  color: #fff;
+  transform: scale(1.01);
+}
+
+.projects_voice {
+  margin-top: 50px;
+}
+
+.projects_voice a {
+  opacity: 0.6;
+  color: red;
+  font-weight: bolder;
+  font-family: "Ubuntu", sans-serif;
+  transition: 0.3s;
+}
+
+.projects_voice:hover {
+  color: #fff;
+  transform: scale(1.01);
 }
 
 .films_card {
