@@ -2,9 +2,9 @@
 //header top
 .header_top {
   background-color: #000;
-  width: 100%;
-  height: 70px;
   position: fixed;
+  height: 70px;
+  width: 100%;
   z-index: 1;
 }
 // header wrapper 
@@ -23,13 +23,29 @@
   a {
     font-family: $secondFont;
     padding: 0px 10px;
+    transition: 0.3s;
     color: red;
     opacity: 0.8;
-    transition: 0.3s;
     &:hover {
       cursor: pointer;
       color: #fff;
     }
+  }
+  .list_item {
+    position: relative;
+  }
+  .dropdown_menu {
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    position: absolute;
+    display: none;
+    height: 400px;
+    width: 400px;
+    left: 50%;
+    bottom: 0;
+  }
+  &:hover .dropdown_menu {
+    display: block;
   }
 }
 

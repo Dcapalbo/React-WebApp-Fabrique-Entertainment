@@ -1,5 +1,4 @@
 @include('layouts.app')
-{{-- start header --}}
 @include('layouts.header')
 {{-- hero --}}
 <div class="hero">
@@ -9,7 +8,6 @@
     </video>
 </div>
 {{-- end hero --}}
-{{-- end header --}}
     <main>
 {{-- start main --}}
 {{-- start first main section --}}
@@ -17,10 +15,8 @@
         <div class="voices_container">
             <h2 class="about_voice"><a href="{{route('about')}}">About us</a></h2>
             <h5>Fabrique Entertainment è una società di produzione cinematografica indipendente fondata a Roma nel 2014.
-                <br> 
                 Il suo sguardo artistico produttivo si colloca nel cinema d’autore nazionale ed internazionale.
                 Il team è composto da Giovanni Capalbo, Renata Di Leone e Domenico Capalbo.
-                <br> 
                 Fabrique Entertainment is an independent film production company founded in Rome in 2014. 
                 Its vision moves around national and international author's cinema.
                 The team is formed by Giovanni Capalbo, Renata Di Leone and Domenico Capalbo.</h5>

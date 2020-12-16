@@ -1,26 +1,26 @@
 @mixin HeaderWrapper {
-  width: 70%;
   height: 100%;
   margin: auto;
+  width: 70%;
 }
 @mixin MainWrapper {
-  width: 90%;
   height: 100%;
   margin: auto;
+  width: 90%;
 }
 @mixin DisplayFlex {
-  display: flex;
   justify-content: space-around;
   align-items: center;
+  display: flex;
 }
 @mixin VoicesWrapper {
-  width: 30%;
   height: 100%;
   margin: auto;
+  width: 30%;
 }
 @mixin DisplayFlexColumn {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  display: flex;
 }
