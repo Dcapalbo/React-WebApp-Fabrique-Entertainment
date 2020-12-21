@@ -28,7 +28,7 @@
         {{-- second section  --}}
         {{-- main wrapper --}}
         <div class="main_wrapper">
-        {{-- films card --}}
+        
         <div class="films_card">
             {{-- films informations  --}}
             <div class="films_informations">
