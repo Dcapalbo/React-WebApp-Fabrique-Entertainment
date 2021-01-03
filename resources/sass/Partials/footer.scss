@@ -4,7 +4,30 @@
     background-color: #000;
     height: 400px;
     width: 100%;
+    // wrapper 
     .footer_wrapper {
         @include FooterWrapper;
+        @include DisplayFlex;
+        // column item 
+        .column_item {
+            background-color: #000;
+            height: 250px;
+            color: red;
+            opacity: 0.8;
+            width: 150px;
+            li {
+                text-transform: capitalize;
+                font-family: $secondFont;
+                line-height: 35px;
+                text-align: left;
+                transition: 0.3s;
+                cursor: pointer;
+                display: block;
+                &:hover {
+                    transform:scale(1.03);
+                    color: #fff;
+                }
+            }
+        }
     }
 }

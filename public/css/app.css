@@ -205,7 +205,33 @@ body {
 
 .footer_section .footer_wrapper {
   margin: auto;
-  height: 80%;
+  height: 100%;
   width: 70%;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
+.footer_section .footer_wrapper .column_item {
+  background-color: #000;
+  height: 250px;
+  color: red;
+  opacity: 0.8;
+  width: 150px;
+}
+
+.footer_section .footer_wrapper .column_item li {
+  text-transform: capitalize;
+  font-family: "Ubuntu", sans-serif;
+  line-height: 35px;
+  text-align: left;
+  transition: 0.3s;
+  cursor: pointer;
+  display: block;
+}
+
+.footer_section .footer_wrapper .column_item li:hover {
+  transform: scale(1.03);
+  color: #fff;
 }
 
