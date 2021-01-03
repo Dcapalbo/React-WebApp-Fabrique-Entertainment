@@ -8,6 +8,11 @@
   margin: auto;
   width: 90%;
 }
+@mixin FooterWrapper {
+  margin: auto;
+  height: 80%;
+  width: 70%;
+}
 @mixin DisplayFlex {
   justify-content: space-around;
   align-items: center;

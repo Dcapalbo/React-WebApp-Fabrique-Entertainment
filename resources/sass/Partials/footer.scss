@@ -1,0 +1,10 @@
+// footer 
+.footer_section {
+    border-top: 1px solid #fff;
+    background-color: #000;
+    height: 400px;
+    width: 100%;
+    .footer_wrapper {
+        @include FooterWrapper;
+    }
+}

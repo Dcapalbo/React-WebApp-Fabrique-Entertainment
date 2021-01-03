@@ -2,7 +2,7 @@
 @include('layouts.header')
 {{-- hero --}}
 <div class="hero">
-    <video width="100%" autoplay> 
+    <video width="100%" autoplay>
      <source src="{{asset('/video/Fabrique_E_Logo_Animato.mp4')}}">
      Your browser does not support the video tag.
     </video>
@@ -89,6 +89,7 @@
         </div>
         {{-- end main wrapper --}}
      </section>
+@include('layouts.footer')
     {{-- end second section --}}
     </main>
 {{-- end main --}}
