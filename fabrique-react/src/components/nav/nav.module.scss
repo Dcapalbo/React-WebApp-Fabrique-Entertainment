@@ -1,5 +1,9 @@
 .navigation {
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     display: flex;
+    li {
+        font-size: 18px;
+        list-style: none;
+    }
 }

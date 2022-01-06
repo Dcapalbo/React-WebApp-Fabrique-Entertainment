@@ -1,8 +1,7 @@
-import { Fragment } from 'react';
 import Navigation from '../nav/nav';
 import classes from './header.module.scss';
 
-const Header = (props) => {
+const Header = () => {
     return(
         <header className={classes.header}>
             <Navigation />

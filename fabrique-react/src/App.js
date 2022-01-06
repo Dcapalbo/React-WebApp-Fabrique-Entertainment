@@ -1,10 +1,12 @@
+import { Fragment } from "react";
 import Header from "./components/header/header";
+import classes from './assets/reset.scss';
 
 function App() {
   return (
-    <div className="App">
+    <Fragment className={classes.html}>
       <Header />
-    </div>
+    </Fragment>
   );
 }
 

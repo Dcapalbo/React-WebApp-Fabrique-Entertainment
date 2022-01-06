@@ -1,13 +1,24 @@
-import { useState } from 'react';
 import classes from './nav.module.scss';
 
-const Navigation = (props) => {
+const Navigation = () => {
     return(
         <nav>
             <ul className={classes.navigation}>
-                <li>Home</li>
-                <li>Projects</li>
-                <li>Contacts</li>
+                <li className={classes.li}>
+                    <a href="/">Home</a>
+                </li>
+                <li className={classes.li}>
+                    <a href="/">About</a>
+                </li>
+                <li className={classes.li}>
+                    <a href="/">Films</a>
+                </li>
+                <li className={classes.li}>
+                    <a href="/">News</a>
+                </li>
+                <li className={classes.li}>
+                    <a href="/">Contact</a>
+                </li>
             </ul>
         </nav>
     )
