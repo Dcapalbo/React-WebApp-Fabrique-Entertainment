@@ -4,20 +4,26 @@ const Navigation = () => {
     return(
         <nav>
             <ul className={classes.navigation}>
-                <li className={classes.li}>
-                    <a href="/">Home</a>
+                <li>
+                    <a href="/">home</a>
                 </li>
-                <li className={classes.li}>
-                    <a href="/">About</a>
+                <li>
+                    <a href="/">about</a>
                 </li>
-                <li className={classes.li}>
-                    <a href="/">Films</a>
+                <li>
+                    <a className={classes.navigation__films} href="/">films</a>
+                    <ul className={classes.navigation__films__dropdown}>
+                        <li><a href="/">lucania</a></li>
+                        <li><a href="/">guerrieri</a></li>
+                        <li><a href="/">love and desire</a></li>
+                        <li><a href="/">felakuti</a></li>
+                    </ul>
                 </li>
-                <li className={classes.li}>
-                    <a href="/">News</a>
+                <li>
+                    <a href="/">news</a>
                 </li>
-                <li className={classes.li}>
-                    <a href="/">Contact</a>
+                <li>
+                    <a href="/">contact</a>
                 </li>
             </ul>
         </nav>

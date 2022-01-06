@@ -2,8 +2,14 @@
     justify-content: flex-end;
     align-items: center;
     display: flex;
-    li {
-        font-size: 18px;
-        list-style: none;
+    .navigation__films__dropdown {
+        transform: translate(-40px, 0px);
+        background-color: #000;
+        position: absolute;
+        display: none;
+        padding: 10px;
+    }
+    .navigation__films:hover + .navigation__films__dropdown, .navigation__films__dropdown:hover {
+        display: block;
     }
 }

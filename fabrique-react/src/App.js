@@ -1,10 +1,13 @@
 import { Fragment } from "react";
+import './assets/variables.scss';
+import './assets/mixin.scss';
+import './assets/typography.scss';
+import './assets/reset.scss';
 import Header from "./components/header/header";
-import classes from './assets/reset.scss';
 
 function App() {
   return (
-    <Fragment className={classes.html}>
+    <Fragment>
       <Header />
     </Fragment>
   );
