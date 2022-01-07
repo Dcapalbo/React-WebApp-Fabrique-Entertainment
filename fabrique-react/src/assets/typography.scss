@@ -1,28 +1,15 @@
-button {
-    background-color: transparent; 
-    border-color: #cc0000;
-    height: 45px;
-    width: 100px;
-    border: 1px;
-}
-
 body {
     font-family: Avenir;
     color: #fff;
 }
 
-a {
-    text-transform: capitalize;
-    text-decoration: none;
-    transition: 0.4s;
-    font-weight: 400;
-    color: #fff;
-    &:hover {
-        color: #cc0000;
-        transition: 0.4s;
-    }
+// unordered list 
+ul {
+    padding: 0;
+    margin: 0;
 }
 
+// li elements 
 li {
     position: relative;
     padding: 10px 15px;
@@ -30,26 +17,77 @@ li {
     font-size: 18px;
 }
 
+// anchor points 
+a {
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: 0.4s;
+    font-weight: 400;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    &:hover, &:active {
+        color: #cc0000;
+        transition: 0.4s;
+    }
+}
+
+// paragraph & smalls
+p, small {
+    font-weight: 200;
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    font-size: 18px;
+}
+
+small {
+    font-size: 16px;
+}
+
+// headliners 
+h1, h2, h3, h4, h5, h6 {
+    text-transform: capitalize;
+    padding: 0;
+    margin: 0;
+}
+
 h1 {
-    font-size: 28px;
+    font-size: 32px;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 h3 {
-    font-size: 22px;
+    font-size: 26px;
 }
 
 h4 {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 h5 {
-    font-size : 18px;
+    font-size : 22px;
 }
 
 h6 {
-    font-size: 16px;
+    font-size: 20px;
+}
+
+// buttons 
+.primary__button {
+    background-color: transparent; 
+    border-color: #cc0000;
+    height: 45px;
+    width: 100px;
+    border: 1px;
+    &:hover, &:active {
+        background-color: #cc0000;
+        border-color: #fff;
+        transition: 0.4s;
+    }
 }

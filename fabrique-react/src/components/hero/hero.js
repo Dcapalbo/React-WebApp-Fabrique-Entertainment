@@ -1,10 +1,8 @@
+import classes from './hero.module.scss';
+
 const Hero = () => {
     return(
-        <section>
-            <div>
-
-            </div>
-        </section>
+        <section className={classes.hero}></section>
     )
 }
 

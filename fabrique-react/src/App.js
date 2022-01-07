@@ -4,11 +4,18 @@ import './assets/mixin.scss';
 import './assets/typography.scss';
 import './assets/reset.scss';
 import Header from "./components/header/header";
+import Hero from "./components/hero/hero";
+import CardContainer from './components/UI/card/cardContainer';
+import Card from './components/UI/card/card';
 
 function App() {
   return (
     <Fragment>
-      <Header />
+      <Header/>
+      <Hero/>
+      <CardContainer>
+        <Card/>
+      </CardContainer>
     </Fragment>
   );
 }
