@@ -1,21 +1,25 @@
 @import '../../../assets/variables.scss';
 @import '../../../assets/mixin.scss';
 
-.card__container {
-    background-color: #000000;
-    @include flex-start;
-    text-align: center;
-    display: flex;
-    padding: 24px;
+.wrapper__card__container {
+    background-color: #000;
     height: auto;
     width: 100%;
-    @media (max-width:$screen-lg-min) {
-        @include flex-center;
-        padding: 12px;
-    }
-
-    @media (max-width:$screen-sm-min) {
-        @include flex-center;
-        padding: 12px;
+    .card__container {
+        @include flex-start;
+        text-align: center;
+        display: flex;
+        margin: auto;
+        height: 100%;
+        width: 90%;
+        @media (max-width:$screen-lg-min) {
+            @include flex-center;
+            padding: 12px;
+        }
+    
+        @media (max-width:$screen-sm-min) {
+            @include flex-center;
+            padding: 12px;
+        }
     }
 }

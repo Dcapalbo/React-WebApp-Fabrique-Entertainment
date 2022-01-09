@@ -4,7 +4,9 @@ import classes from './header.module.scss';
 const Header = () => {
     return(
         <header className={classes.header}>
-            <Navigation />
+            <div className={classes.header__container}>
+                <Navigation />
+            </div>
         </header>
     )
 }

@@ -45,6 +45,7 @@ const CardContainer = () => {
         },
     ]
     return (
+    <section className={classes.wrapper__card__container}>
         <div className={classes.card__container}>
             {films.map(film => (
                 <Card
@@ -59,6 +60,7 @@ const CardContainer = () => {
                 ))
             }
         </div>
+    </section>
     )
 }
 
