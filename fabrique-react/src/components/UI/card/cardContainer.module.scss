@@ -1,9 +1,11 @@
 .card__container {
-    justify-content: space-between;
-    background-color: #000;
+    background-color: #000000;
+    justify-content: flex-start;
     align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
     display: flex;
-    height: 400px;
-    padding: 20px;
+    padding: 24px;
+    height: auto;
     width: 100%;
 }

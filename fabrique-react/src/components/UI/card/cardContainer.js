@@ -1,54 +1,59 @@
-import classes from './card.module.scss';
+import classes from './cardContainer.module.scss';
 import Card from './card';
 
 const CardContainer = () => {
     const Films = [
         {
+            id: '1',
             title: 'Lucania',
             description: 'Descrizione dettagliata del film',
             imageUrl: 'Percorso immagine della cover',
             director: 'Nome del regista',
             lenght: 'Durata del film',
-            type: 'tipologia di formato: film, corto, documentario' 
+            type: 'Lungometraggio' 
         },
         {
+            id: '2',
             title: 'Guerrieri',
             description: 'Descrizione dettagliata del film',
             imageUrl: 'Percorso immagine della cover',
             director: 'Nome del regista',
             lenght: 'Durata del film',
-            type: 'tipologia di formato: film, corto, documentario' 
+            type: 'Documentario' 
         },
         {
+            id: '3',
             title: 'Love and Desire',
             description: 'Descrizione dettagliata del film',
             imageUrl: 'Percorso immagine della cover',
             director: 'Nome del regista',
             lenght: 'Durata del film',
-            type: 'tipologia di formato: film, corto, documentario' 
+            type: 'Cortometraggio' 
         },
         {
+            id: '4',
             title: 'Felakuti',
             description: 'Descrizione dettagliata del film',
             imageUrl: 'Percorso immagine della cover',
             director: 'Nome del regista',
             lenght: 'Durata del film',
-            type: 'tipologia di formato: film, corto, documentario' 
+            type: 'Documentario' 
         },
         {
+            id: '5',
             title: 'Nightlife',
             description: 'Descrizione dettagliata del film',
             imageUrl: 'Percorso immagine della cover',
             director: 'Nome del regista',
             lenght: 'Durata del film',
-            type: 'tipologia di formato: film, corto, documentario' 
+            type: 'Documentario' 
         },
-    ];
-    console.log(Films, 'logging single films');
+    ]
     return (
         <div className={classes.card__container}>
             {Films.map(film => (
                 <Card
+                    key={film.id}
                     title={film.title}
                     description={film.description}
                     imagUrl={film.imagUrl}
@@ -57,7 +62,7 @@ const CardContainer = () => {
                     type={film.type}
                 /> 
                 ))
-            };
+            }
         </div>
     )
 }

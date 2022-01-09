@@ -1,23 +1,15 @@
-import { Fragment } from "react";
+// scss files 
 import './assets/variables.scss';
 import './assets/mixin.scss';
 import './assets/typography.scss';
 import './assets/reset.scss';
-import Header from "./components/header/header";
-import Hero from "./components/hero/hero";
-import CardContainer from './components/UI/card/cardContainer';
-import Card from './components/UI/card/card';
+// pages
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <Fragment>
-      <Header/>
-      <Hero/>
-      <CardContainer>
-        <Card/>
-      </CardContainer>
-    </Fragment>
-  );
+      <Home />
+  )
 }
 
 export default App;
