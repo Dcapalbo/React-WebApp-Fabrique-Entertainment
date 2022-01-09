@@ -16,3 +16,9 @@
     flex-wrap: wrap;
     display: flex;
 }
+@mixin flex-center {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+}

@@ -1,4 +1,8 @@
 import classes from './cardContainer.module.scss';
+import CoverLucania from '../../../assets/img/LUCANIA_PASSEGGIATA_2.jpg'
+import CoverGuerrieri from '../../../assets/img/COVER GUERRIERI.jpg'
+import CoverLoveAndDesire from '../../../assets/img/COVER AED FOR SITE FABRIQUE.jpg'
+import CoverNighlife from '../../../assets/img/COVER NIGHTLIFE 2018.jpg'
 import Card from './card';
 
 const CardContainer = () => {
@@ -7,43 +11,34 @@ const CardContainer = () => {
             id: '1',
             title: 'Lucania',
             description: 'Descrizione dettagliata del film',
-            imageUrl: 'Percorso immagine della cover',
+            imageUrl: CoverLucania,
             director: 'Nome del regista',
             lenght: 'Durata del film',
             type: 'Lungometraggio' 
         },
         {
             id: '2',
-            title: 'Guerrieri',
-            description: 'Descrizione dettagliata del film',
-            imageUrl: 'Percorso immagine della cover',
-            director: 'Nome del regista',
-            lenght: 'Durata del film',
-            type: 'Documentario' 
-        },
-        {
-            id: '3',
             title: 'Love and Desire',
             description: 'Descrizione dettagliata del film',
-            imageUrl: 'Percorso immagine della cover',
+            imageUrl: CoverLoveAndDesire,
             director: 'Nome del regista',
             lenght: 'Durata del film',
             type: 'Cortometraggio' 
         },
         {
-            id: '4',
-            title: 'Felakuti',
+            id: '2',
+            title: 'Guerrieri',
             description: 'Descrizione dettagliata del film',
-            imageUrl: 'Percorso immagine della cover',
+            imageUrl: CoverGuerrieri,
             director: 'Nome del regista',
             lenght: 'Durata del film',
             type: 'Documentario' 
         },
         {
-            id: '5',
+            id: '4',
             title: 'Nightlife',
             description: 'Descrizione dettagliata del film',
-            imageUrl: 'Percorso immagine della cover',
+            imageUrl: CoverNighlife,
             director: 'Nome del regista',
             lenght: 'Durata del film',
             type: 'Documentario' 

@@ -1,8 +1,14 @@
+@import '../../assets/mixin.scss';
+
 // navigation 
 .navigation {
-    justify-content: flex-end;
-    align-items: center;
-    display: flex;
+    @include flex-between;
+    //logo
+    .navigation__logo {
+        object-fit: contain;
+        height: 60px;
+        width: 80px;
+    }
     // dropdown 
     .navigation__films__dropdown {
         transform: translate(-50px, 0px);
@@ -13,10 +19,11 @@
         display: none;
         width: 142px;
     }
-    // hover effect 
+    // hover effect
     .navigation__films:hover + .navigation__films__dropdown, 
     .navigation__films__dropdown:hover {
         display: block;
+        z-index: 1;
     }
 }
 

@@ -1,8 +1,12 @@
 import classes from './nav.module.scss';
+import logo from '../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png';
 
 const Navigation = () => {
     return(
-        <nav>
+        <nav className={classes.navigation}>
+            <a href="/">
+                <img className={classes.navigation__logo} src={logo} alt="logo fabrique entertainment" />
+            </a>
             <ul className={classes.navigation}>
                 <li>
                     <a href="/">home</a>
