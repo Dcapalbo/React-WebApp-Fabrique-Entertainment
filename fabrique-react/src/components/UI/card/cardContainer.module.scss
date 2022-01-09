@@ -15,11 +15,13 @@
         @media (max-width:$screen-lg-min) {
             @include flex-center;
             padding: 12px;
+            width: 100%;
         }
     
         @media (max-width:$screen-sm-min) {
             @include flex-center;
             padding: 12px;
+            width: 100%;
         }
     }
 }

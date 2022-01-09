@@ -65,7 +65,7 @@
     }
 
     @media (max-width:$screen-sm-min) {
-        width: calc(100% / 1 - 48px);
         margin: 12px;
+        width: 100%;
     }
 }
