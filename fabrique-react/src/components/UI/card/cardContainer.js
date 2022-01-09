@@ -2,7 +2,7 @@ import classes from './cardContainer.module.scss';
 import Card from './card';
 
 const CardContainer = () => {
-    const Films = [
+    const films = [
         {
             id: '1',
             title: 'Lucania',
@@ -51,12 +51,12 @@ const CardContainer = () => {
     ]
     return (
         <div className={classes.card__container}>
-            {Films.map(film => (
+            {films.map(film => (
                 <Card
                     key={film.id}
                     title={film.title}
                     description={film.description}
-                    imagUrl={film.imagUrl}
+                    imageUrl={film.imageUrl}
                     director={film.director}
                     lenght={film.lenght}
                     type={film.type}

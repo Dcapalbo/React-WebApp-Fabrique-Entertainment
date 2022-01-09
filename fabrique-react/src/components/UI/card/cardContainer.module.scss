@@ -1,9 +1,10 @@
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
 .card__container {
     background-color: #000000;
-    justify-content: flex-start;
-    align-items: center;
+    @include flex-start;
     text-align: center;
-    flex-wrap: wrap;
     display: flex;
     padding: 24px;
     height: auto;
