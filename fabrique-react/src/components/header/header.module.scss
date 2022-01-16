@@ -1,5 +1,7 @@
+@import '../../assets/variables.scss';
+
 header {
-    background-color: #000;
+    background-color: $firstColor;
     padding: 20px;
     width: 100%;
     .header__container {

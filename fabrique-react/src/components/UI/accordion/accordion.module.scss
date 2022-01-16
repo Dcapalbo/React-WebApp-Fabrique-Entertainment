@@ -1,0 +1,41 @@
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
+.wrapper__accordion {
+    background-color: #000;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0px;
+    display: flex;
+    height: 100%;
+    width: 100vw;
+}
+
+.accordion {
+    width: 100vw;
+}
+
+.item {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.accordion__title {
+    justify-content: space-between;
+    color: mediumpurple;
+    align-items: center;
+    display: flex;
+}
+
+.accordion__description {
+    color: mediumvioletred;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.accordion__description__show {
+    transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+    color: mediumvioletred;
+    max-height: 9999px;
+}

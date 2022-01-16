@@ -2,7 +2,7 @@
 @import '../../../assets/mixin.scss';
 
 .wrapper__card__container {
-    background-color: #000;
+    background-color: $firstColor;
     height: auto;
     width: 100%;
     .card__container {

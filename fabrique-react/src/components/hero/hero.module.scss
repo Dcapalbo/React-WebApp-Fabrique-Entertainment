@@ -1,6 +1,8 @@
+@import '../../assets/variables.scss';
+
 // hero 
 .hero {
-    background-color: #000;
+    background-color: $firstColor;
     min-width: 100%;
     .fabrique__video {
         max-width: 100%;

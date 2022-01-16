@@ -5,8 +5,8 @@
     max-height: calc(100% - 40px);
     width: calc(100% / 4 - 48px);
     transition: transform 0.1s;
-    border: 2px solid #000;
-    background-color: #000;
+    border: 2px solid $firstColor;
+    background-color: $firstColor;
     position: relative;
     cursor: pointer;
     margin: 24px;

@@ -27,11 +27,11 @@ a {
     text-decoration: none;
     transition: 0.4s;
     font-weight: 400;
-    color: #fff;
+    color: $secondColor;
     padding: 0;
     margin: 0;
     &:hover, &:active {
-        color: #cc0000;
+        color: $thirdColor;
         transition: 0.4s;
     }
 }
@@ -45,7 +45,7 @@ p, small {
 
 p {
     font-size: 18px;
-    color: #fff;
+    color: $secondColor;
     @media (max-width:$screen-sm-min) {
         font-size: 16px;
     }
@@ -53,13 +53,13 @@ p {
 
 small {
     font-size: 16px;
-    color: #fff;
+    color: $secondColor;
 }
 
 // headliners 
 h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
-    color: #fff;
+    color: $thirdColor;
     padding: 0;
     margin: 0;
 }
@@ -110,13 +110,13 @@ h6 {
 // primary button 
 .primary__button {
     background-color: transparent; 
-    border-color: #cc0000;
+    border-color: $thirdColor;
     height: 45px;
     width: 100px;
     border: 1px;
     &:hover, &:active {
-        background-color: #cc0000;
-        border-color: #fff;
+        background-color: $thirdColor;
+        border-color: $secondColor;
         transition: 0.4s;
     }
 }
