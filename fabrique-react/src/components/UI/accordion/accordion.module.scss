@@ -11,7 +11,7 @@
     width: 100vw;
     .accordion {
         margin: auto;
-        width: 90%;
+        width: 70%;
         & :nth-child(even) {
             align-items: flex-end;
             @include flex-column;
@@ -23,30 +23,28 @@
     }
 }
 
-.active {
-    color: $secondColor;
-}
-
 .item {
     padding: 10px 20px;
     cursor: pointer;
-    .accordion__title {
-        justify-content: space-between;
-        color: mediumpurple;
-        align-items: center;
-        display: flex;
-    }
     .accordion__description {
-        color: mediumvioletred;
-        max-height: 0;
+        transition: all 0.2s cubic-bezier(0, 1, 0, 1);
+        color: $secondColor;
+        margin-top: 10px;
         overflow: hidden;
-        transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+        max-height: 0;
     }
     .accordion__description__show {
-        transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-        color: mediumvioletred;
+        transition: all 0.2s cubic-bezier(1, 0, 1, 0);
+        color: $secondColor;
         max-height: 9999px;
+        overflow: hidden;
+        margin-top: 10px;
     }
+}
+
+.active {
+    color: $secondColor;
+    transition: 0.5s;
 }
 
 
