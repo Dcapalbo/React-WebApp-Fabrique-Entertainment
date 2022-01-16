@@ -25,7 +25,7 @@ const Accordion = () => {
 
 const [selected, setSelected] = useState(null);
 
-const toggle = (i) => {
+const toggleAccordion = (i) => {
     if (selected === i) {
         return setSelected(null);
     }
@@ -36,7 +36,7 @@ const toggle = (i) => {
         <div className={classes.wrapper__accordion}>
             <div className={classes.accordion}>
                 {accordionData.map((item, i) => (
-                   <div className={classes.item} onClick={() => toggle(i)}>
+                   <div className={classes.item} onClick={() => toggleAccordion(i)}>
                        <div className={classes.accordion__title}>
                            <h2 className={selected === i ? `${classes.active}` : ''}>{item.headline}</h2>
                        </div>
