@@ -38,8 +38,7 @@ const toggle = (i) => {
                 {accordionData.map((item, i) => (
                    <div className={classes.item} onClick={() => toggle(i)}>
                        <div className={classes.accordion__title}>
-                           <h2>{item.headline}</h2>
-                           <span>{selected === i ? '-' : '+'}</span>
+                           <h2 className={selected === i ? `${classes.active}` : ''}>{item.headline}</h2>
                        </div>
                         <div className={
                             selected === i ? `${classes.accordion__description__show}` : `${classes.accordion__description}`

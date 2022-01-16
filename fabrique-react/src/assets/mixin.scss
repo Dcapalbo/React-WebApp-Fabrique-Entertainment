@@ -22,3 +22,9 @@
     flex-wrap: wrap;
     display: flex;
 }
+
+@mixin flex-column {
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+}
