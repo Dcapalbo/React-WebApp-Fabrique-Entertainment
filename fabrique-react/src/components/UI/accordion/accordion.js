@@ -7,7 +7,7 @@ const Accordion = () => {
 const [selected, setSelected] = useState(null);
 
 const toggleAccordion = (i) => {
-    if (selected === i && i !== 0) {
+    if (selected === i) {
         return setSelected(null);
     } 
     setSelected(i);
