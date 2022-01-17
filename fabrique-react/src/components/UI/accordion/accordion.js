@@ -7,10 +7,7 @@ const Accordion = () => {
 const [selected, setSelected] = useState(null);
 
 const toggleAccordion = (i) => {
-    if (i === 0) {
-        let elmClassAccordion = document.querySelector(`.${classes.accordion__description}`);
-        elmClassAccordion.classList.add(`${classes.fistElm}`);
-    } else if (selected === i && i !== 0) {
+    if (selected === i && i !== 0) {
         return setSelected(null);
     } 
     setSelected(i);
