@@ -7,12 +7,10 @@ const Accordion = () => {
 const [selected, setSelected] = useState(null);
 
 const toggleAccordion = (i) => {
-    let firstElm = document.querySelector(`.${classes.accordion__description__show}`);
-    console.log(firstElm);
     if (i === 0) {
-        firstElm.classList.remove(`${classes.accordion__description__show}`);
-        firstElm.classList.add(`${classes.accordion__description}`);
-    } else if (selected === i) {
+        let elmClassAccordion = document.querySelector(`.${classes.accordion__description}`);
+        elmClassAccordion.classList.add(`${classes.fistElm}`);
+    } else if (selected === i && i !== 0) {
         return setSelected(null);
     } 
     setSelected(i);
@@ -26,7 +24,7 @@ const toggleAccordion = (i) => {
                            <h2 className={selected === i ? `${classes.active}` : `${classes.accordion__title}`}>{item.headline}</h2>
                        </div>
                         <div className={
-                            i === 0 && !selected ? 
+                             i === 0 && !selected ? 
                             `${classes.accordion__description__show}` : selected === i ? 
                             `${classes.accordion__description__show}` : `${classes.accordion__description}`
                             }

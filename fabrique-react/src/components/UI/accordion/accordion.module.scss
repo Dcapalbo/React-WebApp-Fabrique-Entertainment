@@ -45,11 +45,14 @@
     }
 }
 
-
 .active {
     color: $thirdColor;
     transition: 0.5s;
 }
+
+.firstElm {
+    background-color: white;
+};
 
 
 
