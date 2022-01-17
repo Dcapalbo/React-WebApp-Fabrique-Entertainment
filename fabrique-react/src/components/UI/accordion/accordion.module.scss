@@ -26,15 +26,18 @@
 .item {
     padding: 10px 20px;
     cursor: pointer;
+    .accordion__title {
+        color: $secondColor;
+    }
     .accordion__description {
-        transition: all 0.2s cubic-bezier(0, 1, 0, 1);
+        transition: all 0.4s cubic-bezier(0, 1, 0, 1);
         color: $secondColor;
         margin-top: 10px;
         overflow: hidden;
         max-height: 0;
     }
     .accordion__description__show {
-        transition: all 0.2s cubic-bezier(1, 0, 1, 0);
+        transition: all 0.4s cubic-bezier(1, 0, 1, 0);
         color: $secondColor;
         max-height: 9999px;
         overflow: hidden;
@@ -42,8 +45,9 @@
     }
 }
 
+
 .active {
-    color: $secondColor;
+    color: $thirdColor;
     transition: 0.5s;
 }
 
