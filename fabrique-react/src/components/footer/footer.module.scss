@@ -4,6 +4,16 @@
 
 footer {
     background-color: $firstColor;
-    height: 120px;
+    height: 100px;
+    padding: 20px;
     width: 100%;
+    .footer__container {
+        @include flex-between;
+        height: 100%;
+        margin: auto;
+        width: 90%;
+        .footer__container__elm {
+            padding: 20px;
+        }
+    }
 }

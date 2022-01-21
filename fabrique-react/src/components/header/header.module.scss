@@ -2,8 +2,10 @@
 
 header {
     background-color: $firstColor;
+    position: fixed;
     padding: 20px;
     width: 100%;
+    z-index: 1;
     .header__container {
         height: 100%;
         margin: auto;
