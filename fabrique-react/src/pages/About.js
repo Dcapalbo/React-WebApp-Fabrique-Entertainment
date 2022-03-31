@@ -2,23 +2,19 @@ import { Fragment } from 'react';
 
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
-import Hero from "../components/hero/hero";
-import Accordion from '../components/UI/accordion/accordion'
+import CompanyInfo from '../components/UI/companyInfo/companyInfo';
 import CardContainer from '../components/UI/card/cardContainer';
-import Footer from '../components/footer/footer';
 
-const Home = () => {
+const About = () => {
     return (
         <Fragment>
             <Header>
                 <Navigation/>
             </Header>
-            <Hero />
-            <Accordion />
+            <CompanyInfo />
             <CardContainer />
-            <Footer />
         </Fragment>
     )
 }
 
-export default Home;
+export default About;

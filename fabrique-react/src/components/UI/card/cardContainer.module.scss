@@ -14,7 +14,7 @@
         width: 90%;
         @media (max-width:$screen-lg-min) {
             @include flex-center;
-            padding: 12px;
+            padding: 24px 12px;
             width: 100%;
         }
     
