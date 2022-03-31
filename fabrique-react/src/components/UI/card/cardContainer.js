@@ -12,7 +12,7 @@ const CardContainer = () => {
             title: 'Lucania',
             description: 'Descrizione dettagliata del film',
             imageUrl: CoverLucania,
-            director: 'Nome del regista',
+            director: 'Gigi Roccati',
             lenght: 'Durata del film',
             type: 'Lungometraggio' 
         },
@@ -21,8 +21,8 @@ const CardContainer = () => {
             title: 'Love and Desire',
             description: 'Descrizione dettagliata del film',
             imageUrl: CoverLoveAndDesire,
-            director: 'Nome del regista',
-            lenght: 'Durata del film',
+            director: 'Domenico Capalbo',
+            lenght: '23m',
             type: 'Cortometraggio' 
         },
         {
@@ -30,7 +30,7 @@ const CardContainer = () => {
             title: 'Guerrieri',
             description: 'Descrizione dettagliata del film',
             imageUrl: CoverGuerrieri,
-            director: 'Nome del regista',
+            director: 'Fabio Segatori',
             lenght: 'Durata del film',
             type: 'Documentario' 
         },
@@ -39,7 +39,7 @@ const CardContainer = () => {
             title: 'Nightlife',
             description: 'Descrizione dettagliata del film',
             imageUrl: CoverNighlife,
-            director: 'Nome del regista',
+            director: 'Joseph Lefevre',
             lenght: 'Durata del film',
             type: 'Documentario' 
         },

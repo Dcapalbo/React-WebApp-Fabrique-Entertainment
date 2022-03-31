@@ -1,0 +1,54 @@
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
+.film__card__container {
+    height: fit-content;
+    padding: 12px;
+    width: 100%;
+    .film__card__description {
+        transition: all 0.4s cubic-bezier(0, 1, 0, 1);
+        text-align: center;
+        overflow: hidden;
+        margin-top: 30px;   
+        max-height: 0;
+        &:hover {
+            transition: all 0.4s cubic-bezier(1, 0, 1, 0);
+            max-height: 9999px;
+        }
+        .film__card__button__wrapper {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            .film__card__cta {
+                border: 2px solid #cc0000;
+                font-family: $Comfortaa;
+                color: $secondColor;
+                padding: 15px 30px;
+                transition: 0.3s;
+                font-size: 20px;
+                cursor: pointer;
+                &:hover {
+                    background-color: $secondColor;
+                    transition: 0.3s;
+                    color: #cc0000;
+                }
+            }
+        }
+        h2, h4, p {
+            margin-bottom: 20px;
+        }
+        small, button {
+            margin-bottom: 20px;
+            display: block;
+        }
+    }
+    .film__card {
+        cursor: pointer;
+        height: 550px;
+        width: 100%;
+        &:hover + .film__card__description {
+            transition: all 0.4s cubic-bezier(1, 0, 1, 0);
+            max-height: 9999px;
+        }
+    }
+}
