@@ -1,6 +1,5 @@
 import classes from './multipleFilmsContainer.module.scss';
 import StillLucania from '../../../assets/img/DIGA_SENISE.png'
-import StillLoveDesire from '../../../assets/img/S4.png';
 import MultipleFilms from './multipleFilms';
 
 const MultipleFilmsContainer = () => {

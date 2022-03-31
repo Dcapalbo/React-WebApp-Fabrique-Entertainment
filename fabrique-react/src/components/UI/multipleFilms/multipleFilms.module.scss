@@ -43,6 +43,7 @@
         }
     }
     .film__card {
+        object-fit: cover;
         cursor: pointer;
         height: 550px;
         width: 100%;
