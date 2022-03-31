@@ -8,8 +8,8 @@
     .film__card__description {
         transition: all 0.4s cubic-bezier(0, 1, 0, 1);
         text-align: center;
+        padding-top: 30px;   
         overflow: hidden;
-        margin-top: 30px;   
         max-height: 0;
         &:hover {
             transition: all 0.4s cubic-bezier(1, 0, 1, 0);
