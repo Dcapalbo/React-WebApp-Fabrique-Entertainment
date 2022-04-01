@@ -61,8 +61,8 @@
     }
 
     @media (max-width:$screen-lg-min) {
-        width: calc(100% / 2 - 12px);
         margin: 16px;
+        width: 40%;
     }
     @media (max-width:$screen-sm-min) {
         margin: 16px;

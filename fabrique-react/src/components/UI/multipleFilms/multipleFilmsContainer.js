@@ -7,16 +7,16 @@ const MultipleFilmsContainer = () => {
         {
             id: '1',
             title: 'Lucania',
-            description: 'Descrizione dettagliata del film',
+            description: 'An ancient dying land is brought back to life by the primal force of a young mute girl, who witnesses the fatal clash between her farmer father and those who want to poison his fields, in a magic journey of redemption.',
             imageUrl: StillLucania,
             director: 'Gigi Roccati',
-            lenght: 'Durata del film',
+            lenght: '84m',
             type: 'Lungometraggio' 
         },
         {
             id: '2',
             title: 'Love and Desire',
-            description: 'Descrizione dettagliata del film',
+            description: 'An ancient dying land is brought back to life by the primal force of a young mute girl, who witnesses the fatal clash between her farmer father and those who want to poison his fields, in a magic journey of redemption.',
             imageUrl: StillLucania,
             director: 'Domenico Capalbo',
             lenght: '23m',
@@ -25,19 +25,19 @@ const MultipleFilmsContainer = () => {
         {
             id: '2',
             title: 'Guerrieri',
-            description: 'Descrizione dettagliata del film',
+            description: 'An ancient dying land is brought back to life by the primal force of a young mute girl, who witnesses the fatal clash between her farmer father and those who want to poison his fields, in a magic journey of redemption.',
             imageUrl: StillLucania,
             director: 'Fabio Segatori',
-            lenght: 'Durata del film',
+            lenght: '84m',
             type: 'Documentario' 
         },
         {
             id: '4',
             title: 'Nightlife',
-            description: 'Descrizione dettagliata del film',
+            description: 'An ancient dying land is brought back to life by the primal force of a young mute girl, who witnesses the fatal clash between her farmer father and those who want to poison his fields, in a magic journey of redemption.',
             imageUrl: StillLucania,
             director: 'Joseph Lefevre',
-            lenght: 'Durata del film',
+            lenght: '84m',
             type: 'Documentario' 
         },
     ]
