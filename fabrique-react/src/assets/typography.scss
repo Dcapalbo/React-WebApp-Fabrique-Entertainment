@@ -25,9 +25,9 @@ li {
 a {
     text-transform: capitalize;
     text-decoration: none;
+    color: $secondColor;
     transition: 0.4s;
     font-weight: 400;
-    color: $secondColor;
     padding: 0;
     margin: 0;
     &:hover, &:active {
@@ -36,26 +36,50 @@ a {
     }
 }
 
-// paragraph & smalls
-p, small {
+// generic typography
+p, small, label {
     font-weight: 200;
     padding: 0;
     margin: 0;
 }
 
+
 p {
-    font-size: 18px;
     color: $secondColor;
+    font-size: 18px;
     @media (max-width:$screen-sm-min) {
         font-size: 16px;
     }
 }
 
 small {
-    font-size: 16px;
     color: $secondColor;
+    font-size: 16px;
 }
 
+label {
+    margin-bottom: 8px;
+    font-size: 18px;
+    display: block;
+    @media (max-width:$screen-sm-min) {
+        font-size: 16px;
+    }
+}
+
+input {
+    border-radius: 10px;
+    padding: 10px;
+    height: 35px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+div {
+    line-height: 24px;
+}
+
+// end generic typography 
 // headliners 
 h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
@@ -65,6 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+    line-height: 40px;
     font-size: 32px;
     @media (max-width:$screen-sm-min) {
         font-size: 24px;
@@ -72,6 +97,7 @@ h1 {
 }
 
 h2 {
+    line-height: 36px;
     font-size: 28px;
     @media (max-width:$screen-sm-min) {
         font-size: 22px;
@@ -79,6 +105,7 @@ h2 {
 }
 
 h3 {
+    line-height: 34px;
     font-size: 26px;
     @media (max-width:$screen-sm-min) {
         font-size: 20px;
@@ -86,6 +113,7 @@ h3 {
 }
 
 h4 {
+    line-height: 32px;
     font-size: 24px;
     @media (max-width:$screen-sm-min) {
         font-size: 18px;
@@ -93,6 +121,7 @@ h4 {
 }
 
 h5 {
+    line-height: 30px;
     font-size : 22px;
     @media (max-width:$screen-sm-min) {
         font-size: 18px;

@@ -6,29 +6,30 @@ const contactForm = (props) => {
     return(
         <section className={classes.form__wrapper}>
             <form className={classes.form__container}>
+                <h4>Vuoi scoprirne di più? Mettiamoci in contatto</h4>
                 <div className={classes.form__container__item}>
-                    <label>
+                    <label for="Nome">
                         Nome
                     </label>
-                    <input type="text" maxLenght="100" minLenght="5" required></input>
+                    <input type="text" id="formName" value="Nome" maxlenght="100" minlenght="5" required></input>
                 </div>
                 <div className={classes.form__container__item}>
-                    <label>
+                    <label for="Cognome">
                         Cognome
                     </label>
-                    <input type="text" maxLenght="100" minLenght="5" required></input>
+                    <input type="text" id="formSurname" value="Cognome" maxlenght="100" minlenght="5" required></input>
                 </div>
                 <div className={classes.form__container__item}>
-                    <label>
+                    <label for="Numero di telefono">
                         Numero di Telefono
                     </label>
-                    <input type="text" maxLenght="10" minLenght="10" required></input>
+                    <input type="text" id="formPhoneNumber" value="Numero di telefono" maxlenght="10" minlenght="10" required></input>
                 </div>
                 <div className={classes.form__container__item}>
-                    <label>
+                    <label for="Email">
                         Email
                     </label>
-                    <input type="email" maxLenght="100" minLenght="20" required></input>
+                    <input type="email" id="formEmail" value="Email" maxlenght="100" minlenght="20" required></input>
                 </div>
             </form>
         </section>
