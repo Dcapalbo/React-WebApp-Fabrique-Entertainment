@@ -1,7 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Formik } from 'formik';
 import classes from './contactForm.module.scss';
 
+// FORMIK adding the form TO DO 
 const contactForm = (props) => {
     return(
         <section className={classes.form__wrapper}>
@@ -11,25 +12,25 @@ const contactForm = (props) => {
                     <label htmlFor="Nome">
                         Nome
                     </label>
-                    <input type="text" id="formName" value="Nome" maxlenght="100" minlenght="5" required></input>
+                    <input type="text" id="formName" name="Nome" maxlenght="100" minlenght="5" required></input>
                 </div>
                 <div className={classes.form__container__item}>
                     <label htmlFor="Cognome">
                         Cognome
                     </label>
-                    <input type="text" id="formSurname" value="Cognome" maxlenght="100" minlenght="5" required></input>
+                    <input type="text" id="formSurname" name="Cognome" maxlenght="100" minlenght="5" required></input>
                 </div>
                 <div className={classes.form__container__item}>
                     <label htmlFor="Numero di telefono">
                         Numero di Telefono
                     </label>
-                    <input type="text" id="formPhoneNumber" value="Numero di telefono" maxlenght="10" minlenght="10" required></input>
+                    <input type="text" id="formPhoneNumber" name="Numero di telefono" maxlenght="10" minlenght="10" required></input>
                 </div>
                 <div className={classes.form__container__item}>
                     <label htmlFor="Email">
                         Email
                     </label>
-                    <input type="email" id="formEmail" value="Email" maxlenght="100" minlenght="20" required></input>
+                    <input type="email" id="formEmail" name="Email" maxlenght="100" minlenght="20" required></input>
                 </div>
             </form>
         </section>
