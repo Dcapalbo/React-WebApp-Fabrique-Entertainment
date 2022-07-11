@@ -1,49 +1,57 @@
+import { useState, useEffect } from 'react';
+
 import classes from './aboutCardContainer.module.scss';
-import DomenicoImage from '../../../assets/img/FOTO 1 DOMENICO CAPALBO PER SITO.jpg';
-import GiovanniImage from '../../../assets/img/FOTO 1 GC PER SITO.jpg';
-import RenataImage from '../../../assets/img/FOTO 1 RDL SITO.jpg';
 import AboutCard from './aboutCard';
+import axios from 'axios';
 
 const aboutCardContainer = () => {
-    const informations = [
-        {
-            id: '1',
-            headline: 'Giovanni Capalbo',
-            role: 'Producer, Actor',
-            imageUrl: GiovanniImage,
-            email: 'fabriquesrl@gmail.com' 
-        },
-        {
-            id: '2',
-            headline: 'Renata Di Leone',
-            role: 'Administrator, Producer',
-            imageUrl: RenataImage,
-            email: 'fabriquesrl@gmail.com' 
-        },
-        {
-            id: '3',
-            headline: 'Domenico Capalbo',
-            role: 'Director, Producer',
-            imageUrl: DomenicoImage,
-            email: 'domenico@fabriquentertainment.com' 
-        },
-    ]
-    return (
-    <section className={classes.about__wrapper__card__container}>
-        <div className={classes.about__card__container}>
-            {informations.map(info => (
-                <AboutCard
-                    key={info.id}
-                    headline={info.headline}
-                    role={info.role}
-                    imageUrl={info.imageUrl}
-                    email={info.email}
-                /> 
-                ))
-            }
-        </div>
-    </section>
-    );
+
+    // find and solve the problem 
+    const [loading, setloading] = useState(false);
+    const [error, setError] = useState(null);
+    const [contacts, setContacts] = useState([]);
+
+    const url = "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev";
+
+    useEffect(() => {
+        setloading(true);
+        axios
+        .get(url)   
+            .then(res => {
+                setContacts(res.data.body.fabriqueContactsInformations);
+                console.log(res.data.body);
+            })
+            .catch(err => {
+                setError(err);
+            })
+            .finally(() => {
+                setloading(false);
+                console.log("finished to fetch data");
+            }); 
+    }, [url] );
+
+    if (loading) {
+        return <h1>Loading...</h1>
+    } else if (error) {
+        return <h1>Something went wrong, try to refresh the page!</h1>;
+    } else {
+        return (
+            <section className={classes.about__wrapper__card__container}>
+                <div className={classes.about__card__container}>
+                    {contacts.map(contact => (
+                        <AboutCard
+                            headline={contact.headline}
+                            imageUrl={contact.imageUrl}
+                            email={contact.email}
+                            role={contact.role}
+                            key={contact.id}
+                        /> 
+                        ))
+                    }
+                </div>
+            </section>
+        )
+    }
 }
 
 export default aboutCardContainer;
