@@ -1,7 +1,7 @@
-import ApiHook from '../../../hooks/api-hook';
 import classes from './aboutCardContainer.module.scss';
+import PuffLoader from 'react-spinners/PuffLoader';
+import ApiHook from '../../../hooks/api-hook';
 import AboutCard from './aboutCard';
-import Spinner from '../spinner/spinner';
 
 const AboutCardContainer = () => {
 
@@ -11,7 +11,16 @@ const AboutCardContainer = () => {
     );
 
     if ( loading ) {
-        return <Spinner />
+        return (
+                <PuffLoader style={{ 
+                        display: 'inherit',
+                        position: 'relative',
+                        width: '100px',
+                        height: '100px',
+                        margin: 'auto'
+                    }} color={'#cc0000'} size={100} 
+                />
+            )
     } else if ( error ) {
         <h1>There is some problem, please try to refresh</h1>
     } else {
