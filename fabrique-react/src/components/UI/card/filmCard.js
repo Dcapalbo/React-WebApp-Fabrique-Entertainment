@@ -1,6 +1,6 @@
 import classes from './card.module.scss';
 
-const Card = (props) => {
+const FilmCard = (props) => {
     return(
         <div className={classes.card}>
             <img className={classes.card__image} src={props.imageUrl} alt='immagine cover film' title={props.title} loading='lazy'/>
@@ -15,4 +15,4 @@ const Card = (props) => {
     )
 }
 
-export default Card;
+export default FilmCard;
