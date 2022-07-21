@@ -1,41 +1,23 @@
-import { useState, useEffect } from 'react';
-
 import classes from './multipleFilmsContainer.module.scss';
+import Spinner from '../spinner/spinner';
 import MultipleFilms from './multipleFilms';
-import axios from 'axios';
+import ApiHook from '../../../hooks/api-hook';
 
 const MultipleFilmsContainer = () => {
 
-    const [loading, setloading] = useState(false);
-    const [error, setError] = useState(null);
-    const [films, setFilms] = useState([]);
+    const { fabriqueData, loading, error } = ApiHook(
+        "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev", 
+        "fabriqueFilmsInformations"
+    );
 
-    const url = "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev";
-
-    useEffect(() => {
-        setloading(true);
-        axios
-        .get(url)   
-            .then(res => {
-                setFilms(res.data.body.fabriqueFilmsInformations);
-            })
-            .catch(err => {
-                setError(err);
-            })
-            .finally(() => {
-                setloading(false);
-                console.log("finished to fetch data");
-            }); 
-    }, [url] );
-
-    if (loading) {
-        return <h1>Loading...</h1>
-    } else if (error) {
-        return <h1>Something went wrong, try to refresh the page!</h1>;
+    if ( loading ) {
+        return <Spinner /> 
+    } else if ( error ) {
+        <h1>There is some problem, please try to refresh</h1>
     } else {
         return (
                 <section className={classes.wrapper__films__container}>
-                    {films.map(film => (
+                    {fabriqueData.map(film => (
                             <MultipleFilms
                                 description={film.description}
                                 director={film.director}

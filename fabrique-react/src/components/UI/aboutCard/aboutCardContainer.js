@@ -1,8 +1,9 @@
 import ApiHook from '../../../hooks/api-hook';
 import classes from './aboutCardContainer.module.scss';
 import AboutCard from './aboutCard';
+import Spinner from '../spinner/spinner';
 
-const aboutCardContainer = () => {
+const AboutCardContainer = () => {
 
     const { fabriqueData, loading, error } = ApiHook(
         "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev", 
@@ -10,7 +11,7 @@ const aboutCardContainer = () => {
     );
 
     if ( loading ) {
-        return <h1>Loading...</h1>
+        return <Spinner />
     } else if ( error ) {
         <h1>There is some problem, please try to refresh</h1>
     } else {
@@ -33,4 +34,4 @@ const aboutCardContainer = () => {
     }
 }
 
-export default aboutCardContainer;
+export default AboutCardContainer;

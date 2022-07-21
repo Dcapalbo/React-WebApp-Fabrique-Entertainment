@@ -1,6 +1,7 @@
 import ApiHook from '../../../hooks/api-hook';
 import classes from './cardContainer.module.scss';
 import FilmCard from './filmCard';
+import Spinner from '../spinner/spinner';
 
 const FilmCardContainer = () => {
 
@@ -10,7 +11,7 @@ const FilmCardContainer = () => {
     );
 
     if ( loading ) {
-        return <h1>Loading...</h1>
+        return <Spinner /> 
     } else if ( error ) {
         <h1>There is some problem, please try to refresh</h1>
     } else {

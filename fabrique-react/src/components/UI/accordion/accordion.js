@@ -16,7 +16,7 @@ const toggleAccordion = (i) => {
         <div className={classes.wrapper__accordion}>
             <div className={classes.accordion}>
                 {accordionData.map((item, i) => (
-                   <div key={i} className={classes.item} onClick={() => toggleAccordion(i, item)}>
+                   <div key={i} className={classes.item} onClick={() => toggleAccordion(i)}>
                        <div>
                            <h2 className={selected === i ? `${classes.active}` : `${classes.accordion__title}`}>{item.headline}</h2>
                        </div>
