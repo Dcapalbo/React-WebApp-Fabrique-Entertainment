@@ -8,8 +8,8 @@ const FilmCard = (props) => {
                 <h2>{props.title}</h2>
                 <h5>{props.director}</h5>
                 <h6>{props.lenght}</h6>
-                <small>{props.description}</small>
                 <p>{props.type}</p>
+                <small>{props.description}</small>
             </div>
         </div>
     )
