@@ -4,12 +4,6 @@
 // navigation 
 .navigation {
     @include flex-between;
-    // bars
-    .bars {
-        font-size: 20px;
-        cursor: pointer;
-        color: white;
-    }
     //logo
     .navigation__logo {
         object-fit: contain;

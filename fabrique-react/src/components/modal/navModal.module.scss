@@ -1,0 +1,21 @@
+@import '../../assets/mixin.scss';
+@import '../../assets/variables.scss';
+
+.navigation__modal {
+    background-color: rgb(240, 248, 255, 0.8);
+    transform: translate(-50px, -20px);
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+    width: 100%;
+    .navigation__mobile__menu {
+        @include flex-end;
+        li::before {
+            content: "";
+        }
+        li {
+            text-align: right;
+            width: 100%;
+        }
+    }
+}
