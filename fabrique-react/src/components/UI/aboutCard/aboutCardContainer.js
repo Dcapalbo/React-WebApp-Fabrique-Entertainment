@@ -22,7 +22,7 @@ const AboutCardContainer = () => {
                 />
             )
     } else if ( error ) {
-        <h1>There is some problem, please try to refresh</h1>
+        <h1>There is some problem, refresh the page</h1>
     } else {
         return (
             <section className={classes.about__wrapper__card__container}>

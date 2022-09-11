@@ -1,5 +1,5 @@
-import ContactForm from '../components/UI/form/contactForm';
 import FilmCardContainer from '../components/UI/card/filmCardContainer';
+import ContactForm from '../components/UI/form/contactForm';
 import Accordion from '../components/UI/accordion/accordion';
 import Header from "../components/header/header";
 import Footer from '../components/footer/footer';

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Formik } from 'formik';
 import classes from './contactForm.module.scss';
 
 // FORMIK adding the form TO DO 

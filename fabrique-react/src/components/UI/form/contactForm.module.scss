@@ -5,8 +5,11 @@
 .form__wrapper {
     height: 450px;
     margin: auto;
-    width: 30%;
-    @media (max-width:$screen-sm-min) {
+    width: 40%;
+    @media (max-width:$screen-xl-min) {
+        width: 70%;
+    }
+    @media (max-width:$screen-lg-min) {
         width: 90%;
     }
 }
@@ -17,19 +20,19 @@
     padding: 35px 60px;
     margin-top: 50px;
     width: 100%;
-    @media (max-width:$screen-sm-min) {
+    h4 {
+        text-align: left;
+        margin: auto;
+    }
+    .form__container__item {
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
+    @media (max-width:$screen-lg-min) {
         padding: 10px 30px;
     }
-        h4 {
-            text-align: left;
-            margin: auto;
-        }
-        .form__container__item {
-            text-align: center;
-            margin: auto;
-            width: 100%;
-            input {
-                width: 100%;
-            }
-        }
 }
