@@ -1,9 +1,9 @@
 import classes from './navModal.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 const NavModal = () => {
-    
+    let { film } = useParams();
     const [modalVisible, setIsModalVisible] = useState(false);
     const closingModalHandler = () => {
         const body = document.querySelector("body");
@@ -27,17 +27,17 @@ const NavModal = () => {
                         <li>
                             <a className={classes.navigation__films__mobile} href="/films">films</a>
                             <ul className={classes.navigation__films__mobile__dropdown}>
-                                <li><Link to="/films/lucania">lucania</Link></li>
-                                <li><Link to="/films/guerrieri">guerrieri</Link></li>
-                                <li><Link to="/films/love-and-desire">love and desire</Link></li>
-                                <li><Link to="/films/felakuti">felakuti</Link></li>
+                                <li><Link to="/films/:film">lucania</Link></li>
+                                <li><Link to="/films/:film">guerrieri</Link></li>
+                                <li><Link to="/films/:film">love and desire</Link></li>
+                                <li><Link to="/films/:film">felakuti</Link></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="/news">news</a>
+                            <Link to="/news">news</Link>
                         </li>
                         <li>
-                            <a href="/contact">contact</a>
+                            <Link to="/contact">contact</Link>
                         </li>
                     </ul> 
                 </div>}

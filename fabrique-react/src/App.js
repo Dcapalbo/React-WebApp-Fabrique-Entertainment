@@ -1,3 +1,4 @@
+// importing the react router dom version 6 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // scss files 
 import './assets/variables.scss';

@@ -10,10 +10,10 @@ const Navigation = () => {
                 </a>
                 <ul className={classes.navigation}>
                     <li>
-                        <a href="/">home</a>
+                        <Link to="/">home</Link>
                     </li>
                     <li>
-                        <a href="/about">about</a>
+                        <Link to="/about">about</Link>
                     </li>
                     <li>
                         <a className={classes.navigation__films} href="/films">films</a>
@@ -25,10 +25,10 @@ const Navigation = () => {
                         </ul>
                     </li>
                     <li>
-                        <a href="/news">news</a>
+                        <Link to="/news">news</Link>
                     </li>
                     <li>
-                        <a href="/contact">contact</a>
+                        <Link to="/contact">contact</Link>
                     </li>
                 </ul>
             </nav>
