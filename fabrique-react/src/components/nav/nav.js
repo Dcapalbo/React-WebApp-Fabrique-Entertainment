@@ -1,5 +1,6 @@
-import classes from './nav.module.scss';
 import logo from '../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png';
+import { Link } from 'react-router-dom';
+import classes from './nav.module.scss';
 
 const Navigation = () => {
         return(
@@ -17,10 +18,10 @@ const Navigation = () => {
                     <li>
                         <a className={classes.navigation__films} href="/films">films</a>
                         <ul className={classes.navigation__films__dropdown}>
-                            <li><a href="/films/lucania">lucania</a></li>
-                            <li><a href="/films/guerrieri">guerrieri</a></li>
-                            <li><a href="/films/love-and-desire">love and desire</a></li>
-                            <li><a href="/films/felakuti">felakuti</a></li>
+                            <li><Link to="/films/lucania">lucania</Link></li>
+                            <li><Link to="/films/guerrieri">guerrieri</Link></li>
+                            <li><Link to="/films/love-and-desire">love and desire</Link></li>
+                            <li><Link to="/films/felakuti">felakuti</Link></li>
                         </ul>
                     </li>
                     <li>

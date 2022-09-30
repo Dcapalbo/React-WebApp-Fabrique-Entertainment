@@ -23,13 +23,12 @@ const Header = () => {
                 {domWidth <= 767 && !visible && <NavigationMobile/>}
                 {domWidth <= 767 && !visible && 
                     <div className={classes.header__bars__container}>
-                        <FontAwesomeIcon 
-                            onClick={ handlerMobilemenu } 
-                            style={{color: "white", font: "20px", cursor: "pointer"}} 
-                            icon={solid('bars')}
-                        />
-                    </div>
-                }
+                            <FontAwesomeIcon 
+                                onClick={ handlerMobilemenu } 
+                                style={{color: "white", font: "20px", cursor: "pointer"}} 
+                                icon={solid('bars')}
+                            />
+                    </div>}
                 {visible && <NavModal />}     
             </div>
         </header>

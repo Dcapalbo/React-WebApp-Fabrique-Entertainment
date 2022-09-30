@@ -22,7 +22,7 @@ const ApiHook = ( url, dataType ) => {
                 setloading(false);
                 console.log("finished to fetch data");
             }); 
-    }, [url, dataType] );
+    }, [url, dataType]);
 
     return { fabriqueData, loading, error };
     

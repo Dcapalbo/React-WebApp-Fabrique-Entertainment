@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // scss files 
 import './assets/variables.scss';
 import './assets/mixin.scss';
@@ -11,17 +11,13 @@ import Films from './pages/Films';
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" exact>
-        <Home />
-      </Route>
-      <Route path="/about" exact>
-        <About />
-      </Route>
-      <Route path="/films" exact>
-        <Films />
-      </Route>
-    </Switch>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/about" element={<About />}/>
+        <Route path="/films" element={<Films />}/>
+      </Routes>
+    </Router>
   )
 }
 
