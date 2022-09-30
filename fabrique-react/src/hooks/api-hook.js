@@ -13,7 +13,6 @@ const ApiHook = ( url, dataType ) => {
         .get(url)   
             .then(res => {
                 setFabriqueData(res.data.body[dataType]);
-                console.log(res.data.body);
             })
             .catch(err => {
                 setError(err);

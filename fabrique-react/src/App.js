@@ -9,6 +9,7 @@ import './assets/reset.scss';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Films from './pages/Films';
+import Film from './pages/Film';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>
         <Route path="/films" element={<Films />}/>
+        <Route path="/films/:film" element={<Film/>}/>
       </Routes>
     </Router>
   )
