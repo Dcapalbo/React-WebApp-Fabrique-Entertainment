@@ -16,9 +16,6 @@ const ContactForm = () => {
 
     const onChangeHandlerNumber = (event) => {
         setNumber(event.target.value);
-        if (number === 2) {
-            console.log("dio cane");
-        }
     }
 
     const onChangeHandlerEmail = (event) => {
