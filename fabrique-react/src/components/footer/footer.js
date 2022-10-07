@@ -5,10 +5,10 @@ const Footer = () => {
         <footer className={classes.footer}>
             <div className={classes.footer__container}>
                 <h2 className={classes.footer__container__elm}>
-                    testing
+                    Footer
                 </h2>
                 <h2 className={classes.footer__container__elm}>
-                    testing
+                    Footer
                 </h2>
             </div>
         </footer>

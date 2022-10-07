@@ -143,13 +143,35 @@ h6 {
 .primary__button {
     background-color: transparent; 
     border-color: $thirdColor;
+    color: $firstColor;
+    transition: 0.4s;
+    font-size: 18px;
     height: 45px;
     width: 100px;
     border: 1px;
     &:hover, &:active {
         background-color: $thirdColor;
-        border-color: $secondColor;
+        border-color: $firstColor;
+        color: $secondColor;
         transition: 0.4s;
+        cursor: pointer;
     }
 }
-// secondary button 
+// secondary button
+.secondary__button {
+    background-color: $thirdColor; 
+    border-color: $firstColor;
+    color: $secondColor;
+    transition: 0.4s;
+    font-size: 18px;
+    height: 45px;
+    width: 100px;
+    border: 1px;
+    &:hover, &:active {
+        background-color: $firstColor;
+        border-color: $secondColor;
+        color: $thirdColor;
+        transition: 0.4s;
+        cursor: pointer;
+    }
+} 

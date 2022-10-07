@@ -1,9 +1,9 @@
 @import '../../../assets/variables.scss';
+@import '../../../assets/typography.scss';
 @import '../../../assets/mixin.scss';
 
 
 .form__wrapper {
-    height: 450px;
     margin: auto;
     width: 40%;
     @media (max-width:$screen-xl-min) {
@@ -22,11 +22,14 @@
     width: 100%;
     h4 {
         text-align: left;
-        margin: auto;
+        margin: 10px;
+    }
+    small {
+        color: $thirdColor;
     }
     .form__container__item {
         text-align: center;
-        margin: auto;
+        margin: 10px 0px;
         width: 100%;
         input {
             width: 100%;
