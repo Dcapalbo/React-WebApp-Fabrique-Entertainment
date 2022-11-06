@@ -1,7 +1,6 @@
 import classes from './contactForm.module.scss';
 import { useState, useRef } from 'react';
 
-// work in progress form controls 
 const ContactForm = () => {
 
     const inputLength = (value) => value.trim().length >= 5 && value.trim().length <= 30; 
