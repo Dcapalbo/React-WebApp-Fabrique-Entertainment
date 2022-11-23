@@ -22,7 +22,7 @@ const FilmForm = () => {
     const directorInputRef = useRef();
     const descriptionInputRef = useRef();
 
-    const confirmHandler = (event) => {
+    const confirmHandler = async (event) => {
 
         event.preventDefault();
 
@@ -56,7 +56,20 @@ const FilmForm = () => {
                 director: enteredDirector,
                 description: enteredDescription
             }
-            console.log(formData);
+
+            const config = {
+                headers: {
+                    "Content-Type":"application/json"
+                }
+            }
+            console.log("prima della chiamata");
+            await axios
+                .post("http://localhost:5000/add-film", formData, config)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((err) => console.error("there is an error: ", err.name));
+            console.log("dopo la chiamata");
         }
     }
 
