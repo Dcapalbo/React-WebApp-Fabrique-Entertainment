@@ -5,9 +5,9 @@ import React from 'react';
 
 const FilmForm = () => {
 
+    const descriptionLength = (value) => value.trim().length >= 10 && value.trim().length <= 300; 
     const genericLength = (value) => value.trim().length >= 3 && value.trim().length <= 30;
     const durationLength = (value) => value.trim().length >= 1 && value.trim().length <= 3; 
-    const descriptionLength = (value) => value.trim().length >= 10 && value.trim().length <= 300; 
     const isEmpty = (value) => value.trim() === '';
 
     const [formInputsValidity, setFormInputsValidity] = useState({
@@ -16,13 +16,15 @@ const FilmForm = () => {
         director: true,
         description: true
     });
+
+    const [file, setFile] = useState(null);
     
     const titleInputRef = useRef();
     const durationInputRef = useRef();
     const directorInputRef = useRef();
     const descriptionInputRef = useRef();
 
-    const confirmHandler = async (event) => {
+    const confirmHandler = (event) => {
 
         event.preventDefault();
 
@@ -49,27 +51,21 @@ const FilmForm = () => {
             enteredDirectorIsValid && 
             enteredDescriptionsValid;
         
-        if(formIsValid) {
-            const formData =  {
-                title: enteredTitle,
-                duration: enteredDuration,
-                director: enteredDirector,
-                description: enteredDescription
-            }
+        if (formIsValid) {
+            const formData = new FormData();
 
-            const config = {
-                headers: {
-                    "Content-Type":"application/json"
-                }
-            }
-            console.log("prima della chiamata");
-            await axios
-                .post("http://localhost:5000/add-film", formData, config)
-                .then((response) => {
-                    console.log(response.data);
+            formData.append("title", enteredTitle);
+            formData.append("duration", enteredDuration);
+            formData.append("director", enteredDirector);
+            formData.append("description", enteredDescription);
+            formData.append("file", file);
+
+            axios
+                .post("http://localhost:5000/add-film", formData)
+                .then((res) => {
+                    console.log(res.data);
                 })
                 .catch((err) => console.error("there is an error: ", err.name));
-            console.log("dopo la chiamata");
         }
     }
 
@@ -84,7 +80,6 @@ const FilmForm = () => {
                     <input
                         ref={titleInputRef}
                         type="text" 
-                        id="formTitle" 
                         name="Title" 
                         required
                         >    
@@ -98,7 +93,6 @@ const FilmForm = () => {
                     <input 
                         ref={durationInputRef}
                         type="number" 
-                        id="formDuration" 
                         name="Duration" 
                         required
                         >
@@ -112,7 +106,6 @@ const FilmForm = () => {
                     <input
                         ref={directorInputRef}
                         type="text" 
-                        id="formDirector" 
                         name="Director"
                         required
                         >
@@ -126,32 +119,32 @@ const FilmForm = () => {
                     <input 
                         ref={descriptionInputRef}
                         type="text" 
-                        id="formDescription" 
                         name="Description" 
                         required
                         >
                     </input>
                     {!formInputsValidity.description && <small>Campo obbligatorio, inserire la descrizione del film</small>}
                 </div>
-                {/* <div className={classes.form__container__item}>
+                <div className={classes.form__container__item}>
                     <label htmlFor="Image">
                         Cover
                     </label>
                     <input 
-                        type="text" 
-                        id="formDescription" 
-                        name="Description" 
+                        onChange={event => {
+                            const file = event.target.files[0];
+                            setFile(file);
+                        }}
+                        type='file' 
+                        name='Image' 
                         required
                         >
                     </input>
-                </div> */}
+                </div>
                 <div className={classes.form__container__item}>
                     <button 
                         onClick={confirmHandler}
                         className={classes.secondary__button}
-                        type="button" 
-                        id="formButton" 
-                        name="button" 
+                        type="submit" 
                         >
                     Inserisci</button>
                 </div>
