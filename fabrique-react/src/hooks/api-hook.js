@@ -12,7 +12,7 @@ const ApiHook = ( url, dataType ) => {
         axios
         .get(url)   
             .then(res => {
-                setFabriqueData(res.data.body[dataType]);
+                setFabriqueData(res.data);
             })
             .catch(err => {
                 setError(err);
@@ -21,7 +21,7 @@ const ApiHook = ( url, dataType ) => {
                 setloading(false);
                 console.log("finished to fetch data");
             }); 
-    }, [url, dataType]);
+    }, [url]);
 
     return { fabriqueData, loading, error };
     

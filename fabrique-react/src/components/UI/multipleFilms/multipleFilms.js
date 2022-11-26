@@ -8,8 +8,9 @@ const multipleFilms = (props) => {
                 <h2>{props.title}</h2>
                 <h4>{props.director}</h4>
                 <p>{props.description}</p>
-                <small>{props.lenght}</small>
-                <small>{props.type}</small>
+                <small>{props.duration}</small>
+                {/* <small>{props.lenght}</small> */}
+                {/* <small>{props.type}</small> */}
                 <div className={classes.film__card__button__wrapper}>
                     <button className={classes.film__card__cta}>Scopri di più</button>
                 </div>

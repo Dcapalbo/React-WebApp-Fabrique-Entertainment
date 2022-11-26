@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Films from './pages/Films';
 import Film from './pages/Film';
 import NewFilm from './pages/NewFilm';
+import AllFilms from './pages/AllFilms';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/films" element={<Films />}/>
         <Route path="/films/:film" element={<Film />}/>
         <Route path="/films/addNewFilm" element={<NewFilm />}/>
+        <Route path="/films/allFilms" element={<AllFilms />}/>
       </Routes>
     </Router>
   )
