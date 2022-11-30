@@ -3,14 +3,14 @@ import Navigation from "../components/nav/nav";
 import FilmForm from "../components/UI/form/filmForm";
 
 const NewFilm = () => {
-    return (
-        <>
-            <Header>
-                <Navigation/>
-            </Header>
-            <FilmForm />
-        </>
-    )
-}
+  return (
+    <>
+      <Header>
+        <Navigation />
+      </Header>
+      <FilmForm />
+    </>
+  );
+};
 
 export default NewFilm;

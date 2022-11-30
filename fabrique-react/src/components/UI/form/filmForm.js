@@ -1,5 +1,5 @@
 import classes from "./contactForm.module.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import React from "react";
 
@@ -23,6 +23,7 @@ const FilmForm = () => {
   });
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [file, setFile] = useState(null);
 
   const titleInputRef = useRef();
@@ -31,6 +32,16 @@ const FilmForm = () => {
   const descriptionInputRef = useRef();
   const yearInputRef = useRef();
   const typeInputRef = useRef();
+
+  const uriLocation = window.location.href;
+
+  useEffect(() => {
+    if (uriLocation === "http://localhost:3000/films/addNewFilm") {
+      setIsUpdate(false);
+    } else if (uriLocation === "http://localhost:3000/films/update-film") {
+      setIsUpdate(true);
+    }
+  }, [uriLocation]);
 
   const confirmHandler = (event) => {
     event.preventDefault();
@@ -84,20 +95,31 @@ const FilmForm = () => {
       formData.append("type", enteredType);
       formData.append("file", file);
 
-      axios
-        .post("http://localhost:5000/add-film", formData)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => console.error("there is an error: ", err.name));
+      if (uriLocation === "http://localhost:3000/films/addNewFilm") {
+        axios
+          .post("http://localhost:5000/add-film", formData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.error("there is an error: ", err.name));
+      } else if (uriLocation === "http://localhost:3000/films/update-film") {
+        axios
+          .post("http://localhost:5000/update-film", formData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.error("there is an error: ", err.name));
+      }
     }
   };
 
   return (
     <section className={classes.form__wrapper}>
       <form className={classes.form__container}>
-        <h4>Aggiungi un film al database</h4>
         <div className={classes.form__container__item}>
+          {!isUpdate
+            ? !isUpdate && <h4>Aggiungere un film al Database</h4>
+            : isUpdate && <h4>Modificare un film del Database</h4>}
           <label htmlFor="Title">Titolo</label>
           <input ref={titleInputRef} type="text" name="Title" required></input>
           {!formInputsValidity.title && (
@@ -178,13 +200,25 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <button
-            onClick={confirmHandler}
-            className={classes.secondary__button}
-            type="submit"
-          >
-            Inserisci
-          </button>
+          {!isUpdate
+            ? !isUpdate && (
+                <button
+                  onClick={confirmHandler}
+                  className={classes.secondary__button}
+                  type="submit"
+                >
+                  Inserisci
+                </button>
+              )
+            : isUpdate && (
+                <button
+                  onClick={confirmHandler}
+                  className={classes.secondary__button}
+                  type="submit"
+                >
+                  Modifica
+                </button>
+              )}
         </div>
       </form>
     </section>

@@ -1,16 +1,16 @@
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
-import MultipleFilmsDBContainer from "../components/UI/multipleFilms/multipleFilmsDbContainer";
+import FilmForm from "../components/UI/form/filmForm";
 
-const AllFilms = () => {
+const UpdateFilm = () => {
   return (
     <>
       <Header>
         <Navigation />
       </Header>
-      <MultipleFilmsDBContainer />
+      <FilmForm />
     </>
   );
 };
 
-export default AllFilms;
+export default UpdateFilm;

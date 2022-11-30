@@ -31,12 +31,15 @@ const MultipleFilmsDBContainer = () => {
       <section className={classes.wrapper__films__container}>
         {fabriqueData.map((film) => (
           <MultipleFilms
-            description={film.description}
-            director={film.director}
-            imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
-            duration={film.duration}
             title={film.title}
+            duration={film.duration}
+            director={film.director}
+            description={film.description}
+            year={film.year}
+            type={film.type}
+            imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
             key={film._id}
+            _id={film._id}
           />
         ))}
       </section>
