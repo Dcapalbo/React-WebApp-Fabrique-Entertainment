@@ -141,7 +141,12 @@ const FilmForm = () => {
           .then((res) => {
             console.log(res.data);
           })
-          .catch((err) => console.error("there is an error: ", err.name));
+          .catch((err) => console.error("there is an error: ", err.name))
+          .finally(() => {
+            window.localStorage.clear();
+            console.log(localStorage);
+            window.location.replace("http://localhost:3000/films/allFilms");
+          });
       }
     }
   };
@@ -275,7 +280,7 @@ const FilmForm = () => {
                 </select>
               )
             : !dataFilm && (
-                <select ref={typeInputRef} defaultValue="Cortometraggio">
+                <select ref={typeInputRef} value="Cortometraggio">
                   <option>Lungometraggio</option>
                   <option>Cortometraggio</option>
                   <option>Documentario</option>
@@ -292,7 +297,6 @@ const FilmForm = () => {
           {dataFilm
             ? dataFilm && (
                 <input
-                  defaultValue={dataFilm.imageUrl}
                   onChange={(event) => {
                     const file = event.target.files[0];
                     setFile(file);

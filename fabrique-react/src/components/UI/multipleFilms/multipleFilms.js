@@ -29,13 +29,15 @@ const MultipleFilms = (props) => {
 
   return (
     <div className={classes.film__card__container}>
-      <img
-        className={classes.film__card}
-        src={props.imageUrl}
-        alt={props.title}
-        title={props.title}
-        loading="lazy"
-      />
+      {props.imageUrl && (
+        <img
+          className={classes.film__card}
+          src={props.imageUrl}
+          alt={props.title}
+          title={props.title}
+          loading="lazy"
+        />
+      )}
       <div className={classes.film__card__description}>
         <h2>{props.title}</h2>
         <h3>{props.director}</h3>
