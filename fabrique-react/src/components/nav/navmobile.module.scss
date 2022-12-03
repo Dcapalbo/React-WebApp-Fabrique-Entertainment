@@ -1,18 +1,17 @@
-@import '../../assets/mixin.scss';
-@import '../../assets/variables.scss';
+@import "../../assets/mixin.scss";
+@import "../../assets/variables.scss";
 
-// navigation 
+// navigation
 .navigation__mobile {
-    // mobile navigation modal
-    @include flex-between;
-    svg {
-        color: white;
-        cursor: pointer;
-    }
-    .navigation__logo {
-        object-fit: contain;
-        height: 40px;
-        width: 60px;
-    }
+  // mobile navigation modal
+  @include flex-between;
+  svg {
+    color: white;
+    cursor: pointer;
+  }
+  .navigation__logo {
+    object-fit: contain;
+    height: 40px;
+    width: 60px;
+  }
 }
-

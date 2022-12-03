@@ -65,9 +65,9 @@ const FilmForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation === "http://localhost:3000/films/addNewFilm") {
+    if (uriLocation !== "http://localhost:3000/films/update-film") {
       setIsUpdate(false);
-    } else if (uriLocation === "http://localhost:3000/films/update-film") {
+    } else {
       setIsUpdate(true);
     }
   }, [uriLocation]);
@@ -134,17 +134,25 @@ const FilmForm = () => {
           .then((res) => {
             console.log(res.data);
           })
-          .catch((err) => console.error("there is an error: ", err.name));
+          .catch((err) =>
+            console.error(
+              "there is an error for addition of a new Film: ",
+              err.name
+            )
+          )
+          .finally(() => {
+            window.location.replace("http://localhost:3000/films/allFilms");
+          });
       } else if (uriLocation === "http://localhost:3000/films/update-film") {
         axios
           .post("http://localhost:5000/update-film", formData)
           .then((res) => {
             console.log(res.data);
           })
-          .catch((err) => console.error("there is an error: ", err.name))
+          .catch((err) =>
+            console.error("there is an error for updating a film: ", err.name)
+          )
           .finally(() => {
-            window.localStorage.clear();
-            console.log(localStorage);
             window.location.replace("http://localhost:3000/films/allFilms");
           });
       }

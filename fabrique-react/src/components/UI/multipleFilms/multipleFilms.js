@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useDispatch } from "react-redux";
 import { dataFilmActions } from "../../../store/data-film-slice";
 import classes from "./multipleFilms.module.scss";

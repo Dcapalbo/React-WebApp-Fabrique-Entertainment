@@ -1,4 +1,5 @@
 // importing the react router dom version 6
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // scss files
 import "./assets/variables.scss";
@@ -15,6 +16,13 @@ import AllFilms from "./pages/AllFilms";
 import UpdateFilm from "./pages/UpdateFilm";
 
 function App() {
+  const uriLocation = window.location.href;
+  useEffect(() => {
+    if (uriLocation !== "http://localhost:3000/films/update-film") {
+      window.localStorage.clear();
+    }
+  }, [uriLocation]);
+
   return (
     <Router>
       <Routes>

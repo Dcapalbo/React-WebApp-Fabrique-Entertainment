@@ -1,6 +1,6 @@
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
-import MultipleFilmsDBContainer from "../components/UI/multipleFilms/multipleFilmsDbContainer";
+import MultipleFilmsContainer from "../components/UI/multipleFilms/multipleFilmsContainer";
 
 const AllFilms = () => {
   return (
@@ -8,7 +8,7 @@ const AllFilms = () => {
       <Header>
         <Navigation />
       </Header>
-      <MultipleFilmsDBContainer />
+      <MultipleFilmsContainer />
     </>
   );
 };

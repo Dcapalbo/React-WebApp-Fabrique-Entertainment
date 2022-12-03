@@ -1,12 +1,11 @@
 import classes from "./aboutCardContainer.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
-import ApiHook from "../../../hooks/api-hook";
+import ApiGetHook from "../../../hooks/apiGetHook";
 import AboutCard from "./aboutCard";
 
 const AboutCardContainer = () => {
-  const { fabriqueData, loading, error } = ApiHook(
-    "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev",
-    "fabriqueContactsInformations"
+  const { fabriqueData, loading, error } = ApiGetHook(
+    "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev"
   );
 
   if (loading) {

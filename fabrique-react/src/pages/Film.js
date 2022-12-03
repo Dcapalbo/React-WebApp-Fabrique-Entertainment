@@ -3,14 +3,13 @@ import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import Navigation from "../components/nav/nav";
 import { useParams } from "react-router-dom";
-import ApiHook from "../hooks/api-hook";
+import ApiGetHook from "../hooks/apiGetHook";
 
 const Films = () => {
   const { film } = useParams();
   if (film && film.length > 0) {
-    const { fabriqueData, loading, error } = ApiHook(
-      "https://localhost:5000/get-films",
-      null
+    const { fabriqueData, loading, error } = ApiGetHook(
+      "https://localhost:5000/get-films"
     );
 
     if (loading) {
