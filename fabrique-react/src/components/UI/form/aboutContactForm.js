@@ -51,12 +51,14 @@ const AboutContactForm = () => {
 
   const genericLength = (value) =>
     value.trim().length >= 3 && value.trim().length <= 15;
+  const roleLength = (value) =>
+    value.trim().length >= 5 && value.trim().length <= 30;
   const surnameLength = (value) =>
     value.trim().length >= 3 && value.trim().length <= 20;
   const bioLength = (value) =>
-    value.trim().length >= 50 && value.trim().length <= 300;
+    value.trim().length >= 10 && value.trim().length <= 300;
   const emailCheck = (value) =>
-    value.trim().length > 15 &&
+    value.trim().length > 10 &&
     value.trim().length < 40 &&
     value.trim().includes("@");
   const phonenumberlength = (value) => value.length === 10;
@@ -93,8 +95,7 @@ const AboutContactForm = () => {
       !isEmpty(enteredName) && genericLength(enteredName);
     const enteredSurnameIsValid =
       !isEmpty(enteredSurname) && surnameLength(enteredSurname);
-    const enteredRoleIsValid =
-      genericLength(enteredRole) && !isEmpty(enteredRole);
+    const enteredRoleIsValid = roleLength(enteredRole) && !isEmpty(enteredRole);
     const enteredBioIsValid = !isEmpty(enteredBio) && bioLength(enteredBio);
     const enteredFileIsValid = file !== null && file !== "";
     const enteredEmailIsValid =
@@ -129,12 +130,12 @@ const AboutContactForm = () => {
       formData.append("role", enteredRole);
       formData.append("bio", enteredBio);
       formData.append("email", enteredEmail);
-      formData.append("number", enteredPhoneNumber);
+      formData.append("phoneNumber", enteredPhoneNumber);
       formData.append("file", file);
 
-      if (dataContact) {
-        formData.append("_id", dataContact._id);
-      }
+      //   if (dataContact) {
+      //     formData.append("_id", dataContact._id);
+      //   }
 
       if (uriLocation === "http://localhost:3000/contacts/add-new-contact") {
         setIsLoading(true);
@@ -372,12 +373,6 @@ const AboutContactForm = () => {
                   >
                     Inserisci
                   </button>
-                  {error && (
-                    <small>
-                      Problema nella compilazione del database, effettuare
-                      nuovamente la compilazione del form
-                    </small>
-                  )}
                 </>
               )
             : isUpdate && (
@@ -389,15 +384,15 @@ const AboutContactForm = () => {
                   >
                     Modifica
                   </button>
-                  {error && (
-                    <small>
-                      Problema nella compilazione del database, effettuare
-                      nuovamente la compilazione del form
-                    </small>
-                  )}
                 </>
               )}
         </div>
+        {error && (
+          <small>
+            Problema nella compilazione del database, effettuare nuovamente la
+            compilazione del form
+          </small>
+        )}
       </form>
     </section>
   );
