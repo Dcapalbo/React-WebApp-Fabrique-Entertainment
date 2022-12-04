@@ -36,6 +36,25 @@
     &:hover + .card__image {
       opacity: 0;
     }
+    .about__card__button__wrapper {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      .about__card__cta {
+        border: 2px solid #cc0000;
+        font-family: $Comfortaa;
+        color: $thirdColor;
+        padding: 15px 30px;
+        transition: 0.3s;
+        font-size: 20px;
+        cursor: pointer;
+        &:hover {
+          background-color: $firstColor;
+          transition: 0.3s;
+          color: $secondColor;
+        }
+      }
+    }
     @media (max-width: $screen-lg-min) {
       padding-top: 16px;
     }

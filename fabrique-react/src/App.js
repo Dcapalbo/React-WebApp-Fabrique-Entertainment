@@ -21,7 +21,10 @@ import UpdateContact from "./pages/UpdateContact";
 function App() {
   const uriLocation = window.location.href;
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/films/update-film") {
+    if (
+      uriLocation !== "http://localhost:3000/films/update-film" &&
+      uriLocation !== "http://localhost:3000/contacts/update-contact"
+    ) {
       window.localStorage.clear();
     }
   }, [uriLocation]);

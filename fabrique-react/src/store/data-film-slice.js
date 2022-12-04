@@ -25,16 +25,6 @@ const dataFilmSlice = createSlice({
         return;
       }
     },
-    removeFilmData(state) {
-      let dataFilmArray = state.filmData;
-      if (dataFilmArray.length > 0) {
-        dataFilmArray = state.initialState;
-        console.log("here my film to update thanks to redux", dataFilmArray);
-        return dataFilmArray;
-      } else {
-        return;
-      }
-    },
   },
 });
 

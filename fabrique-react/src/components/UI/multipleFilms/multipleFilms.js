@@ -105,9 +105,7 @@ const MultipleFilms = (props) => {
           />
         )}
         {error && (
-          <small>
-            Problema nell' eliminazione del singolo film, riprovare la richiesta
-          </small>
+          <small>Problema nell' eliminazione del singolo film, riprovare</small>
         )}
       </div>
     </div>

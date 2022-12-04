@@ -133,9 +133,9 @@ const AboutContactForm = () => {
       formData.append("phoneNumber", enteredPhoneNumber);
       formData.append("file", file);
 
-      //   if (dataContact) {
-      //     formData.append("_id", dataContact._id);
-      //   }
+      if (dataContact) {
+        formData.append("_id", dataContact._id);
+      }
 
       if (uriLocation === "http://localhost:3000/contacts/add-new-contact") {
         setIsLoading(true);
@@ -306,22 +306,22 @@ const AboutContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="phonenumber">Numero di telefono</label>
+          <label htmlFor="phoneNumber">Numero di telefono</label>
           {dataContact
             ? dataContact && (
                 <input
                   defaultValue={dataContact.phoneNumber}
                   ref={phoneNumberInputRef}
                   type="number"
-                  name="phonenumber"
+                  name="phoneNumber"
                   required
                 />
               )
             : !dataContact && (
                 <input
                   ref={phoneNumberInputRef}
-                  type="email"
-                  name="phonenumber"
+                  type="number"
+                  name="phoneNumber"
                   required
                 />
               )}
