@@ -28,19 +28,26 @@ const MultipleFilmsContainer = () => {
   } else {
     return (
       <section className={classes.wrapper__films__container}>
-        {fabriqueData.map((film) => (
-          <MultipleFilms
-            title={film.title}
-            duration={film.duration}
-            director={film.director}
-            description={film.description}
-            year={film.year}
-            type={film.type}
-            imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
-            key={film._id}
-            _id={film._id}
-          />
-        ))}
+        {fabriqueData.length > 0 ? (
+          fabriqueData.map((film) => (
+            <MultipleFilms
+              title={film.title}
+              duration={film.duration}
+              director={film.director}
+              description={film.description}
+              year={film.year}
+              type={film.type}
+              imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
+              key={film._id}
+              _id={film._id}
+            />
+          ))
+        ) : (
+          <h1>
+            Non ci sono elementi per questa ricerca, inserirli manualmente
+            presso la sezione del Database dedicata ai film
+          </h1>
+        )}
       </section>
     );
   }

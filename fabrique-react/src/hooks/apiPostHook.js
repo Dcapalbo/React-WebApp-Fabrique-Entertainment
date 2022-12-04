@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const ApiPostHook = (url, body, redirectUrl) => {
-  const [loading, setloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setloading(true);
+    setIsLoading(true);
     axios
       .post(url, body)
       .then((res) => {
@@ -17,13 +17,13 @@ const ApiPostHook = (url, body, redirectUrl) => {
         setError(err);
       })
       .finally(() => {
-        setloading(false);
         window.location.replace(redirectUrl);
         console.log("finished to fetch data");
+        setIsLoading(false);
       });
   }, [url, body, redirectUrl]);
 
-  return { loading, error };
+  return { isLoading, error };
 };
 
 export default ApiPostHook;

@@ -1,11 +1,12 @@
 import classes from "./aboutCardContainer.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
+import base64ArrayBuffer from "../../../utils/base64";
 import ApiGetHook from "../../../hooks/apiGetHook";
 import AboutCard from "./aboutCard";
 
 const AboutCardContainer = () => {
   const { fabriqueData, loading, error } = ApiGetHook(
-    "https://uvaf6p0qv3.execute-api.us-east-2.amazonaws.com/dev"
+    "http://localhost:5000/get-contacts"
   );
 
   if (loading) {
@@ -23,20 +24,31 @@ const AboutCardContainer = () => {
       />
     );
   } else if (error) {
-    <h1>There is some problem, refresh the page</h1>;
+    <h1>There are some problems, refresh the page</h1>;
   } else {
     return (
       <section className={classes.about__wrapper__card__container}>
         <div className={classes.about__card__container}>
-          {fabriqueData.map((contact) => (
-            <AboutCard
-              headline={contact.headline}
-              imageUrl={contact.imageUrl}
-              email={contact.email}
-              role={contact.role}
-              key={contact.id}
-            />
-          ))}
+          {fabriqueData.length > 0 ? (
+            fabriqueData.map((contact) => (
+              <AboutCard
+                name={contact.name}
+                surname={contact.surname}
+                role={contact.role}
+                bio={contact.bio}
+                email={contact.email}
+                phoneNumber={contact.phoneNumber}
+                imageUrl={`data:image/png;base64,${base64ArrayBuffer(contact)}`}
+                key={contact._id}
+                _id={contact._id}
+              />
+            ))
+          ) : (
+            <h1>
+              Non ci sono elementi per questa ricerca, inserirli manualmente
+              presso la sezione del Database dedicata ai contatti
+            </h1>
+          )}
         </div>
       </section>
     );

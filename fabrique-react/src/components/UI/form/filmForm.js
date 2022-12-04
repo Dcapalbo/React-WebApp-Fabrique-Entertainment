@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import classes from "./contactForm.module.scss";
+import PuffLoader from "react-spinners/PuffLoader";
+import classes from "./genericForm.module.scss";
 import axios from "axios";
 import React from "react";
 
@@ -44,6 +45,8 @@ const FilmForm = () => {
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
   const descriptionLength = (value) =>
@@ -128,32 +131,38 @@ const FilmForm = () => {
         formData.append("_id", dataFilm._id);
       }
 
-      if (uriLocation === "http://localhost:3000/films/addNewFilm") {
+      if (uriLocation === "http://localhost:3000/films/add-new-film") {
+        setIsLoading(true);
         axios
           .post("http://localhost:5000/add-film", formData)
           .then((res) => {
             console.log(res.data);
           })
-          .catch((err) =>
+          .catch((err) => {
             console.error(
               "there is an error for addition of a new Film: ",
               err.name
-            )
-          )
+            );
+            setError(err);
+          })
           .finally(() => {
-            window.location.replace("http://localhost:3000/films/allFilms");
+            window.location.replace("http://localhost:3000/films");
+            setIsLoading(false);
           });
       } else if (uriLocation === "http://localhost:3000/films/update-film") {
+        setIsLoading(true);
         axios
           .post("http://localhost:5000/update-film", formData)
           .then((res) => {
             console.log(res.data);
           })
-          .catch((err) =>
-            console.error("there is an error for updating a film: ", err.name)
-          )
+          .catch((err) => {
+            console.error("there is an error for updating a film: ", err.name);
+            setError(err);
+          })
           .finally(() => {
-            window.location.replace("http://localhost:3000/films/allFilms");
+            window.location.replace("http://localhost:3000/films");
+            setIsLoading(false);
           });
       }
     }
@@ -332,24 +341,53 @@ const FilmForm = () => {
         <div className={classes.form__container__item}>
           {!isUpdate
             ? !isUpdate && (
-                <button
-                  onClick={confirmHandler}
-                  className={classes.secondary__button}
-                  type="submit"
-                >
-                  Inserisci
-                </button>
+                <>
+                  <button
+                    onClick={confirmHandler}
+                    className={classes.secondary__button}
+                    type="submit"
+                  >
+                    Inserisci
+                  </button>
+                  {error && (
+                    <small>
+                      Problema nella compilazione del database, effettuare
+                      nuovamente la compilazione del form
+                    </small>
+                  )}
+                </>
               )
             : isUpdate && (
-                <button
-                  onClick={confirmHandler}
-                  className={classes.secondary__button}
-                  type="submit"
-                >
-                  Modifica
-                </button>
+                <>
+                  <button
+                    onClick={confirmHandler}
+                    className={classes.secondary__button}
+                    type="submit"
+                  >
+                    Modifica
+                  </button>
+                  {error && (
+                    <small>
+                      Problema nella compilazione del database, effettuare
+                      nuovamente la compilazione del form
+                    </small>
+                  )}
+                </>
               )}
         </div>
+        {isLoading && (
+          <PuffLoader
+            style={{
+              display: "inherit",
+              position: "relative",
+              width: "100px",
+              height: "100px",
+              margin: "auto",
+            }}
+            color={"#cc0000"}
+            size={100}
+          />
+        )}
       </form>
     </section>
   );

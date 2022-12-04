@@ -6,13 +6,20 @@ const AboutCard = (props) => {
       <img
         className={classes.about__card__image}
         src={props.imageUrl}
-        alt={props.headline}
+        alt={props.name}
+        title={props.role}
         loading="lazy"
       />
       <div className={classes.about__card__description}>
-        <h2 className={classes.about__card__headline}>{props.headline}</h2>
-        <p className={classes.about__card__role}>{props.role}</p>
-        <small className={classes.about__card__email}>{props.email}</small>
+        <h2 className={classes.about__card__name}>{props.name}</h2>
+        <h3 className={classes.about__card__surname}>{props.surname}</h3>
+        <h4 className={classes.about__card__role}>{props.role}</h4>
+        <h5 className={classes.about__card__bio}>{props.bio}</h5>
+        <h6 className={classes.about__card__email}>{props.email}</h6>
+        <input hidden id={props._id} />
+        <small className={classes.about__card__phone__number}>
+          {props.phonenumber}
+        </small>
       </div>
     </div>
   );
