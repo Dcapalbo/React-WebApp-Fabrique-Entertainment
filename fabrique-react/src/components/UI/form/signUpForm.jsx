@@ -103,22 +103,20 @@ const SignUpForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <>
-            <button
-              onClick={confirmHandler}
-              className={classes.secondary__button}
-              type="submit"
-            >
-              Crea Account
-            </button>
-            {error && (
-              <small>
-                Problema nella creazione dell'utente, effettuare nuovamente la
-                compilazione del form.
-              </small>
-            )}
-          </>
+          <button
+            onClick={confirmHandler}
+            className={classes.secondary__button}
+            type="submit"
+          >
+            Crea Account
+          </button>
         </div>
+        {error && (
+          <small>
+            Problema nella creazione dell'utente, effettuare nuovamente la
+            compilazione del form.
+          </small>
+        )}
         {isLoading && (
           <PuffLoader
             style={{

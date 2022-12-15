@@ -46,7 +46,7 @@ const LoginForm = () => {
 
       setIsLoading(true);
       axios
-        .post("http://localhost:5000/sign-up", formData)
+        .post("http://localhost:5000/login", formData)
         .then((res) => {
           console.log(res.data);
         })
@@ -58,7 +58,7 @@ const LoginForm = () => {
           setError(err);
         })
         .finally(() => {
-          window.location.replace("http://localhost:3000/");
+          //   window.location.replace("http://localhost:3000/");
           setIsLoading(false);
         });
     }
@@ -68,6 +68,7 @@ const LoginForm = () => {
     <section className={classes.form__wrapper}>
       <form className={classes.form__container}>
         <div className={classes.form__container__item}>
+          <h4>Esegui il login</h4>
           <label htmlFor="Email">Email</label>
           <input ref={emailInputRef} type="email" name="Email" required />
           {!loginInputsValidity.email && (
@@ -93,22 +94,20 @@ const LoginForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <>
-            <button
-              onClick={confirmHandler}
-              className={classes.secondary__button}
-              type="submit"
-            >
-              Accedi
-            </button>
-            {error && (
-              <small>
-                Problema durante il l'accesso, compilare nuovamente il form, i
-                dati potrebbero essere sbagliati.
-              </small>
-            )}
-          </>
+          <button
+            onClick={confirmHandler}
+            className={classes.secondary__button}
+            type="submit"
+          >
+            Accedi
+          </button>
         </div>
+        {error && (
+          <small>
+            Problema durante l'accesso, compilare nuovamente il form, i dati
+            potrebbero essere sbagliati.
+          </small>
+        )}
         {isLoading && (
           <PuffLoader
             style={{
