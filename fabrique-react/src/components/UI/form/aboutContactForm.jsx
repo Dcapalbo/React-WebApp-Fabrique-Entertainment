@@ -3,6 +3,16 @@ import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import axios from "axios";
 import React from "react";
+// importing utils functions
+import {
+  genericLength,
+  roleLength,
+  surnameLength,
+  bioLength,
+  emailCheck,
+  phoneNumberlength,
+  isEmpty,
+} from "../../../utils/functions";
 
 const AboutContactForm = () => {
   useEffect(() => {
@@ -49,21 +59,6 @@ const AboutContactForm = () => {
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
-  const genericLength = (value) =>
-    value.trim().length >= 3 && value.trim().length <= 15;
-  const roleLength = (value) =>
-    value.trim().length >= 5 && value.trim().length <= 30;
-  const surnameLength = (value) =>
-    value.trim().length >= 3 && value.trim().length <= 20;
-  const bioLength = (value) =>
-    value.trim().length >= 10 && value.trim().length <= 300;
-  const emailCheck = (value) =>
-    value.trim().length > 10 &&
-    value.trim().length < 40 &&
-    value.trim().includes("@");
-  const phonenumberlength = (value) => value.length === 10;
-  const isEmpty = (value) => value.trim() === "";
-
   const nameInputRef = useRef();
   const surnameInputRef = useRef();
   const roleInputRef = useRef();
@@ -101,7 +96,7 @@ const AboutContactForm = () => {
     const enteredEmailIsValid =
       !isEmpty(enteredEmail) && emailCheck(enteredEmail);
     const enteredPhoneNumberIsValid =
-      !isEmpty(enteredPhoneNumber) && phonenumberlength(enteredPhoneNumber);
+      !isEmpty(enteredPhoneNumber) && phoneNumberlength(enteredPhoneNumber);
 
     setFormInputsValidity({
       name: enteredNameIsValid,

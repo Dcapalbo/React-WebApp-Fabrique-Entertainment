@@ -3,6 +3,14 @@ import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import axios from "axios";
 import React from "react";
+// importing utils functions
+import {
+  descriptionLength,
+  genericLength,
+  durationLength,
+  yearLength,
+  isEmpty,
+} from "../../../utils/functions";
 
 const FilmForm = () => {
   useEffect(() => {
@@ -48,15 +56,6 @@ const FilmForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
-
-  const descriptionLength = (value) =>
-    value.trim().length >= 10 && value.trim().length <= 300;
-  const genericLength = (value) =>
-    value.trim().length >= 3 && value.trim().length <= 30;
-  const durationLength = (value) =>
-    value.trim().length >= 1 && value.trim().length <= 3;
-  const yearLength = (value) => value.trim().length === 4;
-  const isEmpty = (value) => value.trim() === "";
 
   const titleInputRef = useRef();
   const durationInputRef = useRef();

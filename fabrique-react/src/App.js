@@ -13,9 +13,11 @@ import About from "./pages/About";
 import Films from "./pages/Films";
 import NewFilm from "./pages/NewFilm";
 import AllFilms from "./pages/AllFilms";
+import LoginForm from "./pages/LoginForm";
 import UpdateFilm from "./pages/UpdateFilm";
-import AllContacts from "./pages/AllContacts";
+import AuthSignUp from "./pages/AuthSignUp";
 import NewContact from "./pages/NewContact";
+import AllContacts from "./pages/AllContacts";
 import UpdateContact from "./pages/UpdateContact";
 
 function App() {
@@ -34,9 +36,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        {/* // routing problem with films */}
         <Route path="/films" element={<Films />} />
-        <Route path="/films/:film" element={<Film />} />
         <Route path="/films" element={<AllFilms />} />
+        <Route path="/films/:film" element={<Film />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/sign-up" element={<AuthSignUp />} />
         <Route path="/contacts" element={<AllContacts />} />
         <Route path="/films/add-new-film" element={<NewFilm />} />
         <Route path="/films/update-film" element={<UpdateFilm />} />
