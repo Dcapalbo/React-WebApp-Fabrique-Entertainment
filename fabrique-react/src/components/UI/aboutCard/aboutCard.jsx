@@ -52,7 +52,7 @@ const AboutCard = (props) => {
       })
       .finally(() => {
         setIsLoading(false);
-        window.location.replace("http://localhost:3000/contacts");
+        window.location.replace("http://localhost:3000/admin/contacts");
       });
   };
 
@@ -103,7 +103,7 @@ const AboutCard = (props) => {
         >
           Elimina Contatto
         </button>
-        <a href="http://localhost:3000/contacts/update-contact">
+        <a href="http://localhost:3000/admin/contacts/update-contact">
           <button
             onClick={sendContactDataHandler}
             className={classes.about__card__cta}

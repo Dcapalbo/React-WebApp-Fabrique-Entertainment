@@ -67,7 +67,7 @@ const FilmForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/films/update-film") {
+    if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
@@ -130,7 +130,7 @@ const FilmForm = () => {
         formData.append("_id", dataFilm._id);
       }
 
-      if (uriLocation === "http://localhost:3000/films/add-new-film") {
+      if (uriLocation === "http://localhost:3000/admin/films/add-new-film") {
         setIsLoading(true);
         axios
           .post("http://localhost:5000/add-film", formData)
@@ -145,10 +145,12 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/films");
+            window.location.replace("http://localhost:3000/admin/films");
             setIsLoading(false);
           });
-      } else if (uriLocation === "http://localhost:3000/films/update-film") {
+      } else if (
+        uriLocation === "http://localhost:3000/admin/films/update-film"
+      ) {
         setIsLoading(true);
         axios
           .post("http://localhost:5000/update-film", formData)
@@ -160,7 +162,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/films");
+            window.location.replace("http://localhost:3000/admin/films");
             setIsLoading(false);
           });
       }

@@ -69,7 +69,7 @@ const AboutContactForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/contacts/update-contact") {
+    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
@@ -132,7 +132,9 @@ const AboutContactForm = () => {
         formData.append("_id", dataContact._id);
       }
 
-      if (uriLocation === "http://localhost:3000/contacts/add-new-contact") {
+      if (
+        uriLocation === "http://localhost:3000/admin/contacts/add-new-contact"
+      ) {
         setIsLoading(true);
         axios
           .post("http://localhost:5000/add-contact", formData)
@@ -147,11 +149,11 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/contacts");
+            window.location.replace("http://localhost:3000/admin/contacts");
             setIsLoading(false);
           });
       } else if (
-        uriLocation === "http://localhost:3000/contacts/update-contact"
+        uriLocation === "http://localhost:3000/admin/contacts/update-contact"
       ) {
         setIsLoading(true);
         axios
@@ -167,7 +169,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/contacts");
+            window.location.replace("http://localhost:3000/admin/contacts");
             setIsLoading(false);
           });
       }

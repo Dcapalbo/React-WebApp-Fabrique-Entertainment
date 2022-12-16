@@ -7,7 +7,7 @@ import React from "react";
 import { genericLength, emailCheck, isEmpty } from "../../../utils/functions";
 
 const SignUpForm = () => {
-  const [loginInputsValidity, setLoginInputsValidity] = useState({
+  const [signUpInputsValidity, setSignUpIputsValidity] = useState({
     name: true,
     email: true,
     password: true,
@@ -34,7 +34,7 @@ const SignUpForm = () => {
     const enteredPasswordIsValid =
       genericLength(enteredPassword) && !isEmpty(enteredPassword);
 
-    setLoginInputsValidity({
+    setSignUpIputsValidity({
       name: enteredNameIsValid,
       email: enteredEmailIsValid,
       password: enteredPasswordIsValid,
@@ -79,14 +79,14 @@ const SignUpForm = () => {
           <h4>Crea il tuo account</h4>
           <label htmlFor="Name">Nome</label>
           <input ref={nameInputRef} type="text" name="Name" required />
-          {!loginInputsValidity.name && (
+          {!signUpInputsValidity.name && (
             <small>Campo obbligatorio, inserire un nome valido</small>
           )}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Email">Email</label>
           <input ref={emailInputRef} type="email" name="Email" required />
-          {!loginInputsValidity.email && (
+          {!signUpInputsValidity.email && (
             <small>Campo obbligatorio, inserire un email valida</small>
           )}
         </div>
@@ -98,7 +98,7 @@ const SignUpForm = () => {
             name="Password"
             required
           />
-          {!loginInputsValidity.password && (
+          {!signUpInputsValidity.password && (
             <small>Campo obbligatorio, inserire una password valida</small>
           )}
         </div>

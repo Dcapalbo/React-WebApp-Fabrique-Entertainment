@@ -48,17 +48,14 @@ const LoginForm = () => {
       axios
         .post("http://localhost:5000/login", formData)
         .then((res) => {
-          console.log(res.data);
+          window.localStorage.setItem("token", res.data.token);
         })
         .catch((err) => {
-          console.error(
-            "there is an error for the creation of the user account: ",
-            err
-          );
+          console.error("there is an error for the login form: ", err);
           setError(err);
         })
         .finally(() => {
-          //   window.location.replace("http://localhost:3000/");
+          window.location.replace("http://localhost:3000/admin/films");
           setIsLoading(false);
         });
     }

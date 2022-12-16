@@ -20,14 +20,14 @@ import NewContact from "./pages/NewContact";
 import AllContacts from "./pages/AllContacts";
 import UpdateContact from "./pages/UpdateContact";
 
-function App() {
+const App = () => {
   const uriLocation = window.location.href;
   useEffect(() => {
     if (
-      uriLocation !== "http://localhost:3000/films/update-film" &&
-      uriLocation !== "http://localhost:3000/contacts/update-contact"
+      uriLocation !== "http://localhost:3000/admin/films/update-film" &&
+      uriLocation !== "http://localhost:3000/admin/contacts/update-contact"
     ) {
-      window.localStorage.clear();
+      window.localStorage.removeItem("dataUpdateFilm", "dataUpdateContact");
     }
   }, [uriLocation]);
 
@@ -36,20 +36,26 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        {/* // routing problem with films */}
+        {/* // routing problem with films parameter */}
         <Route path="/films" element={<Films />} />
-        <Route path="/films" element={<AllFilms />} />
+        <Route path="/admin/films" element={<AllFilms />} />
         <Route path="/films/:film" element={<Film />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sign-up" element={<AuthSignUp />} />
-        <Route path="/contacts" element={<AllContacts />} />
-        <Route path="/films/add-new-film" element={<NewFilm />} />
-        <Route path="/films/update-film" element={<UpdateFilm />} />
-        <Route path="/contacts/add-new-contact" element={<NewContact />} />
-        <Route path="/contacts/update-contact" element={<UpdateContact />} />
+        <Route path="/admin/contacts" element={<AllContacts />} />
+        <Route path="/admin/films/add-new-film" element={<NewFilm />} />
+        <Route path="/admin/films/update-film" element={<UpdateFilm />} />
+        <Route
+          path="/admin/contacts/add-new-contact"
+          element={<NewContact />}
+        />
+        <Route
+          path="/admin/contacts/update-contact"
+          element={<UpdateContact />}
+        />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

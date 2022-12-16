@@ -52,7 +52,7 @@ const MultipleFilms = (props) => {
       })
       .finally(() => {
         setIsLoading(false);
-        window.location.replace("http://localhost:3000/films");
+        window.location.replace("http://localhost:3000/admin/films");
       });
   };
 
@@ -82,7 +82,7 @@ const MultipleFilms = (props) => {
           >
             Elimina Film
           </button>
-          <a href="http://localhost:3000/films/update-film">
+          <a href="http://localhost:3000/admin/films/update-film">
             <button
               onClick={sendFilmDataHandler}
               className={classes.film__card__cta}
