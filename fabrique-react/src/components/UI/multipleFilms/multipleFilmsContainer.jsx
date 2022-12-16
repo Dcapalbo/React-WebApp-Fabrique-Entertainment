@@ -3,20 +3,8 @@ import base64ArrayBuffer from "../../../utils/base64";
 import PuffLoader from "react-spinners/PuffLoader";
 import ApiGetHook from "../../../hooks/apiGetHook";
 import MultipleFilms from "./multipleFilms";
-import { React, useEffect } from "react";
-import jwt from "jsonwebtoken";
 
 const MultipleFilmsContainer = () => {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-      }
-    }
-  });
-
   const { fabriqueData, loading, error } = ApiGetHook(
     "http://localhost:5000/get-films"
   );
