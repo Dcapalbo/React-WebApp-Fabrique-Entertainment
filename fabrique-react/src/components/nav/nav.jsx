@@ -1,8 +1,15 @@
 import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
 import { Link } from "react-router-dom";
 import classes from "./nav.module.scss";
+import { isAuth } from "../../utils/isAuth";
+import { useState, useEffect } from "react";
 
 const Navigation = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  useEffect(() => {
+    setIsAuthenticated(isAuth("token"));
+  }, []);
+
   return (
     <nav className={classes.navigation}>
       <a href="/">
@@ -44,6 +51,26 @@ const Navigation = () => {
         <li>
           <Link to="/contact">contact</Link>
         </li>
+        {isAuthenticated && (
+          <li>
+            <Link to="/admin/films">List of Films</Link>
+          </li>
+        )}
+        {isAuthenticated && (
+          <li>
+            <Link to="/admin/films/add-new-film">Add Film</Link>
+          </li>
+        )}
+        {isAuthenticated && (
+          <li>
+            <Link to="/admin/contacts/">List of Contacts</Link>
+          </li>
+        )}
+        {isAuthenticated && (
+          <li>
+            <Link to="/admin/contacts/add-new-contact">Add Contact</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
