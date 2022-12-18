@@ -31,6 +31,17 @@ const FilmForm = () => {
     }
   }, []);
 
+  const uriLocation = window.location.href;
+
+  useEffect(() => {
+    if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
+      window.localStorage.removeItem("dataUpdateFilm");
+      setIsUpdate(false);
+    } else {
+      setIsUpdate(true);
+    }
+  }, [uriLocation]);
+
   const [dataFilm, setDataFilm] = useState({
     title: "",
     duration: "",
@@ -63,16 +74,6 @@ const FilmForm = () => {
   const descriptionInputRef = useRef();
   const yearInputRef = useRef();
   const typeInputRef = useRef();
-
-  const uriLocation = window.location.href;
-
-  useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
-      setIsUpdate(false);
-    } else {
-      setIsUpdate(true);
-    }
-  }, [uriLocation]);
 
   const confirmHandler = (event) => {
     event.preventDefault();

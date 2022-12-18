@@ -1,9 +1,16 @@
 import classes from "./navModal.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { isAuth } from "../../utils/isAuth";
+import { useState, useEffect } from "react";
 
 const NavModal = () => {
   const [modalVisible, setIsModalVisible] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+
+  useEffect(() => {
+    setIsAuthenticated(isAuth("token"));
+  }, []);
+
   const closingModalHandler = () => {
     const body = document.querySelector("body");
     body.style.overflow = "scroll";
@@ -49,6 +56,26 @@ const NavModal = () => {
             <li>
               <Link to="/contact">contact</Link>
             </li>
+            {isAuthenticated && (
+              <li>
+                <Link to="/admin/films">list of Films</Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <Link to="/admin/films/add-new-film">add film</Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <Link to="/admin/contacts/">list of contacts</Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <Link to="/admin/contacts/add-new-contact">add contact</Link>
+              </li>
+            )}
           </ul>
         </div>
       )}

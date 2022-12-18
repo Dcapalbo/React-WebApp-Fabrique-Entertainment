@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
   }, []);
@@ -21,35 +22,35 @@ const Navigation = () => {
       </a>
       <ul className={classes.navigation}>
         <li>
-          <Link to="/">home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/about">about</Link>
+          <Link to="/about">About</Link>
         </li>
         <li>
           <Link className={classes.navigation__films} to="/films">
-            films
+            Films
           </Link>
           <ul className={classes.navigation__films__dropdown}>
             <li>
-              <Link to="/films/lucania">lucania</Link>
+              <Link to="/films/lucania">Lucania</Link>
             </li>
             <li>
-              <Link to="/films/guerrieri">guerrieri</Link>
+              <Link to="/films/guerrieri">Guerrieri</Link>
             </li>
             <li>
-              <Link to="/films/love-and-desire">love and desire</Link>
+              <Link to="/films/love-and-desire">Love and Desire</Link>
             </li>
             <li>
-              <Link to="/films/felakuti">felakuti</Link>
+              <Link to="/films/felakuti">Felakuti</Link>
             </li>
           </ul>
         </li>
         <li>
-          <Link to="/news">news</Link>
+          <Link to="/news">News</Link>
         </li>
         <li>
-          <Link to="/contact">contact</Link>
+          <Link to="/contact">Contact</Link>
         </li>
         {isAuthenticated && (
           <li>
