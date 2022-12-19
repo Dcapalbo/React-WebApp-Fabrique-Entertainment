@@ -1,8 +1,11 @@
+import AboutCardContainer from "../components/UI/aboutCard/aboutCardContainer";
+import { cleanLocalStorage } from "../utils/functions";
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
-import AboutCardContainer from "../components/UI/aboutCard/aboutCardContainer";
 
 const AllContacts = () => {
+  cleanLocalStorage();
+
   return (
     <>
       <Header>

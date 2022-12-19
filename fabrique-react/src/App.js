@@ -23,16 +23,10 @@ import UpdateContact from "./pages/UpdateContact";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
-  const uriLocation = window.location.href;
+
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-    if (
-      uriLocation !== "http://localhost:3000/admin/films/update-film" &&
-      uriLocation !== "http://localhost:3000/admin/contacts/update-contact"
-    ) {
-      window.localStorage.removeItem("dataUpdateFilm", "dataUpdateContact");
-    }
-  }, [uriLocation]);
+  }, []);
 
   return (
     <Router>
@@ -43,6 +37,7 @@ const App = () => {
         <Route path="/films" element={<Films />} />
         <Route path="/films/:film" element={<Film />} />
         <Route path="/login" element={<LoginForm />} />
+
         {/* authenticated Routes  */}
         <Route path="/sign-up" element={<AuthSignUp />} />
         {isAuthenticated && (

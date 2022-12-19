@@ -1,3 +1,4 @@
+import { cleanLocalStorage } from "../utils/functions";
 import PuffLoader from "react-spinners/PuffLoader";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
@@ -6,6 +7,8 @@ import { useParams } from "react-router-dom";
 import ApiGetHook from "../hooks/apiGetHook";
 
 const Films = () => {
+  cleanLocalStorage();
+
   const { film } = useParams();
   if (film && film.length > 0) {
     const { fabriqueData, loading, error } = ApiGetHook(

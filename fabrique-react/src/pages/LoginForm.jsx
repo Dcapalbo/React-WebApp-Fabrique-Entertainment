@@ -1,9 +1,12 @@
-import Header from "../components/header/header";
-import Navigation from "../components/nav/nav";
-import Footer from "../components/footer/footer";
+import { cleanLocalStorage } from "../utils/functions";
 import Login from "../components/UI/form/loginForm";
+import Header from "../components/header/header";
+import Footer from "../components/footer/footer";
+import Navigation from "../components/nav/nav";
 
 const LoginForm = () => {
+  cleanLocalStorage();
+
   return (
     <>
       <Header>

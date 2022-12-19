@@ -1,20 +1,44 @@
-import { useState, useRef, useEffect } from "react";
+import { contactSchema } from "../../schema/conctactSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import React from "react";
-// importing utils functions
-import {
-  genericLength,
-  roleLength,
-  surnameLength,
-  bioLength,
-  emailCheck,
-  phoneNumberlength,
-  isEmpty,
-} from "../../../utils/functions";
 
 const AboutContactForm = () => {
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: "",
+    resolver: zodResolver(contactSchema),
+  });
+
+  const navigate = useNavigate();
+
+  const { errors, touchedFields } = formState;
+
+  const uriLocation = window.location.href;
+
+  const [dataContact, setDataContact] = useState({
+    name: "",
+    surname: "",
+    role: "",
+    bio: "",
+    email: "",
+    phoneNumber: "",
+    imageUrl: "",
+    _id: "",
+  });
+
+  const onChange = (e) => {
+    console.log("touched Fields", touchedFields);
+  };
+
+  if (dataContact && touchedFields) {
+    console.log(touchedFields);
+  }
+
   useEffect(() => {
     let dataUpdateContact = JSON.parse(
       window.localStorage.getItem("dataUpdateContact")
@@ -31,27 +55,14 @@ const AboutContactForm = () => {
         _id: dataUpdateContact.payload._id,
       });
     }
-  }, []);
-
-  const [dataContact, setDataContact] = useState({
-    name: "",
-    surname: "",
-    role: "",
-    bio: "",
-    email: "",
-    phoneNumber: "",
-    imageUrl: "",
-    _id: "",
-  });
-
-  const [formInputsValidity, setFormInputsValidity] = useState({
-    name: true,
-    surname: true,
-    role: true,
-    bio: true,
-    email: true,
-    phoneNumber: true,
-  });
+    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
+      window.localStorage.removeItem("dataUpdateContact");
+      setIsUpdate(false);
+      setDataContact({});
+    } else {
+      setIsUpdate(true);
+    }
+  }, [uriLocation]);
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -59,79 +70,25 @@ const AboutContactForm = () => {
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
-  const nameInputRef = useRef();
-  const surnameInputRef = useRef();
-  const roleInputRef = useRef();
-  const bioInputRef = useRef();
-  const emailInputRef = useRef();
-  const phoneNumberInputRef = useRef();
-
-  const uriLocation = window.location.href;
-
-  useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
-      setIsUpdate(false);
-    } else {
-      setIsUpdate(true);
-    }
-  }, [uriLocation]);
-
   const confirmHandler = (event) => {
-    event.preventDefault();
-
-    const enteredName = nameInputRef.current.value;
-    const enteredSurname = surnameInputRef.current.value;
-    const enteredRole = roleInputRef.current.value;
-    const enteredBio = bioInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPhoneNumber = phoneNumberInputRef.current.value;
-
-    const enteredNameIsValid =
-      !isEmpty(enteredName) && genericLength(enteredName);
-    const enteredSurnameIsValid =
-      !isEmpty(enteredSurname) && surnameLength(enteredSurname);
-    const enteredRoleIsValid = roleLength(enteredRole) && !isEmpty(enteredRole);
-    const enteredBioIsValid = !isEmpty(enteredBio) && bioLength(enteredBio);
     const enteredFileIsValid = file !== null && file !== "";
-    const enteredEmailIsValid =
-      !isEmpty(enteredEmail) && emailCheck(enteredEmail);
-    const enteredPhoneNumberIsValid =
-      !isEmpty(enteredPhoneNumber) && phoneNumberlength(enteredPhoneNumber);
-
-    setFormInputsValidity({
-      name: enteredNameIsValid,
-      surname: enteredSurnameIsValid,
-      role: enteredRoleIsValid,
-      bio: enteredBioIsValid,
-      email: enteredEmailIsValid,
-      phoneNumber: enteredPhoneNumberIsValid,
-    });
-
     setEnteredFileisValid(enteredFileIsValid);
 
-    const formIsValid =
-      enteredNameIsValid &&
-      enteredSurnameIsValid &&
-      enteredRoleIsValid &&
-      enteredBioIsValid &&
-      enteredEmailIsValid &&
-      enteredPhoneNumberIsValid;
+    const formData = new FormData();
 
-    if (formIsValid) {
-      const formData = new FormData();
+    formData.append("name", event.name);
+    formData.append("surname", event.surname);
+    formData.append("role", event.role);
+    formData.append("bio", event.bio);
+    formData.append("email", event.email);
+    formData.append("phoneNumber", parseInt(event.phoneNumber));
+    formData.append("file", file);
 
-      formData.append("name", enteredName);
-      formData.append("surname", enteredSurname);
-      formData.append("role", enteredRole);
-      formData.append("bio", enteredBio);
-      formData.append("email", enteredEmail);
-      formData.append("phoneNumber", enteredPhoneNumber);
-      formData.append("file", file);
+    if (dataContact) {
+      formData.append("_id", dataContact._id);
+    }
 
-      if (dataContact) {
-        formData.append("_id", dataContact._id);
-      }
-
+    if (formData) {
       if (
         uriLocation === "http://localhost:3000/admin/contacts/add-new-contact"
       ) {
@@ -149,7 +106,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/admin/contacts");
+            navigate("/admin/contacts");
             setIsLoading(false);
           });
       } else if (
@@ -169,7 +126,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/admin/contacts");
+            navigate("/admin/contacts");
             setIsLoading(false);
           });
       }
@@ -178,41 +135,27 @@ const AboutContactForm = () => {
 
   return (
     <section className={classes.form__wrapper}>
-      <form className={classes.form__container}>
-        {isLoading && (
-          <PuffLoader
-            style={{
-              display: "inherit",
-              position: "relative",
-              width: "100px",
-              height: "100px",
-              margin: "auto",
-            }}
-            color={"#cc0000"}
-            size={100}
-          />
-        )}
+      <form
+        onSubmit={handleSubmit(confirmHandler)}
+        className={classes.form__container}
+      >
         <div className={classes.form__container__item}>
           {!isUpdate
             ? !isUpdate && <h4>Aggiungere un Contatto al Database</h4>
             : isUpdate && <h4>Modificare un Contatto del Database</h4>}
-          <label htmlFor="Title">Nome</label>
+          <label htmlFor="name">Nome</label>
           {dataContact
             ? dataContact && (
                 <input
                   defaultValue={dataContact.name}
-                  ref={nameInputRef}
+                  {...register("name")}
                   type="text"
-                  name="Name"
-                  required
                 />
               )
             : !dataContact && (
-                <input ref={nameInputRef} type="text" name="Name" required />
+                <input onChange={onChange} {...register("name")} type="text" />
               )}
-          {!formInputsValidity.name && (
-            <small>Campo obbligatorio, inserire il nome del contatto</small>
-          )}
+          {errors.name?.message && <small>{errors.name?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Surname">Cognome</label>
@@ -220,23 +163,12 @@ const AboutContactForm = () => {
             ? dataContact && (
                 <input
                   defaultValue={dataContact.surname}
-                  ref={surnameInputRef}
+                  {...register("surname")}
                   type="text"
-                  name="Surname"
-                  required
                 />
               )
-            : !dataContact && (
-                <input
-                  ref={surnameInputRef}
-                  type="text"
-                  name="Surname"
-                  required
-                />
-              )}
-          {!formInputsValidity.surname && (
-            <small>Campo obbligatorio, inserire il cognome del contatto</small>
-          )}
+            : !dataContact && <input {...register("name")} type="text" />}
+          {errors.surname?.message && <small>{errors.surname?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Role">Ruolo</label>
@@ -244,18 +176,12 @@ const AboutContactForm = () => {
             ? dataContact && (
                 <input
                   defaultValue={dataContact.role}
-                  ref={roleInputRef}
+                  {...register("role")}
                   type="text"
-                  name="Role"
-                  required
                 />
               )
-            : !dataContact && (
-                <input ref={roleInputRef} type="text" name="Role" required />
-              )}
-          {!formInputsValidity.role && (
-            <small>Campo obbligatorio, inserire il ruolo del contatto</small>
-          )}
+            : !dataContact && <input {...register("role")} type="text" />}
+          {errors.role?.message && <small>{errors.role?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Bio">Bio</label>
@@ -263,25 +189,14 @@ const AboutContactForm = () => {
             ? dataContact && (
                 <textarea
                   defaultValue={dataContact.bio}
-                  ref={bioInputRef}
+                  {...register("bio")}
                   type="text"
-                  name="Bio"
-                  required
                 ></textarea>
               )
             : !dataContact && (
-                <textarea
-                  ref={bioInputRef}
-                  type="text"
-                  name="Bio"
-                  required
-                ></textarea>
+                <textarea {...register("bio")} type="text"></textarea>
               )}
-          {!formInputsValidity.bio && (
-            <small>
-              Campo obbligatorio, inserire la biografia del contatto
-            </small>
-          )}
+          {errors.bio?.message && <small>{errors.bio?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Email">Email</label>
@@ -289,18 +204,12 @@ const AboutContactForm = () => {
             ? dataContact && (
                 <input
                   defaultValue={dataContact.email}
-                  ref={emailInputRef}
+                  {...register("email")}
                   type="email"
-                  name="Email"
-                  required
                 />
               )
-            : !dataContact && (
-                <input ref={emailInputRef} type="email" name="Email" required />
-              )}
-          {!formInputsValidity.email && (
-            <small>Campo obbligatorio, inserire l'email del contatto</small>
-          )}
+            : !dataContact && <input {...register("email")} type="email" />}
+          {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="phoneNumber">Numero di telefono</label>
@@ -308,24 +217,15 @@ const AboutContactForm = () => {
             ? dataContact && (
                 <input
                   defaultValue={dataContact.phoneNumber}
-                  ref={phoneNumberInputRef}
+                  {...register("phoneNumber")}
                   type="number"
-                  name="phoneNumber"
-                  required
                 />
               )
             : !dataContact && (
-                <input
-                  ref={phoneNumberInputRef}
-                  type="number"
-                  name="phoneNumber"
-                  required
-                />
+                <input {...register("phoneNumber")} type="number" />
               )}
-          {!formInputsValidity.phoneNumber && (
-            <small>
-              Campo obbligatorio, inserire il numero di telefono del contatto
-            </small>
+          {errors.phoneNumber?.message && (
+            <small>{errors.phoneNumber?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
@@ -363,32 +263,47 @@ const AboutContactForm = () => {
           {!isUpdate
             ? !isUpdate && (
                 <>
-                  <button
-                    onClick={confirmHandler}
-                    className={classes.secondary__button}
-                    type="submit"
-                  >
+                  <button className={classes.secondary__button} type="submit">
                     Inserisci
                   </button>
+                  <div className={classes.generic__margin__top}>
+                    {error && (
+                      <small>
+                        Problema nella compilazione del database, effettuare
+                        nuovamente la compilazione del form
+                      </small>
+                    )}
+                  </div>
                 </>
               )
             : isUpdate && (
                 <>
-                  <button
-                    onClick={confirmHandler}
-                    className={classes.secondary__button}
-                    type="submit"
-                  >
+                  <button className={classes.secondary__button} type="submit">
                     Modifica
                   </button>
+                  <div className={classes.generic__margin__top}>
+                    {error && (
+                      <small>
+                        Problema nella compilazione del database, effettuare
+                        nuovamente la compilazione del form
+                      </small>
+                    )}
+                  </div>
                 </>
               )}
         </div>
-        {error && (
-          <small>
-            Problema nella compilazione del database, effettuare nuovamente la
-            compilazione del form
-          </small>
+        {isLoading && (
+          <PuffLoader
+            style={{
+              display: "inherit",
+              position: "relative",
+              width: "100px",
+              height: "100px",
+              margin: "auto",
+            }}
+            color={"#cc0000"}
+            size={100}
+          />
         )}
       </form>
     </section>

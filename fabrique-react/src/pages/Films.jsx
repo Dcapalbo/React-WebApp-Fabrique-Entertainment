@@ -1,9 +1,12 @@
 import MultipleFilmsContainer from "../components/UI/multipleFilms/multipleFilmsContainer";
+import { cleanLocalStorage } from "../utils/functions";
 import Header from "../components/header/header";
-import Navigation from "../components/nav/nav";
 import Footer from "../components/footer/footer";
+import Navigation from "../components/nav/nav";
 
 const Films = () => {
+  cleanLocalStorage();
+
   return (
     <>
       <Header>

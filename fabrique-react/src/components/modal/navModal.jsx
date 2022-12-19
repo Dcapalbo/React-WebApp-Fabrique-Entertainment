@@ -26,54 +26,54 @@ const NavModal = () => {
           </div>
           <ul className={classes.navigation__mobile__menu}>
             <li>
-              <Link to="/">home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">about</Link>
+              <Link to="/about">About</Link>
             </li>
             <li>
               <Link className={classes.navigation__films__mobile} to="/films">
-                films
+                Films
               </Link>
               <ul className={classes.navigation__films__mobile__dropdown}>
                 <li>
-                  <Link to="/films/lucania">lucania</Link>
+                  <Link to="/films/lucania">Lucania</Link>
                 </li>
                 <li>
-                  <Link to="/films/guerrieri">guerrieri</Link>
+                  <Link to="/films/guerrieri">Guerrieri</Link>
                 </li>
                 <li>
-                  <Link to="/films/love-and-desire">love and desire</Link>
+                  <Link to="/films/love-and-desire">Love and Desire</Link>
                 </li>
                 <li>
-                  <Link to="/films/felakuti">felakuti</Link>
+                  <Link to="/films/felakuti">Felakuti</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/news">news</Link>
+              <Link to="/news">News</Link>
             </li>
             <li>
-              <Link to="/contact">contact</Link>
+              <Link to="/contact">Contact</Link>
             </li>
             {isAuthenticated && (
               <li>
-                <Link to="/admin/films">list of Films</Link>
+                <Link to="/admin/films">List of Films</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/films/add-new-film">add film</Link>
+                <Link to="/admin/films/add-new-film">Add Film</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/contacts/">list of contacts</Link>
+                <Link to="/admin/contacts/">List of Contacts</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/contacts/add-new-contact">add contact</Link>
+                <Link to="/admin/contacts/add-new-contact">Add Contact</Link>
               </li>
             )}
           </ul>

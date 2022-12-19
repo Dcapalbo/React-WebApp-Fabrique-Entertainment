@@ -1,18 +1,39 @@
-import { useState, useRef, useEffect } from "react";
+import { useForm, useController } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { filmSchema } from "../../schema/filmSchema";
 import PuffLoader from "react-spinners/PuffLoader";
+import { useNavigate } from "react-router-dom";
 import classes from "./genericForm.module.scss";
+import TypeSelect from "../select/typeSelect";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
-// importing utils functions
-import {
-  descriptionLength,
-  genericLength,
-  durationLength,
-  yearLength,
-  isEmpty,
-} from "../../../utils/functions";
 
 const FilmForm = () => {
+  const { register, control, handleSubmit, formState } = useForm({
+    defaultValues: "",
+    resolver: zodResolver(filmSchema),
+  });
+
+  const navigate = useNavigate();
+
+  const { field } = useController({ name: "type", control });
+
+  const { errors } = formState;
+
+  const uriLocation = window.location.href;
+
+  const [dataFilm, setDataFilm] = useState({
+    title: "",
+    duration: "",
+    director: "",
+    description: "",
+    year: "",
+    type: "",
+    imageUrl: "",
+    _id: "",
+  });
+
   useEffect(() => {
     let dataUpdateFilm = JSON.parse(
       window.localStorage.getItem("dataUpdateFilm")
@@ -29,38 +50,14 @@ const FilmForm = () => {
         _id: dataUpdateFilm.payload._id,
       });
     }
-  }, []);
-
-  const uriLocation = window.location.href;
-
-  useEffect(() => {
     if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
       window.localStorage.removeItem("dataUpdateFilm");
       setIsUpdate(false);
+      setDataFilm({});
     } else {
       setIsUpdate(true);
     }
   }, [uriLocation]);
-
-  const [dataFilm, setDataFilm] = useState({
-    title: "",
-    duration: "",
-    director: "",
-    description: "",
-    year: "",
-    type: "",
-    imageUrl: "",
-    _id: "",
-  });
-
-  const [formInputsValidity, setFormInputsValidity] = useState({
-    title: true,
-    duration: true,
-    director: true,
-    description: true,
-    year: true,
-    type: true,
-  });
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -68,69 +65,30 @@ const FilmForm = () => {
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
-  const titleInputRef = useRef();
-  const durationInputRef = useRef();
-  const directorInputRef = useRef();
-  const descriptionInputRef = useRef();
-  const yearInputRef = useRef();
-  const typeInputRef = useRef();
+  const handleSelectChange = (option) => {
+    field.onChange(option.target.value);
+    console.log(option.target.value);
+  };
 
   const confirmHandler = (event) => {
-    event.preventDefault();
-
-    const enteredTitle = titleInputRef.current.value;
-    const enteredDuration = durationInputRef.current.value;
-    const enteredDirector = directorInputRef.current.value;
-    const enteredDescription = descriptionInputRef.current.value;
-    const enteredYear = yearInputRef.current.value;
-    const enteredType = typeInputRef.current.value;
-
-    const enteredTitleIsValid =
-      !isEmpty(enteredTitle) && genericLength(enteredTitle);
-    const enteredDurationIsValid =
-      !isEmpty(enteredDuration) && durationLength(enteredDuration);
-    const enteredDirectorIsValid =
-      genericLength(enteredDirector) && !isEmpty(enteredDirector);
-    const enteredDescriptionsIsValid =
-      !isEmpty(enteredDescription) && descriptionLength(enteredDescription);
     const enteredFileIsValid = file !== null && file !== "";
-    const enteredYearIsValid = !isEmpty(enteredYear) && yearLength(enteredYear);
-    const enteredTypeIsValid = !isEmpty(enteredType);
-
-    setFormInputsValidity({
-      title: enteredTitleIsValid,
-      duration: enteredDurationIsValid,
-      director: enteredDirectorIsValid,
-      description: enteredDescriptionsIsValid,
-      year: enteredYearIsValid,
-      type: enteredTypeIsValid,
-    });
-
     setEnteredFileisValid(enteredFileIsValid);
 
-    const formIsValid =
-      enteredTitleIsValid &&
-      enteredDurationIsValid &&
-      enteredDirectorIsValid &&
-      enteredDescriptionsIsValid &&
-      enteredYearIsValid &&
-      enteredTypeIsValid;
+    const formData = new FormData();
 
-    if (formIsValid) {
-      const formData = new FormData();
+    formData.append("title", event.title);
+    formData.append("duration", parseInt(event.duration));
+    formData.append("director", event.director);
+    formData.append("description", event.description);
+    formData.append("year", parseInt(event.year));
+    formData.append("type", event.type);
+    formData.append("file", file);
 
-      formData.append("title", enteredTitle);
-      formData.append("duration", enteredDuration);
-      formData.append("director", enteredDirector);
-      formData.append("description", enteredDescription);
-      formData.append("year", enteredYear);
-      formData.append("type", enteredType);
-      formData.append("file", file);
+    if (dataFilm) {
+      formData.append("_id", dataFilm._id);
+    }
 
-      if (dataFilm) {
-        formData.append("_id", dataFilm._id);
-      }
-
+    if (formData !== {}) {
       if (uriLocation === "http://localhost:3000/admin/films/add-new-film") {
         setIsLoading(true);
         axios
@@ -146,7 +104,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/admin/films");
+            navigate("/admin/films");
             setIsLoading(false);
           });
       } else if (
@@ -163,7 +121,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("http://localhost:3000/admin/films");
+            navigate("/admin/films");
             setIsLoading(false);
           });
       }
@@ -172,7 +130,10 @@ const FilmForm = () => {
 
   return (
     <section className={classes.form__wrapper}>
-      <form className={classes.form__container}>
+      <form
+        onSubmit={handleSubmit(confirmHandler)}
+        className={classes.form__container}
+      >
         <div className={classes.form__container__item}>
           {!isUpdate
             ? !isUpdate && <h4>Aggiungere un film al Database</h4>
@@ -182,18 +143,12 @@ const FilmForm = () => {
             ? dataFilm && (
                 <input
                   defaultValue={dataFilm.title}
-                  ref={titleInputRef}
+                  {...register("title")}
                   type="text"
-                  name="Title"
-                  required
                 />
               )
-            : !dataFilm && (
-                <input ref={titleInputRef} type="text" name="Title" required />
-              )}
-          {!formInputsValidity.title && (
-            <small>Campo obbligatorio, inserire il titolo del film</small>
-          )}
+            : !dataFilm && <input {...register("title")} type="text" />}
+          {errors.title?.message && <small>{errors.title?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Duration">Durata</label>
@@ -201,22 +156,13 @@ const FilmForm = () => {
             ? dataFilm && (
                 <input
                   defaultValue={dataFilm.duration}
-                  ref={durationInputRef}
+                  {...register("duration")}
                   type="number"
-                  name="Duration"
-                  required
                 />
               )
-            : !dataFilm && (
-                <input
-                  ref={durationInputRef}
-                  type="number"
-                  name="Duration"
-                  required
-                />
-              )}
-          {!formInputsValidity.duration && (
-            <small>Campo obbligatorio, inserire la durata del film</small>
+            : !dataFilm && <input {...register("duration")} type="number" />}
+          {errors.duration?.message && (
+            <small>{errors.duration?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
@@ -225,22 +171,13 @@ const FilmForm = () => {
             ? dataFilm && (
                 <input
                   defaultValue={dataFilm.director}
-                  ref={directorInputRef}
+                  {...register("director")}
                   type="text"
-                  name="Director"
-                  required
                 />
               )
-            : !dataFilm && (
-                <input
-                  ref={directorInputRef}
-                  type="text"
-                  name="Director"
-                  required
-                />
-              )}
-          {!formInputsValidity.director && (
-            <small>Campo obbligatorio, inserire il regista del film</small>
+            : !dataFilm && <input {...register("director")} type="text" />}
+          {errors.director?.message && (
+            <small>{errors.director?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
@@ -249,22 +186,15 @@ const FilmForm = () => {
             ? dataFilm && (
                 <textarea
                   defaultValue={dataFilm.description}
-                  ref={descriptionInputRef}
+                  {...register("description")}
                   type="text"
-                  name="Description"
-                  required
                 ></textarea>
               )
             : !dataFilm && (
-                <textarea
-                  ref={descriptionInputRef}
-                  type="text"
-                  name="Description"
-                  required
-                ></textarea>
+                <textarea {...register("description")} type="text"></textarea>
               )}
-          {!formInputsValidity.description && (
-            <small>Campo obbligatorio, inserire la descrizione del film</small>
+          {errors.description?.message && (
+            <small>{errors.description?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
@@ -273,43 +203,42 @@ const FilmForm = () => {
             ? dataFilm && (
                 <input
                   defaultValue={dataFilm.year}
-                  ref={yearInputRef}
+                  {...register("year")}
                   type="number"
-                  name="Year"
-                  required
                 />
               )
-            : !dataFilm && (
-                <input ref={yearInputRef} type="number" name="Year" required />
-              )}
-          {!formInputsValidity.year && (
-            <small>
-              Campo obbligatorio, inserire l'anno di produzione del film
-            </small>
-          )}
+            : !dataFilm && <input {...register("year")} type="number" />}
+          {errors.year?.message && <small>{errors.year?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Type">Tipologia</label>
           {dataFilm
             ? dataFilm && (
-                <select ref={typeInputRef} defaultValue={dataFilm.type}>
-                  <option>Lungometraggio</option>
-                  <option>Cortometraggio</option>
-                  <option>Documentario</option>
-                </select>
+                <>
+                  <TypeSelect
+                    defaultValue={dataFilm.type}
+                    className={classes.color}
+                    onChange={handleSelectChange}
+                    value={field.value}
+                  />
+                  {errors.type?.message && (
+                    <small>{errors.type?.message}</small>
+                  )}
+                </>
               )
             : !dataFilm && (
-                <select ref={typeInputRef} value="Cortometraggio">
-                  <option>Lungometraggio</option>
-                  <option>Cortometraggio</option>
-                  <option>Documentario</option>
-                </select>
+                <>
+                  <TypeSelect
+                    defaultValue={"Lungometraggio"}
+                    className={classes.color}
+                    onChange={handleSelectChange}
+                    value={field.value}
+                  />
+                  {errors.type?.message && (
+                    <small>{errors.type?.message}</small>
+                  )}
+                </>
               )}
-          {!formInputsValidity.type && (
-            <small>
-              Campo obbligatorio, inserire una tipologia fra le scelte possibili
-            </small>
-          )}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Image">Cover</label>
@@ -344,36 +273,32 @@ const FilmForm = () => {
           {!isUpdate
             ? !isUpdate && (
                 <>
-                  <button
-                    onClick={confirmHandler}
-                    className={classes.secondary__button}
-                    type="submit"
-                  >
+                  <button className={classes.secondary__button} type="submit">
                     Inserisci
                   </button>
-                  {error && (
-                    <small>
-                      Problema nella compilazione del database, effettuare
-                      nuovamente la compilazione del form
-                    </small>
-                  )}
+                  <div className={classes.generic__margin__top}>
+                    {error && (
+                      <small>
+                        Problema nella compilazione del database, effettuare
+                        nuovamente la compilazione del form
+                      </small>
+                    )}
+                  </div>
                 </>
               )
             : isUpdate && (
                 <>
-                  <button
-                    onClick={confirmHandler}
-                    className={classes.secondary__button}
-                    type="submit"
-                  >
+                  <button className={classes.secondary__button} type="submit">
                     Modifica
                   </button>
-                  {error && (
-                    <small>
-                      Problema nella compilazione del database, effettuare
-                      nuovamente la compilazione del form
-                    </small>
-                  )}
+                  <div className={classes.generic__margin__top}>
+                    {error && (
+                      <small>
+                        Problema nella compilazione del database, effettuare
+                        nuovamente la compilazione del form
+                      </small>
+                    )}
+                  </div>
                 </>
               )}
         </div>
