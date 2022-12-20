@@ -3,26 +3,21 @@ import React from "react";
 const TypeSelect = (props) => {
   const options = [
     {
-      value: "lungometraggio",
+      value: "Lungometraggio",
       label: "Lungometraggio",
     },
     {
-      value: "cortometraggio",
+      value: "Cortometraggio",
       label: "Cortometraggio",
     },
     {
-      value: "documentario",
+      value: "Documentario",
       label: "Documentario",
     },
   ];
 
   return (
-    <select
-      defaultValue={props.defaultValue}
-      onChange={props.onChange}
-      className={props.style}
-      value={props.value}
-    >
+    <select onChange={props.onChange} value={props.value}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}

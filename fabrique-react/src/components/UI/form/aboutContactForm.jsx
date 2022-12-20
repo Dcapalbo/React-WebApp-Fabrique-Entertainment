@@ -9,60 +9,34 @@ import axios from "axios";
 import React from "react";
 
 const AboutContactForm = () => {
+  const uriLocation = window.location.href;
+
+  useEffect(() => {
+    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
+      window.localStorage.removeItem("dataUpdateContact");
+      setIsUpdate(false);
+    } else {
+      setIsUpdate(true);
+    }
+  }, [uriLocation]);
+
+  let dataUpdateContact;
+  if (window.localStorage.getItem("dataUpdateContact")) {
+    dataUpdateContact = JSON.parse(
+      window.localStorage.getItem("dataUpdateContact")
+    );
+  }
+
   const { register, handleSubmit, formState } = useForm({
-    defaultValues: "",
+    defaultValues: dataUpdateContact,
     resolver: zodResolver(contactSchema),
   });
 
   const navigate = useNavigate();
 
-  const { errors, touchedFields } = formState;
+  const { errors } = formState;
 
-  const uriLocation = window.location.href;
-
-  const [dataContact, setDataContact] = useState({
-    name: "",
-    surname: "",
-    role: "",
-    bio: "",
-    email: "",
-    phoneNumber: "",
-    imageUrl: "",
-    _id: "",
-  });
-
-  const onChange = (e) => {
-    console.log("touched Fields", touchedFields);
-  };
-
-  if (dataContact && touchedFields) {
-    console.log(touchedFields);
-  }
-
-  useEffect(() => {
-    let dataUpdateContact = JSON.parse(
-      window.localStorage.getItem("dataUpdateContact")
-    );
-    if (dataUpdateContact) {
-      setDataContact({
-        name: dataUpdateContact.payload.name,
-        surname: dataUpdateContact.payload.surname,
-        role: dataUpdateContact.payload.role,
-        bio: dataUpdateContact.payload.bio,
-        email: dataUpdateContact.payload.email,
-        phoneNumber: dataUpdateContact.payload.phoneNumber,
-        imageUrl: dataUpdateContact.payload.imageUrl,
-        _id: dataUpdateContact.payload._id,
-      });
-    }
-    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
-      window.localStorage.removeItem("dataUpdateContact");
-      setIsUpdate(false);
-      setDataContact({});
-    } else {
-      setIsUpdate(true);
-    }
-  }, [uriLocation]);
+  console.log(formState.defaultValues);
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -84,11 +58,11 @@ const AboutContactForm = () => {
     formData.append("phoneNumber", parseInt(event.phoneNumber));
     formData.append("file", file);
 
-    if (dataContact) {
-      formData.append("_id", dataContact._id);
+    if (formState.defaultValues !== "") {
+      formData.append("_id", formState.defaultValues?.payload?._id);
     }
 
-    if (formData) {
+    if (formData !== {}) {
       if (
         uriLocation === "http://localhost:3000/admin/contacts/add-new-contact"
       ) {
@@ -144,115 +118,71 @@ const AboutContactForm = () => {
             ? !isUpdate && <h4>Aggiungere un Contatto al Database</h4>
             : isUpdate && <h4>Modificare un Contatto del Database</h4>}
           <label htmlFor="name">Nome</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  defaultValue={dataContact.name}
-                  {...register("name")}
-                  type="text"
-                />
-              )
-            : !dataContact && (
-                <input onChange={onChange} {...register("name")} type="text" />
-              )}
+          <input
+            defaultValue={formState.defaultValues?.payload?.name ?? ""}
+            {...register("name")}
+            type="text"
+          />
           {errors.name?.message && <small>{errors.name?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Surname">Cognome</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  defaultValue={dataContact.surname}
-                  {...register("surname")}
-                  type="text"
-                />
-              )
-            : !dataContact && <input {...register("name")} type="text" />}
+          <input
+            defaultValue={formState.defaultValues?.payload?.surname ?? ""}
+            {...register("surname")}
+            type="text"
+          />
           {errors.surname?.message && <small>{errors.surname?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Role">Ruolo</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  defaultValue={dataContact.role}
-                  {...register("role")}
-                  type="text"
-                />
-              )
-            : !dataContact && <input {...register("role")} type="text" />}
+          <input
+            defaultValue={formState.defaultValues?.payload?.role ?? ""}
+            {...register("role")}
+            type="text"
+          />
           {errors.role?.message && <small>{errors.role?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Bio">Bio</label>
-          {dataContact
-            ? dataContact && (
-                <textarea
-                  defaultValue={dataContact.bio}
-                  {...register("bio")}
-                  type="text"
-                ></textarea>
-              )
-            : !dataContact && (
-                <textarea {...register("bio")} type="text"></textarea>
-              )}
+          <textarea
+            defaultValue={formState.defaultValues?.payload?.bio ?? ""}
+            {...register("bio")}
+            type="text"
+          ></textarea>
           {errors.bio?.message && <small>{errors.bio?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Email">Email</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  defaultValue={dataContact.email}
-                  {...register("email")}
-                  type="email"
-                />
-              )
-            : !dataContact && <input {...register("email")} type="email" />}
+          <input
+            defaultValue={formState.defaultValues?.payload?.email ?? ""}
+            {...register("email")}
+            type="email"
+          />
           {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="phoneNumber">Numero di telefono</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  defaultValue={dataContact.phoneNumber}
-                  {...register("phoneNumber")}
-                  type="number"
-                />
-              )
-            : !dataContact && (
-                <input {...register("phoneNumber")} type="number" />
-              )}
+          <input
+            defaultValue={formState.defaultValues?.payload?.phoneNumber ?? ""}
+            {...register("phoneNumber")}
+            type="number"
+          />
           {errors.phoneNumber?.message && (
             <small>{errors.phoneNumber?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Image">Foto del Profilo</label>
-          {dataContact
-            ? dataContact && (
-                <input
-                  onChange={(event) => {
-                    const file = event.target.files[0];
-                    setFile(file);
-                  }}
-                  type="file"
-                  name="Image"
-                  required
-                />
-              )
-            : !dataContact && (
-                <input
-                  onChange={(event) => {
-                    const file = event.target.files[0];
-                    setFile(file);
-                  }}
-                  type="file"
-                  name="Image"
-                  required
-                />
-              )}
+          <input
+            onChange={(event) => {
+              const file = event.target.files[0];
+              setFile(file);
+            }}
+            type="file"
+            name="Image"
+            required
+          />
           {!enteredFileIsValid && (
             <small>
               Campo obbligatorio, inserire la foto di profilo del contatto

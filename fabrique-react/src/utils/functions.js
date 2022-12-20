@@ -1,6 +1,8 @@
 const genericLength = (value) =>
   value.trim().length >= 3 && value.trim().length <= 30;
+
 const isEmpty = (value) => value.trim() === "";
+
 const emailCheck = (value) =>
   value.trim().length > 10 &&
   value.trim().length < 40 &&

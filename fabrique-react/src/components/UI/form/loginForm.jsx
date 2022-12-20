@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 import axios from "axios";
 import React from "react";
 // importing utils functions
@@ -11,6 +12,8 @@ const LoginForm = () => {
     email: true,
     password: true,
   });
+
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -55,7 +58,7 @@ const LoginForm = () => {
           setError(err);
         })
         .finally(() => {
-          window.location.replace("http://localhost:3000/admin/films");
+          navigate("/admin/films");
           setIsLoading(false);
         });
     }
