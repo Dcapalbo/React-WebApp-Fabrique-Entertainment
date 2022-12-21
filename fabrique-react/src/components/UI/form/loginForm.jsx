@@ -1,104 +1,74 @@
+import { loginSchema } from "../../schema/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 import axios from "axios";
 import React from "react";
-// importing utils functions
-import { genericLength, emailCheck, isEmpty } from "../../../utils/functions";
 
 const LoginForm = () => {
-  const [loginInputsValidity, setLoginInputsValidity] = useState({
-    email: true,
-    password: true,
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: "",
+    resolver: zodResolver(loginSchema),
   });
 
   const navigate = useNavigate();
 
+  const { errors } = formState;
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
   const confirmHandler = (event) => {
-    event.preventDefault();
+    const formData = new FormData();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    formData.append("email", event.email);
+    formData.append("password", event.password);
 
-    const enteredEmailIsValid =
-      !isEmpty(enteredEmail) && emailCheck(enteredEmail);
-    const enteredPasswordIsValid =
-      genericLength(enteredPassword) && !isEmpty(enteredPassword);
-
-    setLoginInputsValidity({
-      email: enteredEmailIsValid,
-      password: enteredPasswordIsValid,
-    });
-
-    const formIsValid = enteredEmailIsValid && enteredPasswordIsValid;
-
-    if (formIsValid) {
-      const formData = new FormData();
-
-      formData.append("email", enteredEmail);
-      formData.append("password", enteredPassword);
-
-      console.log(formData);
-
-      setIsLoading(true);
-      axios
-        .post("http://localhost:5000/login", formData)
-        .then((res) => {
-          window.localStorage.setItem("token", res.data.token);
-        })
-        .catch((err) => {
-          console.error("there is an error for the login form: ", err);
-          setError(err);
-        })
-        .finally(() => {
-          navigate("/admin/films");
-          setIsLoading(false);
-        });
-    }
+    setIsLoading(true);
+    axios
+      .post("http://localhost:5000/login", formData)
+      .then((res) => {
+        window.localStorage.setItem("token", res.data.token);
+      })
+      .catch((err) => {
+        console.error("there is an error for the login form: ", err);
+        setError(err);
+      })
+      .finally(() => {
+        navigate("/admin/films");
+        setIsLoading(false);
+      });
   };
 
   return (
     <section className={classes.form__wrapper}>
-      <form className={classes.form__container}>
+      <form
+        onSubmit={handleSubmit(confirmHandler)}
+        className={classes.form__container}
+      >
         <div className={classes.form__container__item}>
           <h4>Esegui il login</h4>
           <label htmlFor="Email">Email</label>
-          <input ref={emailInputRef} type="email" name="Email" required />
-          {!loginInputsValidity.email && (
-            <small>
-              Campo obbligatorio, email errata, inserire un email di un account
-              registrato
-            </small>
-          )}
+          <input {...register("email")} type="email" />
+          {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="Password">Password</label>
-          <input
-            ref={passwordInputRef}
-            type="password"
-            name="Password"
-            required
-          />
-          {!loginInputsValidity.password && (
-            <small>
-              Campo obbligatorio, password errata, inserire una passwrod di un
-              account registrato
-            </small>
-          )}
+          <input {...register("password")} type="password" />
         </div>
+        {errors.password?.message && <small>{errors.password?.message}</small>}
         <div className={classes.form__container__item}>
-          <button
-            onClick={confirmHandler}
-            className={classes.secondary__button}
-            type="submit"
-          >
+          <label htmlFor="confirmPassword">Conferma Password</label>
+          <input {...register("confirmPassword")} type="password" />
+        </div>
+        {errors.confirmPassword?.message && (
+          <small>{errors.confirmPassword?.message}</small>
+        )}
+        <div className={classes.form__container__item}>
+          <button className={classes.secondary__button} type="submit">
             Accedi
           </button>
         </div>

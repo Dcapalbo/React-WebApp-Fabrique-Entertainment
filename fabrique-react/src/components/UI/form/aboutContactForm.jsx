@@ -12,7 +12,7 @@ const AboutContactForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
+    if (uriLocation === "http://localhost:3000/admin/contacts/update-contact") {
       window.localStorage.removeItem("dataUpdateContact");
       setIsUpdate(false);
     } else {

@@ -37,8 +37,6 @@ const FilmForm = () => {
 
   const { field } = useController({ name: "type", control });
 
-  console.log(formState.defaultValues);
-
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
