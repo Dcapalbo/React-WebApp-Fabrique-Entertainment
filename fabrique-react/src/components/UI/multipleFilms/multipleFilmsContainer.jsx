@@ -37,7 +37,7 @@ const MultipleFilmsContainer = () => {
               description={film.description}
               year={film.year}
               type={film.type}
-              imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
+              // imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
               key={film._id}
               _id={film._id}
             />

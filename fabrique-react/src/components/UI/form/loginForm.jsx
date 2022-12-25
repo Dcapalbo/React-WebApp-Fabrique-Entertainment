@@ -14,7 +14,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { errors } = formState;
 
@@ -31,14 +31,16 @@ const LoginForm = () => {
     axios
       .post("http://localhost:5000/login", formData)
       .then((res) => {
-        window.localStorage.setItem("token", res.data.token);
+        window.sessionStorage.setItem("token", res.data.token);
+        window.sessionStorage.setItem("userId", res.data.userId);
+        console.log(res.data.token);
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
         setError(err);
       })
       .finally(() => {
-        navigate("/admin/films");
+        window.location.replace("/admin/films");
         setIsLoading(false);
       });
   };

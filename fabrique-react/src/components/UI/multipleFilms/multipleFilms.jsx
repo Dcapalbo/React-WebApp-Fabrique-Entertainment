@@ -68,13 +68,13 @@ const MultipleFilms = (props) => {
         />
       )}
       <div className={classes.film__card__description}>
-        <h2>{props.title}</h2>
-        <h3>{props.director}</h3>
-        <p>{props.description}</p>
-        <small>{props.type}</small>
-        <small>{props.duration}</small>
-        <small>{props.year}</small>
-        <input hidden id={props._id} />
+        {props.title && <h2>{props.title}</h2>}
+        {props.director && <h3>{props.director}</h3>}
+        {props.description && <p>{props.description}</p>}
+        {props.type && <small>{props.type}</small>}
+        {props.duration && <small>{props.duration}</small>}
+        {props.year && <small>{props.year}</small>}
+        {/* {props._id && <input hidden id={props._id} />} */}
         <div className={classes.film__card__button__wrapper}>
           <button
             onClick={deleteFilmHandler}

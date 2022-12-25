@@ -22,6 +22,8 @@ const FilmForm = () => {
   }, [uriLocation]);
 
   let dataUpdateFilm;
+  let userId = window.sessionStorage.getItem("userId");
+
   if (window.localStorage.getItem("dataUpdateFilm")) {
     dataUpdateFilm = JSON.parse(window.localStorage.getItem("dataUpdateFilm"));
   }
@@ -60,8 +62,9 @@ const FilmForm = () => {
     formData.append("year", parseInt(event.year));
     formData.append("type", event.type);
     formData.append("file", file);
+    formData.append("userId", userId);
 
-    if (formState.defaultValues !== "") {
+    if (uriLocation === "/admin/films/update-film") {
       formData.append("_id", formState.defaultValues?.payload?._id);
     }
 
@@ -81,7 +84,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/films");
+            // navigate("/admin/films");
             setIsLoading(false);
           });
       } else if (
@@ -98,7 +101,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/films");
+            // navigate("/admin/films");
             setIsLoading(false);
           });
       }

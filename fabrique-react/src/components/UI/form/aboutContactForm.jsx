@@ -21,6 +21,8 @@ const AboutContactForm = () => {
   }, [uriLocation]);
 
   let dataUpdateContact;
+  let userId = window.sessionStorage.getItem("userId");
+
   if (window.localStorage.getItem("dataUpdateContact")) {
     dataUpdateContact = JSON.parse(
       window.localStorage.getItem("dataUpdateContact")
@@ -57,6 +59,7 @@ const AboutContactForm = () => {
     formData.append("email", event.email);
     formData.append("phoneNumber", parseInt(event.phoneNumber));
     formData.append("file", file);
+    formData.append("_id", userId);
 
     if (formState.defaultValues !== "") {
       formData.append("_id", formState.defaultValues?.payload?._id);
@@ -80,7 +83,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/contacts");
+            // navigate("/admin/contacts");
             setIsLoading(false);
           });
       } else if (
@@ -100,7 +103,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/contacts");
+            // navigate("/admin/contacts");
             setIsLoading(false);
           });
       }
