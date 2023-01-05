@@ -11,7 +11,11 @@ exports.postAddUser = async (req, res) => {
   // if there are errors
   if (!errors.isEmpty()) {
     console.log("POST adding users errors: ", errors.array());
-    res.status(422).send("input users it's invalid");
+    res.status(422).json({
+      message: "Validation errors are present",
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    });
     // then return the status and the route
     return {
       //   hasError: true,

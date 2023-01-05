@@ -25,8 +25,8 @@ exports.postAddFilm = async (req, res) => {
     // then return the status and the route
     res.status(422).json({
       message: "Validation errors are present",
-      errors: errors.array(),
       errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
     });
     return {
       film: {
@@ -90,23 +90,24 @@ exports.postEditFilm = async (req, res) => {
   const errors = validationResult(req);
   // if there are errors
   if (!errors.isEmpty()) {
-    return (
-      res.status(422),
-      {
-        film: {
-          title,
-          duration,
-          director,
-          description,
-          year,
-          type,
-          _id,
-        },
-        // take the first error message from the array
-        errorMessage: errors.array()[0].msg,
-        validationErrors: errors.array(),
-      }
-    );
+    // then return the status and the route
+    res.status(422).json({
+      message: "Validation errors are present",
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    });
+    return {
+      film: {
+        title,
+        duration,
+        director,
+        description,
+        year,
+        type,
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    };
   }
   try {
     const updatedFilm = await Film.findByIdAndUpdate(_id, update, {
