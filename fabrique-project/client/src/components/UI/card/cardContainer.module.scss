@@ -1,0 +1,27 @@
+@import "../../../assets/variables.scss";
+@import "../../../assets/mixin.scss";
+
+.wrapper__card__container {
+  background-color: $firstColor;
+  height: auto;
+  width: 100%;
+  .card__container {
+    @include flex-start;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    height: 100%;
+    width: 90%;
+    @media (max-width: $screen-lg-min) {
+      @include flex-center;
+      padding: 24px 12px;
+      width: 100%;
+    }
+
+    @media (max-width: $screen-sm-min) {
+      @include flex-center;
+      padding: 12px;
+      width: 100%;
+    }
+  }
+}
