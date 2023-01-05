@@ -81,7 +81,7 @@ exports.postLoginUser = async (req, res) => {
         userId: existingUser._id,
       },
       "secret1992_25_03",
-      { expiresIn: "15m" }
+      { expiresIn: "6h" }
     );
     return res.status(200).json({
       result: existingUser,
