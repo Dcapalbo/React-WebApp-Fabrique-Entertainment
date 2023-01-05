@@ -6,7 +6,9 @@ const fileHelper = require("../util/file");
 // GET => Getting all films
 exports.getFilms = async (req, res) => {
   try {
-    const films = await Film.find();
+    const films = await Film.find().sort({
+      year: -1,
+    });
     res.status(200).send(films);
   } catch {
     res.status(404).json({ message: "Films was not found" });
