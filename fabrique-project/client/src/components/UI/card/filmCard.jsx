@@ -25,7 +25,7 @@ const FilmCard = (props) => {
       "dataUpdateFilm",
       JSON.stringify(
         dispatch(
-          dataFilmActions.addFilmData({
+          dataFilmActions.filmData({
             title: props.title,
             duration: props.duration,
             director: props.director,
@@ -42,10 +42,17 @@ const FilmCard = (props) => {
 
   const sendFilmIdHanlder = () => {
     window.localStorage.setItem(
-      "filmId",
+      "filmData",
       JSON.stringify(
         dispatch(
-          dataFilmActions.singleFilmId({
+          dataFilmActions.filmData({
+            title: props.title,
+            duration: props.duration,
+            director: props.director,
+            description: props.description,
+            year: props.year,
+            type: props.type,
+            imageUrl: props.imageUrl,
             _id: props._id,
           })
         )

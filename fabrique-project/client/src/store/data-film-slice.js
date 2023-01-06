@@ -6,7 +6,7 @@ const dataFilmSlice = createSlice({
     filmData: [],
   },
   reducers: {
-    addFilmData(state, action) {
+    filmData(state, action) {
       const newFilmData = action.payload;
       const dataFilmArray = state.filmData;
       if (!dataFilmArray.length) {
@@ -19,15 +19,6 @@ const dataFilmSlice = createSlice({
           type: newFilmData.type,
           imageUrl: newFilmData.imageUrl,
           _id: newFilmData._id,
-        });
-      }
-    },
-    singleFilmId(state, action) {
-      const filmId = action.payload;
-      const dataFilmArray = state.filmData;
-      if (!dataFilmArray.length) {
-        dataFilmArray.push({
-          _id: filmId._id,
         });
       }
     },

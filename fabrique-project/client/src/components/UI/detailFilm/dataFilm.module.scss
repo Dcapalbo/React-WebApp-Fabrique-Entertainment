@@ -1,2 +1,39 @@
 @import "../../../assets/variables.scss";
 @import "../../../assets/mixin.scss";
+
+.detail__film__container {
+  justify-content: space-between;
+  height: fit-content;
+  display: flex;
+  margin: auto;
+  width: 90%;
+  .detail__film__card__image {
+    object-fit: contain;
+    width: 45%;
+  }
+  .detail__film__card__info {
+    width: calc(100% - 45%);
+    @include flex-column;
+    padding: 10px 0px;
+    text-align: right;
+    height: 100%;
+    h2,
+    h3,
+    p {
+      margin-bottom: 10px;
+    }
+    .detail__film__card__info__wrapper {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      display: flex;
+      width: 100%;
+      div {
+        width: calc(100% / 2 - 15px);
+        margin-left: 15px;
+      }
+      div:first-child {
+        text-align: left;
+      }
+    }
+  }
+}

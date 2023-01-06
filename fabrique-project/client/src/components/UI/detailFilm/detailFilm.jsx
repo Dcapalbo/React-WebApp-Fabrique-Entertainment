@@ -1,46 +1,94 @@
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilm.module.scss";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import React from "react";
 
 const DetailFilm = () => {
-  useEffect(() => {
-    let filmId;
-    if (window.localStorage.getItem("filmId")) {
-      filmId = JSON.parse(window.localStorage.getItem("filmId"));
-    }
-    const formData = new FormData();
+  const [isLoading, setIsLoading] = useState(false);
+  const [filmData, setFilmData] = useState({});
+  const [error, setError] = useState(null);
 
-    formData.append("_id", filmId.payload._id);
-    if (formData !== {}) {
-      setIsLoading(true);
-      axios
-        .post("http://localhost:5000/get-film", formData)
-        .then((res) => {
-          console.log(res.data);
-          setFilmData(res.data);
-        })
-        .catch((err) => {
-          console.error(
-            "there is an error for addition of a new Contact: ",
-            err.name
-          );
-          setError(err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+  useEffect(() => {
+    setIsLoading(true);
+    if (window.localStorage.getItem("filmData")) {
+      setFilmData(JSON.parse(window.localStorage.getItem("filmData")));
+      setIsLoading(false);
+    } else {
+      setError(true);
     }
   }, []);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [filmData, setFilmData] = useState([]);
-  const [error, setError] = useState(null);
-
   return (
-    <section className="">
-      <div className="">{filmData.title}</div>
+    <section className={classes.detail__film__container}>
+      <img
+        className={classes.detail__film__card__image}
+        src={filmData.payload?.imageUrl ?? ""}
+        alt={filmData.payload?.title ?? ""}
+        title={filmData.payload?.title ?? ""}
+        loading="lazy"
+      />
+      <div className={classes.detail__film__card__info}>
+        {filmData.payload?.title && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <h2>Titolo:</h2>
+            </div>
+            <div>
+              <h2>{filmData.payload?.title ?? ""}</h2>
+            </div>
+          </div>
+        )}
+        {filmData.payload?.director && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <h2>Regista:</h2>
+            </div>
+            <div>
+              <h2>{filmData.payload?.director ?? ""}</h2>
+            </div>
+          </div>
+        )}
+        {filmData.payload?.description && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <p>Sinossi:</p>
+            </div>
+            <div>
+              <p>{filmData.payload?.description ?? ""}</p>
+            </div>
+          </div>
+        )}
+        {filmData.payload?.type && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <p>Tipologia:</p>
+            </div>
+            <div>
+              <p>{filmData.payload?.type ?? ""}</p>
+            </div>
+          </div>
+        )}
+        {filmData.payload?.year && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <p>Anno:</p>
+            </div>
+            <div>
+              <p>{filmData.payload?.year ?? ""}</p>
+            </div>
+          </div>
+        )}
+        {filmData.payload?.duration && (
+          <div className={classes.detail__film__card__info__wrapper}>
+            <div>
+              <p>Durata:</p>
+            </div>
+            <div>
+              <p>{filmData.payload?.duration ?? ""}</p>
+            </div>
+          </div>
+        )}
+      </div>
       {isLoading && (
         <PuffLoader
           style={{
@@ -54,6 +102,14 @@ const DetailFilm = () => {
           size={100}
         />
       )}
+      <div>
+        {error && (
+          <small>
+            Il film selezionato non è stato trovato, tornare alla pagina
+            precedente
+          </small>
+        )}
+      </div>
     </section>
   );
 };
