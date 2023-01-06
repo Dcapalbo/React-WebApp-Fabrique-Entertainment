@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/films" element={<Films />} />
-        <Route path="/films/:film" element={<Film />} />
+        <Route path="/film/:id" element={<Film />} />
         <Route path="/login" element={<LoginForm />} />
 
         {/* authenticated Routes  */}

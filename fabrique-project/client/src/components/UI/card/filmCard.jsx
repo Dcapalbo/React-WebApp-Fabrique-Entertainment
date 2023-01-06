@@ -40,6 +40,20 @@ const FilmCard = (props) => {
     );
   };
 
+  const sendFilmIdHanlder = () => {
+    window.localStorage.setItem(
+      "filmId",
+      JSON.stringify(
+        dispatch(
+          dataFilmActions.singleFilmId({
+            _id: props._id,
+          })
+        )
+      )
+    );
+    navigate(`/film/${props._id}`);
+  };
+
   const deleteFilmHandler = () => {
     setIsLoading(true);
 
@@ -68,6 +82,7 @@ const FilmCard = (props) => {
     <div className={classes.card}>
       {props.imageUrl && (
         <img
+          onClick={sendFilmIdHanlder}
           className={classes.card__image}
           src={props.imageUrl}
           alt={props.title}
