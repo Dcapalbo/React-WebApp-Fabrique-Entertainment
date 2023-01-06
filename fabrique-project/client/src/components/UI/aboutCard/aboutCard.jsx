@@ -1,12 +1,18 @@
 import { dataContactActions } from "../../../store/data-contact-slice";
+import classes from "../../../assets/card.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
-import classes from "./aboutCard.module.scss";
-import axios from "axios";
+import { isAuth } from "../../../utils/isAuth";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import axios from "axios";
 import React from "react";
 
 const AboutCard = (props) => {
+  useEffect(() => {
+    setIsAuthenticated(isAuth("token"));
+  }, []);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -58,25 +64,43 @@ const AboutCard = (props) => {
 
   return (
     <>
-      <div className={classes.about__card}>
+      <div className={classes.card}>
         <img
-          className={classes.about__card__image}
+          className={classes.card__image}
           src={props.imageUrl}
           alt={props.name}
           title={props.role}
           loading="lazy"
         />
-        <div className={classes.about__card__description}>
-          <h2 className={classes.about__card__name}>{props.name}</h2>
-          <h3 className={classes.about__card__surname}>{props.surname}</h3>
-          <p className={classes.about__card__role}>{props.role}</p>
-          <p className={classes.about__card__bio}>{props.bio}</p>
-          <small className={classes.about__card__email}>{props.email}</small>
+        <div className={classes.card__description}>
+          <h2 className={classes.card__name}>{props.name}</h2>
+          <h3 className={classes.card__surname}>{props.surname}</h3>
+          <p className={classes.card__role}>{props.role}</p>
+          <p className={classes.card__bio}>{props.bio}</p>
+          <small className={classes.card__email}>{props.email}</small>
           <input hidden id={props._id} />
-          <small className={classes.about__card__phone__number}>
+          <small className={classes.card__phone__number}>
             {props.phonenumber}
           </small>
         </div>
+        {isAuthenticated && (
+          <div className={classes.card__button__wrapper}>
+            <button
+              onClick={deleteContactHandler}
+              className={classes.card__cta}
+            >
+              Elimina Contatto
+            </button>
+            <a href="http://localhost:3000/admin/contacts/update-contact">
+              <button
+                onClick={sendContactDataHandler}
+                className={classes.card__cta}
+              >
+                Modifica Contatto
+              </button>
+            </a>
+          </div>
+        )}
         {isLoading && (
           <PuffLoader
             style={{
@@ -95,22 +119,6 @@ const AboutCard = (props) => {
             Problema nell' eliminazione del singolo contatto, riprovare
           </small>
         )}
-      </div>
-      <div className={classes.about__card__button__wrapper}>
-        <button
-          onClick={deleteContactHandler}
-          className={classes.about__card__cta}
-        >
-          Elimina Contatto
-        </button>
-        <a href="http://localhost:3000/admin/contacts/update-contact">
-          <button
-            onClick={sendContactDataHandler}
-            className={classes.about__card__cta}
-          >
-            Modifica Contatto
-          </button>
-        </a>
       </div>
     </>
   );

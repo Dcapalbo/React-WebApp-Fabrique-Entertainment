@@ -1,4 +1,4 @@
-import MultipleFilmsContainer from "../components/UI/multipleFilms/multipleFilmsContainer";
+import FilmCardContainer from "../components/UI/card/filmCardContainer";
 import { cleanLocalStorage } from "../utils/functions";
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
@@ -11,7 +11,7 @@ const AllFilms = () => {
       <Header>
         <Navigation />
       </Header>
-      <MultipleFilmsContainer />
+      <FilmCardContainer />
     </>
   );
 };

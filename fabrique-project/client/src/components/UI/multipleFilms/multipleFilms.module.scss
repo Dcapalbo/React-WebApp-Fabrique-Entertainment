@@ -15,25 +15,6 @@
       transition: all 0.4s cubic-bezier(1, 0, 1, 0);
       max-height: 9999px;
     }
-    .film__card__button__wrapper {
-      justify-content: space-between;
-      align-items: center;
-      display: flex;
-      .film__card__cta {
-        border: 2px solid #cc0000;
-        font-family: $Comfortaa;
-        color: $thirdColor;
-        padding: 15px 30px;
-        transition: 0.3s;
-        font-size: 20px;
-        cursor: pointer;
-        &:hover {
-          background-color: $firstColor;
-          transition: 0.3s;
-          color: $secondColor;
-        }
-      }
-    }
     h2,
     h4,
     p {
