@@ -14,16 +14,6 @@ exports.getFilms = async (req, res) => {
     res.status(404).json({ message: "Films was not found" });
   }
 };
-// POST => get single film
-exports.getFilm = async (req, res) => {
-  const { _id } = req.body;
-  try {
-    const film = await Film.findById(_id);
-    res.status(200).send(film);
-  } catch {
-    res.status(404).json({ message: "Film was not found" });
-  }
-};
 // POST => Adding a Film
 exports.postAddFilm = async (req, res) => {
   const { title, duration, director, description, year, type } = req.body;
