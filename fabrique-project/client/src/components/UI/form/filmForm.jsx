@@ -2,7 +2,6 @@ import { useForm, useController } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { filmSchema } from "../../schema/filmSchema";
 import PuffLoader from "react-spinners/PuffLoader";
-import { useNavigate } from "react-router-dom";
 import classes from "./genericForm.module.scss";
 import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
@@ -28,11 +27,9 @@ const FilmForm = () => {
   }
 
   const { register, control, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateFilm,
+    defaultValues: dataUpdateFilm ?? "",
     resolver: zodResolver(filmSchema),
   });
-
-  const navigate = useNavigate();
 
   const { errors } = formState;
 
@@ -62,7 +59,7 @@ const FilmForm = () => {
     formData.append("type", event.type);
     formData.append("file", file);
 
-    if (dataUpdateFilm !== "") {
+    if (dataUpdateFilm !== undefined) {
       formData.append("_id", dataUpdateFilm.payload._id);
     }
 
@@ -82,7 +79,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/films");
+            window.location.replace("/admin/films");
             setIsLoading(false);
           });
       } else if (
@@ -99,7 +96,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/films");
+            window.location.replace("/admin/films");
             setIsLoading(false);
           });
       }

@@ -12,7 +12,7 @@ const AboutContactForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation === "http://localhost:3000/admin/contacts/update-contact") {
+    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
       window.localStorage.removeItem("dataUpdateContact");
       setIsUpdate(false);
     } else {
@@ -21,24 +21,20 @@ const AboutContactForm = () => {
   }, [uriLocation]);
 
   let dataUpdateContact;
-  let userId = window.sessionStorage.getItem("userId");
 
   if (window.localStorage.getItem("dataUpdateContact")) {
     dataUpdateContact = JSON.parse(
       window.localStorage.getItem("dataUpdateContact")
     );
   }
-
   const { register, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateContact,
+    defaultValues: dataUpdateContact ?? "",
     resolver: zodResolver(contactSchema),
   });
 
   const navigate = useNavigate();
 
   const { errors } = formState;
-
-  console.log(formState.defaultValues);
 
   const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -59,10 +55,9 @@ const AboutContactForm = () => {
     formData.append("email", event.email);
     formData.append("phoneNumber", parseInt(event.phoneNumber));
     formData.append("file", file);
-    formData.append("_id", userId);
 
-    if (formState.defaultValues !== "") {
-      formData.append("_id", formState.defaultValues?.payload?._id);
+    if (dataUpdateContact !== undefined) {
+      formData.append("_id", dataUpdateContact.payload?._id);
     }
 
     if (formData !== {}) {
@@ -83,7 +78,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            // navigate("/admin/contacts");
+            navigate("/admin/contacts");
             setIsLoading(false);
           });
       } else if (
@@ -103,7 +98,7 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            // navigate("/admin/contacts");
+            navigate("/admin/contacts");
             setIsLoading(false);
           });
       }
@@ -118,8 +113,8 @@ const AboutContactForm = () => {
       >
         <div className={classes.form__container__item}>
           {!isUpdate
-            ? !isUpdate && <h4>Aggiungere un Contatto al Database</h4>
-            : isUpdate && <h4>Modificare un Contatto del Database</h4>}
+            ? !isUpdate && <h4>Aggiungere un contatto al Database</h4>
+            : isUpdate && <h4>Modificare un contatto del Database</h4>}
           <label htmlFor="name">Nome</label>
           <input
             defaultValue={formState.defaultValues?.payload?.name ?? ""}

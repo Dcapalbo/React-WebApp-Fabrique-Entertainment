@@ -28,9 +28,8 @@ const cleanLocalStorage = () => {
   const uriLocation = window.location.href;
   if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
     window.localStorage.removeItem("dataUpdateFilm");
-  } else if (
-    uriLocation !== "http://localhost:3000/admin/contacts/update-contact"
-  ) {
+  }
+  if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
     window.localStorage.removeItem("dataUpdateContact");
   }
 };
