@@ -6,7 +6,7 @@
   height: fit-content;
   display: flex;
   margin: auto;
-  width: 90%;
+  width: 80%;
   .detail__film__card__image {
     object-fit: contain;
     width: 45%;
@@ -24,15 +24,21 @@
     }
     .detail__film__card__info__wrapper {
       justify-content: space-between;
-      flex-wrap: wrap;
       display: flex;
       width: 100%;
       div {
         width: calc(100% / 2 - 15px);
         margin-left: 15px;
+        @media (max-width: $screen-lg-min) {
+          width: calc(120% / 2);
+          margin-left: 10px;
+        }
       }
       div:first-child {
         text-align: left;
+        @media (max-width: $screen-lg-min) {
+          width: calc(100% - 40% - 10px);
+        }
       }
     }
   }
