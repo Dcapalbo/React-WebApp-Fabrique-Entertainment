@@ -51,6 +51,7 @@ const FilmCard = (props) => {
         )
       )
     );
+    navigate("/admin/films/update-film");
   };
 
   const sendFilmIdHanlder = () => {
@@ -121,11 +122,9 @@ const FilmCard = (props) => {
       </div>
       {isAuthenticated && (
         <div className={classes.card__button__wrapper}>
-          <a href="http://localhost:3000/admin/films/update-film">
-            <button onClick={sendFilmDataHandler} className={classes.card__cta}>
-              Modifica Film
-            </button>
-          </a>
+          <button onClick={sendFilmDataHandler} className={classes.card__cta}>
+            Modifica Film
+          </button>
           <button onClick={deleteFilmHandler} className={classes.card__cta}>
             Elimina Film
           </button>
