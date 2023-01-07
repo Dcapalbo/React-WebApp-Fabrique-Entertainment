@@ -9,15 +9,28 @@ import axios from "axios";
 import React from "react";
 
 const FilmCard = (props) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-  }, []);
+    dispatch(
+      dataFilmActions.filmData({
+        title: props.title,
+        duration: props.duration,
+        director: props.director,
+        description: props.description,
+        year: props.year,
+        type: props.type,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
+    );
+  }, [dispatch, props]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const sendFilmDataHandler = () => {
