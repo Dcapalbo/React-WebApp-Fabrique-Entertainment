@@ -16,7 +16,16 @@ exports.getFilms = async (req, res) => {
 };
 // POST => Adding a Film
 exports.postAddFilm = async (req, res) => {
-  const { title, duration, director, description, year, type } = req.body;
+  const {
+    title,
+    director,
+    production,
+    screenwriter,
+    directorOfPhotography,
+    description,
+    year,
+    type,
+  } = req.body;
   const image = req.file;
 
   const errors = validationResult(req);
@@ -31,9 +40,12 @@ exports.postAddFilm = async (req, res) => {
     return {
       film: {
         title,
-        duration,
         director,
+        production,
+        screenwriter,
+        directorOfPhotography,
         description,
+        duration,
         year,
         type,
       },
@@ -47,9 +59,12 @@ exports.postAddFilm = async (req, res) => {
     if (!existingFilm) {
       const film = await Film.create({
         title,
-        duration,
         director,
+        production,
+        screenwriter,
+        directorOfPhotography,
         description,
+        duration,
         year,
         type,
         imageUrl: {
@@ -68,7 +83,17 @@ exports.postAddFilm = async (req, res) => {
 
 // POST => Editing a product
 exports.postEditFilm = async (req, res) => {
-  const { title, duration, director, description, year, type, _id } = req.body;
+  const {
+    title,
+    director,
+    production,
+    screenwriter,
+    directorOfPhotography,
+    description,
+    year,
+    type,
+    _id,
+  } = req.body;
   const image = req.file;
   const imageUrl = {
     data: fs.readFileSync("images/" + image.filename),
@@ -77,9 +102,12 @@ exports.postEditFilm = async (req, res) => {
 
   const update = {
     title,
-    duration,
     director,
+    production,
+    screenwriter,
+    directorOfPhotography,
     description,
+    duration,
     year,
     type,
     imageUrl,
@@ -99,9 +127,12 @@ exports.postEditFilm = async (req, res) => {
     return {
       film: {
         title,
-        duration,
         director,
+        production,
+        screenwriter,
+        directorOfPhotography,
         description,
+        duration,
         year,
         type,
       },

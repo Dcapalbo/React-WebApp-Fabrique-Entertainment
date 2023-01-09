@@ -7,16 +7,28 @@ const filmSchema = new Schema({
     type: String,
     required: true,
   },
-  duration: {
-    type: Number,
+  director: {
+    type: String,
     required: true,
   },
-  director: {
+  production: {
+    type: String,
+    required: true,
+  },
+  screenwriter: {
+    type: String,
+    required: true,
+  },
+  directorOfPhotography: {
     type: String,
     required: true,
   },
   description: {
     type: String,
+    required: true,
+  },
+  duration: {
+    type: Number,
     required: true,
   },
   year: {
