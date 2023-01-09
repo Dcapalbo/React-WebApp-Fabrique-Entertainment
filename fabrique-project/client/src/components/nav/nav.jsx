@@ -11,8 +11,6 @@ const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
 
   useEffect(() => {
-    console.log(filmData.map((film) => film._id));
-    console.log(dispatch);
     setIsAuthenticated(isAuth("token"));
   }, [filmData, dispatch]);
 

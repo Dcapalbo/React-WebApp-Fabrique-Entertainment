@@ -52,9 +52,12 @@ const FilmForm = () => {
     const formData = new FormData();
 
     formData.append("title", event.title);
-    formData.append("duration", parseInt(event.duration));
     formData.append("director", event.director);
+    formData.append("production", event.production);
+    formData.append("screenwriter", event.screenwriter);
+    formData.append("directorOfPhotography", event.directorOfPhotography);
     formData.append("description", event.description);
+    formData.append("duration", parseInt(event.duration));
     formData.append("year", parseInt(event.year));
     formData.append("type", event.type);
     formData.append("file", file);
@@ -122,17 +125,6 @@ const FilmForm = () => {
           {errors.title?.message && <small>{errors.title?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Duration">Durata</label>
-          <input
-            defaultValue={formState.defaultValues?.payload?.duration ?? ""}
-            {...register("duration")}
-            type="number"
-          />
-          {errors.duration?.message && (
-            <small>{errors.duration?.message}</small>
-          )}
-        </div>
-        <div className={classes.form__container__item}>
           <label htmlFor="Director">Regista</label>
           <input
             defaultValue={formState.defaultValues?.payload?.director ?? ""}
@@ -144,6 +136,43 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
+          <label htmlFor="Production">Produzione</label>
+          <input
+            defaultValue={formState.defaultValues?.payload?.production ?? ""}
+            {...register("production")}
+            type="text"
+          />
+          {errors.production?.message && (
+            <small>{errors.production?.message}</small>
+          )}
+        </div>
+        <div className={classes.form__container__item}>
+          <label htmlFor="Screenwriter">Sceneggiatore</label>
+          <input
+            defaultValue={formState.defaultValues?.payload?.screenwriter ?? ""}
+            {...register("screenwriter")}
+            type="text"
+          />
+          {errors.screenwriter?.message && (
+            <small>{errors.screenwriter?.message}</small>
+          )}
+        </div>
+        <div className={classes.form__container__item}>
+          <label htmlFor="DirectorOfPhotography">
+            Direttore della fotografia
+          </label>
+          <input
+            defaultValue={
+              formState.defaultValues?.payload?.directorOfPhotography ?? ""
+            }
+            {...register("directorOfPhotography")}
+            type="text"
+          />
+          {errors.directorOfPhotography?.message && (
+            <small>{errors.directorOfPhotography?.message}</small>
+          )}
+        </div>
+        <div className={classes.form__container__item}>
           <label htmlFor="Description">Descrizione</label>
           <textarea
             defaultValue={formState.defaultValues?.payload?.description ?? ""}
@@ -152,6 +181,17 @@ const FilmForm = () => {
           ></textarea>
           {errors.description?.message && (
             <small>{errors.description?.message}</small>
+          )}
+        </div>
+        <div className={classes.form__container__item}>
+          <label htmlFor="Duration">Durata</label>
+          <input
+            defaultValue={formState.defaultValues?.payload?.duration ?? ""}
+            {...register("duration")}
+            type="number"
+          />
+          {errors.duration?.message && (
+            <small>{errors.duration?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>
