@@ -27,6 +27,10 @@ const contactSchema = new Schema({
     type: Number,
     required: true,
   },
+  slug: {
+    type: String,
+    required: true,
+  },
   imageUrl: {
     data: Buffer,
     contentType: String,

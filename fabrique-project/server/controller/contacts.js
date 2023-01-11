@@ -25,7 +25,7 @@ exports.getContacts = (req, res) => {
 
 // POST => Adding a Contact
 exports.postAddContact = async (req, res) => {
-  const { name, surname, role, bio, email, phoneNumber } = req.body;
+  const { name, surname, role, bio, email, slug, phoneNumber } = req.body;
   const image = req.file;
 
   const errors = validationResult(req);
@@ -47,6 +47,7 @@ exports.postAddContact = async (req, res) => {
         role,
         bio,
         email,
+        slug,
         phoneNumber,
       },
       errorMessage: errors.array()[0].msg,
@@ -62,6 +63,7 @@ exports.postAddContact = async (req, res) => {
         role,
         bio,
         email,
+        slug,
         phoneNumber,
         imageUrl: {
           data: fs.readFileSync("images/" + image.filename),
@@ -79,7 +81,7 @@ exports.postAddContact = async (req, res) => {
 
 // POST => Editing a contact
 exports.postEditContact = async (req, res) => {
-  const { name, surname, role, bio, email, phoneNumber, _id } = req.body;
+  const { name, surname, role, bio, email, slug, phoneNumber, _id } = req.body;
   const image = req.file;
   const imageUrl = {
     data: fs.readFileSync("images/" + image.filename),
@@ -92,6 +94,7 @@ exports.postEditContact = async (req, res) => {
     role,
     bio,
     email,
+    slug,
     phoneNumber,
     imageUrl,
   };
@@ -112,6 +115,7 @@ exports.postEditContact = async (req, res) => {
         role,
         bio,
         email,
+        slug,
         phoneNumber,
         _id,
       },

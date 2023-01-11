@@ -23,7 +23,7 @@ const filmSchema = new Schema({
     type: String,
     required: true,
   },
-  description: {
+  synopsis: {
     type: String,
     required: true,
   },
@@ -36,6 +36,10 @@ const filmSchema = new Schema({
     required: true,
   },
   type: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
