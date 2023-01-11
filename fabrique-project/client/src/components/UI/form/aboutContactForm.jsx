@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React from "react";
+import { slugCreation } from "../../../utils/functions";
 
 const AboutContactForm = () => {
   const uriLocation = window.location.href;
@@ -54,6 +55,7 @@ const AboutContactForm = () => {
     formData.append("bio", event.bio);
     formData.append("email", event.email);
     formData.append("phoneNumber", parseInt(event.phoneNumber));
+    formData.append("slug", slugCreation(event.name));
     formData.append("file", file);
 
     if (dataUpdateContact !== undefined) {

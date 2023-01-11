@@ -12,10 +12,14 @@ const dataFilmSlice = createSlice({
       if (!dataFilmArray.length) {
         dataFilmArray.push({
           title: newFilmData.title,
-          duration: newFilmData.duration,
           director: newFilmData.director,
-          description: newFilmData.description,
+          production: newFilmData.production,
+          screenwriter: newFilmData.screenwriter,
+          directorOfPhotography: newFilmData.directorOfPhotography,
+          synopsis: newFilmData.synopsis,
+          duration: newFilmData.duration,
           year: newFilmData.year,
+          slug: newFilmData.slug,
           type: newFilmData.type,
           imageUrl: newFilmData.imageUrl,
           _id: newFilmData._id,

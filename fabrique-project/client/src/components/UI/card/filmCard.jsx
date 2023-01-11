@@ -16,10 +16,14 @@ const FilmCard = (props) => {
     dispatch(
       dataFilmActions.filmData({
         title: props.title,
-        duration: props.duration,
         director: props.director,
-        description: props.description,
+        production: props.production,
+        screenwriter: props.screenwriter,
+        directorOfPhotography: props.directorOfPhotography,
+        synopsis: props.synopsis,
+        duration: props.duration,
         year: props.year,
+        slug: props.slug,
         type: props.type,
         imageUrl: props.imageUrl,
         _id: props._id,
@@ -40,9 +44,12 @@ const FilmCard = (props) => {
         dispatch(
           dataFilmActions.filmData({
             title: props.title,
-            duration: props.duration,
             director: props.director,
-            description: props.description,
+            production: props.production,
+            screenwriter: props.screenwriter,
+            directorOfPhotography: props.directorOfPhotography,
+            synopsis: props.synopsis,
+            duration: props.duration,
             year: props.year,
             type: props.type,
             imageUrl: props.imageUrl,
@@ -61,10 +68,14 @@ const FilmCard = (props) => {
         dispatch(
           dataFilmActions.filmData({
             title: props.title,
-            duration: props.duration,
             director: props.director,
-            description: props.description,
+            production: props.production,
+            screenwriter: props.screenwriter,
+            directorOfPhotography: props.directorOfPhotography,
+            synopsis: props.synopsis,
+            duration: props.duration,
             year: props.year,
+            slug: props.slug,
             type: props.type,
             imageUrl: props.imageUrl,
             _id: props._id,
@@ -72,7 +83,7 @@ const FilmCard = (props) => {
         )
       )
     );
-    navigate(`/film/${props._id}`);
+    navigate(`/film/${props.slug}`);
   };
 
   const deleteFilmHandler = () => {
@@ -95,7 +106,7 @@ const FilmCard = (props) => {
       })
       .finally(() => {
         setIsLoading(false);
-        navigate("/admin/films");
+        window.location.replace("/admin/films");
       });
   };
 
@@ -114,10 +125,16 @@ const FilmCard = (props) => {
       <div className={classes.card__description}>
         {props.title && <h2>{props.title}</h2>}
         {props.director && <h3>{props.director}</h3>}
-        {props.description && <p>{props.description}</p>}
-        {props.type && <small>{props.type}</small>}
-        {props.year && <p>{props.year}</p>}
+        {props.production && <p>{props.production}</p>}
+        {props.screenwriter && <input hidden id={props.screenwriter} />}
+        {props.directorOfPhotography && (
+          <input hidden id={props.directorOfPhotography} />
+        )}
+        {props.synopsis && <p>{props.synopsis}</p>}
         {props.duration && <p>{props.duration}</p>}
+        {props.year && <p>{props.year}</p>}
+        {props.slug && <input hidden id={props.slug} />}
+        {props.type && <small>{props.type}</small>}
         {props._id && <input hidden id={props._id} />}
       </div>
       {isAuthenticated && (

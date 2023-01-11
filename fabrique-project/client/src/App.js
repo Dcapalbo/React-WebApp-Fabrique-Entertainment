@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Film from "./pages/Film";
 import About from "./pages/About";
 import Films from "./pages/Films";
+import Contact from "./pages/Contact";
 import NewFilm from "./pages/NewFilm";
 import AllFilms from "./pages/AllFilms";
 import { isAuth } from "./utils/isAuth";
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/films" element={<Films />} />
         <Route path="/film/:id" element={<Film />} />
+        <Route path="/contact/:id" element={<Contact />} />
         <Route path="/login" element={<LoginForm />} />
 
         {/* authenticated Routes  */}

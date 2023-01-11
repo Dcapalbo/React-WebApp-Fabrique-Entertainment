@@ -7,6 +7,7 @@ import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
+import { slugCreation } from "../../../utils/functions";
 
 const FilmForm = () => {
   const uriLocation = window.location.href;
@@ -56,9 +57,10 @@ const FilmForm = () => {
     formData.append("production", event.production);
     formData.append("screenwriter", event.screenwriter);
     formData.append("directorOfPhotography", event.directorOfPhotography);
-    formData.append("description", event.description);
+    formData.append("synopsis", event.synopsis);
     formData.append("duration", parseInt(event.duration));
     formData.append("year", parseInt(event.year));
+    formData.append("slug", slugCreation(event.title));
     formData.append("type", event.type);
     formData.append("file", file);
 
@@ -173,14 +175,14 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Description">Descrizione</label>
+          <label htmlFor="Synopsis">Sinossi</label>
           <textarea
-            defaultValue={formState.defaultValues?.payload?.description ?? ""}
-            {...register("description")}
+            defaultValue={formState.defaultValues?.payload?.synopsis ?? ""}
+            {...register("synopsis")}
             type="text"
           ></textarea>
-          {errors.description?.message && (
-            <small>{errors.description?.message}</small>
+          {errors.synopsis?.message && (
+            <small>{errors.synopsis?.message}</small>
           )}
         </div>
         <div className={classes.form__container__item}>

@@ -38,6 +38,7 @@ const AboutCardContainer = () => {
                 bio={contact.bio}
                 email={contact.email}
                 phoneNumber={contact.phoneNumber}
+                slug={contact.slug}
                 imageUrl={`data:image/png;base64,${base64ArrayBuffer(contact)}`}
                 key={contact._id}
                 _id={contact._id}

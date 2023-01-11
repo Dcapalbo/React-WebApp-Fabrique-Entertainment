@@ -17,15 +17,10 @@ const dataContactSlice = createSlice({
           bio: newContactData.bio,
           email: newContactData.email,
           phoneNumber: newContactData.phoneNumber,
+          slug: newContactData.slug,
           imageUrl: newContactData.imageUrl,
           _id: newContactData._id,
         });
-      } else {
-        console.log(
-          "here my contact to update thanks to redux",
-          dataContactArray
-        );
-        return;
       }
     },
   },

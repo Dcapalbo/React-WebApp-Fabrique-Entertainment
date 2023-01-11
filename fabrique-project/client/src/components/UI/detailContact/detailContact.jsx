@@ -3,15 +3,15 @@ import classes from "./dataFilm.module.scss";
 import { useState, useEffect } from "react";
 import React from "react";
 
-const DetailFilm = () => {
+const DetailContact = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [filmData, setFilmData] = useState({});
+  const [contactData, setContactData] = useState({});
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    if (window.localStorage.getItem("filmData")) {
-      setFilmData(JSON.parse(window.localStorage.getItem("filmData")));
+    if (window.localStorage.getItem("contactData")) {
+      setContactData(JSON.parse(window.localStorage.getItem("contactData")));
       setIsLoading(false);
     } else {
       setError(true);
@@ -22,99 +22,69 @@ const DetailFilm = () => {
     <section className={classes.detail__film__container}>
       <img
         className={classes.detail__film__card__image}
-        src={filmData.payload?.imageUrl ?? ""}
-        alt={filmData.payload?.title ?? ""}
-        title={filmData.payload?.title ?? ""}
+        src={contactData.payload?.imageUrl ?? ""}
+        alt={contactData.payload?.name ?? ""}
+        name={contactData.payload?.name ?? ""}
         loading="lazy"
       />
       <div className={classes.detail__film__card__info}>
-        {filmData.payload?.title && (
+        {contactData.payload?.name && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <h2>Titolo:</h2>
             </div>
             <div>
-              <h2>{filmData.payload?.title ?? ""}</h2>
+              <h2>{contactData.payload?.name ?? ""}</h2>
             </div>
           </div>
         )}
-        {filmData.payload?.director && (
+        {contactData.payload?.surname && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <h2>Regista:</h2>
             </div>
             <div>
-              <h2>{filmData.payload?.director ?? ""}</h2>
+              <h2>{contactData.payload?.surname ?? ""}</h2>
             </div>
           </div>
         )}
-        {filmData.payload?.production && (
+        {contactData.payload?.role && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <h2>Produzione:</h2>
             </div>
             <div>
-              <h2>{filmData.payload?.production ?? ""}</h2>
+              <h2>{contactData.payload?.role ?? ""}</h2>
             </div>
           </div>
         )}
-        {filmData.payload?.screenwriter && (
+        {contactData.payload?.bio && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <p>Sceneggiatore:</p>
             </div>
             <div>
-              <p>{filmData.payload?.screenwriter ?? ""}</p>
+              <p>{contactData.payload?.bio ?? ""}</p>
             </div>
           </div>
         )}
-        {filmData.payload?.directorOfPhotography && (
+        {contactData.payload?.email && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <p>Direttore della fotografia:</p>
             </div>
             <div>
-              <p>{filmData.payload?.directorOfPhotography ?? ""}</p>
+              <p>{contactData.payload?.email ?? ""}</p>
             </div>
           </div>
         )}
-        {filmData.payload?.synopsis && (
+        {contactData.payload?.phoneNumber && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
               <p>Sinossi:</p>
             </div>
             <div>
-              <p>{filmData.payload?.synopsis ?? ""}</p>
-            </div>
-          </div>
-        )}
-        {filmData.payload?.duration && (
-          <div className={classes.detail__film__card__info__wrapper}>
-            <div>
-              <p>Durata:</p>
-            </div>
-            <div>
-              <p>{filmData.payload?.duration ?? ""}</p>
-            </div>
-          </div>
-        )}
-        {filmData.payload?.year && (
-          <div className={classes.detail__film__card__info__wrapper}>
-            <div>
-              <p>Anno:</p>
-            </div>
-            <div>
-              <p>{filmData.payload?.year ?? ""}</p>
-            </div>
-          </div>
-        )}
-        {filmData.payload?.type && (
-          <div className={classes.detail__film__card__info__wrapper}>
-            <div>
-              <p>Tipologia:</p>
-            </div>
-            <div>
-              <p>{filmData.payload?.type ?? ""}</p>
+              <p>{contactData.payload?.phoneNumber ?? ""}</p>
             </div>
           </div>
         )}
@@ -135,7 +105,7 @@ const DetailFilm = () => {
       <div>
         {error && (
           <small>
-            Il film selezionato non è stato trovato, tornare alla pagina
+            Il contatto selezionato non è stato trovato, tornare alla pagina
             precedente
           </small>
         )}
@@ -144,4 +114,4 @@ const DetailFilm = () => {
   );
 };
 
-export default DetailFilm;
+export default DetailContact;

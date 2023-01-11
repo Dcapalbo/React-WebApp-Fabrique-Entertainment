@@ -19,17 +19,17 @@ const filmSchema = z.object({
       message:
         "Il nome della società di produzione deve essere di almeno 6 caratteri",
     })
-    .max(30, {
+    .max(50, {
       message:
-        "Il nome della società di produzione non può superare i 30 caratteri",
+        "Il nome della società di produzione non può superare i 50 caratteri",
     }),
   screenwriter: z
     .string()
     .min(6, {
       message: "il nome dello sceneggiatore deve essere di almeno 6 caratteri",
     })
-    .max(30, {
-      message: "il nome dello sceneggiatore non può superare i 40 caratteri",
+    .max(150, {
+      message: "il nome dello sceneggiatore non può superare i 150 caratteri",
     }),
   directorOfPhotography: z
     .string()
@@ -41,7 +41,7 @@ const filmSchema = z.object({
       message:
         "il nome del direttore della fotografia non può superare i 40 caratteri",
     }),
-  description: z
+  synopsis: z
     .string()
     .min(10, {
       message:

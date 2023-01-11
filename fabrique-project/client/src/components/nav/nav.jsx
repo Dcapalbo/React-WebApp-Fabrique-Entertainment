@@ -38,7 +38,7 @@ const Navigation = () => {
             filmData.map((filmData, id) => (
               <ul className={classes.navigation__films__dropdown}>
                 <li key={id}>
-                  <Link to={`/films/${filmData._id}`}>{filmData.title}</Link>
+                  <Link to={`/films/${filmData.slug}`}>{filmData.title}</Link>
                 </li>
               </ul>
             ))}

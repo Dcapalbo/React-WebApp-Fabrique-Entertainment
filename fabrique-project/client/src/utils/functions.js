@@ -34,4 +34,15 @@ const cleanLocalStorage = () => {
   }
 };
 
-export { cleanLocalStorage, genericLength, decodeToken, emailCheck, isEmpty };
+const slugCreation = (string) => {
+  return string.toLowerCase().replaceAll(" ", "-");
+};
+
+export {
+  cleanLocalStorage,
+  genericLength,
+  decodeToken,
+  emailCheck,
+  isEmpty,
+  slugCreation,
+};

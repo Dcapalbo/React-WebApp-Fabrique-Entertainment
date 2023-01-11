@@ -33,10 +33,14 @@ const FilmCardContainer = () => {
             <FilmCard
               title={film.title}
               director={film.director}
-              description={film.description}
+              production={film.production}
+              screenwriter={film.screenwriter}
+              directorOfPhotography={film.directorOfPhotography}
+              synopsis={film.synopsis}
               imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
               duration={film.duration}
               year={film.year}
+              slug={film.slug}
               type={film.type}
               key={film._id}
               _id={film._id}
