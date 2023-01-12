@@ -31,27 +31,21 @@ const DetailAboutContact = () => {
         {contactData.payload?.name && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
-              <h2>Titolo:</h2>
+              <h2>Nome:</h2>
             </div>
             <div>
-              <h2>{contactData.payload?.name ?? ""}</h2>
-            </div>
-          </div>
-        )}
-        {contactData.payload?.surname && (
-          <div className={classes.detail__film__card__info__wrapper}>
-            <div>
-              <h2>Regista:</h2>
-            </div>
-            <div>
-              <h2>{contactData.payload?.surname ?? ""}</h2>
+              <h2>
+                {contactData.payload?.name +
+                  " " +
+                  contactData.payload?.surname ?? ""}
+              </h2>
             </div>
           </div>
         )}
         {contactData.payload?.role && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
-              <h2>Produzione:</h2>
+              <h2>Ruolo:</h2>
             </div>
             <div>
               <h2>{contactData.payload?.role ?? ""}</h2>
@@ -61,7 +55,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.bio && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
-              <p>Sceneggiatore:</p>
+              <p>Biografia:</p>
             </div>
             <div>
               <p>{contactData.payload?.bio ?? ""}</p>
@@ -71,7 +65,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.email && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
-              <p>Direttore della fotografia:</p>
+              <p>Email:</p>
             </div>
             <div>
               <p>{contactData.payload?.email ?? ""}</p>
@@ -81,7 +75,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.phoneNumber && (
           <div className={classes.detail__film__card__info__wrapper}>
             <div>
-              <p>Sinossi:</p>
+              <p>Numero di telefono:</p>
             </div>
             <div>
               <p>{contactData.payload?.phoneNumber ?? ""}</p>
