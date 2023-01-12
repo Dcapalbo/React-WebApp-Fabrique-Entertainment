@@ -26,10 +26,10 @@ const decodeToken = (token) => {
 
 const cleanLocalStorage = () => {
   const uriLocation = window.location.href;
-  if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
+  if (checkSubString(uriLocation, "/admin/films/update-film") !== true) {
     window.localStorage.removeItem("dataUpdateFilm");
   }
-  if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
+  if (checkSubString(uriLocation, "/admin/contacts/update-contact") !== true) {
     window.localStorage.removeItem("dataUpdateContact");
   }
   if (checkSubString(uriLocation, "/about/") !== true) {
