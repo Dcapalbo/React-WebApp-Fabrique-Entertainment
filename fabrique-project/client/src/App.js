@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import Film from "./pages/Film";
 import About from "./pages/About";
 import Films from "./pages/Films";
-import Contact from "./pages/Contact";
 import NewFilm from "./pages/NewFilm";
 import AllFilms from "./pages/AllFilms";
 import { isAuth } from "./utils/isAuth";
@@ -20,6 +19,7 @@ import UpdateFilm from "./pages/UpdateFilm";
 import AuthSignUp from "./pages/AuthSignUp";
 import NewContact from "./pages/NewContact";
 import AllContacts from "./pages/AllContacts";
+import AboutContact from "./pages/AboutContact";
 import UpdateContact from "./pages/UpdateContact";
 
 const App = () => {
@@ -37,7 +37,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/films" element={<Films />} />
         <Route path="/film/:id" element={<Film />} />
-        <Route path="/contact/:id" element={<Contact />} />
+        <Route path="/about/:id" element={<AboutContact />} />
         <Route path="/login" element={<LoginForm />} />
 
         {/* authenticated Routes  */}

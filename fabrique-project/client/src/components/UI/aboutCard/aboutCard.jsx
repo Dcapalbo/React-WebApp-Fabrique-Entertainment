@@ -75,7 +75,7 @@ const AboutCard = (props) => {
         )
       )
     );
-    navigate(`/contact/${props.slug}`);
+    navigate(`/about/${props.slug}`);
   };
 
   const deleteContactHandler = () => {

@@ -2,9 +2,9 @@ import { cleanLocalStorage } from "../utils/functions";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import Navigation from "../components/nav/nav";
-import DetailContact from "../components/UI/detailContact/detailContact";
+import DetailAbout from "../components/UI/detailAbout/detailAbout";
 
-const Contact = () => {
+const About = () => {
   cleanLocalStorage();
 
   return (
@@ -12,10 +12,10 @@ const Contact = () => {
       <Header>
         <Navigation />
       </Header>
-      <DetailContact />
+      <DetailAbout />
       <Footer />
     </>
   );
 };
 
-export default Contact;
+export default About;

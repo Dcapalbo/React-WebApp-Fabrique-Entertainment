@@ -32,10 +32,20 @@ const cleanLocalStorage = () => {
   if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
     window.localStorage.removeItem("dataUpdateContact");
   }
+  if (checkSubString(uriLocation, "/about/") !== true) {
+    window.localStorage.removeItem("contactData");
+  }
+  if (checkSubString(uriLocation, "/film/") !== true) {
+    window.localStorage.removeItem("filmData");
+  }
 };
 
 const slugCreation = (string) => {
   return string.toLowerCase().replaceAll(" ", "-");
+};
+
+const checkSubString = (uri, subString) => {
+  return uri.includes(subString);
 };
 
 export {

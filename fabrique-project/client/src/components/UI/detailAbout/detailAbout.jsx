@@ -3,7 +3,7 @@ import classes from "./dataFilm.module.scss";
 import { useState, useEffect } from "react";
 import React from "react";
 
-const DetailContact = () => {
+const DetailAboutContact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [contactData, setContactData] = useState({});
   const [error, setError] = useState(null);
@@ -114,4 +114,4 @@ const DetailContact = () => {
   );
 };
 
-export default DetailContact;
+export default DetailAboutContact;
