@@ -16,11 +16,6 @@ const PORT = process.env.PORT || 5000;
 
 // inizialize express
 const app = express();
-// Store the sessions collection
-const store = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: "sessions",
-});
 // Building file Storage for the images folder by using multer
 // diskStorage implementation
 const storage = multer.diskStorage({

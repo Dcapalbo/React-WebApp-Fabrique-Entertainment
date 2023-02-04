@@ -1,8 +1,7 @@
-const fs = require("fs");
-const Contact = require("../model/contact");
 const { validationResult } = require("express-validator");
+const Contact = require("../model/contact");
 const fileHelper = require("../util/file");
-const { log } = require("console");
+const fs = require("fs");
 
 // GET => Getting all contacts
 exports.getContacts = (req, res) => {
@@ -31,16 +30,10 @@ exports.postAddContact = async (req, res) => {
   const errors = validationResult(req);
 
   // if there are errors
+  // Send a response with the status and a json
   if (!errors.isEmpty()) {
     console.log("POST adding contacts errors: ", errors.array());
     res.status(422).json({
-      message: "There was a problem with the validation process",
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-    // then return the status and the route
-    return {
-      //   hasError: true,
       contact: {
         name,
         surname,
@@ -50,9 +43,10 @@ exports.postAddContact = async (req, res) => {
         slug,
         phoneNumber,
       },
+      message: "There was a problem with the validation process",
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
-    };
+    });
   }
   try {
     const existingContact = await Contact.findOne({ name });
@@ -101,14 +95,10 @@ exports.postEditContact = async (req, res) => {
 
   const errors = validationResult(req);
   // if there are errors
+  // Send a response with the status and a json
   if (!errors.isEmpty()) {
     console.log("POST adding contacts errors: ", errors.array());
     res.status(422).json({
-      message: "There was a problem with the validation process",
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-    return {
       contact: {
         name,
         surname,
@@ -119,10 +109,10 @@ exports.postEditContact = async (req, res) => {
         phoneNumber,
         _id,
       },
-      // take the first error message from the array
+      message: "There was a problem with the validation process",
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
-    };
+    });
   }
   try {
     const updatedContact = await Contact.findByIdAndUpdate(_id, update, {

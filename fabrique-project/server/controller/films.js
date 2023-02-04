@@ -1,7 +1,7 @@
-const fs = require("fs");
-const Film = require("../model/film");
 const { validationResult } = require("express-validator");
 const fileHelper = require("../util/file");
+const Film = require("../model/film");
+const fs = require("fs");
 
 // GET => Getting all films
 exports.getFilms = async (req, res) => {
@@ -32,14 +32,9 @@ exports.postAddFilm = async (req, res) => {
 
   const errors = validationResult(req);
   // if there are errors
+  // Send a response with the status and a json
   if (!errors.isEmpty()) {
-    // then return the status and the route
     res.status(422).json({
-      message: "Validation errors are present",
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-    return {
       film: {
         title,
         director,
@@ -52,9 +47,10 @@ exports.postAddFilm = async (req, res) => {
         slug,
         type,
       },
+      message: "Validation errors are present",
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
-    };
+    });
   }
   // saving the data inside the db
   try {
@@ -124,14 +120,9 @@ exports.postEditFilm = async (req, res) => {
 
   const errors = validationResult(req);
   // if there are errors
+  // Send a response with the status and a json
   if (!errors.isEmpty()) {
-    // then return the status and the route
     res.status(422).json({
-      message: "Validation errors are present",
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-    return {
       film: {
         title,
         director,
@@ -144,9 +135,10 @@ exports.postEditFilm = async (req, res) => {
         slug,
         type,
       },
+      message: "Validation errors are present",
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
-    };
+    });
   }
   try {
     const updatedFilm = await Film.findByIdAndUpdate(_id, update, {
