@@ -8,7 +8,7 @@
   padding: 12px;
   width: 100%;
   .film__card__description {
-    transition: all 0.2s cubic-bezier(0, 1, 0, 1);
+    transition: all 0.05s cubic-bezier(0, 1, 0, 1);
     padding-top: 12px;
     text-align: right;
     overflow: hidden;
@@ -29,9 +29,12 @@
     cursor: pointer;
     width: 50%;
     &:hover + .film__card__description {
-      transition: all 0.2s cubic-bezier(1, 0, 1, 0);
+      transition: all 0.05s cubic-bezier(1, 0, 1, 0);
       overflow: visible;
       max-width: 9999px;
     }
+  }
+  &:nth-child(even) {
+    flex-direction: row-reverse;
   }
 }
