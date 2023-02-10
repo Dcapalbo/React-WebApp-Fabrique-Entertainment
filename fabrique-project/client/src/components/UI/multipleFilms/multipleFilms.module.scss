@@ -2,19 +2,17 @@
 @import "../../../assets/mixin.scss";
 
 .film__card__container {
+  justify-content: space-between;
   height: fit-content;
+  display: flex;
   padding: 12px;
   width: 100%;
   .film__card__description {
-    transition: all 0.4s cubic-bezier(0, 1, 0, 1);
-    text-align: center;
-    padding-top: 30px;
+    transition: all 0.2s cubic-bezier(0, 1, 0, 1);
+    padding-top: 12px;
+    text-align: right;
     overflow: hidden;
-    max-height: 0;
-    &:hover {
-      transition: all 0.4s cubic-bezier(1, 0, 1, 0);
-      max-height: 9999px;
-    }
+    max-width: 0;
     h2,
     h4,
     p {
@@ -29,11 +27,11 @@
   .film__card {
     object-fit: cover;
     cursor: pointer;
-    height: 550px;
-    width: 100%;
+    width: 50%;
     &:hover + .film__card__description {
-      transition: all 0.4s cubic-bezier(1, 0, 1, 0);
-      max-height: 9999px;
+      transition: all 0.2s cubic-bezier(1, 0, 1, 0);
+      overflow: visible;
+      max-width: 9999px;
     }
   }
 }

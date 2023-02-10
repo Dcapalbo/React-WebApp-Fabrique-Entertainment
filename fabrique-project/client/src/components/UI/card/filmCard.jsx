@@ -14,20 +14,22 @@ const FilmCard = (props) => {
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
     dispatch(
-      dataFilmActions.filmData({
-        title: props.title,
-        director: props.director,
-        production: props.production,
-        screenwriter: props.screenwriter,
-        directorOfPhotography: props.directorOfPhotography,
-        synopsis: props.synopsis,
-        duration: props.duration,
-        year: props.year,
-        slug: props.slug,
-        type: props.type,
-        imageUrl: props.imageUrl,
-        _id: props._id,
-      })
+      dataFilmActions.filmData([
+        {
+          title: props.title,
+          director: props.director,
+          production: props.production,
+          screenwriter: props.screenwriter,
+          directorOfPhotography: props.directorOfPhotography,
+          synopsis: props.synopsis,
+          duration: props.duration,
+          year: props.year,
+          slug: props.slug,
+          type: props.type,
+          imageUrl: props.imageUrl,
+          _id: props._id,
+        },
+      ])
     );
   }, [dispatch, props]);
 

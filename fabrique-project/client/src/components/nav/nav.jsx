@@ -12,6 +12,7 @@ const Navigation = () => {
 
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
+    console.log(filmData);
   }, [filmData, dispatch]);
 
   return (
@@ -21,6 +22,7 @@ const Navigation = () => {
           className={classes.navigation__logo}
           src={logo}
           alt="logo fabrique entertainment"
+          title="logo fabrique entertainment"
         />
       </a>
       <ul className={classes.navigation}>
@@ -38,7 +40,7 @@ const Navigation = () => {
             filmData.map((filmData, id) => (
               <ul className={classes.navigation__films__dropdown}>
                 <li key={id}>
-                  <Link to={`/films/${filmData.slug}`}>{filmData.title}</Link>
+                  <Link to={`/film/${filmData.slug}`}>{filmData.title}</Link>
                 </li>
               </ul>
             ))}
