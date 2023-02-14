@@ -1,0 +1,83 @@
+@import "../../../assets/variables.scss";
+@import "../../../assets/mixin.scss";
+
+.film__card__container {
+  justify-content: space-between;
+  margin-bottom: 150px;
+  text-align: right;
+  display: flex;
+  padding: 12px;
+  width: 100%;
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+    text-align: left;
+  }
+  @media (max-width: $screen-md-min) {
+    margin-bottom: 30px;
+    &:nth-child(even) {
+      flex-direction: column;
+      text-align: center;
+    }
+    &:nth-child(odd) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  @media (max-width: $screen-md-min) {
+    margin-bottom: 30px;
+    &:nth-child(even) {
+      flex-direction: column;
+      text-align: center;
+    }
+    &:nth-child(odd) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  .film__card__description {
+    transition: all 0.05s cubic-bezier(0, 1, 0, 1);
+    padding-top: 12px;
+    overflow: hidden;
+    max-height: 0px;
+    max-width: 0;
+    @media (max-width: $screen-md-min) {
+      text-align: center;
+      overflow: visible;
+      min-height: 450px;
+      min-width: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      text-align: center;
+      overflow: visible;
+      min-height: 450px;
+      min-width: 100%;
+    }
+    h2,
+    h4,
+    p {
+      margin-bottom: 20px;
+    }
+    small,
+    button {
+      margin-bottom: 20px;
+      display: block;
+    }
+  }
+  .film__card {
+    object-fit: cover;
+    cursor: pointer;
+    height: 100%;
+    max-width: 60%;
+    @media (max-width: $screen-md-min) {
+      min-width: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      min-width: 100%;
+    }
+    &:hover + .film__card__description {
+      transition: all 0.05s cubic-bezier(1, 0, 1, 0);
+      overflow: visible;
+      max-width: 9999px;
+    }
+  }
+}

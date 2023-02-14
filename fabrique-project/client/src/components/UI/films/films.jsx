@@ -1,11 +1,43 @@
-import classes from "./multipleFilms.module.scss";
+import { dataFilmActions } from "../../../store/data-film-slice";
+import classes from "./films.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import React from "react";
 
-const MultipleFilms = (props) => {
+const Films = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const sendFilmIdHanlder = () => {
+    window.localStorage.setItem(
+      "filmData",
+      JSON.stringify(
+        dispatch(
+          dataFilmActions.filmData({
+            title: props.title,
+            director: props.director,
+            production: props.production,
+            screenwriter: props.screenwriter,
+            directorOfPhotography: props.directorOfPhotography,
+            synopsis: props.synopsis,
+            duration: props.duration,
+            year: props.year,
+            slug: props.slug,
+            type: props.type,
+            imageUrl: props.imageUrl,
+            _id: props._id,
+          })
+        )
+      )
+    );
+    navigate(`/film/${props.slug}`);
+  };
+
   return (
     <div className={classes.film__card__container}>
       {props.imageUrl && (
         <img
+          onClick={sendFilmIdHanlder}
           className={classes.film__card}
           src={props?.imageUrl ?? ""}
           alt={props?.title ?? ""}
@@ -31,4 +63,4 @@ const MultipleFilms = (props) => {
   );
 };
 
-export default MultipleFilms;
+export default Films;

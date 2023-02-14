@@ -1,4 +1,4 @@
-import MultipleFilmsContainer from "../components/UI/multipleFilms/multipleFilmsContainer";
+import FilmsContainer from "../components/UI/films/filmsContainer";
 import { cleanLocalStorage } from "../utils/functions";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
@@ -12,7 +12,7 @@ const Films = () => {
       <Header>
         <Navigation />
       </Header>
-      <MultipleFilmsContainer />
+      <FilmsContainer />
       <Footer />
     </>
   );

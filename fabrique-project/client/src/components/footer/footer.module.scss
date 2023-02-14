@@ -2,9 +2,9 @@
 @import "../../assets/mixin.scss";
 
 footer {
-  height: 100px;
   padding: 20px;
   width: 100%;
+  z-index: 1;
   .footer__container {
     @include flex-between;
     height: 100%;

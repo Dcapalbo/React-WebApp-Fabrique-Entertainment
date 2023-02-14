@@ -1,10 +1,10 @@
-import classes from "./multipleFilmsContainer.module.scss";
+import classes from "./filmsContainer.module.scss";
 import base64ArrayBuffer from "../../../utils/base64";
 import PuffLoader from "react-spinners/PuffLoader";
 import ApiGetHook from "../../../hooks/apiGetHook";
-import MultipleFilms from "./multipleFilms";
+import Films from "./films";
 
-const MultipleFilmsContainer = () => {
+const FilmsContainer = () => {
   const { fabriqueData, loading, error } = ApiGetHook(
     "http://localhost:5000/get-films"
   );
@@ -30,7 +30,7 @@ const MultipleFilmsContainer = () => {
       <section className={classes.wrapper__films__container}>
         {fabriqueData.length > 0 ? (
           fabriqueData.map((film) => (
-            <MultipleFilms
+            <Films
               title={film.title}
               director={film.director}
               production={film.production}
@@ -39,6 +39,7 @@ const MultipleFilmsContainer = () => {
               synopsis={film.synopsis}
               duration={film.duration}
               year={film.year}
+              slug={film.slug}
               type={film.type}
               imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
               key={film._id}
@@ -56,4 +57,4 @@ const MultipleFilmsContainer = () => {
   }
 };
 
-export default MultipleFilmsContainer;
+export default FilmsContainer;
