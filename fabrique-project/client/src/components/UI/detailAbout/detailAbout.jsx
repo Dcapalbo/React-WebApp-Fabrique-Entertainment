@@ -1,5 +1,5 @@
 import PuffLoader from "react-spinners/PuffLoader";
-import classes from "./dataFilm.module.scss";
+import classes from "./dataFilmAbout.module.scss";
 import { useState, useEffect } from "react";
 import React from "react";
 
@@ -19,17 +19,17 @@ const DetailAboutContact = () => {
   }, []);
 
   return (
-    <section className={classes.detail__film__container}>
+    <section className={classes.detail__film__about__container}>
       <img
-        className={classes.detail__film__card__image}
+        className={classes.detail__film__about__card__image}
         src={contactData.payload?.imageUrl ?? ""}
         alt={contactData.payload?.name ?? ""}
         name={contactData.payload?.name ?? ""}
         loading="lazy"
       />
-      <div className={classes.detail__film__card__info}>
+      <div className={classes.detail__film__about__card__info}>
         {contactData.payload?.name && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <h2>Nome:</h2>
             </div>
@@ -43,7 +43,7 @@ const DetailAboutContact = () => {
           </div>
         )}
         {contactData.payload?.role && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <h2>Ruolo:</h2>
             </div>
@@ -53,7 +53,7 @@ const DetailAboutContact = () => {
           </div>
         )}
         {contactData.payload?.bio && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Biografia:</p>
             </div>
@@ -63,7 +63,7 @@ const DetailAboutContact = () => {
           </div>
         )}
         {contactData.payload?.email && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Email:</p>
             </div>
@@ -73,7 +73,7 @@ const DetailAboutContact = () => {
           </div>
         )}
         {contactData.payload?.phoneNumber && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Numero di telefono:</p>
             </div>

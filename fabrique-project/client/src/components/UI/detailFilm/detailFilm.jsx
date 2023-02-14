@@ -1,5 +1,5 @@
 import PuffLoader from "react-spinners/PuffLoader";
-import classes from "./dataFilm.module.scss";
+import classes from "./dataFilmAbout.module.scss";
 import { useState, useEffect } from "react";
 import React from "react";
 
@@ -19,17 +19,17 @@ const DetailFilm = () => {
   }, []);
 
   return (
-    <section className={classes.detail__film__container}>
+    <section className={classes.detail__film__about__container}>
       <img
-        className={classes.detail__film__card__image}
+        className={classes.detail__film__about__card__image}
         src={filmData.payload?.imageUrl ?? ""}
         alt={filmData.payload?.title ?? ""}
         title={filmData.payload?.title ?? ""}
         loading="lazy"
       />
-      <div className={classes.detail__film__card__info}>
+      <div className={classes.detail__film__about__card__info}>
         {filmData.payload?.title && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <h2>Titolo:</h2>
             </div>
@@ -39,7 +39,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.director && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <h2>Regista:</h2>
             </div>
@@ -49,7 +49,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.production && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <h2>Produzione:</h2>
             </div>
@@ -59,7 +59,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.screenwriter && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Sceneggiatore:</p>
             </div>
@@ -69,7 +69,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.directorOfPhotography && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Direttore della fotografia:</p>
             </div>
@@ -79,7 +79,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.synopsis && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Sinossi:</p>
             </div>
@@ -89,7 +89,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.duration && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Durata:</p>
             </div>
@@ -99,7 +99,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.year && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Anno:</p>
             </div>
@@ -109,7 +109,7 @@ const DetailFilm = () => {
           </div>
         )}
         {filmData.payload?.type && (
-          <div className={classes.detail__film__card__info__wrapper}>
+          <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
               <p>Tipologia:</p>
             </div>

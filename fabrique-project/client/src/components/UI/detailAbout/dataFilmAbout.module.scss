@@ -1,7 +1,7 @@
 @import "../../../assets/variables.scss";
 @import "../../../assets/mixin.scss";
 
-.detail__film__container {
+.detail__film__about__container {
   justify-content: space-between;
   height: fit-content;
   display: flex;
@@ -15,7 +15,7 @@
     flex-direction: column;
     width: 90%;
   }
-  .detail__film__card__image {
+  .detail__film__about__card__image {
     object-fit: contain;
     width: 45%;
     @media (max-width: $screen-sm-min) {
@@ -25,7 +25,7 @@
       width: 100%;
     }
   }
-  .detail__film__card__info {
+  .detail__film__about__card__info {
     width: calc(100% - 45%);
     @include flex-column;
     padding: 10px 0px;
@@ -42,7 +42,7 @@
     p {
       margin-bottom: 10px;
     }
-    .detail__film__card__info__wrapper {
+    .detail__film__about__card__info__wrapper {
       justify-content: space-between;
       display: flex;
       width: 100%;
