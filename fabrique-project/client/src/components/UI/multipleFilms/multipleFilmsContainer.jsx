@@ -32,9 +32,12 @@ const MultipleFilmsContainer = () => {
           fabriqueData.map((film) => (
             <MultipleFilms
               title={film.title}
-              duration={film.duration}
               director={film.director}
-              description={film.description}
+              production={film.production}
+              screenwriter={film.screenwriter}
+              directorOfPhotography={film.directorOfPhotography}
+              synopsis={film.synopsis}
+              duration={film.duration}
               year={film.year}
               type={film.type}
               imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}

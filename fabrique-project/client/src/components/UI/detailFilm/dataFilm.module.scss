@@ -7,9 +7,23 @@
   display: flex;
   margin: auto;
   width: 80%;
+  @media (max-width: $screen-sm-min) {
+    flex-direction: column;
+    width: 90%;
+  }
+  @media (max-width: $screen-md-min) {
+    flex-direction: column;
+    width: 90%;
+  }
   .detail__film__card__image {
     object-fit: contain;
     width: 45%;
+    @media (max-width: $screen-sm-min) {
+      width: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      width: 100%;
+    }
   }
   .detail__film__card__info {
     width: calc(100% - 45%);
@@ -17,6 +31,12 @@
     padding: 10px 0px;
     text-align: right;
     height: 100%;
+    @media (max-width: $screen-sm-min) {
+      width: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      width: 100%;
+    }
     h2,
     h3,
     p {
