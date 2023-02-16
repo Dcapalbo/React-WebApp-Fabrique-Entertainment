@@ -15,6 +15,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  resetLink: {
+    data: String,
+    default: "",
+  },
 });
 
 // / exporting the model and the Schema

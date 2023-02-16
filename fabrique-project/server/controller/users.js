@@ -1,10 +1,11 @@
 const { validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
 const User = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-// POST => Adding a User
-exports.postAddUser = async (req, res) => {
+// POST => create User
+exports.createUser = async (req, res) => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
 
@@ -48,7 +49,7 @@ exports.postAddUser = async (req, res) => {
   }
 };
 // POST => Login in the User
-exports.postLoginUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -85,5 +86,111 @@ exports.postLoginUser = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+//PUT => forgot password
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(400).json({
+        message: "The user with this email does not exist",
+      });
+    }
+
+    const token = jwt.sign({ _id: existingUser._id }, "secret2017_05_03", {
+      expiresIn: "20m",
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "capalbodomenico@gmail.com",
+        pass: "ppaiaabgepyqlcov",
+      },
+    });
+
+    const automaticEmailData = {
+      from: "capalbodomenico@gmail.com",
+      to: email,
+      subject: "Fabrique entertainment link per il reset della password",
+      html: `
+            <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
+            <a href="http://localhost:3000/reset-password">${token}</a>
+        `,
+    };
+
+    await User.updateOne({ resetLink: token });
+    transporter.sendMail(automaticEmailData, (err, info) => {
+      if (err) {
+        console.log("Here my reset password error: ", err);
+        return;
+      }
+      return res.status(201).json({
+        message:
+          "The link for the password reset has been sent: " + info.response,
+      });
+    });
+  } catch (error) {
+    return res
+      .status(403)
+      .json({ message: "Was not possible to reset the password" });
+  }
+};
+
+//PUT => reset password
+exports.resetPassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(400).json({
+        message: "The user with this email does not exist",
+      });
+    }
+
+    const token = jwt.sign({ _id: existingUser._id }, "secret2017_05_03", {
+      expiresIn: "20m",
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "capalbodomenico@gmail.com",
+        pass: "ppaiaabgepyqlcov",
+      },
+    });
+
+    const automaticEmailData = {
+      from: "capalbodomenico@gmail.com",
+      to: email,
+      subject: "Fabrique entertainment link per il reset della password",
+      html: `
+            <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
+            <a href="http://localhost:3000/reset-password">${token}</a>
+        `,
+    };
+
+    await User.updateOne({ resetLink: token });
+    transporter.sendMail(automaticEmailData, (err, info) => {
+      if (err) {
+        console.log("Here my reset password error: ", err);
+        return;
+      }
+      return res.status(201).json({
+        message:
+          "The link for the password reset has been sent: " + info.response,
+      });
+    });
+  } catch (error) {
+    return res
+      .status(403)
+      .json({ message: "Was not possible to reset the password" });
   }
 };

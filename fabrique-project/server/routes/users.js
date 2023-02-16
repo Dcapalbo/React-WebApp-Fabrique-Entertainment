@@ -1,7 +1,12 @@
-const usersController = require("../controller/users");
 const { check } = require("express-validator");
 const express = require("express");
 const router = express.Router();
+const {
+  createUser,
+  loginUser,
+  forgotPassword,
+  resetPassword,
+} = require("../controller/users");
 
 //sign-up => POST
 router.post(
@@ -11,7 +16,7 @@ router.post(
     check("email").isString().isLength({ min: 10, max: 40 }).trim(),
     check("password").isString().isLength({ min: 10, max: 30 }).trim(),
   ],
-  usersController.postAddUser
+  createUser
 );
 //login => POST
 router.post(
@@ -20,7 +25,24 @@ router.post(
     check("email").isString().isLength({ min: 10, max: 40 }).trim(),
     check("password").isString().isLength({ min: 3, max: 30 }).trim(),
   ],
-  usersController.postLoginUser
+  loginUser
+);
+
+//forgot password => PUT
+router.put(
+  "/forgot-password",
+  [check("email").isString().isLength({ min: 10, max: 40 }).trim()],
+  forgotPassword
+);
+
+//reset password => PUT
+router.put(
+  "/reset-password",
+  [
+    check("email").isString().isLength({ min: 10, max: 40 }).trim(),
+    check("password").isString().isLength({ min: 3, max: 30 }).trim(),
+  ],
+  resetPassword
 );
 
 module.exports = router;
