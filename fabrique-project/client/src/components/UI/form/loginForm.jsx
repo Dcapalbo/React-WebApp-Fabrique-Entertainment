@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
@@ -49,7 +50,7 @@ const LoginForm = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>Esegui il login</h4>
+          <h4>Login</h4>
           <label htmlFor="Email">Email</label>
           <input {...register("email")} type="email" />
           {errors.email?.message && <small>{errors.email?.message}</small>}
@@ -67,6 +68,9 @@ const LoginForm = () => {
           <small>{errors.confirmPassword?.message}</small>
         )}
         <div className={classes.form__container__item}>
+          <Link to="/forgot-password">
+            Se hai dimenticato la password clicca qui
+          </Link>
           <button className={classes.secondary__button} type="submit">
             Accedi
           </button>

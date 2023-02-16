@@ -33,6 +33,12 @@
     input {
       width: 100%;
     }
+    a {
+      margin-bottom: 20px;
+      color: $thirdColor;
+      display: block;
+      cursor: pointer;
+    }
   }
   @media (max-width: $screen-lg-min) {
     padding: 10px 30px;

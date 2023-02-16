@@ -21,6 +21,8 @@ import NewContact from "./pages/NewContact";
 import AllContacts from "./pages/AllContacts";
 import AboutContact from "./pages/AboutContact";
 import UpdateContact from "./pages/UpdateContact";
+import ResetPasswordForm from "./pages/ResetPassword";
+import ForgotPasswordForm from "./pages/ForgotPassword";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
@@ -39,9 +41,13 @@ const App = () => {
         <Route path="/film/:id" element={<Film />} />
         <Route path="/about/:id" element={<AboutContact />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/reset-password" element={<ResetPasswordForm />} />
 
         {/* authenticated Routes  */}
         <Route path="/sign-up" element={<AuthSignUp />} />
+        {isAuthenticated && (
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+        )}
         {isAuthenticated && (
           <Route path="/admin/films" element={<AllFilms />} />
         )}
