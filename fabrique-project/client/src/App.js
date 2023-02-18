@@ -42,12 +42,11 @@ const App = () => {
         <Route path="/about/:id" element={<AboutContact />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/reset-password" element={<ResetPasswordForm />} />
+        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
 
         {/* authenticated Routes  */}
         <Route path="/sign-up" element={<AuthSignUp />} />
-        {isAuthenticated && (
-          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-        )}
+
         {isAuthenticated && (
           <Route path="/admin/films" element={<AllFilms />} />
         )}

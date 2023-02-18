@@ -1,21 +1,22 @@
 import { resetPasswordSchema } from "../../schema/resetPassword";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const { register, handleSubmit, formState } = useForm({
     defaultValues: "",
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const { errors } = formState;
+  const [queryParameters] = useSearchParams();
   const navigate = useNavigate();
+  const { errors } = formState;
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +25,9 @@ const ForgotPassword = () => {
     const formData = new FormData();
 
     formData.append("password", event.password);
+    formData.append("resetLink", queryParameters.get("token"));
 
+    console.log(formData);
     setIsLoading(true);
     axios
       .put("http://localhost:5000/reset-password", formData)
@@ -37,7 +40,7 @@ const ForgotPassword = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        navigate("/");
+        navigate("/login");
       });
   };
 
@@ -48,7 +51,7 @@ const ForgotPassword = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>Inserisci la tua nuova password</h4>
+          <h4>Inserisci la nuova password</h4>
           <label htmlFor="Password">Password</label>
           <input {...register("password")} type="password" />
         </div>
@@ -89,4 +92,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

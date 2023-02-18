@@ -120,7 +120,7 @@ exports.forgotPassword = async (req, res) => {
       subject: "Fabrique entertainment link per il reset della password",
       html: `
             <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
-            <a href="http://localhost:3000/reset-password">${token}</a>
+            <a href="http://localhost:3000/reset-password?token=${token}">${token}</a>
         `,
     };
 
@@ -144,53 +144,34 @@ exports.forgotPassword = async (req, res) => {
 
 //PUT => reset password
 exports.resetPassword = async (req, res) => {
-  const { email, password } = req.body;
+  const { resetLink, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingResetLink = await User.findOne({ resetLink });
 
-    if (!existingUser) {
+    if (!existingResetLink) {
       return res.status(400).json({
-        message: "The user with this email does not exist",
+        message: "The reset link does not exist",
       });
     }
 
-    const token = jwt.sign({ _id: existingUser._id }, "secret2017_05_03", {
-      expiresIn: "20m",
-    });
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "capalbodomenico@gmail.com",
-        pass: "ppaiaabgepyqlcov",
-      },
-    });
-
-    const automaticEmailData = {
-      from: "capalbodomenico@gmail.com",
-      to: email,
-      subject: "Fabrique entertainment link per il reset della password",
-      html: `
-            <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
-            <a href="http://localhost:3000/reset-password">${token}</a>
-        `,
-    };
-
-    await User.updateOne({ resetLink: token });
-    transporter.sendMail(automaticEmailData, (err, info) => {
+    jwt.verify(resetLink, "secret2017_05_03", async (err) => {
       if (err) {
-        console.log("Here my reset password error: ", err);
-        return;
+        return res.status(401).json({ message: "incorrect or expired token" });
       }
+      const hashedPassword = await bcrypt.hash(password, 12);
+      console.log("here my hashed password:", hashedPassword);
+      let user = await User.findOneAndUpdate(resetLink, {
+        password: hashedPassword,
+        resetLink: "",
+      });
       return res.status(201).json({
-        message:
-          "The link for the password reset has been sent: " + info.response,
+        message: "The password has been resetted",
       });
     });
   } catch (error) {
     return res
-      .status(403)
+      .status(409)
       .json({ message: "Was not possible to reset the password" });
   }
 };

@@ -16,7 +16,7 @@ const userSchema = new Schema({
     required: true,
   },
   resetLink: {
-    data: String,
+    type: String,
     default: "",
   },
 });
