@@ -60,7 +60,7 @@
       }
       a {
         transition: 0.4s;
-        color: #000;
+        color: $firstColor;
         &:hover {
           color: $thirdColor;
           transition: 0.4s;

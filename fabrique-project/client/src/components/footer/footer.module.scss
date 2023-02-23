@@ -1,17 +1,29 @@
 @import "../../assets/variables.scss";
 @import "../../assets/mixin.scss";
-
 footer {
-  padding: 20px;
+  background-color: $secondColor;
+  margin-top: 100px;
   width: 100%;
-  z-index: 1;
   .footer__container {
     @include flex-between;
     height: 100%;
     margin: auto;
     width: 90%;
     .footer__container__elm {
-      padding: 20px;
+      padding: 10px;
+      p,
+      li {
+        color: $firstColor;
+        padding: 0;
+      }
+      a {
+        transition: 0.4s;
+        color: $firstColor;
+        &:hover {
+          color: $thirdColor;
+          transition: 0.4s;
+        }
+      }
     }
   }
 }

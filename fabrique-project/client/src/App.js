@@ -2,8 +2,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 // scss files
-import "./assets/variables.scss";
-import "./assets/mixin.scss";
 import "./assets/typography.scss";
 import "./assets/reset.scss";
 // pages
