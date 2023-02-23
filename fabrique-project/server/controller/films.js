@@ -46,6 +46,7 @@ exports.postAddFilm = async (req, res) => {
         year,
         slug,
         type,
+        userId,
       },
       message: "Validation errors are present",
       errorMessage: errors.array()[0].msg,
@@ -77,7 +78,7 @@ exports.postAddFilm = async (req, res) => {
     }
     return res.status(400).json({ message: "The film exist already" });
   } catch (error) {
-    console.log("Something went wrong, here the error: ", error.message);
+    res.status(500).json({ message: "Something went wrong." });
   }
 };
 
