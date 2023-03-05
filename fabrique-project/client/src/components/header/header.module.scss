@@ -3,12 +3,8 @@
 
 header {
   background-color: $firstColor;
-  position: fixed;
   padding: 20px;
   width: 100%;
-  z-index: 3;
-  left: 0;
-  top: 0;
   .header__container {
     height: 100%;
     margin: auto;
@@ -22,4 +18,11 @@ header {
       width: 100%;
     }
   }
+}
+
+.sticky {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  top: 0;
 }

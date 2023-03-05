@@ -5,10 +5,13 @@ footer {
   margin-top: 100px;
   width: 100%;
   .footer__container {
-    @include flex-between;
+    @include flex-around;
     height: 100%;
     margin: auto;
     width: 90%;
+    @media (max-width: $screen-sm-min) {
+      justify-content: space-between;
+    }
     .footer__container__elm {
       padding: 10px;
       p,

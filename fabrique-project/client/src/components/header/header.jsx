@@ -9,6 +9,7 @@ import { useState } from "react";
 const Header = () => {
   let domWidth = window.innerWidth;
   const [visible, setIsVisible] = useState(false);
+  const [sticky, setSticky] = useState(false);
 
   const handlerMobilemenu = () => {
     const body = document.querySelector("body");
@@ -17,8 +18,18 @@ const Header = () => {
     console.log(visible);
   };
 
+  const isSticky = () => {
+    if (window.scrollY >= 107) {
+      setSticky(true);
+    } else {
+      setSticky(false);
+    }
+  };
+
+  window.addEventListener("scroll", isSticky);
+
   return (
-    <header className={classes.header}>
+    <header className={sticky ? classes.sticky : classes.header}>
       <div className={classes.header__container}>
         {(domWidth >= 767 && <Navigation />) ||
           (domWidth <= 767 && !visible && <NavigationMobile />)}
