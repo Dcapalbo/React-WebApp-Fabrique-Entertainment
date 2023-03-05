@@ -1,15 +1,17 @@
 import { useForm, useController } from "react-hook-form";
+import { slugCreation } from "../../../utils/functions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { filmSchema } from "../../schema/filmSchema";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useTranslation } from "react-i18next";
 import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
-import { slugCreation } from "../../../utils/functions";
 
 const FilmForm = () => {
+  const { t } = useTranslation();
   const uriLocation = window.location.href;
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const FilmForm = () => {
           {!isUpdate
             ? !isUpdate && <h4>Aggiungere un film al Database</h4>
             : isUpdate && <h4>Modificare un film del Database</h4>}
-          <label htmlFor="Title">Titolo</label>
+          <label htmlFor="Title">{t("title")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.title ?? ""}
             {...register("title")}
@@ -127,7 +129,7 @@ const FilmForm = () => {
           {errors.title?.message && <small>{errors.title?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Director">Regista</label>
+          <label htmlFor="Director">{t("director")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.director ?? ""}
             {...register("director")}
@@ -138,7 +140,7 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Production">Produzione</label>
+          <label htmlFor="Production">{t("production")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.production ?? ""}
             {...register("production")}
@@ -149,7 +151,7 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Screenwriter">Sceneggiatore</label>
+          <label htmlFor="Screenwriter">{t("screenwriter")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.screenwriter ?? ""}
             {...register("screenwriter")}
@@ -161,7 +163,7 @@ const FilmForm = () => {
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="DirectorOfPhotography">
-            Direttore della fotografia
+            {t("directorOfPhotography")}
           </label>
           <input
             defaultValue={
@@ -175,7 +177,7 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Synopsis">Sinossi</label>
+          <label htmlFor="Synopsis">{t("synopsis")}</label>
           <textarea
             defaultValue={formState.defaultValues?.payload?.synopsis ?? ""}
             {...register("synopsis")}
@@ -186,7 +188,7 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Duration">Durata</label>
+          <label htmlFor="Duration">{t("duration")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.duration ?? ""}
             {...register("duration")}
@@ -197,7 +199,7 @@ const FilmForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Year">Anno</label>
+          <label htmlFor="Year">{t("year")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.year ?? ""}
             {...register("year")}
@@ -206,12 +208,12 @@ const FilmForm = () => {
           {errors.year?.message && <small>{errors.year?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Type">Tipologia</label>
+          <label htmlFor="Type">{t("typology")}</label>
           <TypeSelect onChange={handleSelectChange} value={field.value} />
           {errors.type?.message && <small>{errors.type?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Image">Cover</label>
+          <label htmlFor="Image">{t("cover")}</label>
           <input
             onChange={(event) => {
               const file = event.target.files[0];
@@ -230,7 +232,7 @@ const FilmForm = () => {
             ? !isUpdate && (
                 <>
                   <button className={classes.secondary__button} type="submit">
-                    Inserisci
+                    {t("insertAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
                     {error && (
@@ -245,7 +247,7 @@ const FilmForm = () => {
             : isUpdate && (
                 <>
                   <button className={classes.secondary__button} type="submit">
-                    Modifica
+                    {t("modifyAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
                     {error && (

@@ -2,6 +2,7 @@ import { contactSchema } from "../../schema/conctactSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -10,6 +11,7 @@ import React from "react";
 import { slugCreation } from "../../../utils/functions";
 
 const AboutContactForm = () => {
+  const { t } = useTranslation();
   const uriLocation = window.location.href;
 
   useEffect(() => {
@@ -117,7 +119,7 @@ const AboutContactForm = () => {
           {!isUpdate
             ? !isUpdate && <h4>Aggiungere un contatto al Database</h4>
             : isUpdate && <h4>Modificare un contatto del Database</h4>}
-          <label htmlFor="name">Nome</label>
+          <label htmlFor="name">{t("genericInfo.name")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.name ?? ""}
             {...register("name")}
@@ -126,7 +128,7 @@ const AboutContactForm = () => {
           {errors.name?.message && <small>{errors.name?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Surname">Cognome</label>
+          <label htmlFor="Surname">{t("genericInfo.surname")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.surname ?? ""}
             {...register("surname")}
@@ -135,7 +137,7 @@ const AboutContactForm = () => {
           {errors.surname?.message && <small>{errors.surname?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Role">Ruolo</label>
+          <label htmlFor="Role">{t("role")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.role ?? ""}
             {...register("role")}
@@ -144,7 +146,7 @@ const AboutContactForm = () => {
           {errors.role?.message && <small>{errors.role?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Bio">Bio</label>
+          <label htmlFor="Bio">{t("bio")}</label>
           <textarea
             defaultValue={formState.defaultValues?.payload?.bio ?? ""}
             {...register("bio")}
@@ -153,7 +155,7 @@ const AboutContactForm = () => {
           {errors.bio?.message && <small>{errors.bio?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.email ?? ""}
             {...register("email")}
@@ -162,7 +164,7 @@ const AboutContactForm = () => {
           {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="phoneNumber">Numero di telefono</label>
+          <label htmlFor="phoneNumber">{t("genericInfo.number")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.phoneNumber ?? ""}
             {...register("phoneNumber")}
@@ -173,7 +175,7 @@ const AboutContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Image">Foto del Profilo</label>
+          <label htmlFor="Image">{t("profileConver")}</label>
           <input
             onChange={(event) => {
               const file = event.target.files[0];
@@ -194,7 +196,7 @@ const AboutContactForm = () => {
             ? !isUpdate && (
                 <>
                   <button className={classes.secondary__button} type="submit">
-                    Inserisci
+                    {t("insertAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
                     {error && (
@@ -209,7 +211,7 @@ const AboutContactForm = () => {
             : isUpdate && (
                 <>
                   <button className={classes.secondary__button} type="submit">
-                    Modifica
+                    {t("modifyAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
                     {error && (

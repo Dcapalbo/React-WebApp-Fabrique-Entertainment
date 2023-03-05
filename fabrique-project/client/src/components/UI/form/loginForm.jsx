@@ -2,6 +2,7 @@ import { loginSchema } from "../../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -15,6 +16,7 @@ const LoginForm = () => {
   });
 
   const { errors } = formState;
+  const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -51,17 +53,17 @@ const LoginForm = () => {
       >
         <div className={classes.form__container__item}>
           <h4>Login</h4>
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input {...register("email")} type="email" />
           {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Password">Password</label>
+          <label htmlFor="Password">{t("password")}</label>
           <input {...register("password")} type="password" />
         </div>
         {errors.password?.message && <small>{errors.password?.message}</small>}
         <div className={classes.form__container__item}>
-          <label htmlFor="confirmPassword">Conferma Password</label>
+          <label htmlFor="confirmPassword">{t("confirmPassword")}</label>
           <input {...register("confirmPassword")} type="password" />
         </div>
         {errors.confirmPassword?.message && (

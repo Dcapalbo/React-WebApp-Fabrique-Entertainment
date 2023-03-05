@@ -1,4 +1,5 @@
 import classes from "./genericForm.module.scss";
+import { useTranslation } from "react-i18next";
 import { useState, useRef } from "react";
 
 const ContactForm = () => {
@@ -63,12 +64,14 @@ const ContactForm = () => {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <section className={classes.form__wrapper}>
       <form className={classes.form__container}>
         <h4>Vuoi scoprirne di più? Mettiamoci in contatto</h4>
         <div className={classes.form__container__item}>
-          <label htmlFor="Nome">Nome</label>
+          <label htmlFor="Nome">{t("genericInfo.name")}</label>
           <input
             ref={nameInputRef}
             type="text"
@@ -81,7 +84,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Cognome">Cognome</label>
+          <label htmlFor="Cognome">{t("genericInfo.surname")}</label>
           <input
             ref={surnameInputRef}
             type="text"
@@ -94,7 +97,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Numero di telefono">Numero di Telefono</label>
+          <label htmlFor="Numero di telefono">{t("number")}</label>
           <input
             ref={numberInputRef}
             type="number"
@@ -107,7 +110,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input
             ref={emailInputRef}
             type="email"

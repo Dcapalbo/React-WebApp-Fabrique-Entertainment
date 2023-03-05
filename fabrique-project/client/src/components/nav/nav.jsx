@@ -1,11 +1,13 @@
 import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
+import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./nav.module.scss";
 
 const Navigation = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const filmData = useSelector((state) => state.dataFilm.filmData);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
@@ -27,14 +29,14 @@ const Navigation = () => {
       </a>
       <ul className={classes.navigation}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">{t("home")}</Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/about">{t("about")}</Link>
         </li>
         <li>
           <Link className={classes.navigation__films} to="/films">
-            Films
+            {t("films")}
           </Link>
           {filmData.length > 0 &&
             filmData.map((filmData, id) => (
@@ -46,29 +48,29 @@ const Navigation = () => {
             ))}
         </li>
         <li>
-          <Link to="/news">News</Link>
+          <Link to="/news">{t("news")}</Link>
         </li>
         <li>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contact">{t("contacts")}</Link>
         </li>
         {isAuthenticated && (
           <li>
-            <Link to="/admin/films">List of Films</Link>
+            <Link to="/admin/films">{t("filmsList")}</Link>
           </li>
         )}
         {isAuthenticated && (
           <li>
-            <Link to="/admin/films/add-new-film">Add Film</Link>
+            <Link to="/admin/films/add-new-film">{t("addFilm")}</Link>
           </li>
         )}
         {isAuthenticated && (
           <li>
-            <Link to="/admin/contacts/">List of Contacts</Link>
+            <Link to="/admin/contacts/">{t("contactsList")}</Link>
           </li>
         )}
         {isAuthenticated && (
           <li>
-            <Link to="/admin/contacts/add-new-contact">Add Contact</Link>
+            <Link to="/admin/contacts/add-new-contact">{t("addContact")}</Link>
           </li>
         )}
       </ul>

@@ -1,6 +1,11 @@
 // importing the react router dom version 6
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+// importing the react traductions functions
+import { initReactI18next } from "react-i18next";
+import { translationIt } from "./utils/i18It";
+import { translationEn } from "./utils/i18En";
+import i18n from "i18next";
 // scss files
 import "./assets/typography.scss";
 import "./assets/reset.scss";
@@ -21,6 +26,17 @@ import AboutContact from "./pages/AboutContact";
 import UpdateContact from "./pages/UpdateContact";
 import ResetPasswordForm from "./pages/ResetPassword";
 import ForgotPasswordForm from "./pages/ForgotPassword";
+
+// initialize the react traductions
+i18n.use(initReactI18next).init({
+  resources: {
+    it: { translation: translationIt },
+    en: { translation: translationEn },
+  },
+  lng: "it",
+  fallbackLng: "it",
+  interpolation: { escapeValue: false },
+});
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
