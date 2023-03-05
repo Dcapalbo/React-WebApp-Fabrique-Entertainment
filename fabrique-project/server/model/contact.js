@@ -35,11 +35,6 @@ const contactSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
 });
 
 // / exporting the model and the Schema
