@@ -40,6 +40,28 @@ const translationIt = {
   bio: "biografia",
   insertAction: "inserisci",
   modifyAction: "modifica",
+  confirmAction: "conferma",
+  signInAction: "accedi",
+  labels: {
+    loginLabel: "login",
+    passwordLabel: "Inserisci la nuova password",
+    forgotLabel: "Se hai dimenticato la password clicca qui",
+    emailLabel: "inserisci la tua email",
+    addDbFilm: "aggiungere un film al database",
+    modifyDbFilm: "modificare un film del database",
+    addDbContact: "aggiungere un contatto al database",
+    modifyDbContact: "modificare un contatto del database",
+  },
+  errors: {
+    dbCrud:
+      "Problema nella compilazione del database, effettuare nuovamente la compilazione del form",
+    login:
+      "Problema durante l'accesso, compilare nuovamente il form, i datipotrebbero essere errati.",
+    forgotPassword:
+      "Problema durante la richiesta di ripristino della password, provare a rieffettuare i passaggi",
+    resetPassword:
+      "Problema durante il ripristino della password, provare a rieffettuare i passaggi",
+  },
 };
 
 export { translationIt };

@@ -2,8 +2,10 @@ import classes from "./navModal.module.scss";
 import { Link } from "react-router-dom";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const NavModal = () => {
+  const { t } = useTranslation();
   const [modalVisible, setIsModalVisible] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
 
@@ -26,14 +28,14 @@ const NavModal = () => {
           </div>
           <ul className={classes.navigation__mobile__menu}>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">{t("home")}</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about">{t("about")}</Link>
             </li>
             <li>
               <Link className={classes.navigation__films__mobile} to="/films">
-                Films
+                {t("films")}
               </Link>
               <ul className={classes.navigation__films__mobile__dropdown}>
                 <li>
@@ -51,29 +53,31 @@ const NavModal = () => {
               </ul>
             </li>
             <li>
-              <Link to="/news">News</Link>
+              <Link to="/news">{t("news")}</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact">{t("contacts")}</Link>
             </li>
             {isAuthenticated && (
               <li>
-                <Link to="/admin/films">List of Films</Link>
+                <Link to="/admin/films">{t("filmsList")}</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/films/add-new-film">Add Film</Link>
+                <Link to="/admin/films/add-new-film">{t("addFilm")}</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/contacts/">List of Contacts</Link>
+                <Link to="/admin/contacts/">{t("contactsList")}</Link>
               </li>
             )}
             {isAuthenticated && (
               <li>
-                <Link to="/admin/contacts/add-new-contact">Add Contact</Link>
+                <Link to="/admin/contacts/add-new-contact">
+                  {t("addContact")}
+                </Link>
               </li>
             )}
           </ul>

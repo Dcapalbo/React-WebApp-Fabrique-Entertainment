@@ -1,9 +1,11 @@
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import React from "react";
 
 const DetailFilm = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [filmData, setFilmData] = useState({});
   const [error, setError] = useState(null);
@@ -31,7 +33,7 @@ const DetailFilm = () => {
         {filmData.payload?.title && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <h2>Titolo:</h2>
+              <h2>{t("title")}:</h2>
             </div>
             <div>
               <h2>{filmData.payload?.title ?? ""}</h2>
@@ -41,7 +43,7 @@ const DetailFilm = () => {
         {filmData.payload?.director && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <h2>Regista:</h2>
+              <h2>{t("director")}:</h2>
             </div>
             <div>
               <h2>{filmData.payload?.director ?? ""}</h2>
@@ -51,7 +53,7 @@ const DetailFilm = () => {
         {filmData.payload?.production && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <h2>Produzione:</h2>
+              <h2>{t("production")}:</h2>
             </div>
             <div>
               <h2>{filmData.payload?.production ?? ""}</h2>
@@ -61,7 +63,7 @@ const DetailFilm = () => {
         {filmData.payload?.screenwriter && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Sceneggiatore:</p>
+              <p>{t("screenwriter")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.screenwriter ?? ""}</p>
@@ -71,7 +73,7 @@ const DetailFilm = () => {
         {filmData.payload?.directorOfPhotography && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Direttore della fotografia:</p>
+              <p>{t("directorOfPhotography")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.directorOfPhotography ?? ""}</p>
@@ -81,7 +83,7 @@ const DetailFilm = () => {
         {filmData.payload?.synopsis && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Sinossi:</p>
+              <p>{t("synopsis")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.synopsis ?? ""}</p>
@@ -91,7 +93,7 @@ const DetailFilm = () => {
         {filmData.payload?.duration && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Durata:</p>
+              <p>{t("duration")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.duration ?? ""}</p>
@@ -101,7 +103,7 @@ const DetailFilm = () => {
         {filmData.payload?.year && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Anno:</p>
+              <p>{t("year")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.year ?? ""}</p>
@@ -111,7 +113,7 @@ const DetailFilm = () => {
         {filmData.payload?.type && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Tipologia:</p>
+              <p>{t("typology")}:</p>
             </div>
             <div>
               <p>{filmData.payload?.type ?? ""}</p>

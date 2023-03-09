@@ -117,8 +117,8 @@ const AboutContactForm = () => {
       >
         <div className={classes.form__container__item}>
           {!isUpdate
-            ? !isUpdate && <h4>Aggiungere un contatto al Database</h4>
-            : isUpdate && <h4>Modificare un contatto del Database</h4>}
+            ? !isUpdate && <h4>{t("labels.addDbContact")}</h4>
+            : isUpdate && <h4>{t("labels.modifyDbContact")}</h4>}
           <label htmlFor="name">{t("genericInfo.name")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.name ?? ""}
@@ -199,12 +199,7 @@ const AboutContactForm = () => {
                     {t("insertAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
-                    {error && (
-                      <small>
-                        Problema nella compilazione del database, effettuare
-                        nuovamente la compilazione del form
-                      </small>
-                    )}
+                    {error && <small>{t("errors.dbCrud")}</small>}
                   </div>
                 </>
               )
@@ -214,12 +209,7 @@ const AboutContactForm = () => {
                     {t("modifyAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
-                    {error && (
-                      <small>
-                        Problema nella compilazione del database, effettuare
-                        nuovamente la compilazione del form
-                      </small>
-                    )}
+                    {error && <small>{t("errors.dbCrud")}</small>}
                   </div>
                 </>
               )}

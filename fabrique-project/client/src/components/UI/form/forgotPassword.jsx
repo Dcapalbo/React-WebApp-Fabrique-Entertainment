@@ -2,13 +2,15 @@ import { forgotPasswordSchema } from "../../schema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
-import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const { register, handleSubmit, formState } = useForm({
     defaultValues: "",
     resolver: zodResolver(forgotPasswordSchema),
@@ -48,22 +50,17 @@ const ForgotPassword = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>Inserisci la tua email</h4>
-          <label htmlFor="Email">Email</label>
+          <h4>{t("labels.email")}</h4>
+          <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input {...register("email")} type="email" />
           {errors.email?.message && <small>{errors.email?.message}</small>}
         </div>
         <div className={classes.form__container__item}>
           <button className={classes.secondary__button} type="submit">
-            Conferma
+            {t("confirmAction")}
           </button>
         </div>
-        {error && (
-          <small>
-            Problema durante la richiesta di ripristino della password, provare
-            a rieffettuare i passaggi
-          </small>
-        )}
+        {error && <small>{t("errors.forgotPassword")}</small>}
         {isLoading && (
           <PuffLoader
             style={{

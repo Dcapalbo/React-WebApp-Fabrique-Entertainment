@@ -3,12 +3,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const { register, handleSubmit, formState } = useForm({
     defaultValues: "",
     resolver: zodResolver(resetPasswordSchema),
@@ -51,13 +53,13 @@ const ResetPassword = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>Inserisci la nuova password</h4>
-          <label htmlFor="Password">Password</label>
+          <h4>{t("labels.passwordLabel")}</h4>
+          <label htmlFor="Password">{t("password")}</label>
           <input {...register("password")} type="password" />
         </div>
         {errors.password?.message && <small>{errors.password?.message}</small>}
         <div className={classes.form__container__item}>
-          <label htmlFor="confirmPassword">Conferma Password</label>
+          <label htmlFor="confirmPassword">{t("confirmPassword")}</label>
           <input {...register("confirmPassword")} type="password" />
         </div>
         {errors.confirmPassword?.message && (
@@ -65,15 +67,10 @@ const ResetPassword = () => {
         )}
         <div className={classes.form__container__item}>
           <button className={classes.secondary__button} type="submit">
-            Conferma
+            {t("confirmAction")}
           </button>
         </div>
-        {error && (
-          <small>
-            Problema durante il ripristino della password, provare a
-            rieffettuare i passaggi
-          </small>
-        )}
+        {error && <small>{t("errors.resetPassword")}</small>}
         {isLoading && (
           <PuffLoader
             style={{

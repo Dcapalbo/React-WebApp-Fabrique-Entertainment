@@ -42,6 +42,27 @@ const translationEn = {
   bio: "biography",
   insertAction: "insert",
   modifyAction: "modify",
+  confirmAction: "confirm",
+  signInAction: "sign in",
+  labels: {
+    loginLabel: "login",
+    passwordLabel: "insert the new password",
+    forgotLabel: "if you had forget the password click here",
+    emailLabel: "insert your email",
+    addDbFilm: "add a film inside the database",
+    modifyDbFilm: "modify a film inside the database",
+    addDbContact: "add a contact inside the database",
+    modifyDbContact: "modify a contact inside the database",
+  },
+  errors: {
+    dbCrud:
+      "Problem during the compilation of the database, try to fill the form again",
+    login: "Problem during the sign in, try to compile the form again.",
+    forgotPassword:
+      "Problem during the request of password reset, try to make a new request",
+    resetPassword:
+      "Problema during the reset of the password, try to make a new request",
+  },
 };
 
 export { translationEn };

@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 import axios from "axios";
 import React from "react";
 // importing utils functions

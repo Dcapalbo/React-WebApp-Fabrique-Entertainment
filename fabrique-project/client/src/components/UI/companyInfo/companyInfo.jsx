@@ -1,9 +1,12 @@
 import classes from "./companyInfo.module.scss";
+import { useTranslation } from "react-i18next";
 
-const companyInfo = () => {
+const CompanyInfo = () => {
+  const { t } = useTranslation();
+
   return (
     <section className={classes.companyInfo}>
-      <h2>About</h2>
+      <h2>{t("about")}</h2>
       <div>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -21,4 +24,4 @@ const companyInfo = () => {
   );
 };
 
-export default companyInfo;
+export default CompanyInfo;

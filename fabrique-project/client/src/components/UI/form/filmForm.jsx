@@ -118,8 +118,8 @@ const FilmForm = () => {
       >
         <div className={classes.form__container__item}>
           {!isUpdate
-            ? !isUpdate && <h4>Aggiungere un film al Database</h4>
-            : isUpdate && <h4>Modificare un film del Database</h4>}
+            ? !isUpdate && <h4>{t("labels.addDbFilm")}</h4>
+            : isUpdate && <h4>{t("labels.modifyDbFilm")}</h4>}
           <label htmlFor="Title">{t("title")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.title ?? ""}
@@ -235,12 +235,7 @@ const FilmForm = () => {
                     {t("insertAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
-                    {error && (
-                      <small>
-                        Problema nella compilazione del database, effettuare
-                        nuovamente la compilazione del form
-                      </small>
-                    )}
+                    {error && <small>{t("errors.dbCrud")}</small>}
                   </div>
                 </>
               )
@@ -250,12 +245,7 @@ const FilmForm = () => {
                     {t("modifyAction")}
                   </button>
                   <div className={classes.generic__margin__top}>
-                    {error && (
-                      <small>
-                        Problema nella compilazione del database, effettuare
-                        nuovamente la compilazione del form
-                      </small>
-                    )}
+                    {error && <small>{t("errors.dbCrud")}</small>}
                   </div>
                 </>
               )}

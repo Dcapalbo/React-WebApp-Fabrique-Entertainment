@@ -52,7 +52,7 @@ const LoginForm = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>Login</h4>
+          <h4>{t("labels.login")}</h4>
           <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input {...register("email")} type="email" />
           {errors.email?.message && <small>{errors.email?.message}</small>}
@@ -70,19 +70,12 @@ const LoginForm = () => {
           <small>{errors.confirmPassword?.message}</small>
         )}
         <div className={classes.form__container__item}>
-          <Link to="/forgot-password">
-            Se hai dimenticato la password clicca qui
-          </Link>
+          <Link to="/forgot-password">{t("labels.forgotLabel")}</Link>
           <button className={classes.secondary__button} type="submit">
-            Accedi
+            {t("signInAction")}
           </button>
         </div>
-        {error && (
-          <small>
-            Problema durante l'accesso, compilare nuovamente il form, i dati
-            potrebbero essere sbagliati.
-          </small>
-        )}
+        {error && <small>{t("errors.login")}</small>}
         {isLoading && (
           <PuffLoader
             style={{

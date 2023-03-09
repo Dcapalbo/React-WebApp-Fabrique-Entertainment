@@ -57,9 +57,8 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/reset-password" element={<ResetPasswordForm />} />
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-
-        {/* authenticated Routes  */}
         <Route path="/sign-up" element={<AuthSignUp />} />
+        {/* authenticated Routes  */}
 
         {isAuthenticated && (
           <Route path="/admin/films" element={<AllFilms />} />

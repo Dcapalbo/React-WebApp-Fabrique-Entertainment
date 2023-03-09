@@ -1,9 +1,11 @@
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import React from "react";
 
 const DetailAboutContact = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [contactData, setContactData] = useState({});
   const [error, setError] = useState(null);
@@ -31,7 +33,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.name && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <h2>Nome:</h2>
+              <h2>{t("genericInfo.name")}:</h2>
             </div>
             <div>
               <h2>
@@ -45,7 +47,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.role && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <h2>Ruolo:</h2>
+              <h2>{t("role")}:</h2>
             </div>
             <div>
               <h2>{contactData.payload?.role ?? ""}</h2>
@@ -55,7 +57,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.bio && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Biografia:</p>
+              <p>{t("bio")}:</p>
             </div>
             <div>
               <p>{contactData.payload?.bio ?? ""}</p>
@@ -65,7 +67,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.email && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Email:</p>
+              <p>{t("genericInfo.email")}:</p>
             </div>
             <div>
               <p>{contactData.payload?.email ?? ""}</p>
@@ -75,7 +77,7 @@ const DetailAboutContact = () => {
         {contactData.payload?.phoneNumber && (
           <div className={classes.detail__film__about__card__info__wrapper}>
             <div>
-              <p>Numero di telefono:</p>
+              <p>{t("genericInfo.number")}:</p>
             </div>
             <div>
               <p>{contactData.payload?.phoneNumber ?? ""}</p>
