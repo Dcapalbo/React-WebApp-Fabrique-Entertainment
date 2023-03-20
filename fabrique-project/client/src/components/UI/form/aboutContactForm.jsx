@@ -1,4 +1,5 @@
 import { contactSchema } from "../../schema/conctactSchema";
+import { slugCreation } from "../../../utils/functions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -8,7 +9,6 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React from "react";
-import { slugCreation } from "../../../utils/functions";
 
 const AboutContactForm = () => {
   const { t } = useTranslation();

@@ -44,7 +44,9 @@ const translationEn = {
   modifyAction: "modify",
   confirmAction: "confirm",
   signInAction: "sign in",
+  createAccount: "create account",
   labels: {
+    signUpLabel: "Create your account",
     loginLabel: "login",
     passwordLabel: "insert the new password",
     forgotLabel: "if you had forget the password click here",
@@ -57,6 +59,8 @@ const translationEn = {
   errors: {
     dbCrud:
       "Problem during the compilation of the database, try to fill the form again",
+    signUp:
+      "Problem during the account creation, try to compile the form again.",
     login: "Problem during the sign in, try to compile the form again.",
     forgotPassword:
       "Problem during the request of password reset, try to make a new request",

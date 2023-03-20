@@ -42,7 +42,9 @@ const translationIt = {
   modifyAction: "modifica",
   confirmAction: "conferma",
   signInAction: "accedi",
+  createAccount: "crea account",
   labels: {
+    signUpLabel: "Crea il tuo account",
     loginLabel: "login",
     passwordLabel: "Inserisci la nuova password",
     forgotLabel: "Se hai dimenticato la password clicca qui",
@@ -55,6 +57,8 @@ const translationIt = {
   errors: {
     dbCrud:
       "Problema nella compilazione del database, effettuare nuovamente la compilazione del form",
+    signUp:
+      "Problema durante la creazione dell'account, compilare nuovamente il form, i datipotrebbero essere errati.",
     login:
       "Problema durante l'accesso, compilare nuovamente il form, i datipotrebbero essere errati.",
     forgotPassword:
