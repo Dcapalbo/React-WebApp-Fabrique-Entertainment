@@ -1,19 +1,48 @@
 import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import base64ArrayBuffer from "../../utils/base64";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./nav.module.scss";
+import ApiGetHook from "../../hooks/apiGetHook";
+import { dataFilmActions } from "../../store/data-film-slice";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const filmData = useSelector((state) => state.dataFilm.filmData);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const { fabriqueData } = ApiGetHook("http://localhost:5000/get-films");
 
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-  }, [filmData]);
+    console.log("dataFilms", fabriqueData);
+  }, [fabriqueData]);
+
+  const sendFilmIdHanlder = (filmData) => {
+    window.localStorage.setItem(
+      "filmData",
+      JSON.stringify(
+        dispatch(
+          dataFilmActions.setFilmData({
+            title: filmData.title,
+            director: filmData.director,
+            production: filmData.production,
+            screenwriter: filmData.screenwriter,
+            directorOfPhotography: filmData.directorOfPhotography,
+            synopsis: filmData.synopsis,
+            duration: filmData.duration,
+            year: filmData.year,
+            slug: filmData.slug,
+            type: filmData.type,
+            imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
+            _id: filmData._id,
+          })
+        )
+      )
+    );
+  };
 
   return (
     <nav className={classes.navigation}>
@@ -36,16 +65,21 @@ const Navigation = () => {
           <Link className={classes.navigation__films} to="/films">
             {t("films")}
           </Link>
-          {filmData.length > 0 &&
-            filmData.map((filmData, id) => (
-              <ul className={classes.navigation__films__dropdown}>
+          <ul className={classes.navigation__films__dropdown}>
+            {fabriqueData.length > 0 &&
+              fabriqueData.map((filmData, id) => (
                 <li key={id}>
-                  <Link key={id} to={`/film/${filmData.slug}`}>
+                  <Link
+                    onClick={() => sendFilmIdHanlder(filmData)}
+                    key={filmData._id}
+                    to={`/film/${filmData.slug}`}
+                    _id={filmData._id}
+                  >
                     {filmData.title}
                   </Link>
                 </li>
-              </ul>
-            ))}
+              ))}
+          </ul>
         </li>
         <li>
           <Link to="/news">{t("news")}</Link>

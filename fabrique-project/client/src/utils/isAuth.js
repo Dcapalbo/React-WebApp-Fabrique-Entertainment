@@ -6,7 +6,6 @@ const isAuth = (auth) => {
   if (token) {
     user = decodeToken(token);
     if (Date.now() <= user.exp * 1000) {
-      console.log(user);
       return true;
     } else if (Date.now() >= user.exp * 1000) {
       window.sessionStorage.removeItem(auth);
