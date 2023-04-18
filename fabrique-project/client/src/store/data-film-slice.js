@@ -6,7 +6,7 @@ const dataFilmSlice = createSlice({
     filmData: [{}],
   },
   reducers: {
-    filmData(state = [{}], action) {
+    setFilmData(state = [{}], action) {
       const newFilmData = action.payload;
       const dataFilmArray = state.filmData;
       if (!dataFilmArray.length) {

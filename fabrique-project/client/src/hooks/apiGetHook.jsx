@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const ApiGetHook = (url) => {
-  const [loading, setloading] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [fabriqueData, setFabriqueData] = useState([]);
 
   useEffect(() => {
-    setloading(true);
+    setIsLoading(true);
     axios
       .get(url)
       .then((res) => {
@@ -17,7 +17,7 @@ const ApiGetHook = (url) => {
         setError(err);
       })
       .finally(() => {
-        setloading(false);
+        setIsLoading(false);
         console.log("finished to fetch data");
       });
   }, [url]);

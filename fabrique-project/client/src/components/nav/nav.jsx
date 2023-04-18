@@ -1,5 +1,5 @@
 import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
@@ -8,14 +8,12 @@ import classes from "./nav.module.scss";
 
 const Navigation = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const filmData = useSelector((state) => state.dataFilm.filmData);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
 
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-    console.log(filmData);
-  }, [filmData, dispatch]);
+  }, [filmData]);
 
   return (
     <nav className={classes.navigation}>
@@ -42,7 +40,9 @@ const Navigation = () => {
             filmData.map((filmData, id) => (
               <ul className={classes.navigation__films__dropdown}>
                 <li key={id}>
-                  <Link to={`/film/${filmData.slug}`}>{filmData.title}</Link>
+                  <Link key={id} to={`/film/${filmData.slug}`}>
+                    {filmData.title}
+                  </Link>
                 </li>
               </ul>
             ))}

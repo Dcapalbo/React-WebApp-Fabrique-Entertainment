@@ -14,7 +14,7 @@ const FilmCard = (props) => {
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
     dispatch(
-      dataFilmActions.filmData([
+      dataFilmActions.setFilmData([
         {
           title: props.title,
           director: props.director,
@@ -68,7 +68,7 @@ const FilmCard = (props) => {
       "filmData",
       JSON.stringify(
         dispatch(
-          dataFilmActions.filmData({
+          dataFilmActions.setFilmData({
             title: props.title,
             director: props.director,
             production: props.production,

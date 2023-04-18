@@ -3,6 +3,10 @@ import React from "react";
 const TypeSelect = (props) => {
   const options = [
     {
+      value: "",
+      label: "",
+    },
+    {
       value: "Lungometraggio",
       label: "Lungometraggio",
     },

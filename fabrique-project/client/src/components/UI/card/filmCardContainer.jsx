@@ -1,13 +1,32 @@
-import PuffLoader from "react-spinners/PuffLoader";
-import classes from "./cardContainer.module.scss";
 import base64ArrayBuffer from "../../../utils/base64";
 import ApiGetHook from "../../../hooks/apiGetHook";
+import PuffLoader from "react-spinners/PuffLoader";
+import classes from "./cardContainer.module.scss";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import FilmCard from "./filmCard";
 
 const FilmCardContainer = () => {
+  const [filteredData, setFilteredData] = useState([]);
+  const typeData = useSelector((state) => state.dataType.dataType) || "";
+
   const { fabriqueData, loading, error } = ApiGetHook(
     "http://localhost:5000/get-films"
   );
+
+  useEffect(() => {
+    // Filter the data only when typeData is not empty
+    if (typeData) {
+      const filteredFabriqueData = fabriqueData.filter(
+        (film) => film.type === typeData
+      );
+      setFilteredData(filteredFabriqueData);
+    } else if (typeData === "") {
+      setFilteredData(fabriqueData);
+    } else {
+      setFilteredData(fabriqueData);
+    }
+  }, [typeData, fabriqueData]);
 
   if (loading) {
     return (
@@ -24,12 +43,12 @@ const FilmCardContainer = () => {
       />
     );
   } else if (error) {
-    <h1>There is some problem, please try to refresh</h1>;
+    return <h1>There is some problem, please try to refresh</h1>;
   } else {
     return (
       <section className={classes.wrapper__card__container}>
         <div className={classes.card__container}>
-          {fabriqueData.map((film) => (
+          {filteredData.map((film) => (
             <FilmCard
               title={film.title}
               director={film.director}

@@ -13,7 +13,7 @@ const Films = (props) => {
       "filmData",
       JSON.stringify(
         dispatch(
-          dataFilmActions.filmData({
+          dataFilmActions.setFilmData({
             title: props.title,
             director: props.director,
             production: props.production,
