@@ -5,11 +5,6 @@ const router = express.Router();
 
 //films => GET ALL
 router.get("/get-films", filmsController.getFilms);
-router.get(
-  "/get-films-types",
-  [check("type").isString().trim()],
-  filmsController.getTypeFilms
-);
 //add-film => POST
 router.post(
   "/add-film",

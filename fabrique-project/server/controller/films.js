@@ -14,16 +14,6 @@ exports.getFilms = async (req, res) => {
     res.status(404).json({ message: "Films was not found" });
   }
 };
-// GET films by type => Getting films by type
-exports.getTypeFilms = async (req, res) => {
-  const { type } = req.query;
-  try {
-    const films = await Film.find({ type });
-    res.status(200).send(films);
-  } catch {
-    res.status(404).json({ message: "Films was not found" });
-  }
-};
 // POST => Adding a Film
 exports.postAddFilm = async (req, res) => {
   const {
