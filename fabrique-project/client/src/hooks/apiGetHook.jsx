@@ -1,28 +1,41 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios";
 
+const initialState = {
+  fabriqueData: [],
+  loading: false,
+  error: null,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_START":
+      return { ...state, loading: true };
+    case "FETCH_SUCCESS":
+      return { ...state, fabriqueData: action.payload, loading: false };
+    case "FETCH_ERROR":
+      return { ...state, error: action.payload, loading: false };
+    default:
+      return state;
+  }
+};
+
 const ApiGetHook = (url) => {
-  const [loading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [fabriqueData, setFabriqueData] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    setIsLoading(true);
+    dispatch({ type: "FETCH_START" });
     axios
       .get(url)
       .then((res) => {
-        setFabriqueData(res.data);
+        dispatch({ type: "FETCH_SUCCESS", payload: res.data });
       })
       .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-        console.log("finished to fetch data");
+        dispatch({ type: "FETCH_ERROR", payload: err });
       });
   }, [url]);
 
-  return { fabriqueData, loading, error };
+  return state;
 };
 
 export default ApiGetHook;

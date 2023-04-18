@@ -6,8 +6,10 @@
   height: auto;
   width: 100%;
   .card__container {
-    @include flex-start;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
+    flex-wrap: wrap;
     display: flex;
     margin: auto;
     height: 100%;
@@ -24,4 +26,12 @@
       width: 100%;
     }
   }
+}
+
+.justify__content__center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  display: flex;
 }

@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 import FilmCard from "./filmCard";
 
 const FilmCardContainer = () => {
-  const [filteredData, setFilteredData] = useState([]);
   const typeData = useSelector((state) => state.dataType.dataType) || "";
+  const [filteredData, setFilteredData] = useState([]);
 
   const { fabriqueData, loading, error } = ApiGetHook(
     "http://localhost:5000/get-films"
@@ -43,11 +43,18 @@ const FilmCardContainer = () => {
       />
     );
   } else if (error) {
-    return <h1>There is some problem, please try to refresh</h1>;
+    return <h1>There are some problem, please try to refresh</h1>;
   } else {
     return (
       <section className={classes.wrapper__card__container}>
-        <div className={classes.card__container}>
+        <div
+          className={
+            (filteredData.length > 2
+              ? classes.card__container
+              : classes.card__container,
+            classes.justify__content__center)
+          }
+        >
           {filteredData.map((film) => (
             <FilmCard
               title={film.title}
