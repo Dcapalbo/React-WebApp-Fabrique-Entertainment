@@ -6,45 +6,53 @@ const bcrypt = require("bcryptjs");
 
 // POST => create User
 exports.createUser = async (req, res) => {
-  const { name, email, password } = req.body;
-  const errors = validationResult(req);
-
-  // if there are errors
-  // Send a response with the status and a json
-  if (!errors.isEmpty()) {
-    console.log("POST adding users errors: ", errors.array());
-    res.status(422).json({
-      user: {
-        name,
-        email,
-        password,
-      },
-      message: "Validation errors are present",
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-  }
-
   try {
+    const { name, email, password } = req.body;
+
+    // Validate request body using express-validator
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log("POST adding users errors: ", errors.array());
+      return res.status(422).json({
+        user: {
+          name,
+          email,
+          password,
+        },
+        message: "Validation errors are present",
+        errorMessage: errors.array()[0].msg,
+        validationErrors: errors.array(),
+      });
+    }
+
+    // Check if user already exists in the database
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
-        message: "The user has been already registered",
+        message: "The user has already been registered",
       });
     }
+
+    // Hash the password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create a new user in the database
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
     });
+
+    // Return success response with created user
     res.status(201).json({
       message: "The user has been created",
       user,
     });
   } catch (err) {
-    res.status(409).json({
-      message: err.message,
+    // Handle errors
+    console.error("Error creating user: ", err);
+    res.status(500).json({
+      message: "Internal server error",
     });
   }
 };
@@ -56,7 +64,7 @@ exports.loginUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "The User doesn't exist",
       });
     }
@@ -71,25 +79,29 @@ exports.loginUser = async (req, res) => {
         message: "Invalid credentials",
       });
     }
+
     const token = jwt.sign(
       {
         email: existingUser.email,
         userId: existingUser._id,
       },
-      "secret1992_25_03",
+      process.env.JWT_SECRET,
       { expiresIn: "6h" }
     );
+
     return res.status(200).json({
+      message: "Login successful",
       result: existingUser,
       token,
       userId: existingUser._id,
     });
   } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
+    console.error(error.message);
+    res.status(500).json({ message: "Something went wrong" });
   }
 };
 
-//PUT => forgot password
+//POST => forgot password
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -102,25 +114,25 @@ exports.forgotPassword = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ _id: existingUser._id }, "secret2017_05_03", {
+    const token = jwt.sign({ _id: existingUser._id }, process.env.JWT_SECRET, {
       expiresIn: "20m",
     });
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: process.env.EMAIL_SERVICE,
       auth: {
-        user: "capalbodomenico@gmail.com",
-        pass: "ppaiaabgepyqlcov",
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
     const automaticEmailData = {
-      from: "capalbodomenico@gmail.com",
+      from: process.env.EMAIL_ADDRESS,
       to: email,
       subject: "Fabrique entertainment link per il reset della password",
       html: `
             <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
-            <a href="http://localhost:3000/reset-password?token=${token}">${token}</a>
+            <a href="${process.env.CLIENT_URL}/reset-password?token=${token}">${token}</a>
         `,
     };
 
@@ -142,7 +154,7 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
-//PUT => reset password
+// PUT => reset password
 exports.resetPassword = async (req, res) => {
   const { resetLink, password } = req.body;
 
@@ -155,23 +167,37 @@ exports.resetPassword = async (req, res) => {
       });
     }
 
-    jwt.verify(resetLink, "secret2017_05_03", async (err) => {
-      if (err) {
-        return res.status(401).json({ message: "incorrect or expired token" });
+    jwt.verify(
+      resetLink,
+      process.env.JWT_RESET_PASSWORD_SECRET,
+      async (err) => {
+        if (err) {
+          return res
+            .status(401)
+            .json({ message: "incorrect or expired token" });
+        }
+
+        // Hash password using bcrypt
+        const hashedPassword = await bcrypt.hash(
+          password,
+          process.env.BCRYPT_SALT_ROUNDS
+        );
+        console.log("here my hashed password:", hashedPassword);
+
+        // Update user's password and reset link
+        const updatedUser = await User.findOneAndUpdate(
+          { resetLink },
+          { password: hashedPassword, resetLink: "" },
+          { new: true } // Return the updated document instead of the original
+        );
+
+        return res.status(201).json({
+          message: "The password has been reset",
+          user: updatedUser,
+        });
       }
-      const hashedPassword = await bcrypt.hash(password, 12);
-      console.log("here my hashed password:", hashedPassword);
-      let user = await User.findOneAndUpdate(resetLink, {
-        password: hashedPassword,
-        resetLink: "",
-      });
-      return res.status(201).json({
-        message: "The password has been resetted",
-      });
-    });
+    );
   } catch (error) {
-    return res
-      .status(409)
-      .json({ message: "Was not possible to reset the password" });
+    return res.status(409).json({ message: "Unable to reset password" });
   }
 };

@@ -20,10 +20,10 @@ router.post(
       .trim(),
     check("phoneNumber").isFloat().isLength({ min: 10, max: 10 }),
   ],
-  contactsController.postAddContact
+  contactsController.addContact
 );
-// //update-film =>POST
-router.post(
+// //update-film =>PUT
+router.put(
   "/update-contact",
   [
     check("name").isString().isLength({ min: 3, max: 15 }).trim(),
@@ -37,9 +37,9 @@ router.post(
       .trim(),
     check("phoneNumber").isFloat().isLength({ min: 10, max: 10 }),
   ],
-  contactsController.postEditContact
+  contactsController.editContact
 );
 
-router.post("/delete-contact", contactsController.postDeleteContact);
+router.delete("/delete-contact", contactsController.deleteContact);
 
 module.exports = router;

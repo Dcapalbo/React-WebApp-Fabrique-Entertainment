@@ -22,10 +22,10 @@ router.post(
     check("year").isFloat().isLength({ min: 4, max: 4 }),
     check("type").isString().trim(),
   ],
-  filmsController.postAddFilm
+  filmsController.addFilm
 );
-//update-film =>POST
-router.post(
+//update-film =>PUT
+router.put(
   "/update-film",
   [
     check("title").isString().isLength({ min: 3, max: 30 }).trim(),
@@ -41,9 +41,9 @@ router.post(
     check("year").isFloat().isLength({ min: 4, max: 4 }),
     check("type").isString().trim(),
   ],
-  filmsController.postEditFilm
+  filmsController.editFilm
 );
 
-router.post("/delete-film", filmsController.postDeleteFilm);
+router.delete("/delete-film", filmsController.deleteFilm);
 
 module.exports = router;

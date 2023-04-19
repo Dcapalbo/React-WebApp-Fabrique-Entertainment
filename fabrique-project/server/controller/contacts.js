@@ -23,7 +23,7 @@ exports.getContacts = (req, res) => {
 };
 
 // POST => Adding a Contact
-exports.postAddContact = async (req, res) => {
+exports.addContact = async (req, res) => {
   const { name, surname, role, bio, email, slug, phoneNumber } = req.body;
   const image = req.file;
 
@@ -74,7 +74,7 @@ exports.postAddContact = async (req, res) => {
 };
 
 // POST => Editing a contact
-exports.postEditContact = async (req, res) => {
+exports.editContact = async (req, res) => {
   const { name, surname, role, bio, email, slug, phoneNumber, _id } = req.body;
   const image = req.file;
   const imageUrl = {
@@ -128,7 +128,7 @@ exports.postEditContact = async (req, res) => {
 };
 
 // // POST => Delete a single contact
-exports.postDeleteContact = async (req, res) => {
+exports.deleteContact = async (req, res) => {
   const contactId = req.body._id;
   try {
     await Contact.findByIdAndRemove(contactId);

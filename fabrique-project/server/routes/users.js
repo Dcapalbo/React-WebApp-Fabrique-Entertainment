@@ -29,7 +29,7 @@ router.post(
 );
 
 //forgot password => PUT
-router.put(
+router.post(
   "/forgot-password",
   [check("email").isString().isLength({ min: 10, max: 40 }).trim()],
   forgotPassword

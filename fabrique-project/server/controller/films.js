@@ -15,7 +15,7 @@ exports.getFilms = async (req, res) => {
   }
 };
 // POST => Adding a Film
-exports.postAddFilm = async (req, res) => {
+exports.addFilm = async (req, res) => {
   const {
     title,
     director,
@@ -83,7 +83,7 @@ exports.postAddFilm = async (req, res) => {
 };
 
 // POST => Editing a product
-exports.postEditFilm = async (req, res) => {
+exports.editFilm = async (req, res) => {
   const {
     title,
     director,
@@ -154,8 +154,8 @@ exports.postEditFilm = async (req, res) => {
   }
 };
 
-// // POST => Delete a single product using the prod id and user id
-exports.postDeleteFilm = async (req, res) => {
+// // DELETE => Delete a single product using the prod id and user id
+exports.deleteFilm = async (req, res) => {
   const filmId = req.body._id;
   try {
     await Film.findByIdAndRemove(filmId);
