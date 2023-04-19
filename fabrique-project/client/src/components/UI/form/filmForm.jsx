@@ -54,19 +54,31 @@ const FilmForm = () => {
 
     const formData = new FormData();
 
-    formData.append("title", event.title);
-    formData.append("director", event.director);
-    formData.append("production", event.production);
-    formData.append("screenwriter", event.screenwriter);
-    formData.append("directorOfPhotography", event.directorOfPhotography);
-    formData.append("synopsis", event.synopsis);
-    formData.append("duration", parseInt(event.duration));
-    formData.append("year", parseInt(event.year));
-    formData.append("slug", slugCreation(event.title));
-    formData.append("type", event.type);
+    const {
+      title,
+      director,
+      production,
+      screenwriter,
+      directorOfPhotography,
+      synopsis,
+      duration,
+      year,
+      type,
+    } = event;
+
+    formData.append("title", title);
+    formData.append("director", director);
+    formData.append("production", production);
+    formData.append("screenwriter", screenwriter);
+    formData.append("directorOfPhotography", directorOfPhotography);
+    formData.append("synopsis", synopsis);
+    formData.append("duration", parseInt(duration));
+    formData.append("year", parseInt(year));
+    formData.append("slug", slugCreation(title));
+    formData.append("type", type);
     formData.append("file", file);
 
-    if (dataUpdateFilm !== undefined) {
+    if (dataUpdateFilm?.payload?._id) {
       formData.append("_id", dataUpdateFilm.payload._id);
     }
 
@@ -94,7 +106,7 @@ const FilmForm = () => {
       ) {
         setIsLoading(true);
         axios
-          .post("http://localhost:5000/update-film", formData)
+          .put("http://localhost:5000/update-film", formData)
           .then((res) => {
             console.log(res.data);
           })

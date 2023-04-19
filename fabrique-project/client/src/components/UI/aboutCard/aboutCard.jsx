@@ -81,11 +81,12 @@ const AboutCard = (props) => {
   const deleteContactHandler = () => {
     setIsLoading(true);
 
-    const formData = new FormData();
-    formData.append("_id", props._id);
+    const contactId = {
+      _id: props._id,
+    };
 
     axios
-      .post("http://localhost:5000/delete-contact", formData)
+      .delete("http://localhost:5000/delete-contact", { data: contactId })
       .then((res) => {
         console.log(res.data);
       })

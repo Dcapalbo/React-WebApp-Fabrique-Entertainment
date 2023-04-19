@@ -90,7 +90,7 @@ const AboutContactForm = () => {
       ) {
         setIsLoading(true);
         axios
-          .post("http://localhost:5000/update-contact", formData)
+          .put("http://localhost:5000/update-contact", formData)
           .then((res) => {
             console.log(res.data);
           })

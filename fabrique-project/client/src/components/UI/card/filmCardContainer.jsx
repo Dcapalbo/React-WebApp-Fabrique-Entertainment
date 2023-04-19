@@ -43,7 +43,11 @@ const FilmCardContainer = () => {
       />
     );
   } else if (error) {
-    return <h1>There are some problem, please try to refresh</h1>;
+    return (
+      <h1 className={classes.text__align__center}>
+        There are some problem, please try to refresh
+      </h1>
+    );
   } else {
     return (
       <section className={classes.wrapper__card__container}>

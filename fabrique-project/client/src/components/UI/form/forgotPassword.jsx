@@ -29,7 +29,7 @@ const ForgotPassword = () => {
 
     setIsLoading(true);
     axios
-      .put("http://localhost:5000/forgot-password", formData)
+      .post("http://localhost:5000/forgot-password", formData)
       .then((res) => {
         console.log(res.data);
       })

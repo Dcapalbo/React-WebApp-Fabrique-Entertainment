@@ -44,7 +44,7 @@ const FilmCard = (props) => {
       "dataUpdateFilm",
       JSON.stringify(
         dispatch(
-          dataFilmActions.filmData({
+          dataFilmActions.setFilmData({
             title: props.title,
             director: props.director,
             production: props.production,
@@ -91,11 +91,12 @@ const FilmCard = (props) => {
   const deleteFilmHandler = () => {
     setIsLoading(true);
 
-    const formData = new FormData();
-    formData.append("_id", props._id);
+    const filmId = {
+      _id: props._id,
+    };
 
     axios
-      .post("http://localhost:5000/delete-film", formData)
+      .delete("http://localhost:5000/delete-film", { data: filmId })
       .then((res) => {
         console.log(res.data);
       })

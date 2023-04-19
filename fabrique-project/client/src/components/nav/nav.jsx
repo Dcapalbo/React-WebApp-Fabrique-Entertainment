@@ -1,13 +1,13 @@
 import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
-import { useTranslation } from "react-i18next";
+import { dataFilmActions } from "../../store/data-film-slice";
 import base64ArrayBuffer from "../../utils/base64";
+import ApiGetHook from "../../hooks/apiGetHook";
+import { useTranslation } from "react-i18next";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./nav.module.scss";
-import ApiGetHook from "../../hooks/apiGetHook";
-import { dataFilmActions } from "../../store/data-film-slice";
 
 const Navigation = () => {
   const dispatch = useDispatch();
