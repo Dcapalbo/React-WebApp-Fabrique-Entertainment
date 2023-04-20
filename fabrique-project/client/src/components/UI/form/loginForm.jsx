@@ -1,16 +1,18 @@
 import { dataUserActions } from "../../../store/data-user-slice";
 import { loginSchema } from "../../../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
 import PuffLoader from "react-spinners/PuffLoader";
 import { useTranslation } from "react-i18next";
 import classes from "./genericForm.module.scss";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -45,11 +47,12 @@ const LoginForm = () => {
           })
         );
         setIsLoading(false);
+        navigate("/admin/films");
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
-        setIsLoading(false);
         setError(err);
+        setIsLoading(false);
       });
   };
 

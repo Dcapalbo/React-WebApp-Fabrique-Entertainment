@@ -1,18 +1,17 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
 import classes from "../../../assets/card.module.scss";
+import { useDispatch, useSelector } from "react-redux";
 import PuffLoader from "react-spinners/PuffLoader";
-import { isAuth } from "../../../utils/isAuth";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import React from "react";
 
 const FilmCard = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsAuthenticated(isAuth("token"));
     dispatch(
       dataFilmActions.setFilmData([
         {
@@ -33,11 +32,14 @@ const FilmCard = (props) => {
     );
   }, [dispatch, props]);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setIsAuthenticated(isLoggedIn);
+  }, [isLoggedIn]);
 
   const sendFilmDataHandler = () => {
     window.localStorage.setItem(
@@ -60,7 +62,7 @@ const FilmCard = (props) => {
         )
       )
     );
-    navigate("/admin/films/update-film");
+    navigate("/admin/update-film");
   };
 
   const sendFilmIdHanlder = () => {
@@ -101,17 +103,15 @@ const FilmCard = (props) => {
       })
       .then((res) => {
         console.log(res.data);
+        navigate("/admin/films");
       })
       .catch((err) => {
         console.error(
           "there is an error for deleting the specific film: ",
           err.name
         );
-        setError(err);
-      })
-      .finally(() => {
         setIsLoading(false);
-        window.location.replace("/admin/films");
+        setError(err);
       });
   };
 

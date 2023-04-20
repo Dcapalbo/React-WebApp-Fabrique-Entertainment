@@ -1,18 +1,17 @@
 import { dataContactActions } from "../../../store/data-contact-slice";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "../../../assets/card.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
-import { isAuth } from "../../../utils/isAuth";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import React from "react";
 
 const AboutCard = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsAuthenticated(isAuth("token"));
     dispatch(
       dataContactActions.addContactData({
         name: props.name,
@@ -28,11 +27,14 @@ const AboutCard = (props) => {
     );
   }, [dispatch, props]);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setIsAuthenticated(isLoggedIn);
+  }, [isLoggedIn]);
 
   const sendContactDataHandler = () => {
     window.localStorage.setItem(
@@ -53,7 +55,7 @@ const AboutCard = (props) => {
         )
       )
     );
-    navigate("/admin/contacts/update-contact");
+    navigate("/admin/update-contact");
   };
 
   const sendContactIdHanlder = () => {
@@ -90,18 +92,17 @@ const AboutCard = (props) => {
         data: contactId,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log("siamo qui?", res.data);
+        setIsLoading(false);
+        navigate("/admin/contacts");
       })
       .catch((err) => {
         console.error(
           "there is an error for deleting the specific contact: ",
           err.name
         );
-        setError(err);
-      })
-      .finally(() => {
-        window.location.replace("/admin/contacts");
         setIsLoading(false);
+        setError(err);
       });
   };
 

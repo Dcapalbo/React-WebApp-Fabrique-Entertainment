@@ -5,21 +5,28 @@ import { useTranslation } from "react-i18next";
 import classes from "./navModal.module.scss";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const NavModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const token = useSelector((state) => state.userLogin.token);
+
   const [modalVisible, setIsModalVisible] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [tokenExpiration, setTokenExpiration] = useState(() => {});
+
   const { fabriqueData } = ApiGetHook(
     `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
   );
 
   useEffect(() => {
-    setIsAuthenticated(isAuth("token"));
-  }, [fabriqueData]);
+    setIsAuthenticated(isLoggedIn);
+    setTokenExpiration(isAuth(token));
+  }, [fabriqueData, isLoggedIn, token]);
 
   const sendFilmIdHanlder = (filmData) => {
     window.localStorage.setItem(
@@ -86,31 +93,26 @@ const NavModal = () => {
               </ul>
             </li>
             <li>
-              <Link to="/news">{t("news")}</Link>
-            </li>
-            <li>
               <Link to="/contact">{t("contacts")}</Link>
             </li>
-            {isAuthenticated && (
+            {isAuthenticated && tokenExpiration && (
               <li>
                 <Link to="/admin/films">{t("filmsList")}</Link>
               </li>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && tokenExpiration && (
               <li>
-                <Link to="/admin/films/add-new-film">{t("addFilm")}</Link>
+                <Link to="/admin/add-new-film">{t("addFilm")}</Link>
               </li>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && tokenExpiration && (
               <li>
                 <Link to="/admin/contacts/">{t("contactsList")}</Link>
               </li>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && tokenExpiration && (
               <li>
-                <Link to="/admin/contacts/add-new-contact">
-                  {t("addContact")}
-                </Link>
+                <Link to="/admin/add-new-contact">{t("addContact")}</Link>
               </li>
             )}
           </ul>

@@ -19,7 +19,7 @@ const FilmForm = () => {
   useEffect(() => {
     if (
       uriLocation !==
-      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/update-film`
+      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
     ) {
       window.localStorage.removeItem("dataUpdateFilm");
       setIsUpdate(false);
@@ -90,37 +90,42 @@ const FilmForm = () => {
     if (formData !== {}) {
       if (
         uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/add-new-film`
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/add-new-film`
       ) {
         setIsLoading(true);
         axios
           .post(`${process.env.REACT_APP_API_LOCAL_PORT}/add-film`, formData)
           .then((res) => {
             console.log(res.data);
-            navigate("/admin/films");
             setIsLoading(false);
+            navigate("/admin/films");
           })
           .catch((err) => {
             setIsLoading(false);
             setError(err);
+          })
+          .finally(() => {
+            setIsLoading(false);
+            navigate("/admin/films");
           });
       } else if (
         uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/update-film`
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
       ) {
         setIsLoading(true);
         axios
           .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
           .then((res) => {
             console.log(res.data);
+            navigate("/admin/films");
           })
           .catch((err) => {
             console.error("there is an error for updating a film: ", err.name);
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/films");
             setIsLoading(false);
+            navigate("/admin/films");
           });
       }
     }

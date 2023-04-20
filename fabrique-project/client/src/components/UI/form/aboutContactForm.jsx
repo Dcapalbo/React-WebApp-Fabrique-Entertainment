@@ -72,7 +72,7 @@ const AboutContactForm = () => {
     if (formData !== {}) {
       if (
         uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/add-new-contact`
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/add-new-contact`
       ) {
         setIsLoading(true);
         axios

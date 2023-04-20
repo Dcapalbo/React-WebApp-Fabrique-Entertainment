@@ -1,6 +1,8 @@
 // importing the react router dom version 6
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { isAuth } from "./utils/isAuth";
 // importing the react traductions functions
 import { initReactI18next } from "react-i18next";
 import { translationIt } from "./utils/i18It";
@@ -16,7 +18,6 @@ import About from "./pages/About";
 import Films from "./pages/Films";
 import NewFilm from "./pages/NewFilm";
 import AllFilms from "./pages/AllFilms";
-import { isAuth } from "./utils/isAuth";
 import LoginForm from "./pages/LoginForm";
 import UpdateFilm from "./pages/UpdateFilm";
 import AuthSignUp from "./pages/AuthSignUp";
@@ -39,11 +40,16 @@ i18n.use(initReactI18next).init({
 });
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const token = useSelector((state) => state.userLogin.token);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [tokenExpiration, setTokenExpiration] = useState(() => {});
 
   useEffect(() => {
-    setIsAuthenticated(isAuth("token"));
-  }, []);
+    setIsAuthenticated(isLoggedIn);
+    setTokenExpiration(isAuth(token));
+  }, [isLoggedIn, token]);
 
   return (
     <Router>
@@ -58,31 +64,25 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPasswordForm />} />
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         <Route path="/sign-up" element={<AuthSignUp />} />
-        {/* authenticated Routes  */}
 
-        {isAuthenticated && (
+        {/* authenticated Routes  */}
+        {isAuthenticated && tokenExpiration && (
           <Route path="/admin/films" element={<AllFilms />} />
         )}
-        {isAuthenticated && (
+        {isAuthenticated && tokenExpiration && (
           <Route path="/admin/contacts" element={<AllContacts />} />
         )}
-        {isAuthenticated && (
-          <Route path="/admin/films/add-new-film" element={<NewFilm />} />
+        {isAuthenticated && tokenExpiration && (
+          <Route path="/admin/add-new-film" element={<NewFilm />} />
         )}
-        {isAuthenticated && (
-          <Route path="/admin/films/update-film" element={<UpdateFilm />} />
+        {isAuthenticated && tokenExpiration && (
+          <Route path="/admin/update-film" element={<UpdateFilm />} />
         )}
-        {isAuthenticated && (
-          <Route
-            path="/admin/contacts/add-new-contact"
-            element={<NewContact />}
-          />
+        {isAuthenticated && tokenExpiration && (
+          <Route path="/admin/add-new-contact" element={<NewContact />} />
         )}
-        {isAuthenticated && (
-          <Route
-            path="/admin/contacts/update-contact"
-            element={<UpdateContact />}
-          />
+        {isAuthenticated && tokenExpiration && (
+          <Route path="/admin/update-contact" element={<UpdateContact />} />
         )}
       </Routes>
     </Router>

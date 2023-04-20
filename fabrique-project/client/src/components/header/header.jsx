@@ -15,7 +15,6 @@ const Header = () => {
     const body = document.querySelector("body");
     body.style.overflow = "hidden";
     setIsVisible(true);
-    console.log(visible);
   };
 
   const isSticky = () => {
