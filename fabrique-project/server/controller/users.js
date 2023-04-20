@@ -119,18 +119,16 @@ exports.forgotPassword = async (req, res) => {
       expiresIn: "20m",
     });
 
-    console.log("sono dentro?");
-
     const transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE,
+      service: "gmail",
       auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
     const automaticEmailData = {
-      from: process.env.EMAIL_ADDRESS,
+      from: process.env.SMTP_EMAIL,
       to: email,
       subject: "Fabrique entertainment link per il reset della password",
       html: `
@@ -170,36 +168,26 @@ exports.resetPassword = async (req, res) => {
       });
     }
 
-    jwt.verify(
-      resetLink,
-      process.env.JWT_RESET_PASSWORD_SECRET,
-      async (err) => {
-        if (err) {
-          return res
-            .status(401)
-            .json({ message: "incorrect or expired token" });
-        }
-
-        // Hash password using bcrypt
-        const hashedPassword = await bcrypt.hash(
-          password,
-          process.env.BCRYPT_SALT_ROUNDS
-        );
-        console.log("here my hashed password:", hashedPassword);
-
-        // Update user's password and reset link
-        const updatedUser = await User.findOneAndUpdate(
-          { resetLink },
-          { password: hashedPassword, resetLink: "" },
-          { new: true } // Return the updated document instead of the original
-        );
-
-        return res.status(201).json({
-          message: "The password has been reset",
-          user: updatedUser,
-        });
+    jwt.verify(resetLink, process.env.JWT_SECRET, async (err) => {
+      if (err) {
+        return res.status(401).json({ message: "incorrect or expired token" });
       }
-    );
+
+      // Hash password using bcrypt
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      // Update user's password and reset link
+      const updatedUser = await User.findOneAndUpdate(
+        { resetLink },
+        { password: hashedPassword, resetLink: "" },
+        { new: true } // Return the updated document instead of the original
+      );
+
+      return res.status(201).json({
+        message: "The password has been reset",
+        user: updatedUser,
+      });
+    });
   } catch (error) {
     return res.status(409).json({ message: "Unable to reset password" });
   }
