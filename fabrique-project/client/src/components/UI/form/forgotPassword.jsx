@@ -51,7 +51,7 @@ const ForgotPassword = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          <h4>{t("labels.email")}</h4>
+          <h4>{t("labels.emailLabel")}</h4>
           <label htmlFor="Email">{t("genericInfo.email")}</label>
           <input {...register("email")} type="email" />
           {errors.email?.message && <small>{errors.email?.message}</small>}
