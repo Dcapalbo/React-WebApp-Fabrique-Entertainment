@@ -116,7 +116,7 @@ exports.forgotPassword = async (req, res) => {
     }
 
     const token = jwt.sign({ _id: existingUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "20m",
+      expiresIn: "5m",
     });
 
     const transporter = nodemailer.createTransport({
@@ -132,7 +132,7 @@ exports.forgotPassword = async (req, res) => {
       to: email,
       subject: "Fabrique entertainment link per il reset della password",
       html: `
-            <h2>Per favore clicca sul link qui sotto per resettare la tua password</h2>
+            <h2>Questo link ha validità di 5 minutiPer favore clicca sul link qui sotto per resettare la tua password,</h2>
             <a href="${process.env.CLIENT_URL}/reset-password?token=${token}">${token}</a>
         `,
     };
