@@ -24,25 +24,25 @@ const ResetPassword = () => {
   const [error, setError] = useState(null);
 
   const confirmHandler = (event) => {
+    const { password } = event;
+
     const formData = new FormData();
 
-    formData.append("password", event.password);
+    formData.append("password", password);
     formData.append("resetLink", queryParameters.get("token"));
 
-    console.log(formData);
     setIsLoading(true);
     axios
       .put(`${process.env.REACT_APP_API_LOCAL_PORT}/reset-password`, formData)
       .then((res) => {
         console.log(res.data);
+        setIsLoading(false);
+        navigate("/login");
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
-        setError(err);
-      })
-      .finally(() => {
         setIsLoading(false);
-        navigate("/login");
+        setError(err);
       });
   };
 
