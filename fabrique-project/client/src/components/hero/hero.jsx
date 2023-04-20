@@ -1,5 +1,5 @@
-import classes from "./hero.module.scss";
 import HeroVideo from "../../assets/img/80 - Fabrique_E_Logo_Animato.mp4";
+import classes from "./hero.module.scss";
 
 const Hero = () => {
   return (

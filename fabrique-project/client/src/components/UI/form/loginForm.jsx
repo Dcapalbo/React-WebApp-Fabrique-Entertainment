@@ -1,22 +1,27 @@
+import { dataUserActions } from "../../../store/data-user-slice";
 import { loginSchema } from "../../../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
-import classes from "./genericForm.module.scss";
 import { useTranslation } from "react-i18next";
+import classes from "./genericForm.module.scss";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import React from "react";
 
 const LoginForm = () => {
-  const { register, handleSubmit, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: "",
     resolver: zodResolver(loginSchema),
   });
 
-  const { errors } = formState;
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,9 +38,12 @@ const LoginForm = () => {
     axios
       .post(`${process.env.REACT_APP_API_LOCAL_PORT}/login`, formData)
       .then((res) => {
-        window.sessionStorage.setItem("token", res.data.token);
-        window.sessionStorage.setItem("userId", res.data.userId);
-        window.location.replace("/admin/films");
+        dispatch(
+          dataUserActions.login({
+            userId: res.data.userId,
+            token: res.data.token,
+          })
+        );
         setIsLoading(false);
       })
       .catch((err) => {
