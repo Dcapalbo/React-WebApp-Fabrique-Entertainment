@@ -56,29 +56,31 @@ exports.addFilm = async (req, res) => {
   // saving the data inside the db
   try {
     const existingFilm = await Film.findOne({ title });
-    if (!existingFilm) {
-      const film = await Film.create({
-        title,
-        director,
-        production,
-        screenwriter,
-        directorOfPhotography,
-        synopsis,
-        duration,
-        year,
-        slug,
-        type,
-        imageUrl: {
-          data: fs.readFileSync("images/" + image.filename),
-          contentType: "image/png",
-        },
-      });
-      fileHelper.deleteFile("images/" + image.filename);
-      res.status(201).send(film);
+    if (existingFilm) {
+      return res.status(400).json({ message: "The film exist already" });
     }
-    return res.status(400).json({ message: "The film exist already" });
+
+    const film = await Film.create({
+      title,
+      director,
+      production,
+      screenwriter,
+      directorOfPhotography,
+      synopsis,
+      duration,
+      year,
+      slug,
+      type,
+      imageUrl: {
+        data: fs.readFileSync("images/" + image.filename),
+        contentType: "image/png",
+      },
+    });
+
+    fileHelper.deleteFile("images/" + image.filename);
+    return res.status(201).send(film);
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong." });
+    return res.status(500).json({ message: "Something went wrong." });
   }
 };
 

@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const User = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { log } = require("console");
 
 // POST => create User
 exports.createUser = async (req, res) => {
@@ -117,6 +118,8 @@ exports.forgotPassword = async (req, res) => {
     const token = jwt.sign({ _id: existingUser._id }, process.env.JWT_SECRET, {
       expiresIn: "20m",
     });
+
+    console.log("sono dentro?");
 
     const transporter = nodemailer.createTransport({
       service: process.env.EMAIL_SERVICE,

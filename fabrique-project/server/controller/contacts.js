@@ -4,22 +4,20 @@ const fileHelper = require("../util/file");
 const fs = require("fs");
 
 // GET => Getting all contacts
-exports.getContacts = (req, res) => {
-  Contact.find()
-    .then((contacts) => {
-      // response from the server with the render method and passing an object
-      res.status(200).json(contacts);
-    })
-    // catching errors
-    .catch((error) => {
-      res.status(500).json({
-        message: "Something went wrong with the contacts fetching",
-      });
-      console.log(
-        "Something went wrong with the contacts fetching: ",
-        error.message
-      );
+exports.getContacts = async (req, res) => {
+  try {
+    const contacts = await Contact.find();
+    // response from the server with the render method and passing an object
+    res.status(200).json(contacts);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong with the contacts fetching",
     });
+    console.log(
+      "Something went wrong with the contacts fetching: ",
+      error.message
+    );
+  }
 };
 
 // POST => Adding a Contact
@@ -49,27 +47,28 @@ exports.addContact = async (req, res) => {
     });
   }
   try {
-    const existingContact = await Contact.findOne({ name });
-    if (!existingContact) {
-      const contact = await Contact.create({
-        name,
-        surname,
-        role,
-        bio,
-        email,
-        slug,
-        phoneNumber,
-        imageUrl: {
-          data: fs.readFileSync("images/" + image.filename),
-          contentType: "image/png",
-        },
-      });
-      fileHelper.deleteFile("images/" + image.filename);
-      res.status(201).send(contact);
+    const existingContact = await Contact.findOne({ name, surname, email });
+    if (existingContact) {
+      return res.status(400).json({ message: "The contact exists already" });
     }
-    return res.status(400).json({ message: "The contact exist already" });
+
+    const contact = await Contact.create({
+      name,
+      surname,
+      role,
+      bio,
+      email,
+      slug,
+      phoneNumber,
+      imageUrl: {
+        data: fs.readFileSync("images/" + image.filename),
+        contentType: "image/png",
+      },
+    });
+    fileHelper.deleteFile("images/" + image.filename);
+    return res.status(201).send(contact);
   } catch (error) {
-    console.log("Something went wrong, here the error: ", error.message);
+    return res.status(500).json({ message: "Something went wrong.", error });
   }
 };
 
@@ -135,7 +134,6 @@ exports.deleteContact = async (req, res) => {
     res.status(200).json({
       message: "The contact has been deleted",
     });
-    console.log("The contact has been deleted");
   } catch (error) {
     res.status(500).send(error.message);
     console.log(
