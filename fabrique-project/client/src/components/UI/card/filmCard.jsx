@@ -1,6 +1,6 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
-import classes from "../../../assets/card.module.scss";
 import { useDispatch, useSelector } from "react-redux";
+import classes from "../../../assets/card.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -11,27 +11,6 @@ const FilmCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(
-      dataFilmActions.setFilmData([
-        {
-          title: props.title,
-          director: props.director,
-          production: props.production,
-          screenwriter: props.screenwriter,
-          directorOfPhotography: props.directorOfPhotography,
-          synopsis: props.synopsis,
-          duration: props.duration,
-          year: props.year,
-          slug: props.slug,
-          type: props.type,
-          imageUrl: props.imageUrl,
-          _id: props._id,
-        },
-      ])
-    );
-  }, [dispatch, props]);
-
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,53 +18,44 @@ const FilmCard = (props) => {
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
-  }, [isLoggedIn]);
+    dispatch(dataFilmActions.resetFilmData);
+  }, [isLoggedIn, dispatch]);
 
   const sendFilmDataHandler = () => {
-    window.localStorage.setItem(
-      "dataUpdateFilm",
-      JSON.stringify(
-        dispatch(
-          dataFilmActions.setFilmData({
-            title: props.title,
-            director: props.director,
-            production: props.production,
-            screenwriter: props.screenwriter,
-            directorOfPhotography: props.directorOfPhotography,
-            synopsis: props.synopsis,
-            duration: props.duration,
-            year: props.year,
-            type: props.type,
-            imageUrl: props.imageUrl,
-            _id: props._id,
-          })
-        )
-      )
+    dispatch(
+      dataFilmActions.setFilmData({
+        title: props.title,
+        director: props.director,
+        production: props.production,
+        screenwriter: props.screenwriter,
+        directorOfPhotography: props.directorOfPhotography,
+        synopsis: props.synopsis,
+        duration: props.duration,
+        year: props.year,
+        type: props.type,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
     );
     navigate("/admin/update-film");
   };
 
   const sendFilmIdHanlder = () => {
-    window.localStorage.setItem(
-      "filmData",
-      JSON.stringify(
-        dispatch(
-          dataFilmActions.setFilmData({
-            title: props.title,
-            director: props.director,
-            production: props.production,
-            screenwriter: props.screenwriter,
-            directorOfPhotography: props.directorOfPhotography,
-            synopsis: props.synopsis,
-            duration: props.duration,
-            year: props.year,
-            slug: props.slug,
-            type: props.type,
-            imageUrl: props.imageUrl,
-            _id: props._id,
-          })
-        )
-      )
+    dispatch(
+      dataFilmActions.setFilmData({
+        title: props.title,
+        director: props.director,
+        production: props.production,
+        screenwriter: props.screenwriter,
+        directorOfPhotography: props.directorOfPhotography,
+        synopsis: props.synopsis,
+        duration: props.duration,
+        year: props.year,
+        slug: props.slug,
+        type: props.type,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
     );
     navigate(`/film/${props.slug}`);
   };
@@ -113,6 +83,24 @@ const FilmCard = (props) => {
         setIsLoading(false);
         setError(err);
       });
+    dispatch(
+      dataFilmActions.setFilmData([
+        {
+          title: props.title,
+          director: props.director,
+          production: props.production,
+          screenwriter: props.screenwriter,
+          directorOfPhotography: props.directorOfPhotography,
+          synopsis: props.synopsis,
+          duration: props.duration,
+          year: props.year,
+          slug: props.slug,
+          type: props.type,
+          imageUrl: props.imageUrl,
+          _id: props._id,
+        },
+      ])
+    );
   };
 
   return (

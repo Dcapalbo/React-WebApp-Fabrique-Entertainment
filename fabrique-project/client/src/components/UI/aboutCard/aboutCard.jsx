@@ -11,22 +11,6 @@ const AboutCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(
-      dataContactActions.addContactData({
-        name: props.name,
-        surname: props.surname,
-        role: props.role,
-        bio: props.bio,
-        email: props.email,
-        phoneNumber: props.phoneNumber,
-        slug: props.slug,
-        imageUrl: props.imageUrl,
-        _id: props._id,
-      })
-    );
-  }, [dispatch, props]);
-
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,48 +18,39 @@ const AboutCard = (props) => {
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
-  }, [isLoggedIn]);
+    dispatch(dataContactActions.resetContactData);
+  }, [isLoggedIn, dispatch]);
 
   const sendContactDataHandler = () => {
-    window.localStorage.setItem(
-      "dataUpdateContact",
-      JSON.stringify(
-        dispatch(
-          dataContactActions.addContactData({
-            name: props.name,
-            surname: props.surname,
-            role: props.role,
-            bio: props.bio,
-            email: props.email,
-            slug: props.slug,
-            phoneNumber: props.phoneNumber,
-            imageUrl: props.imageUrl,
-            _id: props._id,
-          })
-        )
-      )
+    dispatch(
+      dataContactActions.setContactData({
+        name: props.name,
+        surname: props.surname,
+        role: props.role,
+        bio: props.bio,
+        email: props.email,
+        slug: props.slug,
+        phoneNumber: props.phoneNumber,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
     );
     navigate("/admin/update-contact");
   };
 
   const sendContactIdHanlder = () => {
-    window.localStorage.setItem(
-      "contactData",
-      JSON.stringify(
-        dispatch(
-          dataContactActions.addContactData({
-            name: props.name,
-            surname: props.surname,
-            role: props.role,
-            bio: props.bio,
-            email: props.email,
-            slug: props.slug,
-            phoneNumber: props.phoneNumber,
-            imageUrl: props.imageUrl,
-            _id: props._id,
-          })
-        )
-      )
+    dispatch(
+      dataContactActions.setContactData({
+        name: props.name,
+        surname: props.surname,
+        role: props.role,
+        bio: props.bio,
+        email: props.email,
+        slug: props.slug,
+        phoneNumber: props.phoneNumber,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
     );
     navigate(`/about/${props.slug}`);
   };
@@ -99,11 +74,24 @@ const AboutCard = (props) => {
       .catch((err) => {
         console.error(
           "there is an error for deleting the specific contact: ",
-          err.name
+          err
         );
         setIsLoading(false);
         setError(err);
       });
+    dispatch(
+      dataContactActions.setContactData({
+        name: props.name,
+        surname: props.surname,
+        role: props.role,
+        bio: props.bio,
+        email: props.email,
+        slug: props.slug,
+        phoneNumber: props.phoneNumber,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
+    );
   };
 
   return (

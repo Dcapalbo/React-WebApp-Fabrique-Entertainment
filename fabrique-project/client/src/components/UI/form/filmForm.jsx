@@ -1,7 +1,9 @@
+import { dataFilmActions } from "../../../store/data-film-slice";
 import { useForm, useController } from "react-hook-form";
-import { slugCreation } from "../../../utils/functions";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { filmSchema } from "../../../schema/filmSchema";
+import { slugCreation } from "../../../utils/functions";
+import { useDispatch, useSelector } from "react-redux";
+import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +16,7 @@ import React from "react";
 const FilmForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const uriLocation = window.location.href;
 
   useEffect(() => {
@@ -28,14 +31,10 @@ const FilmForm = () => {
     }
   }, [uriLocation]);
 
-  let dataUpdateFilm;
-
-  if (window.localStorage.getItem("dataUpdateFilm")) {
-    dataUpdateFilm = JSON.parse(window.localStorage.getItem("dataUpdateFilm"));
-  }
+  let dataUpdateFilm = useSelector((state) => state.dataFilm.filmData);
 
   const { register, control, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateFilm ?? "",
+    defaultValues: dataUpdateFilm[0] ?? "",
     resolver: zodResolver(filmSchema),
   });
 
@@ -83,8 +82,8 @@ const FilmForm = () => {
     formData.append("type", type);
     formData.append("file", file);
 
-    if (dataUpdateFilm?.payload?._id) {
-      formData.append("_id", dataUpdateFilm.payload._id);
+    if (dataUpdateFilm[0]?._id) {
+      formData.append("_id", dataUpdateFilm[0]?._id);
     }
 
     if (formData !== {}) {
@@ -117,10 +116,10 @@ const FilmForm = () => {
           .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
           .then((res) => {
             console.log(res.data);
-            navigate("/admin/films");
+            dispatch(dataFilmActions.resetFilmData());
           })
           .catch((err) => {
-            console.error("there is an error for updating a film: ", err.name);
+            console.error("there is an error for updating a film: ", err);
             setError(err);
           })
           .finally(() => {

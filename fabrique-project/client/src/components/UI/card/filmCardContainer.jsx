@@ -9,6 +9,7 @@ import FilmCard from "./filmCard";
 const FilmCardContainer = () => {
   const typeData = useSelector((state) => state.dataType.dataType) || "";
   const [filteredData, setFilteredData] = useState([]);
+
   const { fabriqueData, loading, error } = ApiGetHook(
     `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
   );

@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const dataFilmSlice = createSlice({
   name: "dataFilm",
   initialState: {
-    filmData: [{}],
+    filmData: [],
   },
   reducers: {
-    setFilmData(state = [{}], action) {
+    setFilmData(state, action) {
       const newFilmData = action.payload;
       const dataFilmArray = state.filmData;
       if (!dataFilmArray.length) {
@@ -25,6 +25,9 @@ const dataFilmSlice = createSlice({
           _id: newFilmData._id,
         });
       }
+    },
+    resetFilmData(state) {
+      state.filmData = [];
     },
   },
 });

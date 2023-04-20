@@ -24,35 +24,8 @@ const decodeToken = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-const cleanLocalStorage = () => {
-  const uriLocation = window.location.href;
-  if (checkSubString(uriLocation, "/admin/update-film") !== true) {
-    window.localStorage.removeItem("dataUpdateFilm");
-  }
-  if (checkSubString(uriLocation, "/admin/update-contact") !== true) {
-    window.localStorage.removeItem("dataUpdateContact");
-  }
-  if (checkSubString(uriLocation, "/about/") !== true) {
-    window.localStorage.removeItem("contactData");
-  }
-  if (checkSubString(uriLocation, "/film/") !== true) {
-    window.localStorage.removeItem("filmData");
-  }
-};
-
 const slugCreation = (string) => {
   return string.toLowerCase().replaceAll(" ", "-");
 };
 
-const checkSubString = (uri, subString) => {
-  return uri.includes(subString);
-};
-
-export {
-  cleanLocalStorage,
-  genericLength,
-  decodeToken,
-  emailCheck,
-  isEmpty,
-  slugCreation,
-};
+export { genericLength, decodeToken, emailCheck, isEmpty, slugCreation };

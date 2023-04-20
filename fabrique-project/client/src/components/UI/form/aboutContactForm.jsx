@@ -1,5 +1,7 @@
+import { dataContactActions } from "../../../store/data-contact-slice";
 import { contactSchema } from "../../../schema/conctactSchema";
 import { slugCreation } from "../../../utils/functions";
+import { useDispatch, useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -12,33 +14,27 @@ import React from "react";
 
 const AboutContactForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const uriLocation = window.location.href;
 
   useEffect(() => {
     if (
       uriLocation !==
-      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/update-contact`
+      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-contact`
     ) {
-      window.localStorage.removeItem("dataUpdateContact");
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
     }
   }, [uriLocation]);
 
-  let dataUpdateContact;
+  let dataUpdateContact = useSelector((state) => state.dataContact.contactData);
 
-  if (window.localStorage.getItem("dataUpdateContact")) {
-    dataUpdateContact = JSON.parse(
-      window.localStorage.getItem("dataUpdateContact")
-    );
-  }
   const { register, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateContact ?? "",
+    defaultValues: dataUpdateContact[0] ?? "",
     resolver: zodResolver(contactSchema),
   });
-
-  const navigate = useNavigate();
 
   const { errors } = formState;
 
@@ -65,8 +61,8 @@ const AboutContactForm = () => {
     formData.append("slug", slugCreation(name));
     formData.append("file", file);
 
-    if (dataUpdateContact !== undefined) {
-      formData.append("_id", dataUpdateContact.payload?._id);
+    if (dataUpdateContact[0]?._id) {
+      formData.append("_id", dataUpdateContact[0]?._id);
     }
 
     if (formData !== {}) {
@@ -93,7 +89,7 @@ const AboutContactForm = () => {
           });
       } else if (
         uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/update-contact`
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-contact`
       ) {
         setIsLoading(true);
         axios
@@ -103,21 +99,17 @@ const AboutContactForm = () => {
           )
           .then((res) => {
             console.log(res.data);
+            dispatch(dataContactActions.resetContactData());
           })
           .catch((err) => {
-            console.error(
-              "there is an error for updating a contact: ",
-              err.name
-            );
+            console.error("there is an error for updating a contact: ", err);
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/contacts");
             setIsLoading(false);
+            navigate("/admin/contacts");
           });
       }
-    } else {
-      console.log("problemi");
     }
   };
 

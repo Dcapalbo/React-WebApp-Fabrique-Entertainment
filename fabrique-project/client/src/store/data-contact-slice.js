@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const dataContactSlice = createSlice({
-  name: "contact-data",
+  name: "dataContact",
   initialState: {
     contactData: [],
   },
   reducers: {
-    addContactData(state, action) {
+    setContactData(state, action) {
       const newContactData = action.payload;
       const dataContactArray = state.contactData;
       if (!dataContactArray.length) {
@@ -22,6 +22,9 @@ const dataContactSlice = createSlice({
           _id: newContactData._id,
         });
       }
+    },
+    resetContactData(state) {
+      state.contactData = [];
     },
   },
 });
