@@ -1,4 +1,4 @@
-import { contactSchema } from "../../schema/conctactSchema";
+import { contactSchema } from "../../../schema/conctactSchema";
 import { slugCreation } from "../../../utils/functions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
@@ -15,7 +15,10 @@ const AboutContactForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/admin/contacts/update-contact") {
+    if (
+      uriLocation !==
+      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/update-contact`
+    ) {
       window.localStorage.removeItem("dataUpdateContact");
       setIsUpdate(false);
     } else {
@@ -49,15 +52,17 @@ const AboutContactForm = () => {
     const enteredFileIsValid = file !== null && file !== "";
     setEnteredFileisValid(enteredFileIsValid);
 
+    const { name, surname, role, bio, email, phoneNumber } = event;
+
     const formData = new FormData();
 
-    formData.append("name", event.name);
-    formData.append("surname", event.surname);
-    formData.append("role", event.role);
-    formData.append("bio", event.bio);
-    formData.append("email", event.email);
-    formData.append("phoneNumber", parseInt(event.phoneNumber));
-    formData.append("slug", slugCreation(event.name));
+    formData.append("name", name);
+    formData.append("surname", surname);
+    formData.append("role", role);
+    formData.append("bio", bio);
+    formData.append("email", email);
+    formData.append("phoneNumber", parseInt(phoneNumber));
+    formData.append("slug", slugCreation(name));
     formData.append("file", file);
 
     if (dataUpdateContact !== undefined) {
@@ -66,11 +71,12 @@ const AboutContactForm = () => {
 
     if (formData !== {}) {
       if (
-        uriLocation === "http://localhost:3000/admin/contacts/add-new-contact"
+        uriLocation ===
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/add-new-contact`
       ) {
         setIsLoading(true);
         axios
-          .post("http://localhost:5000/add-contact", formData)
+          .post(`${process.env.REACT_APP_API_LOCAL_PORT}/add-contact`, formData)
           .then((res) => {
             console.log(res.data);
           })
@@ -86,11 +92,15 @@ const AboutContactForm = () => {
             setIsLoading(false);
           });
       } else if (
-        uriLocation === "http://localhost:3000/admin/contacts/update-contact"
+        uriLocation ===
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts/update-contact`
       ) {
         setIsLoading(true);
         axios
-          .put("http://localhost:5000/update-contact", formData)
+          .put(
+            `${process.env.REACT_APP_API_LOCAL_PORT}/update-contact`,
+            formData
+          )
           .then((res) => {
             console.log(res.data);
           })
@@ -106,6 +116,8 @@ const AboutContactForm = () => {
             setIsLoading(false);
           });
       }
+    } else {
+      console.log("problemi");
     }
   };
 

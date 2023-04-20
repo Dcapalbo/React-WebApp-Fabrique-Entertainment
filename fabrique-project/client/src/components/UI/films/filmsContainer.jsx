@@ -6,7 +6,7 @@ import Films from "./films";
 
 const FilmsContainer = () => {
   const { fabriqueData, loading, error } = ApiGetHook(
-    "http://localhost:5000/get-films"
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
   );
 
   if (loading) {

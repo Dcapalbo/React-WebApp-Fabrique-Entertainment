@@ -44,11 +44,6 @@
       "react-app/jest"
     ]
   },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -75,6 +70,7 @@
     "babel-loader": "^9.1.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^6.7.1",
+    "dotenv": "^16.0.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
     "node-sass": "^8.0.0",

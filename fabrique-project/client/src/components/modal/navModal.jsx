@@ -1,17 +1,49 @@
+import { dataFilmActions } from "../../store/data-film-slice";
+import base64ArrayBuffer from "../../utils/base64";
+import ApiGetHook from "../../hooks/apiGetHook";
+import { useTranslation } from "react-i18next";
 import classes from "./navModal.module.scss";
-import { Link } from "react-router-dom";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const NavModal = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modalVisible, setIsModalVisible] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
+  const { fabriqueData } = ApiGetHook(
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
+  );
 
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-  }, []);
+  }, [fabriqueData]);
+
+  const sendFilmIdHanlder = (filmData) => {
+    window.localStorage.setItem(
+      "filmData",
+      JSON.stringify(
+        dispatch(
+          dataFilmActions.setFilmData({
+            title: filmData.title,
+            director: filmData.director,
+            production: filmData.production,
+            screenwriter: filmData.screenwriter,
+            directorOfPhotography: filmData.directorOfPhotography,
+            synopsis: filmData.synopsis,
+            duration: filmData.duration,
+            year: filmData.year,
+            slug: filmData.slug,
+            type: filmData.type,
+            imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
+            _id: filmData._id,
+          })
+        )
+      )
+    );
+  };
 
   const closingModalHandler = () => {
     const body = document.querySelector("body");
@@ -38,18 +70,19 @@ const NavModal = () => {
                 {t("films")}
               </Link>
               <ul className={classes.navigation__films__mobile__dropdown}>
-                <li>
-                  <Link to="/films/lucania">Lucania</Link>
-                </li>
-                <li>
-                  <Link to="/films/guerrieri">Guerrieri</Link>
-                </li>
-                <li>
-                  <Link to="/films/love-and-desire">Love and Desire</Link>
-                </li>
-                <li>
-                  <Link to="/films/felakuti">Felakuti</Link>
-                </li>
+                {fabriqueData.length > 0 &&
+                  fabriqueData.map((filmData, id) => (
+                    <li key={id}>
+                      <Link
+                        onClick={() => sendFilmIdHanlder(filmData)}
+                        key={filmData._id}
+                        to={`/film/${filmData.slug}`}
+                        _id={filmData._id}
+                      >
+                        {filmData.title}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </li>
             <li>

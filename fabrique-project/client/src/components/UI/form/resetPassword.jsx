@@ -1,4 +1,4 @@
-import { resetPasswordSchema } from "../../schema/resetPassword";
+import { resetPasswordSchema } from "../../../schema/resetPassword";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
@@ -32,7 +32,7 @@ const ResetPassword = () => {
     console.log(formData);
     setIsLoading(true);
     axios
-      .put("http://localhost:5000/reset-password", formData)
+      .put(`${process.env.REACT_APP_API_LOCAL_PORT}/reset-password`, formData)
       .then((res) => {
         console.log(res.data);
       })

@@ -1,4 +1,4 @@
-import { signUpSchema } from "../../schema/signUpSchema";
+import { signUpSchema } from "../../../schema/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
-// importing utils functions
 
 const SignUpForm = () => {
   const { register, handleSubmit, formState } = useForm({
@@ -25,32 +24,28 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const confirmHandler = (event) => {
+    const { name, email, password } = event;
+
     const formData = new FormData();
 
-    formData.append("name", event.name);
-    formData.append("email", event.email);
-    formData.append("password", event.password);
-
-    console.log(event.name);
-    console.log(event.email);
-    console.log(event.password);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
 
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/sign-up", formData)
+      .post(`${process.env.REACT_APP_API_LOCAL_PORT}/sign-up`, formData)
       .then((res) => {
         console.log(res.data);
+        navigate("/login");
       })
       .catch((err) => {
         console.error(
-          "there is an error for the creation of the user account: ",
+          "there is an error for the creation of the user account, the user could be already been registered: ",
           err
         );
-        setError(err);
-      })
-      .finally(() => {
-        navigate("/login");
         setIsLoading(false);
+        setError(err);
       });
   };
 

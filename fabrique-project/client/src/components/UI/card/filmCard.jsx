@@ -96,7 +96,9 @@ const FilmCard = (props) => {
     };
 
     axios
-      .delete("http://localhost:5000/delete-film", { data: filmId })
+      .delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-film`, {
+        data: filmId,
+      })
       .then((res) => {
         console.log(res.data);
       })

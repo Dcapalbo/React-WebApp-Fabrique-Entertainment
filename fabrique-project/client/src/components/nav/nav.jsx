@@ -13,11 +13,12 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(() => {});
-  const { fabriqueData } = ApiGetHook("http://localhost:5000/get-films");
+  const { fabriqueData } = ApiGetHook(
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
+  );
 
   useEffect(() => {
     setIsAuthenticated(isAuth("token"));
-    console.log("dataFilms", fabriqueData);
   }, [fabriqueData]);
 
   const sendFilmIdHanlder = (filmData) => {

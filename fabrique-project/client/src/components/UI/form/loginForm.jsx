@@ -1,4 +1,4 @@
-import { loginSchema } from "../../schema/loginSchema";
+import { loginSchema } from "../../../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -22,26 +22,26 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
 
   const confirmHandler = (event) => {
+    const { email, password } = event;
+
     const formData = new FormData();
 
-    formData.append("email", event.email);
-    formData.append("password", event.password);
+    formData.append("email", email);
+    formData.append("password", password);
 
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/login", formData)
+      .post(`${process.env.REACT_APP_API_LOCAL_PORT}/login`, formData)
       .then((res) => {
         window.sessionStorage.setItem("token", res.data.token);
         window.sessionStorage.setItem("userId", res.data.userId);
-        console.log(res.data.token);
+        window.location.replace("/admin/films");
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
-        setError(err);
-      })
-      .finally(() => {
-        window.location.replace("/admin/films");
         setIsLoading(false);
+        setError(err);
       });
   };
 

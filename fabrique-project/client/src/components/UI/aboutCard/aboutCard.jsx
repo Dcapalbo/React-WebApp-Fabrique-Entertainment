@@ -86,7 +86,9 @@ const AboutCard = (props) => {
     };
 
     axios
-      .delete("http://localhost:5000/delete-contact", { data: contactId })
+      .delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-contact`, {
+        data: contactId,
+      })
       .then((res) => {
         console.log(res.data);
       })

@@ -6,7 +6,7 @@ import AboutCard from "./aboutCard";
 
 const AboutCardContainer = () => {
   const { fabriqueData, loading, error } = ApiGetHook(
-    "http://localhost:5000/get-contacts"
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
   );
 
   if (loading) {

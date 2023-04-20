@@ -1,9 +1,10 @@
 import { useForm, useController } from "react-hook-form";
 import { slugCreation } from "../../../utils/functions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { filmSchema } from "../../schema/filmSchema";
+import { filmSchema } from "../../../schema/filmSchema";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
@@ -12,10 +13,14 @@ import React from "react";
 
 const FilmForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const uriLocation = window.location.href;
 
   useEffect(() => {
-    if (uriLocation !== "http://localhost:3000/admin/films/update-film") {
+    if (
+      uriLocation !==
+      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/update-film`
+    ) {
       window.localStorage.removeItem("dataUpdateFilm");
       setIsUpdate(false);
     } else {
@@ -83,30 +88,29 @@ const FilmForm = () => {
     }
 
     if (formData !== {}) {
-      if (uriLocation === "http://localhost:3000/admin/films/add-new-film") {
-        setIsLoading(true);
-        axios
-          .post("http://localhost:5000/add-film", formData)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((err) => {
-            console.error(
-              "there is an error for addition of a new Film: ",
-              err.name
-            );
-            setError(err);
-          })
-          .finally(() => {
-            window.location.replace("/admin/films");
-            setIsLoading(false);
-          });
-      } else if (
-        uriLocation === "http://localhost:3000/admin/films/update-film"
+      if (
+        uriLocation ===
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/add-new-film`
       ) {
         setIsLoading(true);
         axios
-          .put("http://localhost:5000/update-film", formData)
+          .post(`${process.env.REACT_APP_API_LOCAL_PORT}/add-film`, formData)
+          .then((res) => {
+            console.log(res.data);
+            navigate("/admin/films");
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            setError(err);
+          });
+      } else if (
+        uriLocation ===
+        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films/update-film`
+      ) {
+        setIsLoading(true);
+        axios
+          .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
           .then((res) => {
             console.log(res.data);
           })
@@ -115,7 +119,7 @@ const FilmForm = () => {
             setError(err);
           })
           .finally(() => {
-            window.location.replace("/admin/films");
+            navigate("/admin/films");
             setIsLoading(false);
           });
       }

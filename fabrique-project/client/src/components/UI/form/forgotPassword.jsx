@@ -1,4 +1,4 @@
-import { forgotPasswordSchema } from "../../schema/forgotPasswordSchema";
+import { forgotPasswordSchema } from "../../../schema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -23,23 +23,24 @@ const ForgotPassword = () => {
   const [error, setError] = useState(null);
 
   const confirmHandler = (event) => {
+    const { email } = event;
+
     const formData = new FormData();
 
-    formData.append("email", event.email);
+    formData.append("email", email);
 
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/forgot-password", formData)
+      .post(`${process.env.REACT_APP_API_LOCAL_PORT}/forgot-password`, formData)
       .then((res) => {
         console.log(res.data);
+        setIsLoading(false);
+        navigate("/");
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
-        setError(err);
-      })
-      .finally(() => {
         setIsLoading(false);
-        navigate("/");
+        setError(err);
       });
   };
 
