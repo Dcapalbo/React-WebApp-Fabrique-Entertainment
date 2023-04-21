@@ -17,14 +17,14 @@ import Film from "./pages/Film";
 import About from "./pages/About";
 import Films from "./pages/Films";
 import NewFilm from "./pages/NewFilm";
-import AllFilms from "./pages/AllFilms";
 import LoginForm from "./pages/LoginForm";
 import UpdateFilm from "./pages/UpdateFilm";
 import AuthSignUp from "./pages/AuthSignUp";
 import NewContact from "./pages/NewContact";
-import AllContacts from "./pages/AllContacts";
+import AllAuthFilms from "./pages/AllAuthFilms";
 import AboutContact from "./pages/AboutContact";
 import UpdateContact from "./pages/UpdateContact";
+import AllAuthContacts from "./pages/AllAuthContacts";
 import ResetPasswordForm from "./pages/ResetPassword";
 import ForgotPasswordForm from "./pages/ForgotPassword";
 
@@ -66,10 +66,10 @@ const App = () => {
 
         {/* authenticated Routes  */}
         {isAuthenticated && tokenExpiration && (
-          <Route path="/admin/films" element={<AllFilms />} />
+          <Route path="/admin/films" element={<AllAuthFilms />} />
         )}
         {isAuthenticated && tokenExpiration && (
-          <Route path="/admin/contacts" element={<AllContacts />} />
+          <Route path="/admin/contacts" element={<AllAuthContacts />} />
         )}
         {isAuthenticated && tokenExpiration && (
           <Route path="/admin/add-new-film" element={<NewFilm />} />

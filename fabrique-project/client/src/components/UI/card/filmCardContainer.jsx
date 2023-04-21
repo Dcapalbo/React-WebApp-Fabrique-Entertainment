@@ -1,18 +1,25 @@
+import { dataFilmActions } from "../../../store/data-film-slice";
 import base64ArrayBuffer from "../../../utils/base64";
+import { useSelector, useDispatch } from "react-redux";
 import ApiGetHook from "../../../hooks/apiGetHook";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./cardContainer.module.scss";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import FilmCard from "./filmCard";
 
 const FilmCardContainer = () => {
+  const dispatch = useDispatch();
   const typeData = useSelector((state) => state.dataType.dataType) || "";
   const [filteredData, setFilteredData] = useState([]);
 
   const { fabriqueData, loading, error } = ApiGetHook(
     `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
   );
+
+  useEffect(() => {
+    console.log("ao");
+    dispatch(dataFilmActions.resetFilmData);
+  }, [dispatch]);
 
   useEffect(() => {
     // Filter the data only when typeData is not empty

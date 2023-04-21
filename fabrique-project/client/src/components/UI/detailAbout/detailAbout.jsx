@@ -1,14 +1,12 @@
-import { dataContactActions } from "../../../store/data-contact-slice";
-import { useDispatch, useSelector } from "react-redux";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import React from "react";
 
 const DetailAboutContact = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const contact = useSelector((state) => state.dataContact.contactData);
   const [isLoading, setIsLoading] = useState(false);
   const [contactData, setContactData] = useState({});
@@ -23,10 +21,6 @@ const DetailAboutContact = () => {
       setError(true);
     }
   }, [contact]);
-
-  useEffect(() => {
-    dispatch(dataContactActions.resetContactData());
-  }, [dispatch]);
 
   return (
     <section className={classes.detail__film__about__container}>

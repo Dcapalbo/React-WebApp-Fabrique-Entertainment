@@ -1,14 +1,12 @@
-import { dataFilmActions } from "../../../store/data-film-slice";
-import { useSelector, useDispatch } from "react-redux";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import React from "react";
 
 const DetailFilm = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const film = useSelector((state) => state.dataFilm.filmData);
   const [isLoading, setIsLoading] = useState(false);
   const [filmData, setFilmData] = useState({});
@@ -23,10 +21,6 @@ const DetailFilm = () => {
       setError(true);
     }
   }, [film]);
-
-  useEffect(() => {
-    dispatch(dataFilmActions.resetFilmData());
-  }, [dispatch]);
 
   return (
     <section className={classes.detail__film__about__container}>

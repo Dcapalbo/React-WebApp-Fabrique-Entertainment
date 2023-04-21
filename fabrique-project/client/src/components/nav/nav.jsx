@@ -28,6 +28,12 @@ const Navigation = () => {
     setTokenExpiration(isAuth(token));
   }, [fabriqueData, isLoggedIn, token]);
 
+  useEffect(() => {
+    dispatch(dataFilmActions.resetFilmData);
+    console.log("dio bono?");
+    console.log(dispatch(dataFilmActions.resetFilmData));
+  }, [dispatch]);
+
   const sendFilmIdHanlder = (filmData) => {
     dispatch(
       dataFilmActions.setFilmData({

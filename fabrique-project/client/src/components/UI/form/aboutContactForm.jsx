@@ -1,7 +1,6 @@
-import { dataContactActions } from "../../../store/data-contact-slice";
 import { contactSchema } from "../../../schema/conctactSchema";
 import { slugCreation } from "../../../utils/functions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -15,12 +14,7 @@ import React from "react";
 const AboutContactForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const uriLocation = window.location.href;
-
-  useEffect(() => {
-    dispatch(dataContactActions.resetContactData());
-  }, [dispatch]);
 
   useEffect(() => {
     if (

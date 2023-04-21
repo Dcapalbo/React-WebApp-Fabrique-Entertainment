@@ -1,8 +1,7 @@
-import { dataFilmActions } from "../../../store/data-film-slice";
 import { useForm, useController } from "react-hook-form";
 import { filmSchema } from "../../../schema/filmSchema";
 import { slugCreation } from "../../../utils/functions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -16,12 +15,7 @@ import React from "react";
 const FilmForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const uriLocation = window.location.href;
-
-  useEffect(() => {
-    dispatch(dataFilmActions.resetFilmData());
-  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -87,7 +81,6 @@ const FilmForm = () => {
     formData.append("file", file);
 
     if (dataUpdateFilm[0]?._id) {
-      console.log("here the id for updating", dataUpdateFilm[0]?._id);
       formData.append("_id", dataUpdateFilm[0]?._id);
     }
 
@@ -116,7 +109,7 @@ const FilmForm = () => {
         `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
       ) {
         setIsLoading(true);
-        console.log(formData);
+
         axios
           .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
           .then((res) => {
