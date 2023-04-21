@@ -19,6 +19,10 @@ const AboutContactForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
+    dispatch(dataContactActions.resetContactData());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (
       uriLocation !==
       `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-contact`
@@ -99,7 +103,6 @@ const AboutContactForm = () => {
           )
           .then((res) => {
             console.log(res.data);
-            dispatch(dataContactActions.resetContactData());
           })
           .catch((err) => {
             console.error("there is an error for updating a contact: ", err);
@@ -179,7 +182,7 @@ const AboutContactForm = () => {
           )}
         </div>
         <div className={classes.form__container__item}>
-          <label htmlFor="Image">{t("profileConver")}</label>
+          <label htmlFor="Image">{t("profileCover")}</label>
           <input
             onChange={(event) => {
               const file = event.target.files[0];

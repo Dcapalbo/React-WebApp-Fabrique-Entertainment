@@ -30,7 +30,7 @@ const AboutCard = (props) => {
         bio: props.bio,
         email: props.email,
         slug: props.slug,
-        phoneNumber: props.phoneNumber,
+        phoneNumber: props.phoneNumber.toString(),
         imageUrl: props.imageUrl,
         _id: props._id,
       })
@@ -47,7 +47,7 @@ const AboutCard = (props) => {
         bio: props.bio,
         email: props.email,
         slug: props.slug,
-        phoneNumber: props.phoneNumber,
+        phoneNumber: props.phoneNumber.toString(),
         imageUrl: props.imageUrl,
         _id: props._id,
       })
@@ -87,7 +87,7 @@ const AboutCard = (props) => {
         bio: props.bio,
         email: props.email,
         slug: props.slug,
-        phoneNumber: props.phoneNumber,
+        phoneNumber: props.phoneNumber.toString(),
         imageUrl: props.imageUrl,
         _id: props._id,
       })

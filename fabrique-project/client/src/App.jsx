@@ -62,7 +62,6 @@ const App = () => {
         <Route path="/about/:id" element={<AboutContact />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/reset-password" element={<ResetPasswordForm />} />
-        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         <Route path="/sign-up" element={<AuthSignUp />} />
 
         {/* authenticated Routes  */}
@@ -83,6 +82,9 @@ const App = () => {
         )}
         {isAuthenticated && tokenExpiration && (
           <Route path="/admin/update-contact" element={<UpdateContact />} />
+        )}
+        {isAuthenticated && tokenExpiration && (
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         )}
       </Routes>
     </Router>

@@ -7,6 +7,7 @@ const translationEn = {
   addFilm: "Add film",
   contactsList: "List of contacts",
   addContact: "Add contact",
+  forgotPassword: "Reset Password",
   vision: "Vision",
   visionDescription:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",

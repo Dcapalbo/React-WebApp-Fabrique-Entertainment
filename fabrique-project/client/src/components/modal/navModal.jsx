@@ -1,11 +1,11 @@
 import { dataFilmActions } from "../../store/data-film-slice";
+import { useDispatch, useSelector } from "react-redux";
 import base64ArrayBuffer from "../../utils/base64";
 import ApiGetHook from "../../hooks/apiGetHook";
 import { useTranslation } from "react-i18next";
 import classes from "./navModal.module.scss";
 import { isAuth } from "../../utils/isAuth";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const NavModal = () => {
@@ -29,26 +29,21 @@ const NavModal = () => {
   }, [fabriqueData, isLoggedIn, token]);
 
   const sendFilmIdHanlder = (filmData) => {
-    window.localStorage.setItem(
-      "filmData",
-      JSON.stringify(
-        dispatch(
-          dataFilmActions.setFilmData({
-            title: filmData.title,
-            director: filmData.director,
-            production: filmData.production,
-            screenwriter: filmData.screenwriter,
-            directorOfPhotography: filmData.directorOfPhotography,
-            synopsis: filmData.synopsis,
-            duration: filmData.duration,
-            year: filmData.year,
-            slug: filmData.slug,
-            type: filmData.type,
-            imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
-            _id: filmData._id,
-          })
-        )
-      )
+    dispatch(
+      dataFilmActions.setFilmData({
+        title: filmData.title,
+        director: filmData.director,
+        production: filmData.production,
+        screenwriter: filmData.screenwriter,
+        directorOfPhotography: filmData.directorOfPhotography,
+        synopsis: filmData.synopsis,
+        duration: filmData.duration.toString(),
+        year: filmData.year.toString(),
+        slug: filmData.slug,
+        type: filmData.type,
+        imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
+        _id: filmData._id,
+      })
     );
   };
 

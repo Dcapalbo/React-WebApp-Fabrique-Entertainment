@@ -20,6 +20,10 @@ const FilmForm = () => {
   const uriLocation = window.location.href;
 
   useEffect(() => {
+    dispatch(dataFilmActions.resetFilmData());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (
       uriLocation !==
       `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
@@ -83,6 +87,7 @@ const FilmForm = () => {
     formData.append("file", file);
 
     if (dataUpdateFilm[0]?._id) {
+      console.log("here the id for updating", dataUpdateFilm[0]?._id);
       formData.append("_id", dataUpdateFilm[0]?._id);
     }
 
@@ -97,7 +102,6 @@ const FilmForm = () => {
           .then((res) => {
             console.log(res.data);
             setIsLoading(false);
-            navigate("/admin/films");
           })
           .catch((err) => {
             setIsLoading(false);
@@ -112,11 +116,11 @@ const FilmForm = () => {
         `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
       ) {
         setIsLoading(true);
+        console.log(formData);
         axios
           .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
           .then((res) => {
             console.log(res.data);
-            dispatch(dataFilmActions.resetFilmData());
           })
           .catch((err) => {
             console.error("there is an error for updating a film: ", err);

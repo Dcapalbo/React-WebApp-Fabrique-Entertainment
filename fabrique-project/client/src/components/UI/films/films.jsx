@@ -9,27 +9,23 @@ const Films = (props) => {
   const navigate = useNavigate();
 
   const sendFilmIdHanlder = () => {
-    window.localStorage.setItem(
-      "filmData",
-      JSON.stringify(
-        dispatch(
-          dataFilmActions.setFilmData({
-            title: props.title,
-            director: props.director,
-            production: props.production,
-            screenwriter: props.screenwriter,
-            directorOfPhotography: props.directorOfPhotography,
-            synopsis: props.synopsis,
-            duration: props.duration,
-            year: props.year,
-            slug: props.slug,
-            type: props.type,
-            imageUrl: props.imageUrl,
-            _id: props._id,
-          })
-        )
-      )
+    dispatch(
+      dataFilmActions.setFilmData({
+        title: props.title,
+        director: props.director,
+        production: props.production,
+        screenwriter: props.screenwriter,
+        directorOfPhotography: props.directorOfPhotography,
+        synopsis: props.synopsis,
+        duration: props.duration.toString(),
+        year: props.year.toString(),
+        slug: props.slug,
+        type: props.type,
+        imageUrl: props.imageUrl,
+        _id: props._id,
+      })
     );
+
     navigate(`/film/${props.slug}`);
   };
 

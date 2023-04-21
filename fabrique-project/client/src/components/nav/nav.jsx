@@ -5,9 +5,9 @@ import base64ArrayBuffer from "../../utils/base64";
 import ApiGetHook from "../../hooks/apiGetHook";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { isAuth } from "../../utils/isAuth";
 import { Link } from "react-router-dom";
 import classes from "./nav.module.scss";
-import { isAuth } from "../../utils/isAuth";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -29,26 +29,21 @@ const Navigation = () => {
   }, [fabriqueData, isLoggedIn, token]);
 
   const sendFilmIdHanlder = (filmData) => {
-    window.localStorage.setItem(
-      "filmData",
-      JSON.stringify(
-        dispatch(
-          dataFilmActions.setFilmData({
-            title: filmData.title,
-            director: filmData.director,
-            production: filmData.production,
-            screenwriter: filmData.screenwriter,
-            directorOfPhotography: filmData.directorOfPhotography,
-            synopsis: filmData.synopsis,
-            duration: filmData.duration,
-            year: filmData.year,
-            slug: filmData.slug,
-            type: filmData.type,
-            imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
-            _id: filmData._id,
-          })
-        )
-      )
+    dispatch(
+      dataFilmActions.setFilmData({
+        title: filmData.title,
+        director: filmData.director,
+        production: filmData.production,
+        screenwriter: filmData.screenwriter,
+        directorOfPhotography: filmData.directorOfPhotography,
+        synopsis: filmData.synopsis,
+        duration: filmData.duration.toString(),
+        year: filmData.year.toString(),
+        slug: filmData.slug,
+        type: filmData.type,
+        imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
+        _id: filmData._id,
+      })
     );
   };
 
@@ -110,6 +105,11 @@ const Navigation = () => {
         {isAuthenticated && tokenExpiration && (
           <li>
             <Link to="/admin/add-new-contact">{t("addContact")}</Link>
+          </li>
+        )}
+        {isAuthenticated && tokenExpiration && (
+          <li>
+            <Link to="/forgot-password">{t("forgotPassword")}</Link>
           </li>
         )}
       </ul>
