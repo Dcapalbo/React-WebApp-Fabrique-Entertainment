@@ -17,8 +17,8 @@ const FilmCard = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsAuthenticated(isLoggedIn);
     dispatch(dataFilmActions.resetFilmData);
+    setIsAuthenticated(isLoggedIn);
   }, [isLoggedIn, dispatch]);
 
   const sendFilmDataHandler = () => {

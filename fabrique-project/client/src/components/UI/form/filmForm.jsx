@@ -1,7 +1,6 @@
 import { useForm, useController } from "react-hook-form";
 import { filmSchema } from "../../../schema/filmSchema";
 import { slugCreation } from "../../../utils/functions";
-import { useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import React from "react";
 

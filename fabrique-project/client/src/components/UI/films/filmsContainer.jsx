@@ -1,13 +1,28 @@
 import classes from "./filmsContainer.module.scss";
 import base64ArrayBuffer from "../../../utils/base64";
-import PuffLoader from "react-spinners/PuffLoader";
-import ApiGetHook from "../../../hooks/apiGetHook";
+import { useSelector } from "react-redux";
 import Films from "./films";
+import { useState } from "react";
+import { useEffect } from "react";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const FilmsContainer = () => {
-  const { fabriqueData, loading, error } = ApiGetHook(
-    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-  );
+  const film = useSelector((state) => state.dataFilm.filmData);
+  const [loading, setIsLoading] = useState(false);
+  const [filmData, setFilmData] = useState({});
+  const [error, setError] = useState(null);
+
+  console.log(film);
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (film) {
+      setFilmData(film);
+      setIsLoading(false);
+    } else {
+      setError(true);
+    }
+  }, [film]);
 
   if (loading) {
     return (
@@ -26,14 +41,15 @@ const FilmsContainer = () => {
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>
-        There are some problem, please try to refresh
+        Non ci sono elementi per questa ricerca, inserirli manualmente presso la
+        sezione del Database dedicata ai film
       </h1>
     );
   } else {
     return (
-      <section className={classes.wrapper__films__container}>
-        {fabriqueData.length > 0 ? (
-          fabriqueData.map((film) => (
+      filmData && (
+        <section className={classes.wrapper__films__container}>
+          {filmData.map((film) => (
             <Films
               title={film.title}
               director={film.director}
@@ -49,14 +65,9 @@ const FilmsContainer = () => {
               key={film._id}
               _id={film._id}
             />
-          ))
-        ) : (
-          <h1>
-            Non ci sono elementi per questa ricerca, inserirli manualmente
-            presso la sezione del Database dedicata ai film
-          </h1>
-        )}
-      </section>
+          ))}
+        </section>
+      )
     );
   }
 };

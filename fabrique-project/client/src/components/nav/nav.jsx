@@ -2,7 +2,6 @@ import logo from "../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png";
 import { dataFilmActions } from "../../store/data-film-slice";
 import { useDispatch, useSelector } from "react-redux";
 import base64ArrayBuffer from "../../utils/base64";
-import ApiGetHook from "../../hooks/apiGetHook";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { isAuth } from "../../utils/isAuth";
@@ -15,40 +14,33 @@ const Navigation = () => {
 
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
   const token = useSelector((state) => state.userLogin.token);
+  const films = useSelector((state) => state.dataFilm);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [tokenExpiration, setTokenExpiration] = useState(() => {});
-
-  const { fabriqueData } = ApiGetHook(
-    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [filmData, setFilmData] = useState({});
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
     setTokenExpiration(isAuth(token));
-  }, [fabriqueData, isLoggedIn, token]);
+    setFilmData(films);
+  }, [isLoggedIn, token, films]);
 
-  useEffect(() => {
-    dispatch(dataFilmActions.resetFilmData);
-    console.log("dio bono?");
-    console.log(dispatch(dataFilmActions.resetFilmData));
-  }, [dispatch]);
-
-  const sendFilmIdHanlder = (filmData) => {
+  const sendFilmIdHanlder = (data) => {
     dispatch(
       dataFilmActions.setFilmData({
-        title: filmData.title,
-        director: filmData.director,
-        production: filmData.production,
-        screenwriter: filmData.screenwriter,
-        directorOfPhotography: filmData.directorOfPhotography,
-        synopsis: filmData.synopsis,
-        duration: filmData.duration.toString(),
-        year: filmData.year.toString(),
-        slug: filmData.slug,
-        type: filmData.type,
-        imageUrl: `data:image/png;base64,${base64ArrayBuffer(filmData)}`,
-        _id: filmData._id,
+        title: data.title,
+        director: data.director,
+        production: data.production,
+        screenwriter: data.screenwriter,
+        directorOfPhotography: data.directorOfPhotography,
+        synopsis: data.synopsis,
+        duration: data.duration.toString(),
+        year: data.year.toString(),
+        slug: data.slug,
+        type: data.type,
+        imageUrl: `data:image/png;base64,${base64ArrayBuffer(data)}`,
+        _id: data._id,
       })
     );
   };
@@ -75,16 +67,16 @@ const Navigation = () => {
             {t("films")}
           </Link>
           <ul className={classes.navigation__films__dropdown}>
-            {fabriqueData.length > 0 &&
-              fabriqueData.map((filmData, id) => (
+            {filmData.length > 0 &&
+              filmData.map((film, id) => (
                 <li key={id}>
                   <Link
-                    onClick={() => sendFilmIdHanlder(filmData)}
-                    key={filmData._id}
-                    to={`/film/${filmData.slug}`}
-                    _id={filmData._id}
+                    onClick={() => sendFilmIdHanlder(film)}
+                    key={film._id}
+                    to={`/film/${film.slug}`}
+                    _id={film._id}
                   >
-                    {filmData.title}
+                    {film.title}
                   </Link>
                 </li>
               ))}

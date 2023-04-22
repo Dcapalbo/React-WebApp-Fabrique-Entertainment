@@ -47,7 +47,7 @@ const LoginForm = () => {
           })
         );
         setIsLoading(false);
-        navigate("/admin/films");
+        navigate("/");
       })
       .catch((err) => {
         console.error("there is an error for the login form: ", err);
