@@ -73,6 +73,7 @@ const FilmCard = (props) => {
       })
       .then((res) => {
         dispatch(dataFilmActions.removeFilmData({ _id: props._id }));
+        window.location.replace("admin/films");
         setIsLoading(false);
       })
       .catch((err) => {
