@@ -7,119 +7,83 @@ import ApiGetHook from "../../../hooks/apiGetHook";
 import { useDispatch } from "react-redux";
 import AboutCard from "./aboutCard";
 
-const AboutCardContainer = () => {
-  let uriLocation = window.location.href;
+const AboutAuthCardContainer = () => {
   const dispatch = useDispatch();
+  let uriLocation = window.location.href;
+
+  let contacts;
+  let loading;
+  let error;
 
   if (
     uriLocation === `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/contacts`
   ) {
-    const { contacts, loading, error } = ApiGetHook(
+    const apiData = ApiGetHook(
       `${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
     );
 
+    contacts = apiData.contacts;
+    loading = apiData.loading;
+    error = apiData.error;
+
     dispatch(dataContactActions.setContactsData(contacts));
-
-    if (loading) {
-      return (
-        <PuffLoader
-          style={{
-            display: "inherit",
-            position: "relative",
-            width: "100px",
-            height: "100px",
-            margin: "auto",
-          }}
-          color={"#cc0000"}
-          size={100}
-        />
-      );
-    } else if (error) {
-      <h1>There are some problems, refresh the page</h1>;
-    } else {
-      return (
-        <section className={classes.about__wrapper__card__container}>
-          <div className={classes.about__card__container}>
-            {contacts.length > 0 ? (
-              contacts.map((contact) => (
-                <AboutCard
-                  name={contact.name}
-                  surname={contact.surname}
-                  role={contact.role}
-                  bio={contact.bio}
-                  email={contact.email}
-                  phoneNumber={contact.phoneNumber}
-                  slug={contact.slug}
-                  imageUrl={`data:image/png;base64,${base64ArrayBuffer(
-                    contact
-                  )}`}
-                  key={contact._id}
-                  _id={contact._id}
-                />
-              ))
-            ) : (
-              <h1>
-                Non ci sono elementi per questa ricerca, inserirli manualmente
-                presso la sezione del Database dedicata ai contatti
-              </h1>
-            )}
-          </div>
-        </section>
-      );
-    }
   } else {
-    const { contacts, loading, error } = StateGetHook(
-      (state) => state.dataContact.contactsData
-    );
+    const stateData = StateGetHook((state) => state.dataContact.contactsData);
 
-    if (loading) {
-      return (
-        <PuffLoader
-          style={{
-            display: "inherit",
-            position: "relative",
-            width: "100px",
-            height: "100px",
-            margin: "auto",
-          }}
-          color={"#cc0000"}
-          size={100}
-        />
-      );
-    } else if (error) {
-      <h1>There are some problems, refresh the page</h1>;
-    } else {
-      return (
-        <section className={classes.about__wrapper__card__container}>
-          <div className={classes.about__card__container}>
-            {contacts.length > 0 ? (
-              contacts.map((contact) => (
-                <AboutCard
-                  name={contact.name}
-                  surname={contact.surname}
-                  role={contact.role}
-                  bio={contact.bio}
-                  email={contact.email}
-                  phoneNumber={contact.phoneNumber}
-                  slug={contact.slug}
-                  imageUrl={`data:image/png;base64,${base64ArrayBuffer(
-                    contact
-                  )}`}
-                  key={contact._id}
-                  _id={contact._id}
-                />
-              ))
-            ) : (
-              <h1>
-                Non ci sono elementi per questa ricerca, inserirli manualmente
-                presso la sezione del Database dedicata ai contatti
-              </h1>
-            )}
-          </div>
-        </section>
-      );
-    }
+    contacts = stateData.contacts;
+    loading = stateData.loading;
+    error = stateData.error;
+  }
+
+  if (loading) {
+    return (
+      <PuffLoader
+        style={{
+          display: "inherit",
+          position: "relative",
+          width: "100px",
+          height: "100px",
+          margin: "auto",
+        }}
+        color={"#cc0000"}
+        size={100}
+      />
+    );
+  } else if (error) {
+    return (
+      <h1 className={classes.text__align__center}>
+        There are some problems, please try to refresh
+      </h1>
+    );
+  } else {
+    return (
+      <section className={classes.about__wrapper__card__container}>
+        <div className={classes.about__card__container}>
+          {contacts.length > 0 ? (
+            contacts.map((contact) => (
+              <AboutCard
+                name={contact.name}
+                surname={contact.surname}
+                role={contact.role}
+                bio={contact.bio}
+                email={contact.email}
+                phoneNumber={contact.phoneNumber}
+                slug={contact.slug}
+                imageUrl={`data:image/png;base64,${base64ArrayBuffer(contact)}`}
+                key={contact._id}
+                _id={contact._id}
+              />
+            ))
+          ) : (
+            <h1>
+              Non ci sono elementi per questa ricerca, inserirli manualmente
+              presso la sezione del Database dedicata ai contatti
+            </h1>
+          )}
+        </div>
+      </section>
+    );
   }
 };
 
-export default AboutCardContainer;
+export default AboutAuthCardContainer;

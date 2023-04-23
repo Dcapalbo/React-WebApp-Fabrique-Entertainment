@@ -25,6 +25,7 @@ const FilmCardContainer = () => {
     const apiData = ApiGetHook(
       `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
     );
+
     films = apiData.films;
     loading = apiData.loading;
     error = apiData.error;
@@ -32,6 +33,7 @@ const FilmCardContainer = () => {
     dispatch(dataFilmActions.setFilmsData(films));
   } else {
     const stateData = StateGetHook((state) => state.dataFilm.filmsData);
+
     films = stateData.films;
     loading = stateData.loading;
     error = stateData.error;
@@ -40,10 +42,10 @@ const FilmCardContainer = () => {
   useEffect(() => {
     if (films) {
       setFilteredData(films);
-    }
-    if (typeData) {
-      const filteredFilms = films.filter((film) => film.type === typeData);
-      setFilteredData(filteredFilms);
+      if (typeData) {
+        const filteredFilms = films.filter((film) => film.type === typeData);
+        setFilteredData(filteredFilms);
+      }
     }
   }, [typeData, films]);
 
@@ -78,23 +80,30 @@ const FilmCardContainer = () => {
             classes.justify__content__center)
           }
         >
-          {filteredData.map((film) => (
-            <FilmCard
-              title={film.title}
-              director={film.director}
-              production={film.production}
-              screenwriter={film.screenwriter}
-              directorOfPhotography={film.directorOfPhotography}
-              synopsis={film.synopsis}
-              imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
-              duration={film.duration}
-              year={film.year}
-              slug={film.slug}
-              type={film.type}
-              key={film._id}
-              _id={film._id}
-            />
-          ))}
+          {filteredData.length > 0 ? (
+            filteredData.map((film) => (
+              <FilmCard
+                title={film.title}
+                director={film.director}
+                production={film.production}
+                screenwriter={film.screenwriter}
+                directorOfPhotography={film.directorOfPhotography}
+                synopsis={film.synopsis}
+                imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
+                duration={film.duration}
+                year={film.year}
+                slug={film.slug}
+                type={film.type}
+                key={film._id}
+                _id={film._id}
+              />
+            ))
+          ) : (
+            <h1>
+              Non ci sono elementi per questa ricerca, inserirli manualmente
+              presso la sezione del Database dedicata ai film
+            </h1>
+          )}
         </div>
       </section>
     );

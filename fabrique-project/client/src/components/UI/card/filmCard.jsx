@@ -83,24 +83,6 @@ const FilmCard = (props) => {
         setIsLoading(false);
         setError(err);
       });
-    dispatch(
-      dataFilmActions.setFilmData([
-        {
-          title: props.title,
-          director: props.director,
-          production: props.production,
-          screenwriter: props.screenwriter,
-          directorOfPhotography: props.directorOfPhotography,
-          synopsis: props.synopsis,
-          duration: props.duration.toString(),
-          year: props.year.toString(),
-          slug: props.slug,
-          type: props.type,
-          imageUrl: props.imageUrl,
-          _id: props._id,
-        },
-      ])
-    );
   };
 
   return (

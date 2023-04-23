@@ -43,7 +43,8 @@ const StateGetHook = (selector) => {
     } else {
       dispatch({
         type: "FETCH_ERROR",
-        payload: "Al momento non sono disponibili i dati",
+        payload:
+          "Al momento non sono disponibili i dati richiesti, provare a reinserirli nel database e a riavviare l'applicativo",
       });
     }
   }, [data]);

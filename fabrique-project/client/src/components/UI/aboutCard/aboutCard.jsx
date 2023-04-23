@@ -68,6 +68,7 @@ const AboutCard = (props) => {
       })
       .then((res) => {
         dispatch(dataContactActions.removeContactData({ _id: props._id }));
+        window.location.replace("/admin/contacts");
         setIsLoading(false);
       })
       .catch((err) => {
