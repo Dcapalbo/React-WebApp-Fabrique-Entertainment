@@ -1,6 +1,8 @@
+import { dataFilmActions } from "../../../store/data-film-slice";
 import { useForm, useController } from "react-hook-form";
 import { filmSchema } from "../../../schema/filmSchema";
 import { slugCreation } from "../../../utils/functions";
+import { useDispatch, useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -8,33 +10,40 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import TypeSelect from "../select/typeSelect";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import React from "react";
 
 const FilmForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const uriLocation = window.location.href;
+
+  const dataUpdateFilm = useSelector((state) => {
+    if (state.dataFilm.filmData) {
+      return state.dataFilm.filmData;
+    } else {
+      return null;
+    }
+  });
+
+  const { register, control, handleSubmit, formState, reset } = useForm({
+    defaultValues: dataUpdateFilm ?? "",
+    resolver: zodResolver(filmSchema),
+  });
 
   useEffect(() => {
     if (
       uriLocation !==
       `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
     ) {
-      window.localStorage.removeItem("dataUpdateFilm");
+      reset();
+      dispatch(dataFilmActions.resetFilmData());
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
     }
-  }, [uriLocation]);
-
-  let dataUpdateFilm = useSelector((state) => state.dataFilm.filmData);
-
-  const { register, control, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateFilm[0] ?? "",
-    resolver: zodResolver(filmSchema),
-  });
+  }, [uriLocation, dispatch, reset]);
 
   const { errors } = formState;
 
@@ -68,6 +77,8 @@ const FilmForm = () => {
       type,
     } = event;
 
+    console.log(event);
+
     formData.append("title", title);
     formData.append("director", director);
     formData.append("production", production);
@@ -80,8 +91,8 @@ const FilmForm = () => {
     formData.append("type", type);
     formData.append("file", file);
 
-    if (dataUpdateFilm[0]?._id) {
-      formData.append("_id", dataUpdateFilm[0]?._id);
+    if (dataUpdateFilm?._id) {
+      formData.append("_id", dataUpdateFilm?._id);
     }
 
     if (formData !== {}) {

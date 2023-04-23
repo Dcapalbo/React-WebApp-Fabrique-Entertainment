@@ -13,18 +13,16 @@ const Navigation = () => {
   const { t } = useTranslation();
 
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const filmsTitle = useSelector((state) => state.dataFilm.filmsData);
   const token = useSelector((state) => state.userLogin.token);
-  const films = useSelector((state) => state.dataFilm);
 
   const [tokenExpiration, setTokenExpiration] = useState(() => {});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [filmData, setFilmData] = useState({});
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
     setTokenExpiration(isAuth(token));
-    setFilmData(films);
-  }, [isLoggedIn, token, films]);
+  }, [isLoggedIn, token]);
 
   const sendFilmIdHanlder = (data) => {
     dispatch(
@@ -67,8 +65,8 @@ const Navigation = () => {
             {t("films")}
           </Link>
           <ul className={classes.navigation__films__dropdown}>
-            {filmData.length > 0 &&
-              filmData.map((film, id) => (
+            {filmsTitle?.length > 0 &&
+              filmsTitle?.map((film, id) => (
                 <li key={id}>
                   <Link
                     onClick={() => sendFilmIdHanlder(film)}

@@ -5,6 +5,7 @@ import classes from "./header.module.scss";
 import NavModal from "../modal/navModal";
 import Navigation from "../nav/nav";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Header = () => {
   let domWidth = window.innerWidth;
@@ -15,17 +16,22 @@ const Header = () => {
     const body = document.querySelector("body");
     body.style.overflow = "hidden";
     setIsVisible(true);
+    console.log(visible);
   };
 
-  const isSticky = () => {
-    if (window.scrollY >= 107) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
-  };
-
-  window.addEventListener("scroll", isSticky);
+  useEffect(() => {
+    const isSticky = () => {
+      if (window.scrollY >= 107) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    };
+    window.addEventListener("scroll", isSticky);
+    return () => {
+      window.removeEventListener("scroll", isSticky);
+    };
+  }, []);
 
   return (
     <header className={sticky ? classes.sticky : classes.header}>

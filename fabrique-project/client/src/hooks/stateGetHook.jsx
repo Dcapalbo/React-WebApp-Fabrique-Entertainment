@@ -1,10 +1,10 @@
 import { useReducer, useEffect } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 const initialState = {
   films: [],
   contacts: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -22,8 +22,9 @@ const reducer = (state, action) => {
     case "FETCH_ERROR":
       return {
         ...state,
-        error: action.payload,
+        films: action.payload,
         contacts: action.payload,
+        error: action.payload,
         loading: false,
       };
     default:
@@ -31,22 +32,23 @@ const reducer = (state, action) => {
   }
 };
 
-const ApiGetHook = (url) => {
+const StateGetHook = (selector) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const data = useSelector(selector);
+
   useEffect(() => {
-    dispatch({ type: "FETCH_START" });
-    axios
-      .get(url)
-      .then((res) => {
-        dispatch({ type: "FETCH_SUCCESS", payload: res.data });
-      })
-      .catch((err) => {
-        dispatch({ type: "FETCH_ERROR", payload: err });
+    if (data) {
+      dispatch({ type: "FETCH_SUCCESS", payload: data });
+    } else {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: "Al momento non sono disponibili i dati",
       });
-  }, [url]);
+    }
+  }, [data]);
 
   return state;
 };
 
-export default ApiGetHook;
+export default StateGetHook;

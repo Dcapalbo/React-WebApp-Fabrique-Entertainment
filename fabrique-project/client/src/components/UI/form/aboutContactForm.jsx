@@ -1,6 +1,7 @@
+import { dataContactActions } from "../../../store/data-contact-slice";
 import { contactSchema } from "../../../schema/conctactSchema";
 import { slugCreation } from "../../../utils/functions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
@@ -14,25 +15,34 @@ import React from "react";
 const AboutContactForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const uriLocation = window.location.href;
+
+  let dataUpdateContact = useSelector((state) => {
+    if (state.dataContact.contactData) {
+      return state.dataContact.contactData;
+    } else {
+      return null;
+    }
+  });
+
+  const { register, handleSubmit, formState, reset } = useForm({
+    defaultValues: dataUpdateContact ?? "",
+    resolver: zodResolver(contactSchema),
+  });
 
   useEffect(() => {
     if (
       uriLocation !==
       `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-contact`
     ) {
+      reset();
+      dispatch(dataContactActions.resetContactData());
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
     }
-  }, [uriLocation]);
-
-  let dataUpdateContact = useSelector((state) => state.dataContact.contactData);
-
-  const { register, handleSubmit, formState } = useForm({
-    defaultValues: dataUpdateContact[0] ?? "",
-    resolver: zodResolver(contactSchema),
-  });
+  }, [uriLocation, dispatch, reset]);
 
   const { errors } = formState;
 
@@ -46,9 +56,9 @@ const AboutContactForm = () => {
     const enteredFileIsValid = file !== null && file !== "";
     setEnteredFileisValid(enteredFileIsValid);
 
-    const { name, surname, role, bio, email, phoneNumber } = event;
-
     const formData = new FormData();
+
+    const { name, surname, role, bio, email, phoneNumber } = event;
 
     formData.append("name", name);
     formData.append("surname", surname);
@@ -59,8 +69,8 @@ const AboutContactForm = () => {
     formData.append("slug", slugCreation(name));
     formData.append("file", file);
 
-    if (dataUpdateContact[0]?._id) {
-      formData.append("_id", dataUpdateContact[0]?._id);
+    if (dataUpdateContact?._id) {
+      formData.append("_id", dataUpdateContact?._id);
     }
 
     if (formData !== {}) {
@@ -82,8 +92,8 @@ const AboutContactForm = () => {
             setError(err);
           })
           .finally(() => {
-            navigate("/admin/contacts");
             setIsLoading(false);
+            navigate("/admin/contacts");
           });
       } else if (
         uriLocation ===
@@ -185,6 +195,10 @@ const AboutContactForm = () => {
             type="file"
             name="Image"
             required
+          />
+          <input
+            hidden
+            defaultValue={formState.defaultValues?.payload?._id ?? ""}
           />
           {!enteredFileIsValid && (
             <small>

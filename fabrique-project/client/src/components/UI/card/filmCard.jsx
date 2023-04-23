@@ -12,16 +12,16 @@ const FilmCard = (props) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    dispatch(dataFilmActions.resetFilmData);
     setIsAuthenticated(isLoggedIn);
   }, [isLoggedIn, dispatch]);
 
-  const sendFilmDataHandler = () => {
+  const sendFilmFormHandler = () => {
     dispatch(
       dataFilmActions.setFilmData({
         title: props.title,
@@ -72,8 +72,8 @@ const FilmCard = (props) => {
         data: filmId,
       })
       .then((res) => {
-        console.log(res.data);
-        navigate("/admin/films");
+        dispatch(dataFilmActions.removeFilmData({ _id: props._id }));
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error(
@@ -132,7 +132,7 @@ const FilmCard = (props) => {
       </div>
       {isAuthenticated && (
         <div className={classes.card__button__wrapper}>
-          <button onClick={sendFilmDataHandler} className={classes.card__cta}>
+          <button onClick={sendFilmFormHandler} className={classes.card__cta}>
             Modifica Film
           </button>
           <button onClick={deleteFilmHandler} className={classes.card__cta}>

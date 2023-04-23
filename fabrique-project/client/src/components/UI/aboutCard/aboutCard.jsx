@@ -12,16 +12,16 @@ const AboutCard = (props) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
-    dispatch(dataContactActions.resetContactData);
   }, [isLoggedIn, dispatch]);
 
-  const sendContactDataHandler = () => {
+  const sendContactFormHandler = () => {
     dispatch(
       dataContactActions.setContactData({
         name: props.name,
@@ -67,9 +67,8 @@ const AboutCard = (props) => {
         data: contactId,
       })
       .then((res) => {
-        console.log("siamo qui?", res.data);
+        dispatch(dataContactActions.removeContactData({ _id: props._id }));
         setIsLoading(false);
-        navigate("/admin/contacts");
       })
       .catch((err) => {
         console.error(
@@ -79,19 +78,6 @@ const AboutCard = (props) => {
         setIsLoading(false);
         setError(err);
       });
-    dispatch(
-      dataContactActions.setContactData({
-        name: props.name,
-        surname: props.surname,
-        role: props.role,
-        bio: props.bio,
-        email: props.email,
-        slug: props.slug,
-        phoneNumber: props.phoneNumber.toString(),
-        imageUrl: props.imageUrl,
-        _id: props._id,
-      })
-    );
   };
 
   return (
@@ -120,7 +106,7 @@ const AboutCard = (props) => {
         {isAuthenticated && (
           <div className={classes.card__button__wrapper}>
             <button
-              onClick={sendContactDataHandler}
+              onClick={sendContactFormHandler}
               className={classes.card__cta}
             >
               Modifica Contatto

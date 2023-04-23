@@ -1,12 +1,13 @@
 // importing the react router dom version 6
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isAuth } from "./utils/isAuth";
 // importing the react traductions functions
 import { initReactI18next } from "react-i18next";
 import { translationIt } from "./utils/i18It";
 import { translationEn } from "./utils/i18En";
+import ApiGetHook from "./hooks/apiGetHook";
 import i18n from "i18next";
 // scss files
 import "./assets/typography.scss";
@@ -27,6 +28,8 @@ import UpdateContact from "./pages/UpdateContact";
 import AllAuthContacts from "./pages/AllAuthContacts";
 import ResetPasswordForm from "./pages/ResetPassword";
 import ForgotPasswordForm from "./pages/ForgotPassword";
+import { dataFilmActions } from "./store/data-film-slice";
+import { dataContactActions } from "./store/data-contact-slice";
 
 // initialize the react traductions
 i18n.use(initReactI18next).init({
@@ -40,6 +43,16 @@ i18n.use(initReactI18next).init({
 });
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  const { films } = ApiGetHook(
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
+  );
+
+  const { contacts } = ApiGetHook(
+    `${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
+  );
+
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
   const token = useSelector((state) => state.userLogin.token);
 
@@ -49,7 +62,9 @@ const App = () => {
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
     setTokenExpiration(isAuth(token));
-  }, [isLoggedIn, token]);
+    dispatch(dataFilmActions.setFilmsData(films));
+    dispatch(dataContactActions.setContactsData(contacts));
+  }, [isLoggedIn, token, dispatch, films, contacts]);
 
   return (
     <Router>

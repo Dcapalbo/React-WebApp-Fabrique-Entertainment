@@ -5,12 +5,12 @@ import { dataFilmActions } from "../store/data-film-slice";
 import Footer from "../components/footer/footer";
 import Header from "../components/header/header";
 import Navigation from "../components/nav/nav";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const AllAuthFilms = () => {
-  const [type, setType] = useState("");
   const dispatch = useDispatch();
+  const [type, setType] = useState("");
 
   useEffect(() => {
     dispatch(dataFilmActions.resetFilmData());

@@ -1,28 +1,13 @@
-import classes from "./filmsContainer.module.scss";
+import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
-import { useSelector } from "react-redux";
-import Films from "./films";
-import { useState } from "react";
-import { useEffect } from "react";
+import classes from "./filmsContainer.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
+import Films from "./films";
 
 const FilmsContainer = () => {
-  const film = useSelector((state) => state.dataFilm.filmData);
-  const [loading, setIsLoading] = useState(false);
-  const [filmData, setFilmData] = useState({});
-  const [error, setError] = useState(null);
-
-  console.log(film);
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (film) {
-      setFilmData(film);
-      setIsLoading(false);
-    } else {
-      setError(true);
-    }
-  }, [film]);
+  const { films, loading, error } = StateGetHook(
+    (state) => state.dataFilm.filmsData
+  );
 
   if (loading) {
     return (
@@ -47,9 +32,9 @@ const FilmsContainer = () => {
     );
   } else {
     return (
-      filmData && (
+      films && (
         <section className={classes.wrapper__films__container}>
-          {filmData.map((film) => (
+          {films.map((film) => (
             <Films
               title={film.title}
               director={film.director}

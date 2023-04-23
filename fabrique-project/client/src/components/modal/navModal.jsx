@@ -1,7 +1,6 @@
 import { dataFilmActions } from "../../store/data-film-slice";
 import { useDispatch, useSelector } from "react-redux";
 import base64ArrayBuffer from "../../utils/base64";
-import ApiGetHook from "../../hooks/apiGetHook";
 import { useTranslation } from "react-i18next";
 import classes from "./navModal.module.scss";
 import { isAuth } from "../../utils/isAuth";
@@ -13,20 +12,17 @@ const NavModal = () => {
   const { t } = useTranslation();
 
   const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+  const filmsTitle = useSelector((state) => state.dataFilm.filmsData);
   const token = useSelector((state) => state.userLogin.token);
 
   const [modalVisible, setIsModalVisible] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [tokenExpiration, setTokenExpiration] = useState(() => {});
-
-  const { fabriqueData } = ApiGetHook(
-    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
     setTokenExpiration(isAuth(token));
-  }, [fabriqueData, isLoggedIn, token]);
+  }, [isLoggedIn, token]);
 
   const sendFilmIdHanlder = (filmData) => {
     dispatch(
@@ -72,8 +68,8 @@ const NavModal = () => {
                 {t("films")}
               </Link>
               <ul className={classes.navigation__films__mobile__dropdown}>
-                {fabriqueData.length > 0 &&
-                  fabriqueData.map((filmData, id) => (
+                {filmsTitle.length > 0 &&
+                  filmsTitle.map((filmData, id) => (
                     <li key={id}>
                       <Link
                         onClick={() => sendFilmIdHanlder(filmData)}

@@ -1,38 +1,51 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
-import ApiGetHook from "../../../hooks/apiGetHook";
 import PuffLoader from "react-spinners/PuffLoader";
+import ApiGetHook from "../../../hooks/apiGetHook";
 import classes from "./cardContainer.module.scss";
 import { useEffect, useState } from "react";
 import FilmCard from "./filmCard";
 
 const FilmCardContainer = () => {
   const dispatch = useDispatch();
+  let uriLocation = window.location.href;
+
   const typeData = useSelector((state) => state.dataType.dataType) || "";
   const [filteredData, setFilteredData] = useState([]);
 
-  const { fabriqueData, loading, error } = ApiGetHook(
-    `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-  );
+  let films;
+  let loading;
+  let error;
+
+  if (
+    uriLocation === `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films`
+  ) {
+    const apiData = ApiGetHook(
+      `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
+    );
+    films = apiData.films;
+    loading = apiData.loading;
+    error = apiData.error;
+
+    dispatch(dataFilmActions.setFilmsData(films));
+  } else {
+    const stateData = StateGetHook((state) => state.dataFilm.filmsData);
+    films = stateData.films;
+    loading = stateData.loading;
+    error = stateData.error;
+  }
 
   useEffect(() => {
-    dispatch(dataFilmActions.setFilmsData(fabriqueData));
-  }, [dispatch, fabriqueData]);
-
-  useEffect(() => {
-    // Filter the data only when typeData is not empty
-    if (typeData) {
-      const filteredFabriqueData = fabriqueData.filter(
-        (film) => film.type === typeData
-      );
-      setFilteredData(filteredFabriqueData);
-    } else if (typeData === "") {
-      setFilteredData(fabriqueData);
-    } else {
-      setFilteredData(fabriqueData);
+    if (films) {
+      setFilteredData(films);
     }
-  }, [typeData, fabriqueData]);
+    if (typeData) {
+      const filteredFilms = films.filter((film) => film.type === typeData);
+      setFilteredData(filteredFilms);
+    }
+  }, [typeData, films]);
 
   if (loading) {
     return (
@@ -51,7 +64,7 @@ const FilmCardContainer = () => {
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>
-        There are some problem, please try to refresh
+        There are some problems, please try to refresh
       </h1>
     );
   } else {

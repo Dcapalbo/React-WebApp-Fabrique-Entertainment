@@ -7,17 +7,13 @@ import React from "react";
 
 const DetailFilm = () => {
   const { t } = useTranslation();
-  const film = useSelector((state) => state.dataFilm);
+  const film = useSelector((state) => state.dataFilm.filmData);
   const [loading, setIsLoading] = useState(false);
-  const [filmData, setFilmData] = useState({});
   const [error, setError] = useState(null);
-
-  console.log(film);
 
   useEffect(() => {
     setIsLoading(true);
     if (film) {
-      setFilmData(film);
       setIsLoading(false);
     } else {
       setError(true);
@@ -46,107 +42,109 @@ const DetailFilm = () => {
     );
   } else {
     return (
-      <section className={classes.detail__film__about__container}>
-        <img
-          className={classes.detail__film__about__card__image}
-          src={filmData?.imageUrl ?? ""}
-          alt={filmData?.title ?? ""}
-          title={filmData?.title ?? ""}
-          loading="lazy"
-        />
-        <div className={classes.detail__film__about__card__info}>
-          {filmData?.title && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <h2>{t("title")}:</h2>
+      film && (
+        <section className={classes.detail__film__about__container}>
+          <img
+            className={classes.detail__film__about__card__image}
+            src={film?.imageUrl ?? ""}
+            alt={film?.title ?? ""}
+            title={film?.title ?? ""}
+            loading="lazy"
+          />
+          <div className={classes.detail__film__about__card__info}>
+            {film?.title && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <h2>{t("title")}:</h2>
+                </div>
+                <div>
+                  <h2>{film?.title ?? ""}</h2>
+                </div>
               </div>
-              <div>
-                <h2>{filmData?.title ?? ""}</h2>
+            )}
+            {film?.director && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <h2>{t("director")}:</h2>
+                </div>
+                <div>
+                  <h2>{film?.director ?? ""}</h2>
+                </div>
               </div>
-            </div>
-          )}
-          {filmData?.director && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <h2>{t("director")}:</h2>
+            )}
+            {film?.production && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <h2>{t("production")}:</h2>
+                </div>
+                <div>
+                  <h2>{film?.production ?? ""}</h2>
+                </div>
               </div>
-              <div>
-                <h2>{filmData?.director ?? ""}</h2>
+            )}
+            {film?.screenwriter && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("screenwriter")}:</p>
+                </div>
+                <div>
+                  <p>{film?.screenwriter ?? ""}</p>
+                </div>
               </div>
-            </div>
-          )}
-          {filmData?.production && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <h2>{t("production")}:</h2>
+            )}
+            {film?.directorOfPhotography && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("directorOfPhotography")}:</p>
+                </div>
+                <div>
+                  <p>{film?.directorOfPhotography ?? ""}</p>
+                </div>
               </div>
-              <div>
-                <h2>{filmData?.production ?? ""}</h2>
+            )}
+            {film?.synopsis && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("synopsis")}:</p>
+                </div>
+                <div>
+                  <p>{film?.synopsis ?? ""}</p>
+                </div>
               </div>
-            </div>
-          )}
-          {filmData?.screenwriter && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("screenwriter")}:</p>
+            )}
+            {film?.duration && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("duration")}:</p>
+                </div>
+                <div>
+                  <p>{film?.duration ?? ""}</p>
+                </div>
               </div>
-              <div>
-                <p>{filmData?.screenwriter ?? ""}</p>
+            )}
+            {film?.year && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("year")}:</p>
+                </div>
+                <div>
+                  <p>{film?.year ?? ""}</p>
+                </div>
               </div>
-            </div>
-          )}
-          {filmData?.directorOfPhotography && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("directorOfPhotography")}:</p>
+            )}
+            {film?.type && (
+              <div className={classes.detail__film__about__card__info__wrapper}>
+                <div>
+                  <p>{t("typology")}:</p>
+                </div>
+                <div>
+                  <p>{film?.type ?? ""}</p>
+                </div>
               </div>
-              <div>
-                <p>{filmData?.directorOfPhotography ?? ""}</p>
-              </div>
-            </div>
-          )}
-          {filmData?.synopsis && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("synopsis")}:</p>
-              </div>
-              <div>
-                <p>{filmData?.synopsis ?? ""}</p>
-              </div>
-            </div>
-          )}
-          {filmData?.duration && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("duration")}:</p>
-              </div>
-              <div>
-                <p>{filmData?.duration ?? ""}</p>
-              </div>
-            </div>
-          )}
-          {filmData?.year && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("year")}:</p>
-              </div>
-              <div>
-                <p>{filmData?.year ?? ""}</p>
-              </div>
-            </div>
-          )}
-          {filmData?.type && (
-            <div className={classes.detail__film__about__card__info__wrapper}>
-              <div>
-                <p>{t("typology")}:</p>
-              </div>
-              <div>
-                <p>{filmData?.type ?? ""}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
+      )
     );
   }
 };
