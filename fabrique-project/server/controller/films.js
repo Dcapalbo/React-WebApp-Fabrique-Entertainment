@@ -27,6 +27,7 @@ exports.addFilm = async (req, res) => {
     year,
     slug,
     type,
+    file,
   } = req.body;
   const image = req.file;
 
@@ -99,6 +100,14 @@ exports.editFilm = async (req, res) => {
     type,
     _id,
   } = req.body;
+
+  if (!_id) {
+    res.status(404).json({
+      message:
+        "Was not possible to update the specific film, because the id is missing",
+    });
+  }
+
   const image = req.file;
   const imageUrl = {
     data: fs.readFileSync("images/" + image.filename),

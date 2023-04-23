@@ -81,6 +81,13 @@ exports.editContact = async (req, res) => {
     contentType: image.mimetype,
   };
 
+  if (!_id) {
+    res.status(404).json({
+      message:
+        "Was not possible to update the specific contact, because the id is missing",
+    });
+  }
+
   const update = {
     name,
     surname,
