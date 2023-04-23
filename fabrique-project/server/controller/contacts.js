@@ -72,7 +72,7 @@ exports.addContact = async (req, res) => {
   }
 };
 
-// POST => Editing a contact
+// PUT => Editing a contact
 exports.editContact = async (req, res) => {
   const { name, surname, role, bio, email, slug, phoneNumber, _id } = req.body;
   const image = req.file;
@@ -133,7 +133,7 @@ exports.editContact = async (req, res) => {
   }
 };
 
-// // POST => Delete a single contact
+//DELETE => Delete a single contact
 exports.deleteContact = async (req, res) => {
   const contactId = req.body._id;
   try {

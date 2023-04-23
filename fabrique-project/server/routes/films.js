@@ -24,7 +24,7 @@ router.post(
   ],
   filmsController.addFilm
 );
-//update-film =>PUT
+//update-film => PUT
 router.put(
   "/update-film",
   [
@@ -43,7 +43,7 @@ router.put(
   ],
   filmsController.editFilm
 );
-
+//delete-film => DELETE
 router.delete("/delete-film", filmsController.deleteFilm);
 
 module.exports = router;

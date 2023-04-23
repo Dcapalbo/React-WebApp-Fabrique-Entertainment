@@ -85,7 +85,7 @@ exports.addFilm = async (req, res) => {
   }
 };
 
-// POST => Editing a product
+// PUT => Editing a product
 exports.editFilm = async (req, res) => {
   const {
     title,
@@ -165,7 +165,7 @@ exports.editFilm = async (req, res) => {
   }
 };
 
-// // DELETE => Delete a single product using the prod id and user id
+//DELETE => Delete a single product using the prod id and user id
 exports.deleteFilm = async (req, res) => {
   const filmId = req.body._id;
   try {

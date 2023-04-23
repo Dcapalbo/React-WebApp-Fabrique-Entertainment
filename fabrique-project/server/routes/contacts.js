@@ -22,7 +22,7 @@ router.post(
   ],
   contactsController.addContact
 );
-// //update-film =>PUT
+//update-contact => PUT
 router.put(
   "/update-contact",
   [
@@ -39,7 +39,7 @@ router.put(
   ],
   contactsController.editContact
 );
-
+//delete-contact => DELETE
 router.delete("/delete-contact", contactsController.deleteContact);
 
 module.exports = router;
