@@ -1,6 +1,6 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
-import classes from "./films.module.scss";
 import { useNavigate } from "react-router-dom";
+import classes from "./films.module.scss";
 import { useDispatch } from "react-redux";
 import React from "react";
 

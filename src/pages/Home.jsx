@@ -1,5 +1,5 @@
-import FilterDataSelect from "../components/UI/select/filterDataSelect";
 import FilmCardContainer from "../components/UI/card/filmCardContainer";
+import FilterDataSelect from "../components/UI/select/filterDataSelect";
 import { dataSelectActions } from "../store/data-select-slice";
 import Accordion from "../components/UI/accordion/accordion";
 import ContactForm from "../components/UI/form/contactForm";

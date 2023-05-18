@@ -7,9 +7,6 @@ const isAuth = (auth) => {
     user = decodeToken(token);
     if (Date.now() <= user.exp * 1000) {
       return true;
-    } else if (Date.now() >= user.exp * 1000) {
-      window.location.replace("/login");
-      return false;
     }
   }
 };

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const currentYear = new Date().getFullYear();
+
 const filmSchema = z.object({
   title: z
     .string()
@@ -13,24 +15,46 @@ const filmSchema = z.object({
     .max(30, {
       message: "il nome del regista non può superare di 30 caratteri",
     }),
-  production: z
-    .string()
-    .min(6, {
-      message:
-        "Il nome della società di produzione deve essere di almeno 6 caratteri",
+  genres: z.array(
+    z.object({
+      genreName: z
+        .string()
+        .min(6, {
+          message: "Il nome del genere deve essere di almeno 6 caratteri",
+        })
+        .max(20, {
+          message: "Il nome del genere non può superare i 20 caratteri",
+        }),
     })
-    .max(50, {
-      message:
-        "Il nome della società di produzione non può superare i 50 caratteri",
-    }),
-  screenwriter: z
-    .string()
-    .min(6, {
-      message: "il nome dello sceneggiatore deve essere di almeno 6 caratteri",
+  ),
+  productions: z.array(
+    z.object({
+      productionName: z
+        .string()
+        .min(6, {
+          message:
+            "Il nome della società di produzione deve essere di almeno 6 caratteri",
+        })
+        .max(50, {
+          message:
+            "Il nome della società di produzione non può superare i 50 caratteri",
+        }),
     })
-    .max(150, {
-      message: "il nome dello sceneggiatore non può superare i 150 caratteri",
-    }),
+  ),
+  screenwriters: z.array(
+    z.object({
+      screenwriterName: z
+        .string()
+        .min(6, {
+          message:
+            "il nome dello sceneggiatore deve essere di almeno 6 caratteri",
+        })
+        .max(30, {
+          message:
+            "il nome dello sceneggiatore non può superare i 30 caratteri",
+        }),
+    })
+  ),
   directorOfPhotography: z
     .string()
     .min(6, {
@@ -52,14 +76,18 @@ const filmSchema = z.object({
         "la descrizione del prodotto audiovisivo non può superare i 300 caratteri",
     }),
   duration: z
-    .string()
+    .number()
+    .positive({ message: "Il numero deve essere superiore a 0" })
     .min(1, { message: "la durata deve essere maggiore di 0 minuti" })
-    .max(3, { message: "la durata non può essere maggiore di 999 minuti" }),
+    .max(999, { message: "la durata non può essere maggiore di 999 minuti" }),
   year: z
-    .string()
-    .min(4, { message: "l'anno deve avere 4 cifre" })
-    .max(4, { message: "l'anno deve avere 4 cifre" }),
-  type: z.string().min(1, { message: "Inserire un campo valido" }),
+    .number()
+    .positive({ message: "Il numero deve essere superiore a 0" })
+    .min(1930, { message: "l'anno deve avere essere maggiore di 1930" })
+    .max(currentYear, {
+      message: "l'anno non può essere superiore all'anno corrente",
+    }),
+  type: z.string().nonempty({ message: "Inserire almeno un valore" }),
 });
 
 export { filmSchema };

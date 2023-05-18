@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const Accordion = () => {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(0);
 
   const accordionData = [
     {
@@ -39,7 +39,7 @@ const Accordion = () => {
             <div>
               <h2
                 className={
-                  selected === i
+                  selected === i || (i === 0 && !selected)
                     ? `${classes.active}`
                     : `${classes.accordion__title}`
                 }

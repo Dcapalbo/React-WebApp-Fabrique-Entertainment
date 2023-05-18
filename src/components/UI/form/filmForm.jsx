@@ -27,7 +27,7 @@ const FilmForm = () => {
     }
   });
 
-  const { register, control, handleSubmit, formState, reset } = useForm({
+  const { register, control, handleSubmit, formState } = useForm({
     defaultValues: dataUpdateFilm ?? "",
     resolver: zodResolver(filmSchema),
   });
@@ -37,13 +37,12 @@ const FilmForm = () => {
       uriLocation !==
       `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
     ) {
-      reset();
       dispatch(dataFilmActions.resetFilmData());
       setIsUpdate(false);
     } else {
       setIsUpdate(true);
     }
-  }, [uriLocation, dispatch, reset]);
+  }, [uriLocation, dispatch]);
 
   const { errors } = formState;
 

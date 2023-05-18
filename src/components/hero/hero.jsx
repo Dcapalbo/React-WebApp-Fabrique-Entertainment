@@ -4,7 +4,13 @@ import classes from "./hero.module.scss";
 const Hero = () => {
   return (
     <section className={classes.hero}>
-      <video className={classes.fabrique__video} controls autoPlay="autoPlay">
+      <video
+        className={classes.fabrique__video}
+        autoPlay="autoPlay"
+        controls={false}
+        muted
+        loop
+      >
         <source src={HeroVideo} type="video/mp4" />
       </video>
     </section>
