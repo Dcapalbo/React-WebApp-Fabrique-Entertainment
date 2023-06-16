@@ -1,9 +1,8 @@
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
 import classes from "./filmsContainer.module.scss";
-import PuffLoader from "react-spinners/PuffLoader";
 import Films from "./films";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const FilmsContainer = () => {
   const { films, loading, error } = StateGetHook(

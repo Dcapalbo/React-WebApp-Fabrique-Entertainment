@@ -1,9 +1,8 @@
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import StateGetHook from "../../../hooks/stateGetHook";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
 import { useTranslation } from "react-i18next";
 import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const DetailAboutContact = () => {
   const { t } = useTranslation();

@@ -1,9 +1,9 @@
 import { dataContactActions } from "../../../store/data-contact-slice";
 import { contactSchema } from "../../../schema/conctactSchema";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { slugCreation } from "../../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const AboutContactForm = () => {
   const { t } = useTranslation();

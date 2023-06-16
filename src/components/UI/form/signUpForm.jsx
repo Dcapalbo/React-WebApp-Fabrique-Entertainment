@@ -1,6 +1,6 @@
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { signUpSchema } from "../../../schema/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const SignUpForm = () => {
   const { register, handleSubmit, formState } = useForm({

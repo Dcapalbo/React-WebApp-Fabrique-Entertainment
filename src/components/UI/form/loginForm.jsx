@@ -1,15 +1,14 @@
 import { dataUserActions } from "../../../store/data-user-slice";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { loginSchema } from "../../../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import PuffLoader from "react-spinners/PuffLoader";
 import { useTranslation } from "react-i18next";
 import classes from "./genericForm.module.scss";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const LoginForm = () => {
   const navigate = useNavigate();

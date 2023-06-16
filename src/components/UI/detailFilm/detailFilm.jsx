@@ -1,10 +1,9 @@
-import PuffLoader from "react-spinners/PuffLoader";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import classes from "./dataFilmAbout.module.scss";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const DetailFilm = () => {
   const { t } = useTranslation();

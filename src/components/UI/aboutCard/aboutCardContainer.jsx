@@ -2,7 +2,6 @@ import { dataContactActions } from "../../../store/data-contact-slice";
 import classes from "./aboutCardContainer.module.scss";
 import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
-import PuffLoader from "react-spinners/PuffLoader";
 import ApiGetHook from "../../../hooks/apiGetHook";
 import { useDispatch } from "react-redux";
 import AboutCard from "./aboutCard";

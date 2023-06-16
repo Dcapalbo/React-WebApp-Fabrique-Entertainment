@@ -1,14 +1,13 @@
 import { resetPasswordSchema } from "../../../schema/resetPassword";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const ResetPassword = () => {
   const { t } = useTranslation();

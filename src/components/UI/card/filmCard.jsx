@@ -1,7 +1,6 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "../../../assets/card.module.scss";
-import PuffLoader from "react-spinners/PuffLoader";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";

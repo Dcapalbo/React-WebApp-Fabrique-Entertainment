@@ -1,6 +1,6 @@
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./cardContainer.module.scss";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -25,19 +25,7 @@ const FilmCardContainer = () => {
   }, [typeData, films]);
 
   if (loading) {
-    return (
-      <PuffLoader
-        style={{
-          display: "inherit",
-          position: "relative",
-          width: "100px",
-          height: "100px",
-          margin: "auto",
-        }}
-        color={"#cc0000"}
-        size={100}
-      />
-    );
+    return <LoadingSpinner />;
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>
