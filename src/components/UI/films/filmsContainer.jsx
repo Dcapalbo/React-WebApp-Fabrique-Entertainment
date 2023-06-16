@@ -3,6 +3,7 @@ import base64ArrayBuffer from "../../../utils/base64";
 import classes from "./filmsContainer.module.scss";
 import PuffLoader from "react-spinners/PuffLoader";
 import Films from "./films";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const FilmsContainer = () => {
   const { films, loading, error } = StateGetHook(
@@ -10,19 +11,7 @@ const FilmsContainer = () => {
   );
 
   if (loading) {
-    return (
-      <PuffLoader
-        style={{
-          display: "inherit",
-          position: "relative",
-          width: "100px",
-          height: "100px",
-          margin: "auto",
-        }}
-        color={"#cc0000"}
-        size={100}
-      />
-    );
+    return <LoadingSpinner />;
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>

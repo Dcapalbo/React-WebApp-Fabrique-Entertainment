@@ -1,10 +1,10 @@
 import { dataFilmActions } from "../../../store/data-film-slice";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { useForm, useController } from "react-hook-form";
 import { filmSchema } from "../../../schema/filmSchema";
 import { slugCreation } from "../../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./genericForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -14,43 +14,45 @@ import axios from "axios";
 import React from "react";
 
 const FilmForm = () => {
+  const uriLocation = window.location.href;
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const uriLocation = window.location.href;
 
-  const dataUpdateFilm = useSelector((state) => {
-    if (state.dataFilm.filmData) {
-      return state.dataFilm.filmData;
+  const dataUpdateFilm = useSelector((state) => state.dataFilm.filmData ?? "");
+
+  const productionsData = dataUpdateFilm?.productions || [
+    { productionName: "" },
+  ];
+
+  const screenwritersData = dataUpdateFilm?.screenwriters || [
+    { screenwriterName: "" },
+  ];
+
+  const genresData = dataUpdateFilm?.genres || [{ genreName: "" }];
+
+  useEffect(() => {
+    if (uriLocation.includes("/admin/update-film")) {
+      setIsUpdate(true);
     } else {
-      return null;
+      setIsUpdate(false);
     }
-  });
+  }, [uriLocation, dispatch]);
 
-  const { register, control, handleSubmit, formState } = useForm({
+  const { register, control, formState, setValue, handleSubmit } = useForm({
     defaultValues: dataUpdateFilm ?? "",
     resolver: zodResolver(filmSchema),
   });
-
-  useEffect(() => {
-    if (
-      uriLocation !==
-      `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
-    ) {
-      dispatch(dataFilmActions.resetFilmData());
-      setIsUpdate(false);
-    } else {
-      setIsUpdate(true);
-    }
-  }, [uriLocation, dispatch]);
 
   const { errors } = formState;
 
   const { field } = useController({ name: "type", control });
 
-  const [enteredFileIsValid, setEnteredFileisValid] = useState(true);
-  const [isUpdate, setIsUpdate] = useState(false);
+  const [screenwriters, setScreenwriters] = useState(screenwritersData);
+  const [productions, setProductions] = useState(productionsData);
+  const [genres, setGenres] = useState(genresData);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
@@ -58,36 +60,86 @@ const FilmForm = () => {
     field.onChange(option.target.value);
   };
 
-  const confirmHandler = (event) => {
-    const enteredFileIsValid = file !== null && file !== "";
-    setEnteredFileisValid(enteredFileIsValid);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setValue(name, value);
+  };
 
+  const handleProductionInputChange = (event, index) => {
+    const { name, value } = event.target;
+    setValue(`productions[${index}].${name}`, value);
+  };
+
+  const handleAddProduction = () => {
+    const newProduction = { ingredientName: "" };
+    setProductions([...productions, newProduction]);
+  };
+
+  const handleDeleteProduction = (index) => {
+    const filteredProductions = productions.filter(
+      (production, i) => i !== index
+    );
+    setProductions(filteredProductions);
+  };
+
+  const handleScreenWriterInputChange = (event, index) => {
+    const { name, value } = event.target;
+    setValue(`screenwriters[${index}].${name}`, value);
+  };
+
+  const handleAddScreenWriter = () => {
+    const newScreenwriter = { ingredientName: "" };
+    setScreenwriters([...screenwriters, newScreenwriter]);
+  };
+
+  const handleDeleteScreenwriter = (index) => {
+    const filteredScreenwriters = screenwriters.filter(
+      (screenwriter, i) => i !== index
+    );
+    setScreenwriters(filteredScreenwriters);
+  };
+
+  const handleGenreInputChange = (event, index) => {
+    const { name, value } = event.target;
+    setValue(`genres[${index}].${name}`, value);
+  };
+
+  const handleAddGenre = () => {
+    const newGenres = { ingredientName: "" };
+    setGenres([...genres, newGenres]);
+  };
+
+  const handleDeleteGenre = (index) => {
+    const filteredGenres = genres.filter((genre, i) => i !== index);
+    setGenres(filteredGenres);
+  };
+
+  const confirmHandler = (data) => {
     const formData = new FormData();
 
-    const {
-      title,
-      director,
-      production,
-      screenwriter,
-      directorOfPhotography,
-      synopsis,
-      duration,
-      year,
-      type,
-    } = event;
-
-    console.log(event);
-
-    formData.append("title", title);
-    formData.append("director", director);
-    formData.append("production", production);
-    formData.append("screenwriter", screenwriter);
-    formData.append("directorOfPhotography", directorOfPhotography);
-    formData.append("synopsis", synopsis);
-    formData.append("duration", parseInt(duration));
-    formData.append("year", parseInt(year));
-    formData.append("slug", slugCreation(title));
-    formData.append("type", type);
+    formData.append("title", data.title);
+    formData.append("director", data.director);
+    for (let i = 0; i < productions.length; i++) {
+      formData.append(
+        `productions[${i}][productionName]`,
+        data.productions[i].productionName
+      );
+    }
+    for (let i = 0; i < screenwriters.length; i++) {
+      formData.append(
+        `screenwriters[${i}][screenwriterName]`,
+        data.screenwriters[i].screenwriterName
+      );
+    }
+    for (let i = 0; i < genres.length; i++) {
+      formData.append(`genres[${i}][genreName]`, data.genres[i].genreName);
+    }
+    formData.append("directorOfPhotography", data.directorOfPhotography);
+    formData.append("synopsis", data.synopsis);
+    formData.append("duration", data.duration);
+    formData.append("year", data.year);
+    formData.append("slug", slugCreation(data.title));
+    formData.append("type", data.type);
     formData.append("file", file);
 
     if (dataUpdateFilm?._id) {
@@ -95,41 +147,38 @@ const FilmForm = () => {
     }
 
     if (formData !== {}) {
-      if (
-        uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/add-new-film`
-      ) {
-        setIsLoading(true);
-        axios
-          .post(`${process.env.REACT_APP_API_LOCAL_PORT}/add-film`, formData)
-          .then((res) => {
-            console.log(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setIsLoading(false);
-            setError(err);
-          })
-          .finally(() => {
-            setIsLoading(false);
-            navigate("/admin/films");
-          });
-      } else if (
-        uriLocation ===
-        `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/update-film`
-      ) {
-        setIsLoading(true);
+      setIsLoading(true);
 
+      const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
+      const addFilmUrl = `${apiUrl}/add-film`;
+      const updateFilmUrl = `${apiUrl}/update-film`;
+      const requestUrl = uriLocation.includes("admin/add-new-film")
+        ? addFilmUrl
+        : uriLocation.includes("/admin/update-film")
+        ? updateFilmUrl
+        : "";
+
+      if (requestUrl !== "") {
         axios
-          .put(`${process.env.REACT_APP_API_LOCAL_PORT}/update-film`, formData)
+          .request({
+            method: requestUrl.includes("add-film") ? "post" : "put",
+            url: requestUrl,
+            data: formData,
+          })
           .then((res) => {
             console.log(res.data);
           })
           .catch((err) => {
-            console.error("there is an error for updating a film: ", err);
+            console.error(
+              `There is an error for ${
+                requestUrl.includes("add-film") ? "adding" : "updating"
+              } a film:`,
+              err
+            );
             setError(err);
           })
           .finally(() => {
+            dispatch(dataFilmActions.resetFilmData());
             setIsLoading(false);
             navigate("/admin/films");
           });
@@ -144,14 +193,17 @@ const FilmForm = () => {
         className={classes.form__container}
       >
         <div className={classes.form__container__item}>
-          {!isUpdate
-            ? !isUpdate && <h4>{t("labels.addDbFilm")}</h4>
-            : isUpdate && <h4>{t("labels.modifyDbFilm")}</h4>}
+          {!isUpdate ? (
+            <h4>{t("labels.addDbFilm")}</h4>
+          ) : (
+            isUpdate && <h4>{t("labels.modifyDbFilm")}</h4>
+          )}
           <label htmlFor="Title">{t("title")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.title ?? ""}
             {...register("title")}
             type="text"
+            onChange={handleInputChange}
           />
           {errors.title?.message && <small>{errors.title?.message}</small>}
         </div>
@@ -161,32 +213,139 @@ const FilmForm = () => {
             defaultValue={formState.defaultValues?.payload?.director ?? ""}
             {...register("director")}
             type="text"
+            onChange={handleInputChange}
           />
           {errors.director?.message && (
             <small>{errors.director?.message}</small>
           )}
         </div>
+        {productions.map((production, index) => (
+          <div
+            className={
+              classes.form__container__item + " " + classes.productions
+            }
+            key={index}
+          >
+            <label htmlFor="ProductionName">
+              {t("productionsLabels.production")}
+            </label>
+            <input
+              defaultValue={
+                formState.defaultValues?.payload?.production?.[index]
+                  ?.productionName ?? ""
+              }
+              {...register(`productions.${index}.productionName`)}
+              type="text"
+              onChange={(e) => handleProductionInputChange(e, index)}
+            />
+            {errors.productions?.[index]?.productionName?.message && (
+              <small>
+                {errors.productions?.[index]?.productionName.message}
+              </small>
+            )}
+            {index !== 0 && (
+              <button
+                onClick={() => handleDeleteProduction(index)}
+                className={classes.primary__button}
+                type="button"
+              >
+                {t("productionsLabels.deleteProduction")}
+              </button>
+            )}
+          </div>
+        ))}
         <div className={classes.form__container__item}>
-          <label htmlFor="Production">{t("production")}</label>
-          <input
-            defaultValue={formState.defaultValues?.payload?.production ?? ""}
-            {...register("production")}
-            type="text"
-          />
-          {errors.production?.message && (
-            <small>{errors.production?.message}</small>
-          )}
+          <button
+            onClick={handleAddProduction}
+            className={classes.primary__button}
+            type="button"
+          >
+            {t("productionsLabels.addProduction")}
+          </button>
         </div>
+        {screenwriters.map((screenwriter, index) => (
+          <div
+            className={
+              classes.form__container__item + " " + classes.productions
+            }
+            key={index}
+          >
+            <label htmlFor="ScreenwriterName">
+              {t("screenwritersLabels.screenwriter")}
+            </label>
+            <input
+              defaultValue={
+                formState.defaultValues?.payload?.screenwriter?.[index]
+                  ?.screenwriterName ?? ""
+              }
+              {...register(`screenwriters.${index}.screenwriterName`)}
+              type="text"
+              onChange={(e) => handleScreenWriterInputChange(e, index)}
+            />
+            {errors.screenwriters?.[index]?.screenwriterName?.message && (
+              <small>
+                {errors.screenwriters?.[index]?.screenwriterName.message}
+              </small>
+            )}
+            {index !== 0 && (
+              <button
+                onClick={() => handleDeleteScreenwriter(index)}
+                className={classes.primary__button}
+                type="button"
+              >
+                {t("screenwritersLabels.deleteScreenwriter")}
+              </button>
+            )}
+          </div>
+        ))}
         <div className={classes.form__container__item}>
-          <label htmlFor="Screenwriter">{t("screenwriter")}</label>
-          <input
-            defaultValue={formState.defaultValues?.payload?.screenwriter ?? ""}
-            {...register("screenwriter")}
-            type="text"
-          />
-          {errors.screenwriter?.message && (
-            <small>{errors.screenwriter?.message}</small>
-          )}
+          <button
+            onClick={handleAddScreenWriter}
+            className={classes.primary__button}
+            type="button"
+          >
+            {t("screenwritersLabels.addScreenwriter")}
+          </button>
+        </div>
+        {genres.map((genre, index) => (
+          <div
+            className={
+              classes.form__container__item + " " + classes.productions
+            }
+            key={index}
+          >
+            <label htmlFor="GenresName">{t("genresLabels.genre")}</label>
+            <input
+              defaultValue={
+                formState.defaultValues?.payload?.genre?.[index]?.genreName ??
+                ""
+              }
+              {...register(`genres.${index}.genreName`)}
+              type="text"
+              onChange={(e) => handleGenreInputChange(e, index)}
+            />
+            {errors.genres?.[index]?.genreName?.message && (
+              <small>{errors.genres?.[index]?.genreName.message}</small>
+            )}
+            {index !== 0 && (
+              <button
+                onClick={() => handleDeleteGenre(index)}
+                className={classes.primary__button}
+                type="button"
+              >
+                {t("genresLabels.deleteGenre")}
+              </button>
+            )}
+          </div>
+        ))}
+        <div className={classes.form__container__item}>
+          <button
+            onClick={handleAddGenre}
+            className={classes.primary__button}
+            type="button"
+          >
+            {t("genresLabels.addGenre")}
+          </button>
         </div>
         <div className={classes.form__container__item}>
           <label htmlFor="DirectorOfPhotography">
@@ -198,6 +357,7 @@ const FilmForm = () => {
             }
             {...register("directorOfPhotography")}
             type="text"
+            onChange={handleInputChange}
           />
           {errors.directorOfPhotography?.message && (
             <small>{errors.directorOfPhotography?.message}</small>
@@ -209,6 +369,7 @@ const FilmForm = () => {
             defaultValue={formState.defaultValues?.payload?.synopsis ?? ""}
             {...register("synopsis")}
             type="text"
+            onChange={handleInputChange}
           ></textarea>
           {errors.synopsis?.message && (
             <small>{errors.synopsis?.message}</small>
@@ -218,8 +379,9 @@ const FilmForm = () => {
           <label htmlFor="Duration">{t("duration")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.duration ?? ""}
-            {...register("duration")}
+            {...register("duration", { valueAsNumber: true })}
             type="number"
+            onChange={handleInputChange}
           />
           {errors.duration?.message && (
             <small>{errors.duration?.message}</small>
@@ -229,8 +391,9 @@ const FilmForm = () => {
           <label htmlFor="Year">{t("year")}</label>
           <input
             defaultValue={formState.defaultValues?.payload?.year ?? ""}
-            {...register("year")}
+            {...register("year", { valueAsNumber: true })}
             type="number"
+            onChange={handleInputChange}
           />
           {errors.year?.message && <small>{errors.year?.message}</small>}
         </div>
@@ -250,46 +413,31 @@ const FilmForm = () => {
             name="Image"
             required
           />
-          {!enteredFileIsValid && (
-            <small>Campo obbligatorio, inserire la cover del film</small>
-          )}
         </div>
         <div className={classes.form__container__item}>
-          {!isUpdate
-            ? !isUpdate && (
-                <>
-                  <button className={classes.secondary__button} type="submit">
-                    {t("insertAction")}
-                  </button>
-                  <div className={classes.generic__margin__top}>
-                    {error && <small>{t("errors.dbCrud")}</small>}
-                  </div>
-                </>
-              )
-            : isUpdate && (
-                <>
-                  <button className={classes.secondary__button} type="submit">
-                    {t("modifyAction")}
-                  </button>
-                  <div className={classes.generic__margin__top}>
-                    {error && <small>{t("errors.dbCrud")}</small>}
-                  </div>
-                </>
-              )}
+          {!isUpdate ? (
+            <>
+              <button className={classes.secondary__button} type="submit">
+                {t("insertAction")}
+              </button>
+              <div className={classes.generic__margin__top}>
+                {error && <small>{t("errors.dbCrud")}</small>}
+              </div>
+            </>
+          ) : (
+            isUpdate && (
+              <>
+                <button className={classes.secondary__button} type="submit">
+                  {t("modifyAction")}
+                </button>
+                <div className={classes.generic__margin__top}>
+                  {error && <small>{t("errors.dbCrud")}</small>}
+                </div>
+              </>
+            )
+          )}
         </div>
-        {isLoading && (
-          <PuffLoader
-            style={{
-              display: "inherit",
-              position: "relative",
-              width: "100px",
-              height: "100px",
-              margin: "auto",
-            }}
-            color={"#cc0000"}
-            size={100}
-          />
-        )}
+        {isLoading && <LoadingSpinner />}
       </form>
     </section>
   );

@@ -11,11 +11,9 @@ const translationEn = {
   vision: "Vision",
   visionDescription:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-
   ethics: "Ethics",
   ethicsDescription:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-
   team: "The team",
   teamDescription:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
@@ -36,6 +34,21 @@ const translationEn = {
   duration: "Duration",
   year: "Year",
   typology: "Typology",
+  productionsLabels: {
+    production: "Production",
+    addProduction: "Add Production",
+    deleteProduction: "Delete Production",
+  },
+  screenwritersLabels: {
+    screenwriter: "Screenwriter",
+    addScreenwriter: "Add Screenwriter",
+    deleteScreenwriter: "Delete Screenwriter",
+  },
+  genresLabels: {
+    genre: "Genre",
+    addGenre: "Add Genre",
+    deleteGenre: "Delete Genre",
+  },
   cover: "Film cover",
   profileCover: "Profile picture",
   role: "Role",

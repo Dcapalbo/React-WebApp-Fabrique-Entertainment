@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React from "react";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const AboutContactForm = () => {
   const { t } = useTranslation();
@@ -229,19 +230,7 @@ const AboutContactForm = () => {
                 </>
               )}
         </div>
-        {isLoading && (
-          <PuffLoader
-            style={{
-              display: "inherit",
-              position: "relative",
-              width: "100px",
-              height: "100px",
-              margin: "auto",
-            }}
-            color={"#cc0000"}
-            size={100}
-          />
-        )}
+        {isLoading && <LoadingSpinner />}
       </form>
     </section>
   );

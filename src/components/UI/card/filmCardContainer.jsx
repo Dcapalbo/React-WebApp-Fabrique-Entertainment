@@ -1,43 +1,18 @@
-import { dataFilmActions } from "../../../store/data-film-slice";
-import { useDispatch, useSelector } from "react-redux";
 import StateGetHook from "../../../hooks/stateGetHook";
 import base64ArrayBuffer from "../../../utils/base64";
 import PuffLoader from "react-spinners/PuffLoader";
-import ApiGetHook from "../../../hooks/apiGetHook";
 import classes from "./cardContainer.module.scss";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import FilmCard from "./filmCard";
 
 const FilmCardContainer = () => {
-  const dispatch = useDispatch();
-  let uriLocation = window.location.href;
-
   const typeData = useSelector((state) => state.dataType.dataType) || "";
   const [filteredData, setFilteredData] = useState([]);
 
-  let films;
-  let loading;
-  let error;
-
-  if (
-    uriLocation === `${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/films`
-  ) {
-    const apiData = ApiGetHook(
-      `${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-    );
-
-    films = apiData.films;
-    loading = apiData.loading;
-    error = apiData.error;
-
-    dispatch(dataFilmActions.setFilmsData(films));
-  } else {
-    const stateData = StateGetHook((state) => state.dataFilm.filmsData);
-
-    films = stateData.films;
-    loading = stateData.loading;
-    error = stateData.error;
-  }
+  const { films, loading, error } = StateGetHook(
+    (state) => state.dataFilm.filmsData
+  );
 
   useEffect(() => {
     if (films) {

@@ -34,6 +34,21 @@ const translationIt = {
   duration: "Durata",
   year: "Anno",
   typology: "Tipologia",
+  productionsLabels: {
+    production: "Produzione",
+    addProduction: "Aggiungi produzione",
+    deleteProduction: "Cancella produzione",
+  },
+  screenwritersLabels: {
+    screenwriter: "Sceneggiatore",
+    addScreenwriter: "Aggiungi sceneggiatore",
+    deleteScreenwriter: "Cancella sceneggiatore",
+  },
+  genresLabels: {
+    genre: "Genere",
+    addGenre: "Aggiungi Genere",
+    deleteGenre: "Cancella Genere",
+  },
   cover: "Copertina del film",
   profileCover: "Foto del profilo",
   role: "Ruolo",

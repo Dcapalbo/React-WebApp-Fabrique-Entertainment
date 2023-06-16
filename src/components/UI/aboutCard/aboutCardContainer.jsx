@@ -6,6 +6,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import ApiGetHook from "../../../hooks/apiGetHook";
 import { useDispatch } from "react-redux";
 import AboutCard from "./aboutCard";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const AboutAuthCardContainer = () => {
   const dispatch = useDispatch();
@@ -36,19 +37,7 @@ const AboutAuthCardContainer = () => {
   }
 
   if (loading) {
-    return (
-      <PuffLoader
-        style={{
-          display: "inherit",
-          position: "relative",
-          width: "100px",
-          height: "100px",
-          margin: "auto",
-        }}
-        color={"#cc0000"}
-        size={100}
-      />
-    );
+    return <LoadingSpinner />;
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>

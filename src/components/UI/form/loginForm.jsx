@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -87,19 +88,7 @@ const LoginForm = () => {
           </button>
         </div>
         {error && <small>{t("errors.login")}</small>}
-        {isLoading && (
-          <PuffLoader
-            style={{
-              display: "inherit",
-              position: "relative",
-              width: "100px",
-              height: "100px",
-              margin: "auto",
-            }}
-            color={"#cc0000"}
-            size={100}
-          />
-        )}
+        {isLoading && <LoadingSpinner />}
       </form>
     </section>
   );

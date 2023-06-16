@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const FilmCard = (props) => {
   const dispatch = useDispatch();
@@ -123,19 +124,7 @@ const FilmCard = (props) => {
           </button>
         </div>
       )}
-      {isLoading && (
-        <PuffLoader
-          style={{
-            display: "inherit",
-            position: "relative",
-            width: "100px",
-            height: "100px",
-            margin: "auto",
-          }}
-          color={"#cc0000"}
-          size={100}
-        />
-      )}
+      {isLoading && <LoadingSpinner />}
       {error && (
         <small>Problema nell' eliminazione del singolo film, riprovare</small>
       )}

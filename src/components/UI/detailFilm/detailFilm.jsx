@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import React from "react";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const DetailFilm = () => {
   const { t } = useTranslation();
@@ -21,19 +22,7 @@ const DetailFilm = () => {
   }, [film]);
 
   if (loading) {
-    return (
-      <PuffLoader
-        style={{
-          display: "inherit",
-          position: "relative",
-          width: "100px",
-          height: "100px",
-          margin: "auto",
-        }}
-        color={"#cc0000"}
-        size={100}
-      />
-    );
+    return <LoadingSpinner />;
   } else if (error) {
     return (
       <h1 className={classes.text__align__center}>

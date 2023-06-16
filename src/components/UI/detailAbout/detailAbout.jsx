@@ -3,6 +3,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import classes from "./dataFilmAbout.module.scss";
 import { useTranslation } from "react-i18next";
 import React from "react";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 
 const DetailAboutContact = () => {
   const { t } = useTranslation();
@@ -11,19 +12,7 @@ const DetailAboutContact = () => {
   );
 
   if (loading) {
-    return (
-      <PuffLoader
-        style={{
-          display: "inherit",
-          position: "relative",
-          width: "100px",
-          height: "100px",
-          margin: "auto",
-        }}
-        color={"#cc0000"}
-        size={100}
-      />
-    );
+    return <LoadingSpinner />;
   } else if (error) {
     <h1>
       Il contatto selezionato non è stato trovato, tornare alla pagina
