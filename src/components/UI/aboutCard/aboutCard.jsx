@@ -1,134 +1,124 @@
-import { dataContactActions } from "../../../store/data-contact-slice";
-import { useDispatch, useSelector } from "react-redux";
-import classes from "../../../assets/card.module.scss";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import React from "react";
-import LoadingSpinner from "../loadingSpinner/loadingSpinner";
+/** @format */
+
+import { dataContactActions } from '../../../store/data-contact-slice';
+import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import { useDispatch, useSelector } from 'react-redux';
+import classes from '../../../assets/card.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import React from 'react';
 
 const AboutCard = (props) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { t } = useTranslation();
 
-  const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
+	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setIsAuthenticated(isLoggedIn);
-  }, [isLoggedIn, dispatch]);
+	useEffect(() => {
+		setIsAuthenticated(isLoggedIn);
+	}, [isLoggedIn, dispatch]);
 
-  const sendContactFormHandler = () => {
-    dispatch(
-      dataContactActions.setContactData({
-        name: props.name,
-        surname: props.surname,
-        role: props.role,
-        bio: props.bio,
-        email: props.email,
-        slug: props.slug,
-        phoneNumber: props.phoneNumber.toString(),
-        imageUrl: props.imageUrl,
-        _id: props._id,
-      })
-    );
-    navigate("/admin/update-contact");
-  };
+	const sendContactIdFormHandler = () => {
+		dispatch(
+			dataContactActions.setContactData({
+				...props,
+				_id: props._id,
+			})
+		);
+		navigate('/admin/update-contact');
+	};
 
-  const sendContactIdHanlder = () => {
-    dispatch(
-      dataContactActions.setContactData({
-        name: props.name,
-        surname: props.surname,
-        role: props.role,
-        bio: props.bio,
-        email: props.email,
-        slug: props.slug,
-        phoneNumber: props.phoneNumber.toString(),
-        imageUrl: props.imageUrl,
-        _id: props._id,
-      })
-    );
-    navigate(`/about/${props.slug}`);
-  };
+	const sendContactDetailHanlder = () => {
+		dispatch(
+			dataContactActions.setContactData({
+				...props,
+			})
+		);
+		navigate(`/about/${props.slug}`);
+	};
 
-  const deleteContactHandler = () => {
-    setIsLoading(true);
+	const deleteContactHandler = () => {
+		setIsLoading(true);
 
-    const contactId = {
-      _id: props._id,
-    };
+		const contactId = {
+			_id: props._id,
+		};
 
-    axios
-      .delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-contact`, {
-        data: contactId,
-      })
-      .then((res) => {
-        dispatch(dataContactActions.removeContactData({ _id: props._id }));
-        window.location.replace("/admin/contacts");
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error(
-          "there is an error for deleting the specific contact: ",
-          err
-        );
-        setIsLoading(false);
-        setError(err);
-      });
-  };
+		axios
+			.delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-contact`, {
+				data: contactId,
+			})
+			.then((res) => {
+				dispatch(dataContactActions.removeContactData({ _id: props._id }));
+				window.location.replace('/admin/contacts');
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				console.error(
+					'there is an error for deleting the specific contact: ',
+					err
+				);
+				setIsLoading(false);
+				setError(err);
+			});
+	};
 
-  return (
-    <>
-      <div className={classes.card}>
-        {props.imageUrl && (
-          <img
-            onClick={sendContactIdHanlder}
-            className={classes.card__image}
-            src={props.imageUrl}
-            alt={props.name}
-            title={props.role}
-            loading="lazy"
-          />
-        )}
-        <div className={classes.card__description}>
-          {props.name && <h2>{props.name}</h2>}
-          {props.surname && <h3>{props.surname}</h3>}
-          {props.role && <p>{props.role}</p>}
-          {props.bio && <p>{props.bio}</p>}
-          {props.email && <small>{props.email}</small>}
-          {props.slug && <input hidden id={props.slug} />}
-          {props._id && <input hidden id={props._id} />}
-          {props.phoneNumber && <small>{props.phonenumber}</small>}
-        </div>
-        {isAuthenticated && (
-          <div className={classes.card__button__wrapper}>
-            <button
-              onClick={sendContactFormHandler}
-              className={classes.card__cta}
-            >
-              Modifica Contatto
-            </button>
-            <button
-              onClick={deleteContactHandler}
-              className={classes.card__cta}
-            >
-              Elimina Contatto
-            </button>
-          </div>
-        )}
-        {isLoading && <LoadingSpinner />}
-        {error && (
-          <small>
-            Problema nell' eliminazione del singolo contatto, riprovare
-          </small>
-        )}
-      </div>
-    </>
-  );
+	return (
+		<div className={classes.card}>
+			{props.imageUrl && (
+				<img
+					onClick={sendContactDetailHanlder}
+					className={classes.card__image}
+					src={props.imageUrl}
+					alt={props.name}
+					name={props.name}
+					loading='lazy'
+				/>
+			)}
+			<div className={classes.card__internal__description}>
+				{props.name && <h2>{props.name}</h2>}
+				{props.surname && <h2>{props.surname}</h2>}
+				{props.bio && <p>{props.bio}</p>}
+			</div>
+			<div className={classes.card__external__informations}>
+				<div className={classes.card__external__informations__item}>
+					{props.role && <p>{props.role}</p>}
+				</div>
+				<div className={classes.card__external__informations__item}>
+					{props.email && <p>{props.email}</p>}
+				</div>
+			</div>
+			{isAuthenticated && (
+				<>
+					<div className={classes.card__button__wrapper}>
+						<button
+							onClick={sendContactIdFormHandler}
+							className={classes.card__cta}>
+							{t('modifica')}
+						</button>
+						<button
+							onClick={deleteContactHandler}
+							className={classes.card__cta}>
+							{t('delete')}
+						</button>
+					</div>
+				</>
+			)}
+			{isLoading && <LoadingSpinner />}
+			{error && (
+				<small className={classes.error}>
+					{t('errors.errorContactDelete')}
+				</small>
+			)}
+		</div>
+	);
 };
 
 export default AboutCard;

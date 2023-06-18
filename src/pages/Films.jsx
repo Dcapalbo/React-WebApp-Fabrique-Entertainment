@@ -1,18 +1,20 @@
-import FilmsContainer from "../components/UI/films/filmsContainer";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
-import Navigation from "../components/nav/nav";
+/** @format */
+
+import FilmCardContainer from '../components/UI/card/filmCardContainer';
+import Header from '../components/header/header';
+import Footer from '../components/footer/footer';
+import Navigation from '../components/nav/nav';
 
 const Films = () => {
-  return (
-    <>
-      <Header>
-        <Navigation />
-      </Header>
-      <FilmsContainer />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header>
+				<Navigation />
+			</Header>
+			<FilmCardContainer />
+			<Footer />
+		</>
+	);
 };
 
 export default Films;

@@ -1,92 +1,167 @@
-@import "./variables.scss";
-@import "./mixin.scss";
+/** @format */
+
+@import './variables.scss';
+@import './mixin.scss';
 
 .card {
-  background-color: $firstColor;
-  border: 2px solid $firstColor;
-  max-height: calc(100% - 40px);
-  width: calc(100% / 4 - 48px);
-  transition: transform 0.1s;
-  @include flex-column;
-  position: relative;
-  margin: 24px;
-  &:hover {
-    background-color: transparent;
-    transform: scale(1.1);
-    border-radius: 1%;
-    transition: 0.2s;
-  }
+	box-shadow: 2px 4px 10px rgb(243, 212, 195);
+	border: 1px solid $firstColor;
+	background-color: $thirdColor;
+	max-height: calc(100% - 40px);
+	width: calc(100% / 3 - 100px);
+	justify-content: flex-start;
+	transition: transform 0.2s;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 20px;
+	padding: 10px 10px;
+	position: relative;
+	min-height: 470px;
+	display: flex;
+	margin: 24px;
+	&:hover {
+		background-color: $thirdColor;
+		transform: scale(1.05);
+		transition: 0.2s;
+	}
 
-  .card__description {
-    transform: translate(-50%, -80%);
-    transition: transform 0.1s;
-    left: calc(100% / 2);
-    top: calc(100% / 2);
-    position: absolute;
-    line-height: 40px;
-    padding: 0 10px;
-    display: none;
-    width: 100%;
-    height: 60%;
-    &:hover {
-      display: block;
-    }
-    &:hover + .card__image {
-      opacity: 0;
-    }
-  }
+	.card__internal__description {
+		transform: translate(-50%, -80%);
+		transition: transform 0.2s;
+		left: calc(100% / 2);
+		height: fit-content;
+		position: absolute;
+		line-height: 20px;
+		padding: 0 10px;
+		display: none;
+		width: 100%;
+		top: 20%;
+		p {
+			color: $firstColor;
+		}
+		&:hover {
+			display: block;
+		}
+		&:hover + .card__image {
+			opacity: 0;
+		}
+	}
+	h2 {
+		margin: 10px 0px;
+		color: $firstColor;
+	}
+	.card__external__informations {
+		@include flex-column;
+		align-items: center;
+		margin: 15px 0px;
+		height: 100%;
+		width: 100%;
+		.card__external__informations__item {
+			background-color: $firstColor;
+			@include flex-center;
+			border-radius: 50px;
+			width: fit-content;
+			padding: 0px 12px;
+			margin: 10px 5px;
+			height: 30px;
+			svg {
+				color: $thirdColor;
+				margin-right: 5px;
+			}
+			small {
+				color: $thirdColor;
+			}
+		}
+	}
+	.card__image {
+		border-radius: 20px;
+		position: relative;
+		object-fit: cover;
+		transition: 0.2s;
+		cursor: pointer;
+		height: 300px;
+		width: 100%;
+		z-index: 1;
+		opacity: 1;
+		&:hover + .card__internal__description {
+			@include flex-column;
+			transition: 0.2s;
+		}
+		&:hover {
+			transform: scale(1.05);
+			transition: 0.2s;
+			opacity: 0;
+		}
+	}
+	.card__button__wrapper {
+		@include flex-around;
+		width: 100%;
+		height: 20%;
+		@media (max-width: $screen-sm-min) {
+			padding: 0px 15px;
+		}
+	}
+	@media (max-width: $screen-lg-min) {
+		width: calc(100% / 2 - 48px);
+		margin: 16px;
+	}
 
-  .card__image {
-    position: relative;
-    object-fit: cover;
-    transition: 0.2s;
-    cursor: pointer;
-    height: 550px;
-    width: 100%;
-    z-index: 1;
-    opacity: 1;
-    &:hover + .card__description {
-      transition: 0.3s;
-      display: block;
-    }
-    &:hover {
-      transform: scale(1.1);
-      transition: 0.2s;
-      opacity: 0;
-    }
-  }
-
-  .card__button__wrapper {
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    height: 20%;
-    .card__cta {
-      border: 1px solid #cc0000;
-      font-family: $Comfortaa;
-      color: $thirdColor;
-      padding: 15px 15px;
-      margin: 10px 0px;
-      transition: 0.3s;
-      font-size: 20px;
-      width: 225px;
-      z-index: 2;
-      &:hover {
-        background-color: $firstColor;
-        color: $secondColor;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-    }
-  }
-
-  @media (max-width: $screen-lg-min) {
-    width: calc(100% / 2 - 48px);
-    margin: 16px;
-  }
-
-  @media (max-width: $screen-sm-min) {
-    margin: 12px;
-    width: 100%;
-  }
+	@media (max-width: $screen-sm-min) {
+		margin: 12px;
+		width: 100%;
+	}
+	.card__button__quantity__wrapper {
+		justify-content: space-between;
+		flex-direction: column;
+		align-items: center;
+		display: flex;
+		width: 80%;
+		div {
+			width: 100%;
+			button {
+				background-color: $thirdColor;
+				border: 1px solid $firstColor;
+				color: $firstColor;
+				transition: 0.2s;
+				height: 30px;
+				width: 30px;
+				&:hover {
+					background-color: $firstColor;
+					color: $thirdColor;
+					transition: 0.2s;
+					cursor: pointer;
+				}
+			}
+			input {
+				margin: 10px;
+				width: calc(100% / 2);
+			}
+		}
+	}
+}
+.auth__card {
+	width: calc(100% / 2 - 48px);
+	@media (max-width: $screen-lg-min) {
+		width: calc(100%);
+		margin: 12px;
+	}
+}
+.card__cta {
+	border: 1px solid $firstColor;
+	background-color: $thirdColor;
+	font-family: $Comfortaa;
+	color: $firstColor;
+	padding: 15px 15px;
+	transition: 0.2s;
+	margin: 10px 0px;
+	font-size: 18px;
+	width: 180px;
+	z-index: 2;
+	&:hover {
+		background-color: $firstColor;
+		border-radius: 10px;
+		color: $thirdColor;
+		transition: 0.2s;
+		cursor: pointer;
+	}
 }

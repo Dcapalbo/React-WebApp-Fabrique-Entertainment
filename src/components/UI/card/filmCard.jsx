@@ -4,6 +4,7 @@ import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -13,6 +14,7 @@ const FilmCard = (props) => {
 	console.log(props);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
 
@@ -77,30 +79,47 @@ const FilmCard = (props) => {
 					loading='lazy'
 				/>
 			)}
-			<div className={classes.card__description}>
+			<div className={classes.card__internal__description}>
 				{props.title && <h2>{props.title}</h2>}
 				{props.synopsis && <p>{props.synopsis}</p>}
-				{props.duration && <p>{props.duration}</p>}
-				{props.year && <p>{props.year}</p>}
-				{props.type && <small>{props.type}</small>}
+			</div>
+			<div className={classes.card__external__informations}>
+				{props.director && <h2>{props.director}</h2>}
+
+				{props.productions && (
+					<>
+						{props?.productions.map((production, index) => (
+							<p key={index}>{production.productionName}</p>
+						))}
+					</>
+				)}
+				<div className={classes.card__external__informations__item}>
+					{props.type && (
+						<>
+							<small>{props.type}</small>
+						</>
+					)}
+				</div>
 			</div>
 			{isAuthenticated && (
-				<div className={classes.card__button__wrapper}>
-					<button
-						onClick={sendFilmFormHandler}
-						className={classes.card__cta}>
-						Modifica Film
-					</button>
-					<button
-						onClick={deleteFilmHandler}
-						className={classes.card__cta}>
-						Elimina Film
-					</button>
-				</div>
+				<>
+					<div className={classes.card__button__wrapper}>
+						<button
+							onClick={sendFilmFormHandler}
+							className={classes.card__cta}>
+							{t('modifyFilmCard')}
+						</button>
+						<button
+							onClick={deleteFilmHandler}
+							className={classes.card__cta}>
+							{t('deleteFilmCard')}
+						</button>
+					</div>
+				</>
 			)}
 			{isLoading && <LoadingSpinner />}
 			{error && (
-				<small>Problema nell' eliminazione del singolo film, riprovare</small>
+				<small className={classes.error}>{t('errors.errorSweetDelete')}</small>
 			)}
 		</div>
 	);
