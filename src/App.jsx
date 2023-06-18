@@ -13,7 +13,6 @@ import ApiGetHook from './hooks/apiGetHook';
 import i18n from 'i18next';
 // redux states
 import { dataContactActions } from './store/data-contact-slice';
-import { dataFilmActions } from './store/data-film-slice';
 // scss files
 import './assets/typography.scss';
 import './assets/reset.scss';
@@ -48,10 +47,6 @@ i18n.use(initReactI18next).init({
 const App = () => {
 	const dispatch = useDispatch();
 
-	const { films } = ApiGetHook(
-		`${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-	);
-
 	const { contacts } = ApiGetHook(
 		`${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
 	);
@@ -65,9 +60,8 @@ const App = () => {
 	useEffect(() => {
 		setIsAuthenticated(isLoggedIn);
 		setTokenExpiration(isAuth(token));
-		dispatch(dataFilmActions.setFilmsData(films));
 		dispatch(dataContactActions.setContactsData(contacts));
-	}, [isLoggedIn, token, dispatch, films, contacts]);
+	}, [isLoggedIn, token, dispatch, contacts]);
 
 	return (
 		<Router>

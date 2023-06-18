@@ -1,20 +1,20 @@
 /** @format */
 
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
-import StateGetHook from '../../../hooks/stateGetHook';
 import base64ArrayBuffer from '../../../utils/base64';
+import ApiGetHook from '../../../hooks/apiGetHook';
 import classes from './cardContainer.module.scss';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FilmCard from './filmCard';
 
 const FilmCardContainer = () => {
+	const { films, error, loading } = ApiGetHook(
+		`${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
+	);
+
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
 	const [filteredData, setFilteredData] = useState([]);
-
-	const { films, loading, error } = StateGetHook(
-		(state) => state.dataFilm.filmsData
-	);
 
 	useEffect(() => {
 		if (films) {
