@@ -1,51 +1,76 @@
-@import "../../../assets/variables.scss";
-@import "../../../assets/typography.scss";
-@import "../../../assets/mixin.scss";
+/** @format */
+
+@import '../../../assets/variables.scss';
+@import '../../../assets/typography.scss';
+@import '../../../assets/mixin.scss';
 
 .form__wrapper {
-  margin: auto;
-  width: 40%;
-  @media (max-width: $screen-xl-min) {
-    width: 70%;
-  }
-  @media (max-width: $screen-lg-min) {
-    width: 90%;
-  }
+	margin: auto;
+	width: 40%;
+	@media (max-width: $screen-xl-min) {
+		width: 70%;
+	}
+	@media (max-width: $screen-lg-min) {
+		width: 90%;
+	}
 }
 .form__container {
-  background-color: $secondColor;
-  @include flex-start;
-  border-radius: 10px;
-  padding: 35px 60px;
-  margin-top: 50px;
-  width: 100%;
-  h4 {
-    text-align: center;
-    margin: 10px;
-  }
-  small {
-    color: $thirdColor;
-  }
-  .form__container__item {
-    text-align: center;
-    margin: 10px 0px;
-    width: 100%;
-    input {
-      width: 100%;
-    }
-    a {
-      margin-bottom: 20px;
-      color: $thirdColor;
-      display: block;
-      cursor: pointer;
-    }
-  }
-  @media (max-width: $screen-lg-min) {
-    padding: 10px 30px;
-  }
+	background-color: $secondColor;
+	@include flex-start;
+	border-radius: 10px;
+	padding: 35px 60px;
+	margin-top: 50px;
+	width: 100%;
+	h4 {
+		text-align: center;
+		margin: 10px;
+	}
+	small {
+		color: $thirdColor;
+	}
+	.form__container__item {
+		text-align: center;
+		margin: 10px 0px;
+		width: 100%;
+		input {
+			width: 100%;
+		}
+		a {
+			margin-bottom: 20px;
+			color: $thirdColor;
+			display: block;
+			cursor: pointer;
+		}
+		.genres__checkboxes__container {
+			@include flex-center;
+			.genres__checkboxes__internal__wrapper {
+				@include flex-column;
+				label {
+					font-size: 12px;
+					margin: 10px;
+				}
+				input {
+					border: 1px solid #ccc;
+					border-radius: 3px;
+					appearance: none;
+					height: 20px;
+					&:checked {
+						background-color: $thirdColor;
+					}
+					&:focus {
+						box-shadow: 0 0 3px 2px $thirdColor;
+						outline: none;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: $screen-lg-min) {
+		padding: 10px 30px;
+	}
 }
 
 .color {
-  background-color: black;
-  color: red;
+	background-color: black;
+	color: red;
 }

@@ -198,6 +198,9 @@ h6 {
 		transition: 0.4s;
 		cursor: pointer;
 	}
+	@media (max-width: $screen-sm-min) {
+		font-size: 14px;
+	}
 }
 // secondary button
 .secondary__button {
@@ -217,6 +220,9 @@ h6 {
 		color: $thirdColor;
 		transition: 0.4s;
 		cursor: pointer;
+	}
+	@media (max-width: $screen-sm-min) {
+		font-size: 14px;
 	}
 }
 

@@ -26,12 +26,24 @@ const FilmForm = () => {
 	const productionsData = dataUpdateFilm?.productions || [
 		{ productionName: '' },
 	];
-
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },
 	];
 
-	const genresData = dataUpdateFilm?.genres || [{ genreName: '' }];
+	const genresData = dataUpdateFilm?.genres || [];
+
+	const genresOptions = [
+		{ value: 'action', label: 'Azione' },
+		{ value: 'comedy', label: 'Commedia' },
+		{ value: 'drama', label: 'Drammatico' },
+		{ value: 'horror', label: 'Horror' },
+		{ value: 'romance', label: 'Romantico' },
+		{ value: 'sci-fi', label: 'Fantascienza' },
+		{ value: 'thriller', label: 'Thriller' },
+		{ value: 'adventure', label: 'Avventura' },
+		{ value: 'animation', label: 'Animazione' },
+		{ value: 'fantasy', label: 'Fantasy' },
+	];
 
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-film')) {
@@ -42,18 +54,21 @@ const FilmForm = () => {
 		}
 	}, [uriLocation, dispatch]);
 
-	const { register, control, formState, setValue, handleSubmit } = useForm({
-		defaultValues: dataUpdateFilm ?? '',
-		resolver: zodResolver(filmSchema),
-	});
+	const { register, control, formState, setValue, handleSubmit, trigger } =
+		useForm({
+			defaultValues: dataUpdateFilm ?? '',
+			resolver: zodResolver(filmSchema),
+		});
 
 	const { errors } = formState;
 
 	const { field } = useController({ name: 'type', control });
 
+	const [selectedGenres, setSelectedGenres] = useState(
+		genresData.map((genre) => genre.value)
+	);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [productions, setProductions] = useState(productionsData);
-	const [genres, setGenres] = useState(genresData);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
@@ -63,9 +78,15 @@ const FilmForm = () => {
 		field.onChange(option.target.value);
 	};
 
-	const handleInputChange = (event) => {
+	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
 		setValue(name, value);
+
+		try {
+			await trigger(name);
+		} catch (error) {
+			console.log('validation error', error);
+		}
 	};
 
 	const handleDynamicFieldChange = (
@@ -78,7 +99,10 @@ const FilmForm = () => {
 		const { name, value } = event.target;
 		setState((prevState) => {
 			const updatedArray = [...prevState];
-			updatedArray[index][fieldName] = value;
+			updatedArray[index] = {
+				...updatedArray[index],
+				[fieldName]: value,
+			};
 			return updatedArray;
 		});
 	};
@@ -91,6 +115,18 @@ const FilmForm = () => {
 		setState((prevState) => {
 			const filteredArray = stateArray.filter((_, i) => i !== index);
 			return filteredArray;
+		});
+	};
+
+	const handleGenreChange = (event) => {
+		const { value } = event.target;
+		setSelectedGenres((prevSelectedGenres) => {
+			if (prevSelectedGenres.includes(value)) {
+				console.log(prevSelectedGenres);
+				return prevSelectedGenres.filter((genre) => genre !== value);
+			} else {
+				return [...prevSelectedGenres, value];
+			}
 		});
 	};
 
@@ -111,9 +147,13 @@ const FilmForm = () => {
 				data.screenwriters[i].screenwriterName
 			);
 		}
-		for (let i = 0; i < genres.length; i++) {
+
+		for (let i = 0; i < selectedGenres.length; i++) {
 			formData.append(`genres[${i}][genreName]`, data.genres[i].genreName);
 		}
+
+		console.log(data);
+
 		formData.append('directorOfPhotography', data.directorOfPhotography);
 		formData.append('synopsis', data.synopsis);
 		formData.append('duration', data.duration);
@@ -160,6 +200,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
+						navigate('/admin/films');
 					});
 			}
 		}
@@ -311,56 +352,31 @@ const FilmForm = () => {
 						{t('screenwritersLabels.addScreenwriter')}
 					</button>
 				</div>
-				{genres.map((genre, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='GenreName'>{t('genresLabels.genre')}</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.genre?.[index]?.genreName ??
-								''
-							}
-							{...register(`genres.${index}.genreName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'genreName',
-									genres,
-									setGenres
-								)
-							}
-						/>
-						{errors.genres?.[index]?.genreName?.message && (
-							<small>{errors.genres?.[index]?.genreName.message}</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, genres, setGenres)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('genresLabels.deleteGenre')}
-							</button>
-						)}
-					</div>
-				))}
 				<div className={classes.form__container__item}>
-					<button
-						onClick={() =>
-							handleDynamicFieldAdd(genres, setGenres, {
-								genreName: '',
-							})
-						}
-						className={classes.secondary__button}
-						type='button'>
-						{t('genresLabels.addGenre')}
-					</button>
+					<label>Generi</label>
+					<div className={classes.genres__checkboxes__container}>
+						{genresOptions.map((genre, index) => (
+							<div
+								key={genre.value}
+								className={classes.genres__checkboxes__internal__wrapper}>
+								<label htmlFor={`GenreName_${index}`}>
+									<input
+										defaultChecked={selectedGenres.includes(genre.value)}
+										{...register(`genres[${index}].genreName`)}
+										className={classes.genres}
+										type='checkbox'
+										value={genre.value}
+										onChange={handleGenreChange}
+										id={`genreName_${index}`}
+									/>
+									{genre.label}
+								</label>
+								{errors.genres?.[index]?.genreName && (
+									<small>{errors.genres?.[index]?.genreName.message}</small>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorOfPhotography'>
