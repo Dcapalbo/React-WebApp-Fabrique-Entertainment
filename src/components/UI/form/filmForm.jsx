@@ -152,8 +152,6 @@ const FilmForm = () => {
 			formData.append(`genres[${i}][genreName]`, data.genres[i].genreName);
 		}
 
-		console.log(data);
-
 		formData.append('directorOfPhotography', data.directorOfPhotography);
 		formData.append('synopsis', data.synopsis);
 		formData.append('duration', data.duration);

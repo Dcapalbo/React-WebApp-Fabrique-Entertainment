@@ -1,29 +1,28 @@
-import AboutCardContainer from "../components/UI/aboutCard/aboutCardContainer";
-import CompanyInfo from "../components/UI/companyInfo/companyInfo";
-import { dataContactActions } from "../store/data-contact-slice";
-import Footer from "../components/footer/footer";
-import Header from "../components/header/header";
-import Navigation from "../components/nav/nav";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+/** @format */
+
+import AboutCardContainer from '../components/UI/aboutCard/aboutCardContainer';
+import CompanyInfo from '../components/UI/companyInfo/companyInfo';
+import { dataContactActions } from '../store/data-contact-slice';
+import Footer from '../components/footer/footer';
+import Header from '../components/header/header';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const About = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(dataContactActions.resetContactData());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(dataContactActions.resetContactData());
+	}, [dispatch]);
 
-  return (
-    <>
-      <Header>
-        <Navigation />
-      </Header>
-      <CompanyInfo />
-      <AboutCardContainer />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<CompanyInfo />
+			<AboutCardContainer />
+			<Footer />
+		</>
+	);
 };
 
 export default About;

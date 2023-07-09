@@ -1,7 +1,12 @@
 /** @format */
 
 // importing the react router dom version 6
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { isAuth } from './utils/isAuth';
@@ -55,11 +60,9 @@ const App = () => {
 	const token = useSelector((state) => state.userLogin.token);
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [tokenExpiration, setTokenExpiration] = useState(() => {});
 
 	useEffect(() => {
 		setIsAuthenticated(isLoggedIn);
-		setTokenExpiration(isAuth(token));
 		dispatch(dataContactActions.setContactsData(contacts));
 	}, [isLoggedIn, token, dispatch, contacts]);
 
@@ -101,48 +104,97 @@ const App = () => {
 				/>
 
 				{/* authenticated Routes  */}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/films'
-						element={<AllAuthFilms />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/contacts'
-						element={<AllAuthContacts />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/add-new-film'
-						element={<NewFilm />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/update-film'
-						element={<UpdateFilm />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/add-new-contact'
-						element={<NewContact />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/admin/update-contact'
-						element={<UpdateContact />}
-					/>
-				)}
-				{isAuthenticated && tokenExpiration && (
-					<Route
-						path='/forgot-password'
-						element={<ForgotPasswordForm />}
-					/>
-				)}
+				<Route
+					path='/admin/films'
+					element={
+						isAuthenticated ? (
+							<AllAuthFilms />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/contacts'
+					element={
+						isAuthenticated ? (
+							<AllAuthContacts />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/add-new-film'
+					element={
+						isAuthenticated ? (
+							<NewFilm />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/update-film'
+					element={
+						isAuthenticated ? (
+							<UpdateFilm />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/add-new-contact'
+					element={
+						isAuthenticated ? (
+							<NewContact />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/update-contact'
+					element={
+						isAuthenticated ? (
+							<UpdateContact />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/forgot-password'
+					element={
+						isAuthenticated ? (
+							<ForgotPasswordForm />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
 			</Routes>
 		</Router>
 	);

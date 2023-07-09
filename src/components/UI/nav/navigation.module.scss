@@ -1,0 +1,21 @@
+/** @format */
+
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
+.navigation {
+	@include flex-between;
+	width: 100%;
+}
+
+.brand__logo {
+	object-fit: contain;
+	height: 60px;
+	width: 80px;
+}
+
+@media (max-width: $screen-xl-min) {
+	.navigation {
+		display: none;
+	}
+}

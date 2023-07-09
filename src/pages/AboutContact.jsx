@@ -1,18 +1,17 @@
-import DetailAbout from "../components/UI/detailAbout/detailAbout";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
-import Navigation from "../components/nav/nav";
+/** @format */
+
+import DetailAbout from '../components/UI/detailAbout/detailAbout';
+import Header from '../components/header/header';
+import Footer from '../components/footer/footer';
 
 const About = () => {
-  return (
-    <>
-      <Header>
-        <Navigation />
-      </Header>
-      <DetailAbout />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<DetailAbout />
+			<Footer />
+		</>
+	);
 };
 
 export default About;

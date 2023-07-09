@@ -1,0 +1,52 @@
+/** @format */
+
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
+.mobile__navigation {
+	display: none;
+}
+//logo
+.brand__logo {
+	object-fit: contain;
+	height: 40px;
+	width: 60px;
+}
+
+@media (max-width: $screen-xl-min) {
+	.mobile__navigation {
+		@include flex-between;
+		transition: 1s;
+		width: 100%;
+	}
+	.hamburgher {
+		color: $thirdColor;
+		transition: 0.4s;
+		font-size: 20px;
+		&:hover {
+			color: $secondColor;
+			transition: 0.4s;
+			cursor: pointer;
+		}
+	}
+
+	.cross__button {
+		color: $thirdColor;
+		position: absolute;
+		transition: 0.4s;
+		font-size: 20px;
+		right: 25px;
+		top: 30px;
+		&:hover {
+			color: $secondColor;
+			transition: 0.4s;
+			cursor: pointer;
+		}
+	}
+
+	.clicked__mobile__navigation {
+		animation-duration: 1s;
+		height: fit-content;
+		transition: 1s;
+	}
+}

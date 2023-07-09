@@ -1,0 +1,49 @@
+/** @format */
+
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
+
+.nav__links {
+	@include flex-between;
+	z-index: 10;
+	li {
+		color: $secondColor;
+		a,
+		p {
+			color: $secondColor;
+			transition: 0.4s;
+			font-size: 14px;
+			&:hover {
+				color: $thirdColor;
+				transition: 0.4s;
+				cursor: pointer;
+			}
+		}
+		svg {
+			color: $secondColor;
+			transition: 0.4s;
+			&:hover {
+				color: $thirdColor;
+				transition: 0.4s;
+				cursor: pointer;
+			}
+		}
+	}
+	.nav__links__user__logged {
+		margin-right: 10px;
+		display: flex;
+		@media (max-width: $screen-xl-min) {
+			margin-right: 0px;
+		}
+		p {
+			margin-left: 10px;
+		}
+		> svg {
+			margin-right: 10px;
+			color: $thirdColor;
+		}
+	}
+	@media (max-width: $screen-xl-min) {
+		@include flex-column;
+	}
+}
