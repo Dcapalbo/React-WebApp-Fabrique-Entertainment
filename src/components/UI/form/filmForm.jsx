@@ -26,9 +26,12 @@ const FilmForm = () => {
 	const productionsData = dataUpdateFilm?.productions || [
 		{ productionName: '' },
 	];
+
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },
 	];
+
+	const festivalsData = dataUpdateFilm?.festivals || [{ festivalName: '' }];
 
 	const genresData = dataUpdateFilm?.genres || [];
 
@@ -69,6 +72,7 @@ const FilmForm = () => {
 	);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [productions, setProductions] = useState(productionsData);
+	const [festivals, setFestivals] = useState(festivalsData);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
@@ -155,7 +159,15 @@ const FilmForm = () => {
 		formData.append('directorOfPhotography', data.directorOfPhotography);
 		formData.append('synopsis', data.synopsis);
 		formData.append('duration', data.duration);
+
 		formData.append('year', data.year);
+		for (let i = 0; i < festivals.length; i++) {
+			formData.append(
+				`festivals[${i}][festivalName]`,
+				data.festivals[i].festivalName
+			);
+		}
+
 		formData.append('slug', slugCreation(data.title));
 		formData.append('type', data.type);
 		formData.append('file', file);
@@ -424,6 +436,59 @@ const FilmForm = () => {
 						onChange={handleInputChange}
 					/>
 					{errors.year?.message && <small>{errors.year?.message}</small>}
+				</div>
+				{festivals.map((festival, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='festivalName'>
+							{t('festivalsLabels.festival')}
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.festival?.[index]
+									?.festivalName ?? ''
+							}
+							{...register(`festivals.${index}.festivalName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'festivalName',
+									festivals,
+									setFestivals
+								)
+							}
+						/>
+						{errors.festivals?.[index]?.festivalName?.message && (
+							<small>{errors.festivals?.[index]?.festivalName.message}</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, festivals, setFestivals)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('festivalsLabels.deleteFestival')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(festivals, setFestivals, {
+								festivalName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('festivalsLabels.addFestival')}
+					</button>
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Type'>{t('typology')}</label>

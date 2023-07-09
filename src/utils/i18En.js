@@ -51,6 +51,11 @@ const translationEn = {
 		addGenre: 'Add Genre',
 		deleteGenre: 'Delete Genre',
 	},
+	festivalsLabels: {
+		festival: 'Festival',
+		addFestival: 'Add festival',
+		deleteFestival: 'Delete festival',
+	},
 	cover: 'Film cover',
 	profileCover: 'Profile picture',
 	role: 'Role',

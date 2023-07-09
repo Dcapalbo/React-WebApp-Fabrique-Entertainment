@@ -51,6 +51,11 @@ const translationIt = {
 		addGenre: 'Aggiungi Genere',
 		deleteGenre: 'Cancella Genere',
 	},
+	festivalsLabels: {
+		festival: 'Festival',
+		addFestival: 'Aggiungi festival',
+		deleteFestival: 'Cancella festival',
+	},
 	cover: 'Copertina del film',
 	profileCover: 'Foto del profilo',
 	role: 'Ruolo',

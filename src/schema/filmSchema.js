@@ -87,6 +87,18 @@ const filmSchema = z.object({
 		.max(currentYear, {
 			message: "l'anno non può essere superiore all'anno corrente",
 		}),
+	festivals: z.array(
+		z.object({
+			festivalName: z
+				.string()
+				.min(10, {
+					message: 'il nome del festival deve essere di almeno 10 caratteri',
+				})
+				.max(50, {
+					message: 'il nome del festival non può superare i 50 caratteri',
+				}),
+		})
+	),
 	type: z.string().nonempty({ message: 'Inserire almeno un valore' }),
 });
 
