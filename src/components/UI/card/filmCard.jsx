@@ -107,7 +107,7 @@ const FilmCard = (props) => {
 						<button
 							onClick={sendFilmFormHandler}
 							className={classes.card__cta}>
-							{t('modifyFilmCard')}
+							{t('modify')}
 						</button>
 						<button
 							onClick={deleteFilmHandler}
