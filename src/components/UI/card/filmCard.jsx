@@ -112,7 +112,7 @@ const FilmCard = (props) => {
 						<button
 							onClick={deleteFilmHandler}
 							className={classes.card__cta}>
-							{t('deleteFilmCard')}
+							{t('remove')}
 						</button>
 					</div>
 				</>

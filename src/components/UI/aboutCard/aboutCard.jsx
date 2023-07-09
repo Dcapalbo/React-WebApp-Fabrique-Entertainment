@@ -101,12 +101,12 @@ const AboutCard = (props) => {
 						<button
 							onClick={sendContactIdFormHandler}
 							className={classes.card__cta}>
-							{t('modifica')}
+							{t('modify')}
 						</button>
 						<button
 							onClick={deleteContactHandler}
 							className={classes.card__cta}>
-							{t('delete')}
+							{t('remove')}
 						</button>
 					</div>
 				</>
