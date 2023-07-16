@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { isAuth } from './utils/isAuth';
 // importing the react traductions functions
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';

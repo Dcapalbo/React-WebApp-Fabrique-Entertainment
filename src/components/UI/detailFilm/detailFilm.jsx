@@ -114,25 +114,39 @@ const DetailFilm = () => {
 									</>
 								)}
 							</div>
-							<div className={classes.detail__card__left}>
+							<div className={classes.detail__card__right}>
 								{film?.type && (
 									<>
 										<p>Tipo</p>
-										<div className={classes.detail__card__info__wrapper__item}>
-											<>
+										<div className={classes.detail__card__right__container}>
+											<div className={classes.detail__card__right__item}>
 												<small>{film?.type}</small>
-											</>
+											</div>
+										</div>
+									</>
+								)}
+								{film?.festivals && (
+									<>
+										<p>Festivals</p>
+										<div className={classes.detail__card__right__container}>
+											{film?.festivals.map((festival, index) => (
+												<div
+													key={index}
+													className={classes.detail__card__right__item}>
+													<small>{festival.festivalName ?? ''}</small>
+												</div>
+											))}
 										</div>
 									</>
 								)}
 								{film?.genres && (
 									<>
 										<p>Genere</p>
-										<div className={classes.detail__card__left__container}>
-											{film.genres.map((genre, index) => (
+										<div className={classes.detail__card__right__container}>
+											{film?.genres.map((genre, index) => (
 												<div
 													key={index}
-													className={classes.detail__card__left__item}>
+													className={classes.detail__card__right__item}>
 													<small>{genre.genreName ?? ''}</small>
 												</div>
 											))}

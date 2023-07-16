@@ -11,7 +11,6 @@ import axios from 'axios';
 import React from 'react';
 
 const FilmCard = (props) => {
-	console.log(props);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
