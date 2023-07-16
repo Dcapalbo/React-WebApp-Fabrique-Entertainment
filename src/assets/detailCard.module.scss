@@ -21,8 +21,8 @@
 		align-items: flex-start;
 		flex-direction: column;
 		border-radius: 10px;
-		display: flex;
 		padding: 10px;
+		display: flex;
 		height: 100%;
 		width: 100%;
 		.detail__card__image {
@@ -39,8 +39,8 @@
 				flex-direction: column;
 			}
 			.detail__card {
+				padding: 10px 10px 0px 10;
 				text-align: left;
-				padding: 10px;
 				width: 100%;
 				.detail__card__info__wrapper {
 					margin: 10px 0px;
@@ -74,7 +74,7 @@
 }
 
 .detail__card__right {
-	padding: 10px;
+	padding: 0px 10px 10px 10px;
 	width: 100%;
 	p {
 		margin-top: 10px;

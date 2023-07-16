@@ -57,6 +57,7 @@ const FilmCardContainer = () => {
 								imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
 								duration={film.duration}
 								year={film.year}
+								festivals={film.festivals}
 								slug={film.slug}
 								type={film.type}
 								key={film._id}
