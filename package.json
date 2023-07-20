@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
-    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^2.9.10",
     "@reduxjs/toolkit": "^1.9.1",
@@ -21,6 +21,7 @@
     "react-file-base64": "^1.0.3",
     "react-hook-form": "^7.41.0",
     "react-i18next": "^12.2.0",
+    "react-icons": "^4.10.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
@@ -31,7 +32,7 @@
     "safe-buffer": "^5.2.1",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.11",
-    "zod": "^3.20.2"
+    "zod": "^3.21.4"
   },
   "scripts": {
     "serve": "webpack serve --mode development",

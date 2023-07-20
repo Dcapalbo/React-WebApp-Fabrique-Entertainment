@@ -80,6 +80,12 @@ const translationEn = {
 		addDbContact: 'Add a contact inside the database',
 		modifyDbContact: 'Modify a contact inside the database',
 	},
+	links : {
+		trailer: "Trailer",
+		imdb: "Link imdb",
+		instagram: "Link instagram",
+		facebook: "Link facebook",
+	},
 	errors: {
 		dbCrud:
 			'Problem during the compilation of the database, try to fill the form again',

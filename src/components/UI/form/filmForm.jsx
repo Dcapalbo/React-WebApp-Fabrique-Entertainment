@@ -227,7 +227,10 @@ const FilmForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbFilm')}</h4>
 					)}
-					<label htmlFor='Title'>{t('title')}</label>
+					<label htmlFor='Title'>
+						{t('title')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.title ?? ''}
 						{...register('title')}
@@ -237,7 +240,10 @@ const FilmForm = () => {
 					{errors.title?.message && <small>{errors.title?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Director'>{t('director')}</label>
+					<label htmlFor='Director'>
+						{t('director')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.director ?? ''}
 						{...register('director')}
@@ -254,6 +260,7 @@ const FilmForm = () => {
 						key={index}>
 						<label htmlFor='ProductionName'>
 							{t('productionsLabels.production')}
+							<span>*</span>
 						</label>
 						<input
 							defaultValue={
@@ -309,6 +316,7 @@ const FilmForm = () => {
 						key={index}>
 						<label htmlFor='ScreenwriterName'>
 							{t('screenwritersLabels.screenwriter')}
+							<span>*</span>
 						</label>
 						<input
 							defaultValue={
@@ -363,7 +371,10 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label>Generi</label>
+					<label>
+						{t("genres")}
+						<span>*</span>
+					</label>
 					<div className={classes.genres__checkboxes__container}>
 						{genresOptions.map((genre, index) => (
 							<div
@@ -391,6 +402,7 @@ const FilmForm = () => {
 				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorOfPhotography'>
 						{t('directorOfPhotography')}
+						<span>*</span>
 					</label>
 					<input
 						defaultValue={
@@ -405,7 +417,10 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Synopsis'>{t('synopsis')}</label>
+					<label htmlFor='Synopsis'>
+						{t('synopsis')}
+						<span>*</span>
+					</label>
 					<textarea
 						defaultValue={formState.defaultValues?.payload?.synopsis ?? ''}
 						{...register('synopsis')}
@@ -416,10 +431,13 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Duration'>{t('duration')}</label>
+					<label htmlFor='Duration'>
+						{t('duration')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.duration ?? ''}
-						{...register('duration', { valueAsNumber: true })}
+						{...register('duration')}
 						type='number'
 						onChange={handleInputChange}
 					/>
@@ -428,10 +446,13 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Year'>{t('year')}</label>
+					<label htmlFor='Year'>
+						{t('year')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.year ?? ''}
-						{...register('year', { valueAsNumber: true })}
+						{...register('year')}
 						type='number'
 						onChange={handleInputChange}
 					/>
@@ -491,12 +512,77 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Type'>{t('typology')}</label>
+					<label htmlFor='Type'>
+						{t('typology')}
+						<span>*</span>
+					</label>
 					<TypeSelect
 						onChange={handleSelectChange}
 						value={field.value}
 					/>
 					{errors.type?.message && <small>{errors.type?.message}</small>}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='Trailer'>
+						{t('links.trailer')}
+					</label>
+					<input
+						defaultValue={formState.defaultValues?.payload?.trailer ?? ''}
+						{...register('trailer')}
+						type='text'
+						onChange={handleInputChange}
+					/>
+					{errors.trailer?.message && (
+						<small>{errors.trailer.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='Imdb'>
+						{t('links.imdb')}
+					</label>
+					<input
+						defaultValue={
+							formState.defaultValues?.payload?.imdb ?? ''
+						}
+						{...register('imdb')}
+						type='text'
+						onChange={handleInputChange}
+					/>
+					{errors.imdb?.message && (
+						<small>{errors.imdb?.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='Instagram'>
+						{t('links.instagram')}
+					</label>
+					<input
+						defaultValue={
+							formState.defaultValues?.payload?.instagram ?? ''
+						}
+						{...register('instagram')}
+						type='text'
+						onChange={handleInputChange}
+					/>
+					{errors.instagram?.message && (
+						<small>{errors.instagram?.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='Facebook'>
+						{t('links.facebook')}
+					</label>
+					<input
+						defaultValue={
+							formState.defaultValues?.payload?.facebook ?? ''
+						}
+						{...register('facebook')}
+						type='text'
+						onChange={handleInputChange}
+					/>
+					{errors.facebook?.message && (
+						<small>{errors.facebook?.message}</small>
+					)}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Image'>{t('cover')}</label>
