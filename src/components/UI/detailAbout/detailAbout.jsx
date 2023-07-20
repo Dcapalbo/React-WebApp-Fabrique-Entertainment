@@ -1,5 +1,7 @@
 /** @format */
 
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
 import StateGetHook from '../../../hooks/stateGetHook';
@@ -16,8 +18,7 @@ const DetailAboutContact = () => {
 		return <LoadingSpinner />;
 	} else if (error) {
 		<h1>
-			Il contatto selezionato non è stato trovato, tornare alla pagina
-			precedente
+			{t("errors.contactError")}
 		</h1>;
 	} else {
 		return (
@@ -33,42 +34,54 @@ const DetailAboutContact = () => {
 						/>
 						<div className={classes.detail__card__info__flex}>
 							<div className={classes.detail__card}>
-								{contacts?.name && (
+								{(contacts?.name && contacts?.surname) && (
 									<div className={classes.detail__card__info__wrapper}>
-										<p>{contacts.name ?? ''}</p>
-									</div>
-								)}
-								{contacts?.surname && (
-									<div className={classes.detail__card__info__wrapper}>
-										<p>{contacts.surname ?? ''}</p>
+										<p>{(contacts.name + " " + contacts.surname) ?? ''}</p>
 									</div>
 								)}
 								{contacts?.role && (
-									<div className={classes.detail__card__info__wrapper}>
-										<p>{contacts.role ?? ''}</p>
-									</div>
+									<>
+										<p>{t("role")}</p>
+										<div className={classes.detail__card__info__wrapper}>
+											<p>{contacts.role ?? ''}</p>
+										</div>
+									</>
 								)}
 								{contacts?.bio && (
 									<>
-										<p>Biografia</p>
+										<p>{t("bio")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{contacts?.bio ?? ''}</p>
 										</div>
 									</>
 								)}
 							</div>
-							<div className={classes.detail__card__left}>
+							<div className={classes.detail__card__right}>
 								{contacts?.email && (
 									<>
-										<div className={classes.detail__card__info__wrapper}>
-											<p>{contacts?.email ?? ''}</p>
+										<p>{t("genericInfo.email")}</p>
+										<div className={classes.detail__card__right__container}>
+											<div className={classes.detail__card__right__item}>
+												<a href={`mailto:${contacts?.email}`}>{contacts?.email}</a>
+												<FontAwesomeIcon 
+													icon={faEnvelope} 
+													size='1x' 
+												/>	
+											</div>
 										</div>
 									</>
 								)}
 								{contacts?.phoneNumber && (
 									<>
-										<div className={classes.detail__card__info__wrapper}>
-											<p>{contacts?.phoneNumber ?? ''}</p>
+										<p>{t("genericInfo.number")}</p>
+										<div className={classes.detail__card__right__container}>
+											<div className={classes.detail__card__right__item}>
+												<a href={`tel:${contacts?.phoneNumber}`}>{contacts?.phoneNumber}</a>
+												<FontAwesomeIcon 
+													icon={faPhone} 
+													size='1x' 
+												/>											
+											</div>
 										</div>
 									</>
 								)}

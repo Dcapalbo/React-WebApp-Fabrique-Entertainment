@@ -31,11 +31,13 @@ const translationIt = {
 	director: 'Regista',
 	production: 'Produzione',
 	screenwriter: 'Sceneggiatore',
+	genres: "Generi",
 	directorOfPhotography: 'Direttore della fotografia',
 	synopsis: 'Sinossi',
 	duration: 'Durata',
 	year: 'Anno',
 	typology: 'Tipologia',
+	festivals: 'Festival',
 	productionsLabels: {
 		production: 'Produzione',
 		addProduction: 'Aggiungi produzione',
@@ -89,6 +91,10 @@ const translationIt = {
 			'Problema durante la richiesta di ripristino della password, provare a rieffettuare i passaggi',
 		resetPassword:
 			'Problema durante il ripristino della password, provare a rieffettuare i passaggi',
+		filmError: 
+			'Il film selezionato non è stato trovato, tornare alla pagina precedente',
+		contactError: 
+		    'Il contatto selezionato non è stato trovato, tornare alla pagina precedente'
 	},
 };
 

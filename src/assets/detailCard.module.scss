@@ -105,6 +105,13 @@
 			small {
 				color: $thirdColor;
 			}
+			a {
+				color: $thirdColor;
+			}
+			svg {
+				color: $thirdColor;
+				margin-left: 10px;
+			}
 		}
 	}
 }

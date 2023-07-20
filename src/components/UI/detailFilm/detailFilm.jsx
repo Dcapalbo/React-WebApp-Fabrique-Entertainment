@@ -27,7 +27,7 @@ const DetailFilm = () => {
 	} else if (error) {
 		return (
 			<h1 className={classes.text__align__center}>
-				Il film selezionato non è stato trovato, tornare alla pagina precedente
+				{t("errors.filmError")}
 			</h1>
 		);
 	} else {
@@ -51,7 +51,7 @@ const DetailFilm = () => {
 								)}
 								{film?.productions && (
 									<>
-										<p>Produzione</p>
+										<p>{t("production")}</p>
 										{film.productions.map((production, index) => (
 											<div
 												key={index}
@@ -63,7 +63,7 @@ const DetailFilm = () => {
 								)}
 								{film?.director && (
 									<>
-										<p>Regia</p>
+										<p>{t("director")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.director ?? ''}</p>
 										</div>
@@ -71,7 +71,7 @@ const DetailFilm = () => {
 								)}
 								{film?.screenwriters && (
 									<>
-										<p>Sceneggiatura</p>
+										<p>{t("screenwriter")}</p>
 										{film.screenwriters.map((screenwriter, index) => (
 											<div
 												key={index}
@@ -83,7 +83,7 @@ const DetailFilm = () => {
 								)}
 								{film?.synopsis && (
 									<>
-										<p>Sinossi</p>
+										<p>{t("synopsis")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.synopsis ?? ''}</p>
 										</div>
@@ -91,7 +91,7 @@ const DetailFilm = () => {
 								)}
 								{film?.directorOfPhotography && (
 									<>
-										<p>Direttore della fotografia</p>
+										<p>{t("directorOfPhotography")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.directorOfPhotography ?? ''}</p>
 										</div>
@@ -99,7 +99,7 @@ const DetailFilm = () => {
 								)}
 								{film?.duration && (
 									<>
-										<p>Durata</p>
+										<p>{t("duration")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.duration ?? ''}</p>
 										</div>
@@ -107,7 +107,7 @@ const DetailFilm = () => {
 								)}
 								{film?.year && (
 									<>
-										<p>Anno</p>
+										<p>{t("year")}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.year ?? ''}</p>
 										</div>
@@ -117,7 +117,7 @@ const DetailFilm = () => {
 							<div className={classes.detail__card__right}>
 								{film?.type && (
 									<>
-										<p>Tipo</p>
+										<p>{t("typology")}</p>
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<small>{film?.type}</small>
@@ -127,7 +127,7 @@ const DetailFilm = () => {
 								)}
 								{film?.festivals && (
 									<>
-										<p>Festivals</p>
+										<p>{t("festivals")}</p>
 										<div className={classes.detail__card__right__container}>
 											{film?.festivals.map((festival, index) => (
 												<div
@@ -141,7 +141,7 @@ const DetailFilm = () => {
 								)}
 								{film?.genres && (
 									<>
-										<p>Genere</p>
+										<p>{t("genres")}</p>
 										<div className={classes.detail__card__right__container}>
 											{film?.genres.map((genre, index) => (
 												<div

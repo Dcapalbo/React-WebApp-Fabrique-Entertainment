@@ -85,7 +85,6 @@ const FilmCard = (props) => {
 			</div>
 			<div className={classes.card__external__informations}>
 				{props.director && <h2>{props.director}</h2>}
-
 				{props.productions && (
 					<>
 						{props?.productions.map((production, index) => (

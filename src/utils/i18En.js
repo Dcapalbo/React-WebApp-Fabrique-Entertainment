@@ -31,11 +31,13 @@ const translationEn = {
 	director: 'Director',
 	production: 'Production',
 	screenwriter: 'Screenwriter',
+	genres: "Genres",
 	directorOfPhotography: 'Director of the photography',
 	synopsis: 'Synopsis',
 	duration: 'Duration',
 	year: 'Year',
 	typology: 'Typology',
+	festivals: 'Festivals',
 	productionsLabels: {
 		production: 'Production',
 		addProduction: 'Add Production',
@@ -88,6 +90,10 @@ const translationEn = {
 			'Problem during the request of password reset, try to make a new request',
 		resetPassword:
 			'Problema during the reset of the password, try to make a new request',
+		filmError: 
+			'The film selected was not found, go back to the previous page',
+		contactError: 
+		    'The contact selected was not found, go back to the previous page'
 	},
 };
 
