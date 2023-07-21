@@ -2,13 +2,14 @@
 
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
-import { useForm, useController } from 'react-hook-form';
 import { filmSchema } from '../../../schema/filmSchema';
 import { slugCreation } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, Controller } from 'react-hook-form';
 import classes from './genericForm.module.scss';
 import { useNavigate } from 'react-router-dom';
+import GenreSelect from '../select/genreSelect';
 import { useTranslation } from 'react-i18next';
 import TypeSelect from '../select/typeSelect';
 import { useState, useEffect } from 'react';
@@ -33,21 +34,6 @@ const FilmForm = () => {
 
 	const festivalsData = dataUpdateFilm?.festivals || [{ festivalName: '' }];
 
-	const genresData = dataUpdateFilm?.genres || [];
-
-	const genresOptions = [
-		{ value: 'action', label: 'Azione' },
-		{ value: 'comedy', label: 'Commedia' },
-		{ value: 'drama', label: 'Drammatico' },
-		{ value: 'horror', label: 'Horror' },
-		{ value: 'romance', label: 'Romantico' },
-		{ value: 'sci-fi', label: 'Fantascienza' },
-		{ value: 'thriller', label: 'Thriller' },
-		{ value: 'adventure', label: 'Avventura' },
-		{ value: 'animation', label: 'Animazione' },
-		{ value: 'fantasy', label: 'Fantasy' },
-	];
-
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-film')) {
 			setIsUpdate(true);
@@ -65,11 +51,6 @@ const FilmForm = () => {
 
 	const { errors } = formState;
 
-	const { field } = useController({ name: 'type', control });
-
-	const [selectedGenres, setSelectedGenres] = useState(
-		genresData.map((genre) => genre.value)
-	);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [productions, setProductions] = useState(productionsData);
 	const [festivals, setFestivals] = useState(festivalsData);
@@ -78,9 +59,9 @@ const FilmForm = () => {
 	const [error, setError] = useState(null);
 	const [file, setFile] = useState(null);
 
-	const handleSelectChange = (option) => {
-		field.onChange(option.target.value);
-	};
+	const handleSelectChange = (selectedValue) => {
+		return selectedValue;
+	  };
 
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
@@ -100,7 +81,7 @@ const FilmForm = () => {
 		stateArray,
 		setState
 	) => {
-		const { name, value } = event.target;
+		const { value } = event.target;
 		setState((prevState) => {
 			const updatedArray = [...prevState];
 			updatedArray[index] = {
@@ -121,61 +102,79 @@ const FilmForm = () => {
 			return filteredArray;
 		});
 	};
-
-	const handleGenreChange = (event) => {
-		const { value } = event.target;
-		setSelectedGenres((prevSelectedGenres) => {
-			if (prevSelectedGenres.includes(value)) {
-				console.log(prevSelectedGenres);
-				return prevSelectedGenres.filter((genre) => genre !== value);
-			} else {
-				return [...prevSelectedGenres, value];
-			}
-		});
-	};
-
+	
 	const confirmHandler = (data) => {
 		const formData = new FormData();
 
+		console.log(data);
+
 		formData.append('title', data.title);
 		formData.append('director', data.director);
-		for (let i = 0; i < productions.length; i++) {
-			formData.append(
-				`productions[${i}][productionName]`,
-				data.productions[i].productionName
-			);
-		}
-		for (let i = 0; i < screenwriters.length; i++) {
-			formData.append(
-				`screenwriters[${i}][screenwriterName]`,
-				data.screenwriters[i].screenwriterName
-			);
+
+		if(productions.length > 0 && productions.length[0] !== "") {
+			for (let i = 0; i < productions.length; i++) {
+				formData.append(
+					`productions[${i}][productionName]`,
+					data.productions[i].productionName
+				);
+			}
 		}
 
-		for (let i = 0; i < selectedGenres.length; i++) {
-			formData.append(`genres[${i}][genreName]`, data.genres[i].genreName);
+		if(screenwriters.length > 0 && screenwriters.length[0] !== "") {
+			for (let i = 0; i < screenwriters.length; i++) {
+				formData.append(
+					`screenwriters[${i}][screenwriterName]`,
+					data.screenwriters[i].screenwriterName
+				);
+			}
 		}
 
+		formData.append('genre', data.genre);
 		formData.append('directorOfPhotography', data.directorOfPhotography);
 		formData.append('synopsis', data.synopsis);
 		formData.append('duration', data.duration);
-
 		formData.append('year', data.year);
-		for (let i = 0; i < festivals.length; i++) {
-			formData.append(
-				`festivals[${i}][festivalName]`,
-				data.festivals[i].festivalName
-			);
+
+		if(
+			festivals.length > 0 && 
+			festivals.length[0] !== "" && 
+			data.festivals[0].festivalName !== ""
+		) {
+			for (let i = 0; i < festivals.length; i++) {
+				console.log(festivals);
+				formData.append(
+					`festivals[${i}][festivalName]`,
+					data.festivals[i].festivalName
+				);
+				console.log(data.festivals[i].festivalName);
+			}
 		}
 
 		formData.append('slug', slugCreation(data.title));
 		formData.append('type', data.type);
-		formData.append('file', file);
 
+		if(data.trailer) {
+			formData.append('trailer', data.trailer);
+		}
+
+		if(data.imdb) {
+			formData.append('imdb', data.imdb);
+		}
+
+		if(data.instagram) {
+			formData.append('instagram', data.instagram);
+		}
+
+		if(data.facebook) {
+			formData.append('facebook', data.facebook);
+		}
+		
 		if (dataUpdateFilm?._id) {
 			formData.append('_id', dataUpdateFilm?._id);
 		}
 
+		formData.append('file', file);
+		return;
 		if (formData !== {}) {
 			setIsLoading(true);
 
@@ -371,33 +370,24 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label>
-						{t("genres")}
+					<label htmlFor="Genre">
+						{t('genres')}
 						<span>*</span>
 					</label>
-					<div className={classes.genres__checkboxes__container}>
-						{genresOptions.map((genre, index) => (
-							<div
-								key={genre.value}
-								className={classes.genres__checkboxes__internal__wrapper}>
-								<label htmlFor={`GenreName_${index}`}>
-									<input
-										defaultChecked={selectedGenres.includes(genre.value)}
-										{...register(`genres[${index}].genreName`)}
-										className={classes.genres}
-										type='checkbox'
-										value={genre.value}
-										onChange={handleGenreChange}
-										id={`genreName_${index}`}
-									/>
-									{genre.label}
-								</label>
-								{errors.genres?.[index]?.genreName && (
-									<small>{errors.genres?.[index]?.genreName.message}</small>
-								)}
-							</div>
-						))}
-					</div>
+					<Controller
+						name="genre"
+						control={control}
+						defaultValue={""}
+						render={({ field }) => (
+							<GenreSelect
+								onChange={(selectedValue) => {
+									field.onChange(handleSelectChange(selectedValue));
+								}}
+								value={field.value}
+							/>
+						)}
+					/>
+					{errors.genre?.message && <small>{errors.genre?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorOfPhotography'>
@@ -437,7 +427,7 @@ const FilmForm = () => {
 					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.duration ?? ''}
-						{...register('duration')}
+						{...register('duration', { valueAsNumber: true })}
 						type='number'
 						onChange={handleInputChange}
 					/>
@@ -452,7 +442,7 @@ const FilmForm = () => {
 					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.year ?? ''}
-						{...register('year')}
+						{...register('year', { valueAsNumber: true })}
 						type='number'
 						onChange={handleInputChange}
 					/>
@@ -512,13 +502,22 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Type'>
+					<label htmlFor="Type">
 						{t('typology')}
 						<span>*</span>
 					</label>
-					<TypeSelect
-						onChange={handleSelectChange}
-						value={field.value}
+					<Controller
+						name="type"
+						control={control}
+						defaultValue=""
+						render={({ field }) => (
+							<TypeSelect
+								onChange={(selectedValue) => {
+									field.onChange(handleSelectChange(selectedValue));
+								}}
+								value={field.value}
+							/>
+						)}
 					/>
 					{errors.type?.message && <small>{errors.type?.message}</small>}
 				</div>

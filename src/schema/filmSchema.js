@@ -47,9 +47,10 @@ const filmSchema = z.object({
         }),
     })
   ),
+  genre: z.string().nonempty({ message: 'Inserire almeno un genere' }),
   directorOfPhotography: z
     .string()
-	.nonempty({ message: 'Il direttore della fotografia è obbligatorio' })
+	  .nonempty({ message: 'Il direttore della fotografia è obbligatorio' })
     .min(6, {
       message:
         'il nome del direttore della fotografia deve essere di almeno 6 caratteri',
@@ -60,7 +61,7 @@ const filmSchema = z.object({
     }),
  synopsis: z
     .string()
-	.nonempty({ message: 'La sinossi è obbligatoria' })
+	  .nonempty({ message: 'La sinossi è obbligatoria' })
     .min(10, {
       message:
         'la descrizione del prodotto audiovisivo deve essere di almeno 10 caratteri',
@@ -70,21 +71,15 @@ const filmSchema = z.object({
         'la descrizione del prodotto audiovisivo non può superare i 300 caratteri',
     }),
  duration: z
-	.string()
-	.transform((val) => val.length)
-	.pipe(z.number()
-	.positive({ message: 'Il numero deve essere superiore a 0' })
-	.min(1, { message: 'La durata deve essere maggiore di 0 minuti' })
-	.max(3, { message: 'La durata non può essere maggiore di 999 minuti' })), 
+    .number()
+    .positive({ message: 'Il numero deve essere superiore a 0' })
+    .min(1, { message: 'La durata deve essere maggiore di 0 minuti' })
+    .max(300, { message: 'La durata non può essere maggiore di 300 minuti' }), 
   year: z
-  	.string()
-  	.transform((val) => val.length)
-	.pipe(z.number()
-    .positive({ message: "l'anno deve essere superiore a 0" })
-    .min(4, { message: "l'anno deve avere essere maggiore di 3 cifre" })
-    .max(currentYear.toString(), {
-      message: "l'anno non può essere superiore all'anno corrente",
-    })),
+  	.number()
+    .positive({ message: 'Il numero deve essere superiore a 0' })
+    .min(2014, { message: "L' anno non può essere inferiore al 2014" })
+    .max(currentYear, { message:  "L' anno non può essere superiore a quello corrente" }),
   festivals: z.array(
     z.object({
       festivalName: z

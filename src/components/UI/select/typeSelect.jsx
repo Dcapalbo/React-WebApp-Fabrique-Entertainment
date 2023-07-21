@@ -1,6 +1,6 @@
 import React from "react";
 
-const TypeSelect = (props) => {
+const TypeSelect = ({ onChange, value }) => {
   const options = [
     {
       value: "",
@@ -21,7 +21,7 @@ const TypeSelect = (props) => {
   ];
 
   return (
-    <select onChange={props.onChange} value={props.value}>
+    <select onChange={onChange} value={value}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}

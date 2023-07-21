@@ -1,7 +1,7 @@
 import classes from "./filterDataSelect.module.scss";
 import React from "react";
 
-const FilterDataSelect = (props) => {
+const FilterDataSelect = ({ onChange, value }) => {
   const options = [
     {
       value: "",
@@ -26,8 +26,8 @@ const FilterDataSelect = (props) => {
       <label>Filtra i risultati</label>
       <select
         className={classes.filter__data__select}
-        onChange={props.onChange}
-        value={props.value}
+        onChange={onChange}
+        value={value}
       >
         {options.map((option, index) => (
           <option key={index} value={option.value}>

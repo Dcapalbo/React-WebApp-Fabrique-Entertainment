@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 const Header = () => {
-	let domWidth = window.innerWidth;
 	const [sticky, setSticky] = useState(false);
 
 	useEffect(() => {
