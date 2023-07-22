@@ -13,7 +13,6 @@ import React from 'react';
 
 const DetailFilm = () => {
 	const film = useSelector((state) => state.dataFilm.filmData);
-	console.log(film);
 	const [loading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const { t } = useTranslation();
@@ -190,14 +189,18 @@ const DetailFilm = () => {
 								{film?.executiveProducers && (
 									<>
 										<p>{t('executiveProducers')}</p>
-										<div className={classes.detail__card__info__wrapper}>
-											<p>{film?.executiveProducers ?? ''}</p>
-										</div>
+										{film.executiveProducers.map((executiveProducer, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<p>{executiveProducer.executiveProducerName ?? ''}</p>
+											</div>
+										))}
 									</>
 								)}
 								{film?.productions && (
 									<>
-										<p>{t('production')}</p>
+										<p>{t('productions')}</p>
 										{film.productions.map((production, index) => (
 											<div
 												key={index}
