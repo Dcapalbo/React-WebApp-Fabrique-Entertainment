@@ -47,8 +47,9 @@
 				flex-direction: column;
 			}
 			.detail__card__left {
-				padding: 10px 10px 0px 10;
+				padding: 0px 10px 10px 10px;
 				max-height: 700px;
+				margin: 10px 0px;
 				overflow-y: auto;
 				text-align: left;
 				width: 100%;
@@ -56,7 +57,7 @@
 					max-height: fit-content;
 				}
 				.detail__card__info__wrapper {
-					margin: 10px 0px;
+					margin: 5px 0px;
 					display: flex;
 					width: 100%;
 					@media (max-width: $screen-lg-min) {
@@ -69,96 +70,96 @@
 					div:first-child {
 						text-align: right;
 					}
-					p, h3 {
+					p,
+					h3 {
 						color: $firstColor;
 					}
 				}
 				h2,
 				h3,
 				p {
-					margin-bottom: 10px;
 					@media (max-width: $screen-lg-min) {
 						text-align: center;
 					}
 				}
 			}
 		}
-	}
-}
+		.detail__card__right {
+			padding: 0px 10px 10px 10px;
+			margin: 10px 0px;
+			width: 100%;
+			p {
+				margin-bottom: 5px;
+				@media (max-width: $screen-lg-min) {
+					text-align: center;
+				}
+			}
+			.detail__card__right__container {
+				@include flex-between;
+				margin-top: 5px;
+				width: 100%;
+				@media (max-width: $screen-lg-min) {
+					@include flex-center;
+				}
+				p {
+					color: $firstColor;
+				}
+				.detail__card__right__item {
+					background-color: $firstColor;
+					text-transform: capitalize;
+					@include flex-center;
+					border-radius: 50px;
+					margin-bottom: 10px;
+					width: fit-content;
+					padding: 0px 12px;
+					height: 30px;
+					small {
+						color: $thirdColor;
+					}
+					a {
+						color: $thirdColor;
+					}
+					svg {
+						color: $thirdColor;
+						margin-left: 10px;
+					}
+				}
+			}
+			.detail__card__right__legends {
+				position: absolute;
+				bottom: 70px;
+				right: 30px;
+				@media (max-width: $screen-lg-min) {
+					position: inherit;
+				}
+				p {
+					color: $firstColor;
+					.victory {
+						color: gold;
+					}
 
-.detail__card__right {
-	padding: 0px 10px 10px 10px;
-	width: 100%;
-	p {
-		margin-top: 10px;
-		@media (max-width: $screen-lg-min) {
-			text-align: center;
-		}
-	}
-	.detail__card__right__container {
-		@include flex-between;
-		margin-top: 5px;
-		width: 100%;
-		@media (max-width: $screen-lg-min) {
-			@include flex-center;
-		}
-		p {
-			color: $firstColor;
-		}
-		.detail__card__right__item {
-			background-color: $firstColor;
-			text-transform: capitalize;
-			@include flex-center;
-			border-radius: 50px;
-			margin-bottom: 10px;
-			width: fit-content;
-			padding: 0px 12px;
-			height: 30px;
-			small {
-				color: $thirdColor;
+					.selection {
+						color: silver;
+					}
+				}
 			}
-			a {
-				color: $thirdColor;
-			}
-			svg {
-				color: $thirdColor;
-				margin-left: 10px;
-			}
-		}
-	}
-	.detail__card__right__legends {
-		position: absolute;
-		bottom: 70px;
-		right: 30px;
-		@media (max-width: $screen-lg-min) {
-			position:inherit;
-		}
-		p {
-			color: $firstColor;
-			.victory {
-				color: gold;
-			}
-			
-			.selection {
-				color: silver;
-			}
-		}
-	}
-	.detail__card__right__links {
-		@include flex-start;
-		margin-top: 10px;
-		width: 100%;
-		@media (max-width: $screen-lg-min) {
-			@include flex-center;
-		}
-		svg {
-			color: $firstColor;
-			margin-right: 5px;
-			transition: 0.2s;
-			&:hover {
-				color: $secondColor;
-				transition: 0.2s;
-				cursor: pointer;
+			.detail__card__right__links {
+				@include flex-start;
+				margin-top: 10px;
+				width: 100%;
+				@media (max-width: $screen-lg-min) {
+					@include flex-center;
+				}
+				svg {
+					color: $firstColor;
+					margin-right: 5px;
+					transition: 0.2s;
+					&:hover {
+						color: $secondColor;
+						transition: 0.2s;
+						cursor: pointer;
+					}
+				}
 			}
 		}
 	}
