@@ -31,28 +31,30 @@ const translationIt = {
 	director: 'Regia',
 	production: 'Produzione',
 	screenwriter: 'Sceneggiatura',
-	genres: "Genere",
+	genres: 'Genere',
 	directorOfPhotography: 'Fotografia',
-	editing: "Montaggio",
-	scenography: "Scenografia",
-	costumes: "Costumi",
-	music: "Musiche",
-	sound: "Suono",
-	soundDesign: "Design del suono",
-	casting: "Casting",
-	lineProducer: "Organizzatore generale",
-	executiveProduction: "Produzione esecutiva",
-	firstAssistantDirector: "Aiuto regista",
+	editing: 'Montaggio',
+	scenography: 'Scenografia',
+	costumes: 'Costumi',
+	music: 'Musiche',
+	sound: 'Suono',
+	soundDesign: 'Design del suono',
+	casting: 'Casting',
+	lineProducer: 'Organizzatore generale',
+	executiveProducers: 'Produttori esecutivi',
+	distributor: 'Distributore',
+	salesAgent: 'Sales agent',
+	firstAssistantDirector: 'Aiuto regista',
 	synopsis: 'Sinossi',
-	productionNotes : "Note di produzione",
+	productionNotes: 'Note di produzione',
 	duration: 'Durata',
 	minutes: 'Minuti',
 	year: 'Anno',
 	typology: 'Tipologia',
 	festivals: 'Festivals',
 	links: 'Links',
-	competition: "In Concorso",
-	award: "Premio",
+	competition: 'In Concorso',
+	award: 'Premio',
 	productionsLabels: {
 		production: 'Produzione',
 		addProduction: 'Aggiungi produzione',
@@ -63,20 +65,30 @@ const translationIt = {
 		addProducer: 'Aggiungi produttore',
 		deleteProducer: 'Cancella produttore',
 	},
+	coProductionsLabels: {
+		coProduction: 'Co-produzione',
+		addCoProduction: 'Aggiungi co-produzione',
+		deleteCoProduction: 'Cancella co-produzione',
+	},
+	coProducersLabels: {
+		coProducer: 'Co-produttore',
+		addCoProducer: 'Aggiungi co-produttore',
+		deleteCoProducer: 'Cancella co-produttore',
+	},
 	screenwritersLabels: {
 		screenwriter: 'Sceneggiatore',
 		addScreenwriter: 'Aggiungi sceneggiatore',
 		deleteScreenwriter: 'Cancella sceneggiatore',
 	},
-	genresLabels: {
-		genre: 'Genere',
-		addGenre: 'Aggiungi genere',
-		deleteGenre: 'Cancella genere',
-	},
 	festivalsLabels: {
 		festival: 'Festival',
 		addFestival: 'Aggiungi festival',
 		deleteFestival: 'Cancella festival',
+	},
+	executiveProducersLabels: {
+		executiveProducer: 'Produttore esecutivo',
+		addExecutiveProducer: 'Aggiungi produttore esecutivo',
+		deleteExecutiveProducer: 'Cancella produttore esecutivo',
 	},
 	cover: 'Copertina del film',
 	profileCover: 'Foto del profilo',
@@ -100,11 +112,11 @@ const translationIt = {
 		addDbContact: 'Aggiungere un contatto al database',
 		modifyDbContact: 'Modificare un contatto del database',
 	},
-	links : {
-		trailer: "Trailer",
-		imdb: "Link imdb",
-		instagram: "Link instagram",
-		facebook: "Link facebook",
+	links: {
+		trailer: 'Trailer',
+		imdb: 'Link imdb',
+		instagram: 'Link instagram',
+		facebook: 'Link facebook',
 	},
 	errors: {
 		dbCrud:
@@ -117,10 +129,10 @@ const translationIt = {
 			'Problema durante la richiesta di ripristino della password, provare a rieffettuare i passaggi',
 		resetPassword:
 			'Problema durante il ripristino della password, provare a rieffettuare i passaggi',
-		filmError: 
+		filmError:
 			'Il film selezionato non è stato trovato, tornare alla pagina precedente',
-		contactError: 
-		    'Il contatto selezionato non è stato trovato, tornare alla pagina precedente'
+		contactError:
+			'Il contatto selezionato non è stato trovato, tornare alla pagina precedente',
 	},
 };
 

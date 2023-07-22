@@ -51,6 +51,8 @@ const FilmCardContainer = () => {
 								director={film.director}
 								productions={film.productions}
 								producers={film.producers}
+								coProductions={film.coProductions}
+								coProducers={film.coProducers}
 								screenwriters={film.screenwriters}
 								genre={film.genre}
 								directorOfPhotography={film.directorOfPhotography}
@@ -62,7 +64,9 @@ const FilmCardContainer = () => {
 								soundDesign={film.soundDesign}
 								casting={film.casting}
 								lineProducer={film.lineProducer}
-								executiveProduction={film.executiveProduction}
+								executiveProducers={film.executiveProducers}
+								distributor={film.distributor}
+								salesAgent={film.salesAgent}
 								firstAssistantDirector={film.firstAssistantDirector}
 								synopsis={film.synopsis}
 								productionNotes={film.productionNotes}

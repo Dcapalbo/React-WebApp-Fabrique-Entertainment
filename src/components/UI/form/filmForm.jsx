@@ -124,12 +124,17 @@ const FilmForm = () => {
 	};
 
 	const confirmHandler = (data) => {
+		console.log(data);
 		const formData = new FormData();
 
 		formData.append('title', data.title);
 		formData.append('director', data.director);
 
-		if (productions.length > 0 && productions.length[0] !== '') {
+		if (
+			productions.length > 0 &&
+			productions.length[0] !== '' &&
+			data.productions[0].producerName !== ''
+		) {
 			for (let i = 0; i < productions.length; i++) {
 				formData.append(
 					`productions[${i}][productionName]`,
@@ -138,7 +143,11 @@ const FilmForm = () => {
 			}
 		}
 
-		if (producers.length > 0 && producers.length[0] !== '') {
+		if (
+			producers.length > 0 &&
+			producers.length[0] !== '' &&
+			data.producers[0].producerName !== ''
+		) {
 			for (let i = 0; i < producers.length; i++) {
 				formData.append(
 					`producers[${i}][producerName]`,
@@ -147,7 +156,11 @@ const FilmForm = () => {
 			}
 		}
 
-		if (coProductions.length > 0 && coProductions.length[0] !== '') {
+		if (
+			coProductions.length > 0 &&
+			coProductions.length[0] !== '' &&
+			data.coProductions[0].coProductionName !== ''
+		) {
 			for (let i = 0; i < coProductions.length; i++) {
 				formData.append(
 					`coProductions[${i}][coProductionName]`,
@@ -156,7 +169,11 @@ const FilmForm = () => {
 			}
 		}
 
-		if (coProducers.length > 0 && coProducers.length[0] !== '') {
+		if (
+			coProducers.length > 0 &&
+			coProducers.length[0] !== '' &&
+			data.coProducers[0].coProducerName !== ''
+		) {
 			for (let i = 0; i < coProducers.length; i++) {
 				formData.append(
 					`coProducers[${i}][coProducerName]`,
@@ -165,7 +182,11 @@ const FilmForm = () => {
 			}
 		}
 
-		if (screenwriters.length > 0 && screenwriters.length[0] !== '') {
+		if (
+			screenwriters.length > 0 &&
+			screenwriters.length[0] !== '' &&
+			data.screenwriters[0].screenwriterName !== ''
+		) {
 			for (let i = 0; i < screenwriters.length; i++) {
 				formData.append(
 					`screenwriters[${i}][screenwriterName]`,
@@ -184,7 +205,20 @@ const FilmForm = () => {
 		formData.append('soundDesign', data.soundDesign);
 		formData.append('casting', data.casting);
 		formData.append('lineProducer', data.lineProducer);
-		formData.append('executiveProducers', data.executiveProducers);
+
+		if (
+			executiveProducers.length > 0 &&
+			executiveProducers.length[0] !== '' &&
+			data.executiveProducers[0].executiveProducerName !== ''
+		) {
+			for (let i = 0; i < executiveProducers.length; i++) {
+				formData.append(
+					`executiveProducers[${i}][executiveProducerName]`,
+					data.executiveProducers[i].executiveProducerName
+				);
+			}
+		}
+
 		formData.append('distributor', data.distributor);
 		formData.append('salesAgent', data.salesAgent);
 		formData.append('firstAssistantDirector', data.firstAssistantDirector);
@@ -203,12 +237,10 @@ const FilmForm = () => {
 			data.festivals[0].festivalName !== ''
 		) {
 			for (let i = 0; i < festivals.length; i++) {
-				console.log(festivals);
 				formData.append(
 					`festivals[${i}][festivalName]`,
 					data.festivals[i].festivalName
 				);
-				console.log(data.festivals[i].festivalName);
 			}
 		}
 
@@ -236,6 +268,8 @@ const FilmForm = () => {
 		}
 
 		formData.append('file', file);
+
+		console.log('ciao');
 
 		if (formData !== {}) {
 			setIsLoading(true);
@@ -271,7 +305,6 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						navigate('/admin/films');
 					});
 			}
 		}
@@ -489,7 +522,7 @@ const FilmForm = () => {
 						className={classes.form__container__item}
 						key={index}>
 						<label htmlFor='CoProducerName'>
-							{t('coProducersLabels.coProducerName')}
+							{t('coProducersLabels.coProducer')}
 						</label>
 						<input
 							defaultValue={
@@ -753,7 +786,7 @@ const FilmForm = () => {
 						className={classes.form__container__item}
 						key={index}>
 						<label htmlFor='ExecutiveProducerName'>
-							{t('executiveProducers.executiveProducer')}
+							{t('executiveProducersLabels.executiveProducer')}
 							<span>*</span>
 						</label>
 						<input
