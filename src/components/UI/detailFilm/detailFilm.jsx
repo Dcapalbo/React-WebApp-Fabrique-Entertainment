@@ -2,7 +2,7 @@
 
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
-import { BiLogoFacebookCircle } from 'react-icons/bi'; 
+import { BiLogoFacebookCircle } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import { BsInstagram } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
@@ -31,9 +31,7 @@ const DetailFilm = () => {
 		return <LoadingSpinner />;
 	} else if (error) {
 		return (
-			<h1 className={classes.text__align__center}>
-				{t("errors.filmError")}
-			</h1>
+			<h1 className={classes.text__align__center}>{t('errors.filmError')}</h1>
 		);
 	} else {
 		return (
@@ -43,11 +41,11 @@ const DetailFilm = () => {
 						{film?.trailer ? (
 							<iframe
 								className={classes.detail__card__video}
-								title={film.title + "trailer"}
-								src={film.trailer ?? ""}
+								title={film.title + 'trailer'}
+								src={film.trailer ?? ''}
 								allowFullScreen
 							/>
-							) : (
+						) : (
 							<img
 								className={classes.detail__card__image}
 								src={film.imageUrl ?? ''}
@@ -66,13 +64,16 @@ const DetailFilm = () => {
 								{film?.year && film?.duration && (
 									<>
 										<div className={classes.detail__card__info__wrapper}>
-											<small>{t("year")} | {film?.year ?? ""} - {film?.duration ?? ""} {t("minutes")}</small>
+											<small>
+												{t('year')} | {film?.year ?? ''} -{' '}
+												{film?.duration ?? ''} {t('minutes')}
+											</small>
 										</div>
 									</>
 								)}
 								{film?.director && (
 									<>
-										<p>{t("director")}</p>
+										<p>{t('director')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.director ?? ''}</p>
 										</div>
@@ -80,7 +81,7 @@ const DetailFilm = () => {
 								)}
 								{film?.screenwriters && (
 									<>
-										<p>{t("screenwriter")}</p>
+										<p>{t('screenwriter')}</p>
 										{film.screenwriters.map((screenwriter, index) => (
 											<div
 												key={index}
@@ -92,7 +93,7 @@ const DetailFilm = () => {
 								)}
 								{film?.directorOfPhotography && (
 									<>
-										<p>{t("directorOfPhotography")}</p>
+										<p>{t('directorOfPhotography')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.directorOfPhotography ?? ''}</p>
 										</div>
@@ -100,7 +101,7 @@ const DetailFilm = () => {
 								)}
 								{film?.editing && (
 									<>
-										<p>{t("editing")}</p>
+										<p>{t('editing')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.editing ?? ''}</p>
 										</div>
@@ -108,7 +109,7 @@ const DetailFilm = () => {
 								)}
 								{film?.scenography && (
 									<>
-										<p>{t("scenography")}</p>
+										<p>{t('scenography')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.scenography ?? ''}</p>
 										</div>
@@ -116,7 +117,7 @@ const DetailFilm = () => {
 								)}
 								{film?.costumes && (
 									<>
-										<p>{t("costumes")}</p>
+										<p>{t('costumes')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.costumes ?? ''}</p>
 										</div>
@@ -124,7 +125,7 @@ const DetailFilm = () => {
 								)}
 								{film?.music && (
 									<>
-										<p>{t("music")}</p>
+										<p>{t('music')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.music ?? ''}</p>
 										</div>
@@ -132,7 +133,7 @@ const DetailFilm = () => {
 								)}
 								{film?.sound && (
 									<>
-										<p>{t("sound")}</p>
+										<p>{t('sound')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.sound ?? ''}</p>
 										</div>
@@ -140,7 +141,7 @@ const DetailFilm = () => {
 								)}
 								{film?.soundDesign && (
 									<>
-										<p>{t("soundDesign")}</p>
+										<p>{t('soundDesign')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.soundDesign ?? ''}</p>
 										</div>
@@ -148,7 +149,7 @@ const DetailFilm = () => {
 								)}
 								{film?.casting && (
 									<>
-										<p>{t("casting")}</p>
+										<p>{t('casting')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.casting ?? ''}</p>
 										</div>
@@ -156,7 +157,7 @@ const DetailFilm = () => {
 								)}
 								{film?.firstAssistantDirector && (
 									<>
-										<p>{t("firstAssistantDirector")}</p>
+										<p>{t('firstAssistantDirector')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.firstAssistantDirector ?? ''}</p>
 										</div>
@@ -164,7 +165,7 @@ const DetailFilm = () => {
 								)}
 								{film?.lineProducer && (
 									<>
-										<p>{t("lineProducer")}</p>
+										<p>{t('lineProducer')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.lineProducer ?? ''}</p>
 										</div>
@@ -172,7 +173,7 @@ const DetailFilm = () => {
 								)}
 								{film?.executiveProduction && (
 									<>
-										<p>{t("executiveProduction")}</p>
+										<p>{t('executiveProduction')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.executiveProduction ?? ''}</p>
 										</div>
@@ -180,7 +181,7 @@ const DetailFilm = () => {
 								)}
 								{film?.productions && (
 									<>
-										<p>{t("production")}</p>
+										<p>{t('production')}</p>
 										{film.productions.map((production, index) => (
 											<div
 												key={index}
@@ -192,7 +193,7 @@ const DetailFilm = () => {
 								)}
 								{film?.synopsis && (
 									<>
-										<p>{t("synopsis")}</p>
+										<p>{t('synopsis')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.synopsis ?? ''}</p>
 										</div>
@@ -200,7 +201,7 @@ const DetailFilm = () => {
 								)}
 								{film?.productionNotes && (
 									<>
-										<p>{t("productionNotes")}</p>
+										<p>{t('productionNotes')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.productionNotes ?? ''}</p>
 										</div>
@@ -210,7 +211,7 @@ const DetailFilm = () => {
 							<div className={classes.detail__card__right}>
 								{film?.type && (
 									<>
-										<p>{t("typology")}</p>
+										<p>{t('typology')}</p>
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<small>{film?.type}</small>
@@ -220,7 +221,7 @@ const DetailFilm = () => {
 								)}
 								{film?.genre && (
 									<>
-										<p>{t("genres")}</p>
+										<p>{t('genres')}</p>
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<small>{film?.genre}</small>
@@ -230,7 +231,7 @@ const DetailFilm = () => {
 								)}
 								{film?.festivals && (
 									<>
-										<p>{t("festivals")}</p>
+										<p>{t('festivals')}</p>
 										<div className={classes.detail__card__right__container}>
 											{film?.festivals.map((festival, index) => (
 												<div
@@ -244,16 +245,22 @@ const DetailFilm = () => {
 								)}
 								{film?.imdb && film?.instagram && film?.facebook && (
 									<>
-										<p>{t("Links")}</p>
+										<p>{t('Links')}</p>
 										<div className={classes.detail__card__right__links}>
-											<a href={film.imdb ?? ""} target="_blank">
-												<SiImdb size={30}/>
+											<a
+												href={film.imdb ?? ''}
+												target='_blank'>
+												<SiImdb size={30} />
 											</a>
-											<a href={film.instagram ?? ""} target="_blank">
-												<BsInstagram size={30}/>
+											<a
+												href={film.instagram ?? ''}
+												target='_blank'>
+												<BsInstagram size={30} />
 											</a>
-											<a href={film.facebook ?? ""} target="_blank">
-												<BiLogoFacebookCircle size={30}/>
+											<a
+												href={film.facebook ?? ''}
+												target='_blank'>
+												<BiLogoFacebookCircle size={30} />
 											</a>
 										</div>
 									</>
@@ -262,10 +269,11 @@ const DetailFilm = () => {
 									<>
 										<div className={classes.detail__card__right__legends}>
 											<p>
-												<FaMedal className={classes.selection} /> {t("competition")}
+												<FaMedal className={classes.selection} />{' '}
+												{t('competition')}
 											</p>
 											<p>
-												<FaMedal className={classes.victory} /> {t("award")}
+												<FaMedal className={classes.victory} /> {t('award')}
 											</p>
 										</div>
 									</>

@@ -28,8 +28,18 @@ const FilmForm = () => {
 		{ productionName: '' },
 	];
 
-	const producersData = dataUpdateFilm?.producers || [
-		{ producerName: '' },
+	const producersData = dataUpdateFilm?.producers || [{ producerName: '' }];
+
+	const coProductionsData = dataUpdateFilm?.coProductions || [
+		{ coProductionName: '' },
+	];
+
+	const coProducersData = dataUpdateFilm?.coProducers || [
+		{ coProducerName: '' },
+	];
+
+	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
+		{ executiveProducerName: '' },
 	];
 
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
@@ -55,7 +65,12 @@ const FilmForm = () => {
 
 	const { errors } = formState;
 
+	const [executiveProducers, setExecutiveProducers] = useState(
+		executiveProducersData
+	);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
+	const [coProductions, setCoProductions] = useState(coProductionsData);
+	const [coProducers, setCoProducers] = useState(coProducersData);
 	const [productions, setProductions] = useState(productionsData);
 	const [producers, setProducers] = useState(producersData);
 	const [festivals, setFestivals] = useState(festivalsData);
@@ -66,7 +81,7 @@ const FilmForm = () => {
 
 	const handleSelectChange = (selectedValue) => {
 		return selectedValue;
-	  };
+	};
 
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
@@ -107,14 +122,14 @@ const FilmForm = () => {
 			return filteredArray;
 		});
 	};
-	
+
 	const confirmHandler = (data) => {
 		const formData = new FormData();
 
 		formData.append('title', data.title);
 		formData.append('director', data.director);
 
-		if(productions.length > 0 && productions.length[0] !== "") {
+		if (productions.length > 0 && productions.length[0] !== '') {
 			for (let i = 0; i < productions.length; i++) {
 				formData.append(
 					`productions[${i}][productionName]`,
@@ -123,7 +138,7 @@ const FilmForm = () => {
 			}
 		}
 
-		if(producers.length > 0 && producers.length[0] !== "") {
+		if (producers.length > 0 && producers.length[0] !== '') {
 			for (let i = 0; i < producers.length; i++) {
 				formData.append(
 					`producers[${i}][producerName]`,
@@ -132,7 +147,25 @@ const FilmForm = () => {
 			}
 		}
 
-		if(screenwriters.length > 0 && screenwriters.length[0] !== "") {
+		if (coProductions.length > 0 && coProductions.length[0] !== '') {
+			for (let i = 0; i < coProductions.length; i++) {
+				formData.append(
+					`coProductions[${i}][coProductionName]`,
+					data.coProductions[i].coProductionName
+				);
+			}
+		}
+
+		if (coProducers.length > 0 && coProducers.length[0] !== '') {
+			for (let i = 0; i < coProducers.length; i++) {
+				formData.append(
+					`coProducers[${i}][coProducerName]`,
+					data.coProducers[i].coProducerName
+				);
+			}
+		}
+
+		if (screenwriters.length > 0 && screenwriters.length[0] !== '') {
 			for (let i = 0; i < screenwriters.length; i++) {
 				formData.append(
 					`screenwriters[${i}][screenwriterName]`,
@@ -151,21 +184,23 @@ const FilmForm = () => {
 		formData.append('soundDesign', data.soundDesign);
 		formData.append('casting', data.casting);
 		formData.append('lineProducer', data.lineProducer);
-		formData.append('executiveProduction', data.executiveProduction);
+		formData.append('executiveProducers', data.executiveProducers);
+		formData.append('distributor', data.distributor);
+		formData.append('salesAgent', data.salesAgent);
 		formData.append('firstAssistantDirector', data.firstAssistantDirector);
 		formData.append('synopsis', data.synopsis);
 
-		if(data.productionNotes) {
-			formData.append('productionNotes', data.productionNotes)
+		if (data.productionNotes) {
+			formData.append('productionNotes', data.productionNotes);
 		}
 
 		formData.append('duration', data.duration);
 		formData.append('year', data.year);
 
-		if(
-			festivals.length > 0 && 
-			festivals.length[0] !== "" && 
-			data.festivals[0].festivalName !== ""
+		if (
+			festivals.length > 0 &&
+			festivals.length[0] !== '' &&
+			data.festivals[0].festivalName !== ''
 		) {
 			for (let i = 0; i < festivals.length; i++) {
 				console.log(festivals);
@@ -180,28 +215,28 @@ const FilmForm = () => {
 		formData.append('slug', slugCreation(data.title));
 		formData.append('type', data.type);
 
-		if(data.trailer) {
+		if (data.trailer) {
 			formData.append('trailer', data.trailer);
 		}
 
-		if(data.imdb) {
+		if (data.imdb) {
 			formData.append('imdb', data.imdb);
 		}
 
-		if(data.instagram) {
+		if (data.instagram) {
 			formData.append('instagram', data.instagram);
 		}
 
-		if(data.facebook) {
+		if (data.facebook) {
 			formData.append('facebook', data.facebook);
 		}
-		
+
 		if (dataUpdateFilm?._id) {
 			formData.append('_id', dataUpdateFilm?._id);
 		}
 
 		formData.append('file', file);
-		
+
 		if (formData !== {}) {
 			setIsLoading(true);
 
@@ -362,9 +397,7 @@ const FilmForm = () => {
 							}
 						/>
 						{errors.producers?.[index]?.producerName?.message && (
-							<small>
-								{errors.producers?.[index]?.producerName.message}
-							</small>
+							<small>{errors.producers?.[index]?.producerName.message}</small>
 						)}
 						{index !== 0 && (
 							<button
@@ -390,6 +423,120 @@ const FilmForm = () => {
 						className={classes.secondary__button}
 						type='button'>
 						{t('producersLabels.addProducer')}
+					</button>
+				</div>
+				{coProductions.map((coProduction, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='CoProductionName'>
+							{t('coProductionsLabels.coProduction')}
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.coProduction?.[index]
+									?.coProductionName ?? ''
+							}
+							{...register(`coProductions.${index}.coProductionName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'coProductionName',
+									coProductions,
+									setCoProductions
+								)
+							}
+						/>
+						{errors.coProductions?.[index]?.coProductionName?.message && (
+							<small>
+								{errors.coProductions?.[index]?.coProductionName.message}
+							</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(
+										index,
+										coProductions,
+										setCoProductions
+									)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('coProductionsLabels.deleteCoProduction')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(coProductions, setCoProductions, {
+								coProductionName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('coProductionsLabels.addCoProduction')}
+					</button>
+				</div>
+				{coProducers.map((coProducer, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='CoProducerName'>
+							{t('coProducersLabels.coProducerName')}
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.coProducer?.[index]
+									?.coProducerName ?? ''
+							}
+							{...register(`coProducers.${index}.coProducerName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'coProducerName',
+									coProducers,
+									setCoProducers
+								)
+							}
+						/>
+						{errors.coProducers?.[index]?.coProducerName?.message && (
+							<small>
+								{errors.coProducers?.[index]?.coProducerName.message}
+							</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, coProducers, setCoProducers)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('coProducersLabels.deleteCoProducer')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(coProducers, setCoProducers, {
+								coProducerName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('coProducersLabels.addCoProducer')}
 					</button>
 				</div>
 				{screenwriters.map((screenwriter, index) => (
@@ -453,14 +600,14 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor="Genre">
+					<label htmlFor='Genre'>
 						{t('genres')}
 						<span>*</span>
 					</label>
 					<Controller
-						name="genre"
+						name='genre'
 						control={control}
-						defaultValue={""}
+						defaultValue={''}
 						render={({ field }) => (
 							<GenreSelect
 								onChange={(selectedValue) => {
@@ -495,16 +642,12 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.editing ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.editing ?? ''}
 						{...register('editing')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.editing?.message && (
-						<small>{errors.editing?.message}</small>
-					)}
+					{errors.editing?.message && <small>{errors.editing?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Scenography'>
@@ -512,9 +655,7 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.scenography ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.scenography ?? ''}
 						{...register('scenography')}
 						type='text'
 						onChange={handleInputChange}
@@ -529,9 +670,7 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.costumes ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.costumes ?? ''}
 						{...register('costumes')}
 						type='text'
 						onChange={handleInputChange}
@@ -546,16 +685,12 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.music ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.music ?? ''}
 						{...register('music')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.music?.message && (
-						<small>{errors.music?.message}</small>
-					)}
+					{errors.music?.message && <small>{errors.music?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='sound'>
@@ -563,16 +698,12 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.sound ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.sound ?? ''}
 						{...register('sound')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.sound?.message && (
-						<small>{errors.sound?.message}</small>
-					)}
+					{errors.sound?.message && <small>{errors.sound?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='soundDesign'>
@@ -580,9 +711,7 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.soundDesign ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.soundDesign ?? ''}
 						{...register('soundDesign')}
 						type='text'
 						onChange={handleInputChange}
@@ -597,16 +726,12 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.casting ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.casting ?? ''}
 						{...register('casting')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.casting?.message && (
-						<small>{errors.casting?.message}</small>
-					)}
+					{errors.casting?.message && <small>{errors.casting?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='lineProducer'>
@@ -614,9 +739,7 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.lineProducer ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.lineProducer ?? ''}
 						{...register('lineProducer')}
 						type='text'
 						onChange={handleInputChange}
@@ -625,25 +748,96 @@ const FilmForm = () => {
 						<small>{errors.lineProducer?.message}</small>
 					)}
 				</div>
+				{executiveProducers.map((executiveProducer, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='ExecutiveProducerName'>
+							{t('executiveProducers.executiveProducer')}
+							<span>*</span>
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.executiveProducer?.[index]
+									?.executiveProducerName ?? ''
+							}
+							{...register(`executiveProducers.${index}.executiveProducerName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'executiveProducerName',
+									executiveProducers,
+									setExecutiveProducers
+								)
+							}
+						/>
+						{errors.executiveProducers?.[index]?.executiveProducerName
+							?.message && (
+							<small>
+								{
+									errors.executiveProducers?.[index]?.executiveProducerName
+										.message
+								}
+							</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(
+										index,
+										executiveProducers,
+										setExecutiveProducers
+									)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('executiveProducersLabels.deleteExecutiveProducer')}
+							</button>
+						)}
+					</div>
+				))}
 				<div className={classes.form__container__item}>
-					<label htmlFor='ExecutiveProduction'>
-						{t('executiveProduction')}
-						<span>*</span>
-					</label>
-					<input
-						defaultValue={
-							formState.defaultValues?.payload?.executiveProduction ?? ''
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(executiveProducers, setExecutiveProducers, {
+								executiveProducerName: '',
+							})
 						}
-						{...register('executiveProduction')}
+						className={classes.secondary__button}
+						type='button'>
+						{t('executiveProducersLabels.addExecutiveProducer')}
+					</button>
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='Distributor'>{t('distributor')}</label>
+					<input
+						defaultValue={formState.defaultValues?.payload?.distributor ?? ''}
+						{...register('distributor')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.executiveProduction?.message && (
-						<small>{errors.executiveProduction?.message}</small>
+					{errors.distributor?.message && (
+						<small>{errors.distributor?.message}</small>
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='firstAssistantDirector'>
+					<label htmlFor='SalesAgent'>{t('salesAgent')}</label>
+					<input
+						defaultValue={formState.defaultValues?.payload?.salesAgent ?? ''}
+						{...register('salesAgent')}
+						type='text'
+						onChange={handleInputChange}
+					/>
+					{errors.salesAgent?.message && (
+						<small>{errors.salesAgent?.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='FirstAssistantDirector'>
 						{t('firstAssistantDirector')}
 						<span>*</span>
 					</label>
@@ -674,11 +868,11 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='ProductionNotes'>
-						{t('productionNotes')}
-					</label>
+					<label htmlFor='ProductionNotes'>{t('productionNotes')}</label>
 					<textarea
-						defaultValue={formState.defaultValues?.payload?.productionNotes ?? ''}
+						defaultValue={
+							formState.defaultValues?.payload?.productionNotes ?? ''
+						}
 						{...register('productionNotes')}
 						type='text'
 						onChange={handleInputChange}></textarea>
@@ -768,14 +962,14 @@ const FilmForm = () => {
 					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor="Type">
+					<label htmlFor='Type'>
 						{t('typology')}
 						<span>*</span>
 					</label>
 					<Controller
-						name="type"
+						name='type'
 						control={control}
-						defaultValue=""
+						defaultValue=''
 						render={({ field }) => (
 							<TypeSelect
 								onChange={(selectedValue) => {
@@ -788,43 +982,29 @@ const FilmForm = () => {
 					{errors.type?.message && <small>{errors.type?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Trailer'>
-						{t('links.trailer')}
-					</label>
+					<label htmlFor='Trailer'>{t('links.trailer')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.trailer ?? ''}
 						{...register('trailer')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.trailer?.message && (
-						<small>{errors.trailer.message}</small>
-					)}
+					{errors.trailer?.message && <small>{errors.trailer.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Imdb'>
-						{t('links.imdb')}
-					</label>
+					<label htmlFor='Imdb'>{t('links.imdb')}</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.imdb ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.imdb ?? ''}
 						{...register('imdb')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.imdb?.message && (
-						<small>{errors.imdb?.message}</small>
-					)}
+					{errors.imdb?.message && <small>{errors.imdb?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Instagram'>
-						{t('links.instagram')}
-					</label>
+					<label htmlFor='Instagram'>{t('links.instagram')}</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.instagram ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.instagram ?? ''}
 						{...register('instagram')}
 						type='text'
 						onChange={handleInputChange}
@@ -834,13 +1014,9 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Facebook'>
-						{t('links.facebook')}
-					</label>
+					<label htmlFor='Facebook'>{t('links.facebook')}</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.facebook ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.facebook ?? ''}
 						{...register('facebook')}
 						type='text'
 						onChange={handleInputChange}
@@ -852,7 +1028,7 @@ const FilmForm = () => {
 				<div className={classes.form__container__item}>
 					<label htmlFor='Image'>
 						{t('cover')}
-						<span>*</span>	
+						<span>*</span>
 					</label>
 					<input
 						onChange={(event) => {
@@ -891,7 +1067,9 @@ const FilmForm = () => {
 						)
 					)}
 				</div>
-				<small className={classes.obligatory}>Campi contrassegnati con (*) sono obbligatori</small>
+				<small className={classes.obligatory}>
+					Campi contrassegnati con (*) sono obbligatori
+				</small>
 				{isLoading && <LoadingSpinner />}
 			</form>
 		</section>
