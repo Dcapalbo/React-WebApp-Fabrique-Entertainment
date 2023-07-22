@@ -1,8 +1,7 @@
 /** @format */
 
-import { faFlag, faFlagUsa, faUser } from '@fortawesome/free-solid-svg-icons';
 import { dataUserActions } from '../../../store/data-user-slice';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaFlag, FaFlagUsa, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -35,10 +34,7 @@ const NavLinks = () => {
 			{isAuthenticated && (
 				<li className={classes.nav__links__user__logged}>
 					<Link to='/admin/films'>
-						<FontAwesomeIcon
-							icon={faUser}
-							size='1x'
-						/>
+						<FaUser />
 					</Link>
 					<p>{name}</p>
 				</li>
@@ -84,15 +80,13 @@ const NavLinks = () => {
 			)}
 			{i18n.language === 'it' ? (
 				<li>
-					<FontAwesomeIcon
-						icon={faFlagUsa}
+					<FaFlagUsa
 						onClick={() => i18n.changeLanguage('en')}
 					/>
 				</li>
 			) : (
 				<li>
-					<FontAwesomeIcon
-						icon={faFlag}
+					<FaFlag
 						onClick={() => i18n.changeLanguage('it')}
 					/>
 				</li>

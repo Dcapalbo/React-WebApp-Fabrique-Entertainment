@@ -1,7 +1,6 @@
 /** @format */
 
-import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { BsFillEnvelopeFill, BsTelephone } from 'react-icons/bs' 
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
 import StateGetHook from '../../../hooks/stateGetHook';
@@ -63,10 +62,7 @@ const DetailAboutContact = () => {
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<a href={`mailto:${contacts?.email}`}>{contacts?.email}</a>
-												<FontAwesomeIcon 
-													icon={faEnvelope} 
-													size='1x' 
-												/>	
+												<BsFillEnvelopeFill />	
 											</div>
 										</div>
 									</>
@@ -77,10 +73,7 @@ const DetailAboutContact = () => {
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<a href={`tel:${contacts?.phoneNumber}`}>{contacts?.phoneNumber}</a>
-												<FontAwesomeIcon 
-													icon={faPhone} 
-													size='1x' 
-												/>											
+												<BsTelephone />											
 											</div>
 										</div>
 									</>

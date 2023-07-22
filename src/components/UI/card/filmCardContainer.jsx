@@ -51,7 +51,7 @@ const FilmCardContainer = () => {
 								director={film.director}
 								productions={film.productions}
 								screenwriters={film.screenwriters}
-								genres={film.genres}
+								genre={film.genre}
 								directorOfPhotography={film.directorOfPhotography}
 								synopsis={film.synopsis}
 								imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
@@ -60,6 +60,10 @@ const FilmCardContainer = () => {
 								festivals={film.festivals}
 								slug={film.slug}
 								type={film.type}
+								trailer={film.trailer}
+								imdb={film.imdb}
+								instagram={film.instagram}
+								facebook={film.facebook}
 								key={film._id}
 								_id={film._id}
 							/>

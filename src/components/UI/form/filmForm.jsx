@@ -174,7 +174,7 @@ const FilmForm = () => {
 		}
 
 		formData.append('file', file);
-		return;
+		
 		if (formData !== {}) {
 			setIsLoading(true);
 

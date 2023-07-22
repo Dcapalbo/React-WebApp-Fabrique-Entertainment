@@ -1,9 +1,8 @@
 /** @format */
 
 import logo from '../../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './mobileNavigation.module.scss';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import NavLinks from './NavLinks';
 import { useState } from 'react';
@@ -17,18 +16,16 @@ const MobileNavigation = () => {
 	};
 
 	const hamburgher = (
-		<FontAwesomeIcon
+		<FaBars
 			className={classes.hamburgher}
 			onClick={openMobileMenu}
-			icon={faBars}
 		/>
 	);
 
 	const closeButton = (
-		<FontAwesomeIcon
+		<FaTimes
 			className={classes.cross__button}
 			onClick={openMobileMenu}
-			icon={faTimes}
 		/>
 	);
 
