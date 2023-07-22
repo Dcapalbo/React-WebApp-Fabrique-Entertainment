@@ -1,51 +1,53 @@
-@import "../../../assets/variables.scss";
-@import "../../../assets/mixin.scss";
+/** @format */
+
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixin.scss';
 
 .wrapper__accordion {
-  background-color: $firstColor;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 0px;
-  display: flex;
-  height: 100%;
-  width: 100vw;
-  .accordion {
-    margin: auto;
-    width: 70%;
-    & :nth-child(even) {
-      align-items: flex-end;
-      @include flex-column;
-    }
-    & :nth-child(odd) {
-      align-items: flex-start;
-      @include flex-column;
-    }
-  }
+	background-color: $firstColor;
+	justify-content: center;
+	align-items: center;
+	padding: 30px 0px;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	.accordion {
+		margin: auto;
+		width: 70%;
+		& :nth-child(even) {
+			align-items: flex-end;
+			@include flex-column;
+		}
+		& :nth-child(odd) {
+			align-items: flex-start;
+			@include flex-column;
+		}
+	}
 }
 
 .item {
-  padding: 10px 20px;
-  cursor: pointer;
-  .accordion__title {
-    color: $secondColor;
-  }
-  .accordion__description {
-    transition: all 0.4s cubic-bezier(0, 1, 0, 1);
-    color: $secondColor;
-    margin-top: 10px;
-    overflow: hidden;
-    max-height: 0;
-  }
-  .accordion__description__show {
-    transition: all 0.4s cubic-bezier(1, 0, 1, 0);
-    color: $secondColor;
-    max-height: 9999px;
-    overflow: hidden;
-    margin-top: 10px;
-  }
+	padding: 10px 20px;
+	cursor: pointer;
+	.accordion__title {
+		color: $secondColor;
+	}
+	.accordion__description {
+		transition: all 0.4s cubic-bezier(0, 1, 0, 1);
+		color: $secondColor;
+		margin-top: 10px;
+		overflow: hidden;
+		max-height: 0;
+	}
+	.accordion__description__show {
+		transition: all 0.4s cubic-bezier(1, 0, 1, 0);
+		color: $secondColor;
+		max-height: 9999px;
+		overflow: hidden;
+		margin-top: 10px;
+	}
 }
 
 .active {
-  color: $thirdColor;
-  transition: 0.5s;
+	color: $thirdColor;
+	transition: 0.5s;
 }

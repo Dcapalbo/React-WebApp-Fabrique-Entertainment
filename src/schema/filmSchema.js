@@ -77,6 +77,28 @@ const filmSchema = z.object({
 			]),
 		})
 	),
+	actors: z.array(
+		z.object({
+			actorName: z
+				.string()
+				.nonempty({ message: 'Inserire almeno un Attore' })
+				.min(6, {
+					message: 'il nome deve essere di almeno 6 caratteri',
+				})
+				.max(40, {
+					message: 'il nome non può superare i 40 caratteri',
+				}),
+			actorRole: z
+				.string()
+				.nonempty({ message: 'Inserire almeno un Ruolo' })
+				.min(6, {
+					message: 'il nome deve essere di almeno 6 caratteri',
+				})
+				.max(40, {
+					message: 'il nome non può superare i 40 caratteri',
+				}),
+		})
+	),
 	screenwriters: z.array(
 		z.object({
 			screenwriterName: z

@@ -22,7 +22,7 @@ $screen-xl-min: 1200px;
 	width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-	background-color: transparent;
+	background-color: $thirdColor;
 }
 ::-webkit-scrollbar-thumb {
 	border: 1px solid rgba(0, 0, 0, 0.2);

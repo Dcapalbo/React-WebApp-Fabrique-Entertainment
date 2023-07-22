@@ -78,20 +78,26 @@ const translationIt = {
 		addCoProducer: 'Aggiungi co-produttore',
 		deleteCoProducer: 'Cancella co-produttore',
 	},
+	actorsLabels: {
+		actor: 'Attore',
+		role: 'Ruolo',
+		addActor: 'Aggiungi attore',
+		deleteActor: 'Cancella attore',
+	},
 	screenwritersLabels: {
 		screenwriter: 'Sceneggiatore',
 		addScreenwriter: 'Aggiungi sceneggiatore',
 		deleteScreenwriter: 'Cancella sceneggiatore',
 	},
-	festivalsLabels: {
-		festival: 'Festival',
-		addFestival: 'Aggiungi festival',
-		deleteFestival: 'Cancella festival',
-	},
 	executiveProducersLabels: {
 		executiveProducer: 'Produttore esecutivo',
 		addExecutiveProducer: 'Aggiungi produttore esecutivo',
 		deleteExecutiveProducer: 'Cancella produttore esecutivo',
+	},
+	festivalsLabels: {
+		festival: 'Festival',
+		addFestival: 'Aggiungi festival',
+		deleteFestival: 'Cancella festival',
 	},
 	cover: 'Copertina del film',
 	profileCover: 'Foto del profilo',

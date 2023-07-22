@@ -38,12 +38,16 @@ const FilmForm = () => {
 		{ coProducerName: '' },
 	];
 
-	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
-		{ executiveProducerName: '' },
+	const actorsData = dataUpdateFilm?.actors || [
+		{ actorName: '', actorRole: '' },
 	];
 
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },
+	];
+
+	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
+		{ executiveProducerName: '' },
 	];
 
 	const festivalsData = dataUpdateFilm?.festivals || [{ festivalName: '' }];
@@ -75,6 +79,7 @@ const FilmForm = () => {
 	const [producers, setProducers] = useState(producersData);
 	const [festivals, setFestivals] = useState(festivalsData);
 	const [isLoading, setIsLoading] = useState(false);
+	const [actors, setActors] = useState(actorsData);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
 	const [file, setFile] = useState(null);
@@ -183,6 +188,18 @@ const FilmForm = () => {
 		}
 
 		if (
+			actors.length > 0 &&
+			actors.length[0] !== '' &&
+			data.actors[0].actorName !== '' &&
+			data.actors[0].actorRole !== ''
+		) {
+			for (let i = 0; i < actors.length; i++) {
+				formData.append(`actors[${i}][actorName]`, data.actors[i].actorName);
+				formData.append(`actors[${i}][actorRole]`, data.actors[i].actorRole);
+			}
+		}
+
+		if (
 			screenwriters.length > 0 &&
 			screenwriters.length[0] !== '' &&
 			data.screenwriters[0].screenwriterName !== ''
@@ -268,8 +285,6 @@ const FilmForm = () => {
 		}
 
 		formData.append('file', file);
-
-		console.log('ciao');
 
 		if (formData !== {}) {
 			setIsLoading(true);
@@ -571,6 +586,87 @@ const FilmForm = () => {
 						className={classes.secondary__button}
 						type='button'>
 						{t('coProducersLabels.addCoProducer')}
+					</button>
+				</div>
+				{actors.map((actor, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='ActorName'>
+							{t('actorsLabels.actor')}
+							<span>*</span>
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.actor?.[index]?.actorName ??
+								''
+							}
+							{...register(`actors.${index}.actorName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'actorName',
+									actors,
+									setActors
+								)
+							}
+						/>
+						{errors.actors?.[index]?.actorName?.message && (
+							<small>{errors.actors?.[index]?.actorName.message}</small>
+						)}
+						<label
+							className={classes.margin__top}
+							htmlFor='ActorRole'>
+							{t('actorsLabels.role')}
+							<span>*</span>
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.actor?.[index]?.actorRole ??
+								''
+							}
+							{...register(`actors.${index}.actorRole`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'actorRole',
+									actors,
+									setActors
+								)
+							}
+						/>
+						{errors.actors?.[index]?.actorRole?.message && (
+							<small>{errors.actors?.[index]?.actorRole.message}</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, actors, setActors)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('actorsLabels.deleteActor')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(actors, setActors, {
+								actorName: '',
+								actorRole: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('actorsLabels.addActor')}
 					</button>
 				</div>
 				{screenwriters.map((screenwriter, index) => (

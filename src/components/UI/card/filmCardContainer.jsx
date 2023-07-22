@@ -53,6 +53,7 @@ const FilmCardContainer = () => {
 								producers={film.producers}
 								coProductions={film.coProductions}
 								coProducers={film.coProducers}
+								actors={film.actors}
 								screenwriters={film.screenwriters}
 								genre={film.genre}
 								directorOfPhotography={film.directorOfPhotography}
