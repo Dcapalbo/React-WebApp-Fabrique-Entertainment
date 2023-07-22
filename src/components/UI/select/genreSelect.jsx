@@ -3,15 +3,15 @@ import React from "react";
 const GenreSelect = ({ onChange, value }) => {
     const options = [
 		{ value: '', label: '' },
-		{ value: 'action', label: 'Azione' },
-		{ value: 'comedy', label: 'Commedia' },
-		{ value: 'drama', label: 'Drammatico' },
+		{ value: 'azione', label: 'Azione' },
+		{ value: 'commedia', label: 'Commedia' },
+		{ value: 'drammatico', label: 'Drammatico' },
 		{ value: 'horror', label: 'Horror' },
-		{ value: 'romance', label: 'Romantico' },
+		{ value: 'romantico', label: 'Romantico' },
 		{ value: 'sci-fi', label: 'Fantascienza' },
 		{ value: 'thriller', label: 'Thriller' },
-		{ value: 'adventure', label: 'Avventura' },
-		{ value: 'animation', label: 'Animazione' },
+		{ value: 'avventura', label: 'Avventura' },
+		{ value: 'animazione', label: 'Animazione' },
 		{ value: 'fantasy', label: 'Fantasy' },
 	];
 

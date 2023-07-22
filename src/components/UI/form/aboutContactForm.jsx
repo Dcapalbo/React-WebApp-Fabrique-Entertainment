@@ -215,6 +215,7 @@ const AboutContactForm = () => {
 						)
 					)}
 				</div>
+				<small className={classes.obligatory}>Campi contrassegnati con (*) sono obbligatori</small>
 				{isLoading && <LoadingSpinner />}
 			</form>
 		</section>

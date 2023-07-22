@@ -4,10 +4,11 @@
 @import './mixin.scss';
 
 .detail__container {
+	position: relative;
 	padding: 50px 0px;
 	margin: auto;
 	height: 100%;
-	width: 50%;
+	width: 60%;
 	@media (max-width: $screen-lg-min) {
 		width: 60%;
 	}
@@ -25,6 +26,13 @@
 		display: flex;
 		height: 100%;
 		width: 100%;
+		.detail__card__video {
+			border-radius: 10px;
+			cursor: pointer;
+			height: 500px;
+			border: none;
+			width: 100%;
+		}
 		.detail__card__image {
 			object-fit: contain;
 			border-radius: 10px;
@@ -38,10 +46,15 @@
 			@media (max-width: $screen-lg-min) {
 				flex-direction: column;
 			}
-			.detail__card {
+			.detail__card__left {
 				padding: 10px 10px 0px 10;
+				max-height: 700px;
+				overflow-y: auto;
 				text-align: left;
 				width: 100%;
+				@media (max-width: $screen-lg-min) {
+					max-height: fit-content;
+				}
 				.detail__card__info__wrapper {
 					margin: 10px 0px;
 					display: flex;
@@ -56,7 +69,7 @@
 					div:first-child {
 						text-align: right;
 					}
-					p {
+					p, h3 {
 						color: $firstColor;
 					}
 				}
@@ -98,7 +111,6 @@
 			@include flex-center;
 			border-radius: 50px;
 			margin-bottom: 10px;
-			margin-right: 10px;
 			width: fit-content;
 			padding: 0px 12px;
 			height: 30px;
@@ -111,6 +123,42 @@
 			svg {
 				color: $thirdColor;
 				margin-left: 10px;
+			}
+		}
+	}
+	.detail__card__right__legends {
+		position: absolute;
+		bottom: 70px;
+		right: 30px;
+		@media (max-width: $screen-lg-min) {
+			position:inherit;
+		}
+		p {
+			color: $firstColor;
+			.victory {
+				color: gold;
+			}
+			
+			.selection {
+				color: silver;
+			}
+		}
+	}
+	.detail__card__right__links {
+		@include flex-start;
+		margin-top: 10px;
+		width: 100%;
+		@media (max-width: $screen-lg-min) {
+			@include flex-center;
+		}
+		svg {
+			color: $firstColor;
+			margin-right: 5px;
+			transition: 0.2s;
+			&:hover {
+				color: $secondColor;
+				transition: 0.2s;
+				cursor: pointer;
 			}
 		}
 	}
