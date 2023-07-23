@@ -78,6 +78,20 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
+								{film?.actors && (
+									<>
+										<p>{t('actors')}</p>
+										{film.actors.map((actor, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<small>
+													{actor.actorRole ?? ''} | {actor.actorName ?? ''}
+												</small>
+											</div>
+										))}
+									</>
+								)}
 								{film?.synopsis && (
 									<>
 										<p>{t('synopsis')}</p>
@@ -92,6 +106,18 @@ const DetailFilm = () => {
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{film?.productionNotes ?? ''}</p>
 										</div>
+									</>
+								)}
+								{film?.subjects && (
+									<>
+										<p>{t('subject')}</p>
+										{film.subjects.map((subject, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<p>{subject.subjectName ?? ''}</p>
+											</div>
+										))}
 									</>
 								)}
 								{film?.screenwriters && (
@@ -300,21 +326,24 @@ const DetailFilm = () => {
 								)}
 								{film?.imdb && film?.instagram && film?.facebook && (
 									<>
-										<p>{t('Links')}</p>
+										<p>{t('links')}</p>
 										<div className={classes.detail__card__right__links}>
 											<a
 												href={film.imdb ?? ''}
-												target='_blank'>
+												target='_blank'
+												rel='noreferrer'>
 												<SiImdb size={30} />
 											</a>
 											<a
 												href={film.instagram ?? ''}
-												target='_blank'>
+												target='_blank'
+												rel='noreferrer'>
 												<BsInstagram size={30} />
 											</a>
 											<a
 												href={film.facebook ?? ''}
-												target='_blank'>
+												target='_blank'
+												rel='noreferrer'>
 												<BiLogoFacebookCircle size={30} />
 											</a>
 										</div>

@@ -71,7 +71,8 @@
 						text-align: right;
 					}
 					p,
-					h3 {
+					h3,
+					small {
 						color: $firstColor;
 					}
 				}
@@ -161,6 +162,9 @@
 					}
 				}
 			}
+		}
+		::-webkit-scrollbar-thumb {
+			background-color: $firstColor;
 		}
 	}
 }

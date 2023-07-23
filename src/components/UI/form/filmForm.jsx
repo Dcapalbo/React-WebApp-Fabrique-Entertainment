@@ -42,6 +42,8 @@ const FilmForm = () => {
 		{ actorName: '', actorRole: '' },
 	];
 
+	const subjectData = dataUpdateFilm?.subject || [{ subjectName: '' }];
+
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },
 	];
@@ -72,12 +74,14 @@ const FilmForm = () => {
 	const [executiveProducers, setExecutiveProducers] = useState(
 		executiveProducersData
 	);
+
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [coProductions, setCoProductions] = useState(coProductionsData);
 	const [coProducers, setCoProducers] = useState(coProducersData);
 	const [productions, setProductions] = useState(productionsData);
 	const [producers, setProducers] = useState(producersData);
 	const [festivals, setFestivals] = useState(festivalsData);
+	const [subjects, setSubjects] = useState(subjectData);
 	const [isLoading, setIsLoading] = useState(false);
 	const [actors, setActors] = useState(actorsData);
 	const [isUpdate, setIsUpdate] = useState(false);
@@ -196,6 +200,19 @@ const FilmForm = () => {
 			for (let i = 0; i < actors.length; i++) {
 				formData.append(`actors[${i}][actorName]`, data.actors[i].actorName);
 				formData.append(`actors[${i}][actorRole]`, data.actors[i].actorRole);
+			}
+		}
+
+		if (
+			subjects.length > 0 &&
+			subjects.length[0] !== '' &&
+			data.subjects[0].subjectName !== ''
+		) {
+			for (let i = 0; i < subjects.length; i++) {
+				formData.append(
+					`subjects[${i}][subjectName]`,
+					data.subjects[i].subjectName
+				);
 			}
 		}
 
@@ -669,6 +686,60 @@ const FilmForm = () => {
 						{t('actorsLabels.addActor')}
 					</button>
 				</div>
+				{subjects.map((subject, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='SubjectName'>
+							{t('subjectsLabels.subject')}
+							<span>*</span>
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.subject?.[index]
+									?.subjectName ?? ''
+							}
+							{...register(`subjects.${index}.subjectName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'subjectName',
+									subjects,
+									setSubjects
+								)
+							}
+						/>
+						{errors.subjects?.[index]?.subjectName?.message && (
+							<small>{errors.subjects?.[index]?.subjectName.message}</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, subjects, setSubjects)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('subjectsLabels.deleteSubject')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(subjects, setSubjects, {
+								subjectName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('subjectsLabels.addSubject')}
+					</button>
+				</div>
 				{screenwriters.map((screenwriter, index) => (
 					<div
 						className={classes.form__container__item}
@@ -1112,7 +1183,7 @@ const FilmForm = () => {
 					{errors.type?.message && <small>{errors.type?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Trailer'>{t('links.trailer')}</label>
+					<label htmlFor='Trailer'>{t('linksLabels.trailer')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.trailer ?? ''}
 						{...register('trailer')}
@@ -1122,7 +1193,7 @@ const FilmForm = () => {
 					{errors.trailer?.message && <small>{errors.trailer.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Imdb'>{t('links.imdb')}</label>
+					<label htmlFor='Imdb'>{t('linksLabels.imdb')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.imdb ?? ''}
 						{...register('imdb')}
@@ -1132,7 +1203,7 @@ const FilmForm = () => {
 					{errors.imdb?.message && <small>{errors.imdb?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Instagram'>{t('links.instagram')}</label>
+					<label htmlFor='Instagram'>{t('linksLabels.instagram')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.instagram ?? ''}
 						{...register('instagram')}

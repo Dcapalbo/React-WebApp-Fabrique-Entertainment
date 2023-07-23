@@ -33,6 +33,8 @@ const translationEn = {
 	producers: 'Producers',
 	coProductions: 'Co-production',
 	coProducers: 'Co-producers',
+	actors: 'Actors',
+	subject: 'Subject',
 	screenwriter: 'Screenwriting',
 	genres: 'Genre',
 	directorOfPhotography: 'Photography',
@@ -84,6 +86,11 @@ const translationEn = {
 		addActor: 'Add Actor',
 		deleteActor: 'Delete actor',
 	},
+	subjectLabels: {
+		subject: 'Subject',
+		addSubject: 'Add subject writer',
+		deleteSubject: 'Delete subject writer',
+	},
 	screenwritersLabels: {
 		screenwriter: 'Screenwriter',
 		addScreenwriter: 'Add screenwriter',
@@ -121,7 +128,7 @@ const translationEn = {
 		addDbContact: 'Add a contact inside the database',
 		modifyDbContact: 'Modify a contact inside the database',
 	},
-	links: {
+	linksLabels: {
 		trailer: 'Trailer',
 		imdb: 'Link imdb',
 		instagram: 'Link instagram',
