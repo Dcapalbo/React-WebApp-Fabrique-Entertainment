@@ -72,7 +72,6 @@ const FilmCardContainer = () => {
 								firstAssistantDirector={film.firstAssistantDirector}
 								synopsis={film.synopsis}
 								productionNotes={film.productionNotes}
-								imageUrl={`data:image/png;base64,${base64ArrayBuffer(film)}`}
 								duration={film.duration}
 								year={film.year}
 								festivals={film.festivals}
@@ -82,6 +81,10 @@ const FilmCardContainer = () => {
 								imdb={film.imdb}
 								instagram={film.instagram}
 								facebook={film.facebook}
+								coverImage={`data:image/;base64,${base64ArrayBuffer(
+									film.coverImage
+								)}`}
+								pressBookPdf={film.pressBookPdf}
 								key={film._id}
 								_id={film._id}
 							/>

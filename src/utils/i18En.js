@@ -58,6 +58,7 @@ const translationEn = {
 	typology: 'Typology',
 	festivals: 'Festivals',
 	links: 'Links',
+	pressBook: 'Pressbook',
 	competition: 'In Competition',
 	award: 'Award',
 	productionsLabels: {

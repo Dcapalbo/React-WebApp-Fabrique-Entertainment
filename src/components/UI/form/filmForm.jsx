@@ -81,12 +81,13 @@ const FilmForm = () => {
 	const [productions, setProductions] = useState(productionsData);
 	const [producers, setProducers] = useState(producersData);
 	const [festivals, setFestivals] = useState(festivalsData);
+	const [pressBookPdf, setPressBookPdf] = useState(null);
 	const [subjects, setSubjects] = useState(subjectData);
+	const [coverImage, setCoverImage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [actors, setActors] = useState(actorsData);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
-	const [file, setFile] = useState(null);
 
 	const handleSelectChange = (selectedValue) => {
 		return selectedValue;
@@ -132,8 +133,17 @@ const FilmForm = () => {
 		});
 	};
 
+	const handleCoverImageChange = (event) => {
+		const coverImage = event.target.files[0];
+		setCoverImage(coverImage);
+	};
+
+	const handlePressBook = (event) => {
+		const pressBookPdf = event.target.files[0];
+		setPressBookPdf(pressBookPdf);
+	};
+
 	const confirmHandler = (data) => {
-		console.log(data);
 		const formData = new FormData();
 
 		formData.append('title', data.title);
@@ -301,7 +311,8 @@ const FilmForm = () => {
 			formData.append('_id', dataUpdateFilm?._id);
 		}
 
-		formData.append('file', file);
+		formData.append('coverImage', coverImage);
+		formData.append('pressBookPdf', pressBookPdf);
 
 		if (formData !== {}) {
 			setIsLoading(true);
@@ -337,7 +348,6 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						navigate('/admin/films');
 					});
 			}
 		}
@@ -1215,7 +1225,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Facebook'>{t('links.facebook')}</label>
+					<label htmlFor='Facebook'>{t('linksLabels.facebook')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.facebook ?? ''}
 						{...register('facebook')}
@@ -1227,18 +1237,25 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Image'>
+					<label htmlFor='CoverImage'>
 						{t('cover')}
 						<span>*</span>
 					</label>
 					<input
-						onChange={(event) => {
-							const file = event.target.files[0];
-							setFile(file);
-						}}
+						onChange={handleCoverImageChange}
 						type='file'
-						name='Image'
+						name='coverImage'
+						accept='.png, .jpg, .jpeg'
 						required
+					/>
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='PressBookPdf'>Pressbook</label>
+					<input
+						onChange={handlePressBook}
+						type='file'
+						name='PressBook'
+						accept='.pdf'
 					/>
 				</div>
 				<div className={classes.form__container__item}>

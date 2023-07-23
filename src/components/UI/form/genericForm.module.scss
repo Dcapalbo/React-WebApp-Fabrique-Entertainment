@@ -35,6 +35,18 @@
 		input {
 			width: 100%;
 		}
+		input[type='file']::file-selector-button {
+			transition: background-color 0.2s, color 0.2s;
+			background-color: $thirdColor;
+			color: $secondColor;
+			padding: 5px 12px;
+			cursor: pointer;
+			border: none;
+			&:hover {
+				background-color: $firstColor;
+				color: $thirdColor;
+			}
+		}
 		a {
 			margin-bottom: 20px;
 			color: $thirdColor;

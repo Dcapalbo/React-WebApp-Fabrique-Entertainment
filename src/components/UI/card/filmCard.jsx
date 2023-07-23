@@ -11,7 +11,6 @@ import axios from 'axios';
 import React from 'react';
 
 const FilmCard = (props) => {
-	console.log(props);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
@@ -69,11 +68,11 @@ const FilmCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.imageUrl && (
+			{props.coverImage && (
 				<img
 					onClick={sendFilmDetails}
 					className={classes.card__image}
-					src={props.imageUrl}
+					src={props.coverImage}
 					alt={props.title}
 					title={props.title}
 					loading='lazy'

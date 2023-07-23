@@ -3,6 +3,8 @@
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
 import { BiLogoFacebookCircle } from 'react-icons/bi';
+import downloadPdf from '../../../utils/downloadPdf';
+import base64ArrayBuffer from '../../../utils/base64';
 import { useTranslation } from 'react-i18next';
 import { BsInstagram } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
@@ -25,6 +27,12 @@ const DetailFilm = () => {
 			setError(true);
 		}
 	}, [film]);
+
+	const handlePdfDownload = () => {
+		const filmPressBookBase64 = base64ArrayBuffer(film.pressBookPdf);
+		console.log(filmPressBookBase64);
+		downloadPdf(filmPressBookBase64, film.title + 'Press_Book');
+	};
 
 	if (loading) {
 		return <LoadingSpinner />;
@@ -346,6 +354,18 @@ const DetailFilm = () => {
 												rel='noreferrer'>
 												<BiLogoFacebookCircle size={30} />
 											</a>
+										</div>
+									</>
+								)}
+								{film?.pressBookPdf?.data?.data && (
+									<>
+										<div className={classes.detail__card__right__container}>
+											<button
+												onClick={handlePdfDownload}
+												className={classes.third__button}
+												type='button'>
+												{t('pressBook')}
+											</button>
 										</div>
 									</>
 								)}
