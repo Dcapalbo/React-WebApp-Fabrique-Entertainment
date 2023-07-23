@@ -84,7 +84,6 @@ const FilmCardContainer = () => {
 								coverImage={`data:image/;base64,${base64ArrayBuffer(
 									film.coverImage
 								)}`}
-								pressBookPdf={film.pressBookPdf}
 								key={film._id}
 								_id={film._id}
 							/>

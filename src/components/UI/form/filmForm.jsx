@@ -312,7 +312,7 @@ const FilmForm = () => {
 		}
 
 		formData.append('coverImage', coverImage);
-		formData.append('pressBookPdf', pressBookPdf);
+		// formData.append('pressBookPdf', pressBookPdf);
 
 		if (formData !== {}) {
 			setIsLoading(true);
@@ -1249,7 +1249,7 @@ const FilmForm = () => {
 						required
 					/>
 				</div>
-				<div className={classes.form__container__item}>
+				{/* <div className={classes.form__container__item}>
 					<label htmlFor='PressBookPdf'>Pressbook</label>
 					<input
 						onChange={handlePressBook}
@@ -1257,7 +1257,7 @@ const FilmForm = () => {
 						name='PressBook'
 						accept='.pdf'
 					/>
-				</div>
+				</div> */}
 				<div className={classes.form__container__item}>
 					{!isUpdate ? (
 						<>
