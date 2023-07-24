@@ -28,10 +28,13 @@ const DetailFilm = () => {
 		}
 	}, [film]);
 
-	const handlePdfDownload = () => {
-		const filmPressBookBase64 = base64ArrayBuffer(film.pressBookPdf);
-		console.log(filmPressBookBase64);
-		downloadPdf(filmPressBookBase64, film.title + 'Press_Book');
+	const handlePressBookDownload = (url) => {
+		const link = document.createElement('a');
+		link.href = url;
+		link.setAttribute('download', true);
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
 	};
 
 	if (loading) {
@@ -357,13 +360,15 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.pressBookPdf?.data?.data && (
+								{film?.pressBookPdfUrl && (
 									<>
 										<div className={classes.detail__card__right__container}>
 											<button
-												onClick={handlePdfDownload}
 												className={classes.third__button}
-												type='button'>
+												type='button'
+												onClick={() =>
+													handlePressBookDownload(film.pressBookPdfUrl)
+												}>
 												{t('pressBook')}
 											</button>
 										</div>

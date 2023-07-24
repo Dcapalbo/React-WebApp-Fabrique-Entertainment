@@ -68,11 +68,11 @@ const FilmCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.coverImage && (
+			{props.coverImageUrl && (
 				<img
 					onClick={sendFilmDetails}
 					className={classes.card__image}
-					src={props.coverImage}
+					src={props.coverImageUrl}
 					alt={props.title}
 					title={props.title}
 					loading='lazy'
