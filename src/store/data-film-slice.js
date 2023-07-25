@@ -17,6 +17,26 @@ const dataFilmSlice = createSlice({
 				(film) => film._id !== action.payload._id
 			);
 		},
+		removeImageKey(state, action) {
+			const imageKeyToRemove = action.payload;
+			state.filmsData = state.filmsData.map((film) => {
+				if (film.coverImageKey === imageKeyToRemove) {
+					return {
+						...film,
+						coverImageKey: null,
+						coverImageUrl: null,
+					};
+				}
+				if (film.pressBookPdfKey === imageKeyToRemove) {
+					return {
+						...film,
+						pressBookPdfKey: null,
+						pressBookPdfUrl: null,
+					};
+				}
+				return film;
+			});
+		},
 		resetFilmData(state) {
 			state.filmData = {};
 		},

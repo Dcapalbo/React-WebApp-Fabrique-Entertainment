@@ -1,5 +1,6 @@
 /** @format */
 
+import { handlePressBookDownload } from '../../../utils/functions';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
 import { BiLogoFacebookCircle } from 'react-icons/bi';
@@ -25,15 +26,6 @@ const DetailFilm = () => {
 			setError(true);
 		}
 	}, [film]);
-
-	const handlePressBookDownload = (url) => {
-		const link = document.createElement('a');
-		link.href = url;
-		link.setAttribute('download', true);
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-	};
 
 	if (loading) {
 		return <LoadingSpinner />;
