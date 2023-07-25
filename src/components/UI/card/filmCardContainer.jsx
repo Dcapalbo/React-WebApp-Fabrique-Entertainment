@@ -1,7 +1,6 @@
 /** @format */
 
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
-import base64ArrayBuffer from '../../../utils/base64';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import classes from './cardContainer.module.scss';
 import { useEffect, useState } from 'react';

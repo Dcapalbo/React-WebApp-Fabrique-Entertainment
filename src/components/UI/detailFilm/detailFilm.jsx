@@ -3,8 +3,6 @@
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from '../../../assets/detailCard.module.scss';
 import { BiLogoFacebookCircle } from 'react-icons/bi';
-import downloadPdf from '../../../utils/downloadPdf';
-import base64ArrayBuffer from '../../../utils/base64';
 import { useTranslation } from 'react-i18next';
 import { BsInstagram } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
