@@ -7,16 +7,19 @@ import { slugCreation } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
+import { AiOutlineFilePdf } from 'react-icons/ai';
 import classes from './genericForm.module.scss';
 import GenreSelect from '../select/genreSelect';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import TypeSelect from '../select/typeSelect';
 import { useState, useEffect } from 'react';
+import { Document, Page } from 'react-pdf';
 import axios from 'axios';
 import React from 'react';
 
 const FilmForm = () => {
+	const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
 	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -63,11 +66,17 @@ const FilmForm = () => {
 		}
 	}, [uriLocation, dispatch]);
 
-	const { register, control, formState, setValue, handleSubmit, trigger } =
-		useForm({
-			defaultValues: dataUpdateFilm ?? '',
-			resolver: zodResolver(filmSchema),
-		});
+	const {
+		register,
+		control,
+		formState,
+		setValue,
+		handleSubmit,
+		trigger,
+	} = useForm({
+		defaultValues: dataUpdateFilm ?? '',
+		resolver: zodResolver(filmSchema),
+	});
 
 	const { errors } = formState;
 
@@ -86,7 +95,9 @@ const FilmForm = () => {
 	const [coverImage, setCoverImage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [actors, setActors] = useState(actorsData);
+	const [pageNumber, setPageNumber] = useState(1);
 	const [isUpdate, setIsUpdate] = useState(false);
+	const [numPages, setNumPages] = useState(null);
 	const [error, setError] = useState(null);
 
 	const handleSelectChange = (selectedValue) => {
@@ -141,6 +152,26 @@ const FilmForm = () => {
 	const handlePressBook = (event) => {
 		const pressBookPdf = event.target.files[0];
 		setPressBookPdf(pressBookPdf);
+	};
+
+	const onDocumentLoadSuccess = ({ numPages }) => {
+		setNumPages(numPages);
+	};
+
+	const handleSingleImageDelete = async (imageKey) => {
+		try {
+			const response = await axios.delete(
+				`${apiUrl}/delete-image?image_key=${imageKey}`
+			);
+
+			if (response.status === 200) {
+				console.log(response);
+			} else {
+				console.log('Error deleting image:', response.data.message);
+			}
+		} catch (error) {
+			console.error('Error deleting image:', error);
+		}
 	};
 
 	const confirmHandler = (data) => {
@@ -317,7 +348,6 @@ const FilmForm = () => {
 		if (formData !== {}) {
 			setIsLoading(true);
 
-			const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
 			const addFilmUrl = `${apiUrl}/add-film`;
 			const updateFilmUrl = `${apiUrl}/update-film`;
 			const requestUrl = uriLocation.includes('admin/add-new-film')
@@ -348,6 +378,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
+						navigate('/admin/films');
 					});
 			}
 		}
@@ -357,7 +388,8 @@ const FilmForm = () => {
 		<section className={classes.form__wrapper}>
 			<form
 				onSubmit={handleSubmit(confirmHandler)}
-				className={classes.form__container}>
+				className={classes.form__container}
+			>
 				<div className={classes.form__container__item}>
 					{!isUpdate ? (
 						<h4>{t('labels.addDbFilm')}</h4>
@@ -392,9 +424,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				{productions.map((production, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='ProductionName'>
 							{t('productionsLabels.production')}
 							<span>*</span>
@@ -429,7 +459,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('productionsLabels.deleteProduction')}
 							</button>
 						)}
@@ -443,14 +474,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('productionsLabels.addProduction')}
 					</button>
 				</div>
 				{producers.map((producer, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='ProducerName'>
 							{t('producersLabels.producer')}
 							<span>*</span>
@@ -483,7 +513,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('producersLabels.deleteProducer')}
 							</button>
 						)}
@@ -497,14 +528,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('producersLabels.addProducer')}
 					</button>
 				</div>
 				{coProductions.map((coProduction, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='CoProductionName'>
 							{t('coProductionsLabels.coProduction')}
 						</label>
@@ -542,7 +572,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('coProductionsLabels.deleteCoProduction')}
 							</button>
 						)}
@@ -556,14 +587,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('coProductionsLabels.addCoProduction')}
 					</button>
 				</div>
 				{coProducers.map((coProducer, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='CoProducerName'>
 							{t('coProducersLabels.coProducer')}
 						</label>
@@ -597,7 +627,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('coProducersLabels.deleteCoProducer')}
 							</button>
 						)}
@@ -611,14 +642,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('coProducersLabels.addCoProducer')}
 					</button>
 				</div>
 				{actors.map((actor, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='ActorName'>
 							{t('actorsLabels.actor')}
 							<span>*</span>
@@ -643,9 +673,7 @@ const FilmForm = () => {
 						{errors.actors?.[index]?.actorName?.message && (
 							<small>{errors.actors?.[index]?.actorName.message}</small>
 						)}
-						<label
-							className={classes.margin__top}
-							htmlFor='ActorRole'>
+						<label className={classes.margin__top} htmlFor='ActorRole'>
 							{t('actorsLabels.role')}
 							<span>*</span>
 						</label>
@@ -677,7 +705,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('actorsLabels.deleteActor')}
 							</button>
 						)}
@@ -692,14 +721,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('actorsLabels.addActor')}
 					</button>
 				</div>
 				{subjects.map((subject, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='SubjectName'>
 							{t('subjectsLabels.subject')}
 							<span>*</span>
@@ -732,7 +760,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('subjectsLabels.deleteSubject')}
 							</button>
 						)}
@@ -746,14 +775,13 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('subjectsLabels.addSubject')}
 					</button>
 				</div>
 				{screenwriters.map((screenwriter, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='ScreenwriterName'>
 							{t('screenwritersLabels.screenwriter')}
 							<span>*</span>
@@ -792,7 +820,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('screenwritersLabels.deleteScreenwriter')}
 							</button>
 						)}
@@ -806,7 +835,8 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('screenwritersLabels.addScreenwriter')}
 					</button>
 				</div>
@@ -960,9 +990,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				{executiveProducers.map((executiveProducer, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='ExecutiveProducerName'>
 							{t('executiveProducersLabels.executiveProducer')}
 							<span>*</span>
@@ -1005,7 +1033,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('executiveProducersLabels.deleteExecutiveProducer')}
 							</button>
 						)}
@@ -1019,7 +1048,8 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('executiveProducersLabels.addExecutiveProducer')}
 					</button>
 				</div>
@@ -1073,7 +1103,8 @@ const FilmForm = () => {
 						defaultValue={formState.defaultValues?.payload?.synopsis ?? ''}
 						{...register('synopsis')}
 						type='text'
-						onChange={handleInputChange}></textarea>
+						onChange={handleInputChange}
+					></textarea>
 					{errors.synopsis?.message && (
 						<small>{errors.synopsis?.message}</small>
 					)}
@@ -1086,7 +1117,8 @@ const FilmForm = () => {
 						}
 						{...register('productionNotes')}
 						type='text'
-						onChange={handleInputChange}></textarea>
+						onChange={handleInputChange}
+					></textarea>
 					{errors.productionNotes?.message && (
 						<small>{errors.productionNotes?.message}</small>
 					)}
@@ -1120,9 +1152,7 @@ const FilmForm = () => {
 					{errors.year?.message && <small>{errors.year?.message}</small>}
 				</div>
 				{festivals.map((festival, index) => (
-					<div
-						className={classes.form__container__item}
-						key={index}>
+					<div className={classes.form__container__item} key={index}>
 						<label htmlFor='festivalName'>
 							{t('festivalsLabels.festival')}
 						</label>
@@ -1154,7 +1184,8 @@ const FilmForm = () => {
 								className={
 									classes.secondary__button + ' ' + classes.extra__margin__top
 								}
-								type='button'>
+								type='button'
+							>
 								{t('festivalsLabels.deleteFestival')}
 							</button>
 						)}
@@ -1168,7 +1199,8 @@ const FilmForm = () => {
 							})
 						}
 						className={classes.secondary__button}
-						type='button'>
+						type='button'
+					>
 						{t('festivalsLabels.addFestival')}
 					</button>
 				</div>
@@ -1248,6 +1280,27 @@ const FilmForm = () => {
 						accept='.png, .jpg, .jpeg'
 						required
 					/>
+
+					{dataUpdateFilm?.coverImageUrl && (
+						<div className={classes.form__container__item__images}>
+							<img
+								title={dataUpdateFilm?.title}
+								alt={dataUpdateFilm?.title}
+								src={dataUpdateFilm?.coverImageUrl}
+							/>
+							<div className={classes.flex__button__images__delete}>
+								<button
+									onClick={() =>
+										handleSingleImageDelete(dataUpdateFilm?.coverImageKey)
+									}
+									className={classes.secondary__button}
+									type='button'
+								>
+									X
+								</button>
+							</div>
+						</div>
+					)}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='PressBookPdf'>Pressbook</label>
@@ -1257,13 +1310,34 @@ const FilmForm = () => {
 						name='PressBook'
 						accept='.pdf'
 					/>
+
+					{dataUpdateFilm?.pressBookPdfUrl && (
+						<div className={classes.form__container__item__images}>
+							<AiOutlineFilePdf size={5} color='#cc0000' />
+							<Document
+								file={dataUpdateFilm.pressBookPdfUrl}
+								onLoadSuccess={onDocumentLoadSuccess}
+							>
+								<Page pageNumber={pageNumber} />
+							</Document>
+							<div className={classes.flex__button__images__delete}>
+								<button
+									onClick={() =>
+										handleSingleImageDelete(dataUpdateFilm?.coverImageKey)
+									}
+									className={classes.secondary__button}
+									type='button'
+								>
+									X
+								</button>
+							</div>
+						</div>
+					)}
 				</div>
 				<div className={classes.form__container__item}>
 					{!isUpdate ? (
 						<>
-							<button
-								className={classes.secondary__button}
-								type='submit'>
+							<button className={classes.secondary__button} type='submit'>
 								{t('insertAction')}
 							</button>
 							<div className={classes.generic__margin__top}>
@@ -1273,9 +1347,7 @@ const FilmForm = () => {
 					) : (
 						isUpdate && (
 							<>
-								<button
-									className={classes.secondary__button}
-									type='submit'>
+								<button className={classes.secondary__button} type='submit'>
 									{t('modifyAction')}
 								</button>
 								<div className={classes.generic__margin__top}>

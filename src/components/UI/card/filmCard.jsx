@@ -72,29 +72,29 @@ const FilmCard = (props) => {
 				<img
 					onClick={sendFilmDetails}
 					className={classes.card__image}
-					src={props.coverImageUrl}
-					alt={props.title}
-					title={props.title}
+					src={props.coverImageUrl ?? ''}
+					alt={props.title ?? ''}
+					title={props.title ?? ''}
 					loading='lazy'
 				/>
 			)}
 			<div className={classes.card__internal__description}>
-				{props.title && <h2>{props.title}</h2>}
-				{props.synopsis && <p>{props.synopsis}</p>}
+				{props.title && <h2>{props.title ?? ''}</h2>}
+				{props.synopsis && <p>{props.synopsis ?? ''}</p>}
 			</div>
 			<div className={classes.card__external__informations}>
-				{props.director && <h2>{props.director}</h2>}
+				{props.director && <h2>{props.director ?? ''}</h2>}
 				{props.productions && (
 					<>
 						{props?.productions.map((production, index) => (
-							<p key={index}>{production.productionName}</p>
+							<p key={index}>{production.productionName ?? ''}</p>
 						))}
 					</>
 				)}
 				<div className={classes.card__external__informations__item}>
 					{props.type && (
 						<>
-							<small>{props.type}</small>
+							<small>{props.type ?? ''}</small>
 						</>
 					)}
 				</div>

@@ -81,8 +81,10 @@ const FilmCardContainer = () => {
 								imdb={film.imdb}
 								instagram={film.instagram}
 								facebook={film.facebook}
-								coverImageUrl={film.coverImageUrl}
-								pressBookPdfUrl={film.pressBookPdfUrl}
+								coverImageUrl={film?.cover?.coverImageUrl}
+								coverImageKey={film?.cover?.coverImageKey}
+								pressBookPdfUrl={film?.pressBook?.pressBookPdfUrl}
+								pressBookPdfKey={film?.pressBook?.pressBookPdfKey}
 								key={film._id}
 								_id={film._id}
 							/>
