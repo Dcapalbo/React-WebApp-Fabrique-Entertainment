@@ -29,4 +29,26 @@ const handlePressBookDownload = (url) => {
 	document.body.removeChild(link);
 };
 
-export { decodeToken, slugCreation, handlePressBookDownload };
+const handleSingleImageDelete = async (imageKey, url) => {
+	try {
+		const response = await axios.delete(
+			`${url}/delete-image?image_key=${imageKey}`
+		);
+
+		if (response.status === 200) {
+			console.log(response);
+			dispatch(dataFilmActions.removeImageKey(imageKey));
+		} else {
+			console.log('Error deleting image:', response.data.message);
+		}
+	} catch (error) {
+		console.error('Error deleting image:', error);
+	}
+};
+
+export {
+	decodeToken,
+	slugCreation,
+	handlePressBookDownload,
+	handleSingleImageDelete,
+};

@@ -1,6 +1,9 @@
 /** @format */
 
-import { handlePressBookDownload } from '../../../utils/functions';
+import {
+	handlePressBookDownload,
+	handleSingleImageDelete,
+} from '../../../utils/functions';
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { filmSchema } from '../../../schema/filmSchema';
@@ -144,23 +147,6 @@ const FilmForm = () => {
 	const handlePressBook = (event) => {
 		const pressBookPdf = event.target.files[0];
 		setPressBookPdf(pressBookPdf);
-	};
-
-	const handleSingleImageDelete = async (imageKey) => {
-		try {
-			const response = await axios.delete(
-				`${apiUrl}/delete-image?image_key=${imageKey}`
-			);
-
-			if (response.status === 200) {
-				console.log(response);
-				dispatch(dataFilmActions.removeImageKey(imageKey));
-			} else {
-				console.log('Error deleting image:', response.data.message);
-			}
-		} catch (error) {
-			console.error('Error deleting image:', error);
-		}
 	};
 
 	const confirmHandler = (data) => {
@@ -370,7 +356,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						//	navigate('/admin/films');
+						navigate('/admin/films');
 					});
 			}
 		}
@@ -1286,7 +1272,10 @@ const FilmForm = () => {
 							<div className={classes.flex__button__images__delete}>
 								<button
 									onClick={() =>
-										handleSingleImageDelete(dataUpdateFilm?.coverImageKey)
+										handleSingleImageDelete(
+											dataUpdateFilm?.coverImageKey,
+											apiUrl
+										)
 									}
 									className={classes.fourth__button}
 									type='button'>
@@ -1321,7 +1310,10 @@ const FilmForm = () => {
 							<div className={classes.flex__button__images__delete}>
 								<button
 									onClick={() =>
-										handleSingleImageDelete(dataUpdateFilm?.pressBookPdfKey)
+										handleSingleImageDelete(
+											dataUpdateFilm?.pressBookPdfKey,
+											apiUrl
+										)
 									}
 									className={classes.fourth__button}
 									type='button'>

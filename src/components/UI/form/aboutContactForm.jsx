@@ -3,7 +3,10 @@
 import { dataContactActions } from '../../../store/data-contact-slice';
 import { contactSchema } from '../../../schema/conctactSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
-import { slugCreation } from '../../../utils/functions';
+import {
+	handleSingleImageDelete,
+	slugCreation,
+} from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import classes from './genericForm.module.scss';
@@ -15,7 +18,7 @@ import axios from 'axios';
 import React from 'react';
 
 const AboutContactForm = () => {
-	const uriLocation = window.location.href;
+	const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -40,10 +43,10 @@ const AboutContactForm = () => {
 
 	const { errors } = formState;
 
-	const [isUpdate, setIsUpdate] = useState(false);
+	const [contactImage, setContactImage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
-	const [file, setFile] = useState(null);
 
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
@@ -56,6 +59,11 @@ const AboutContactForm = () => {
 		}
 	};
 
+	const handleCoverImageChange = (event) => {
+		const contactImage = event.target.files[0];
+		setContactImage(contactImage);
+	};
+
 	const confirmHandler = (data) => {
 		const formData = new FormData();
 
@@ -66,42 +74,50 @@ const AboutContactForm = () => {
 		formData.append('email', data.email);
 		formData.append('phoneNumber', data.phoneNumber);
 		formData.append('slug', slugCreation(data.name));
-		formData.append('file', file);
+		formData.append(
+			'contactImage',
+			contactImage ?? dataUpdateContact?.contactImageKey
+		);
 
 		if (dataUpdateContact?._id) {
 			formData.append('_id', dataUpdateContact?._id);
 		}
 
 		if (formData !== {}) {
-			const endpoint =
-				uriLocation ===
-				`${process.env.REACT_APP_CLIENT_LOCAL_PORT}/admin/add-new-contact`
-					? `${process.env.REACT_APP_API_LOCAL_PORT}/add-contact`
-					: `${process.env.REACT_APP_API_LOCAL_PORT}/update-contact`;
-
 			setIsLoading(true);
-			axios
-				.request({
-					method: uriLocation.includes('/update-contact') ? 'put' : 'post',
-					url: endpoint,
-					data: formData,
-				})
-				.then((res) => {
-					console.log(res.data);
-				})
-				.catch((err) => {
-					console.error(
-						uriLocation.includes('/update-contact')
-							? 'There is an error for updating a contact: '
-							: 'There is an error for adding a new contact: ',
-						err.name
-					);
-					setError(err);
-				})
-				.finally(() => {
-					setIsLoading(false);
-					navigate('/admin/contacts');
-				});
+
+			const addContactUrl = `${apiUrl}/add-contact`;
+			const updateContactUrl = `${apiUrl}/update-contact`;
+			const requestUrl = uriLocation.includes('admin/add-new-contact')
+				? addContactUrl
+				: uriLocation.includes('/admin/update-contact')
+				? updateContactUrl
+				: '';
+			if (requestUrl !== '') {
+				axios
+					.request({
+						method: requestUrl.includes('add-contact') ? 'post' : 'put',
+						url: endpoint,
+						data: formData,
+					})
+					.then((res) => {
+						console.log(res.data);
+					})
+					.catch((err) => {
+						console.error(
+							`There is an error for ${
+								requestUrl.includes('add-contact') ? 'adding' : 'updating'
+							} a contact:`,
+							err
+						);
+						setError(err);
+					})
+					.finally(() => {
+						dispatch(dataContactActions.resetContactData());
+						setIsLoading(false);
+						navigate('/admin/contacts');
+					});
+			}
 		}
 	};
 
@@ -177,16 +193,44 @@ const AboutContactForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Image'>{t('profileCover')}</label>
-					<input
-						onChange={(event) => {
-							const file = event.target.files[0];
-							setFile(file);
-						}}
-						type='file'
-						name='Image'
-						required
-					/>
+					{!dataUpdateFilm?.coverImageUrl && (
+						<>
+							<label htmlFor='ContactImage'>
+								{t('profileCover')}
+								<span>*</span>
+							</label>
+							<input
+								onChange={handleCoverImageChange}
+								type='file'
+								name='contactImage'
+								accept='.png, .jpg, .jpeg'
+								required
+							/>
+						</>
+					)}
+
+					{dataUpdateContact?.contactImageUrl && (
+						<div className={classes.form__container__item__images}>
+							<img
+								title={dataUpdateContact?.name}
+								alt={dataUpdateContact?.name}
+								src={dataUpdateContact?.contactImageUrl}
+							/>
+							<div className={classes.flex__button__images__delete}>
+								<button
+									onClick={() =>
+										handleSingleImageDelete(
+											dataUpdateContact?.contactImageKey,
+											apiUrl
+										)
+									}
+									className={classes.fourth__button}
+									type='button'>
+									X
+								</button>
+							</div>
+						</div>
+					)}
 				</div>
 				<div className={classes.form__container__item}>
 					{!isUpdate ? (
@@ -215,7 +259,9 @@ const AboutContactForm = () => {
 						)
 					)}
 				</div>
-				<small className={classes.obligatory}>Campi contrassegnati con (*) sono obbligatori</small>
+				<small className={classes.obligatory}>
+					Campi contrassegnati con (*) sono obbligatori
+				</small>
 				{isLoading && <LoadingSpinner />}
 			</form>
 		</section>

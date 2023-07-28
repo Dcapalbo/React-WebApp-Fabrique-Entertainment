@@ -20,6 +20,19 @@ const dataContactSlice = createSlice({
 				(contact) => contact._id !== action.payload._id
 			);
 		},
+		removeImageKey(state, action) {
+			const imageKeyToRemove = action.payload;
+			state.contactsData = state.contactsData.map((contact) => {
+				if (contact.coverImageKey === imageKeyToRemove) {
+					return {
+						...contact,
+						contactImageKey: null,
+						contactImageUrl: null,
+					};
+				}
+				return contact;
+			});
+		},
 		resetContactData(state) {
 			state.contactData = {};
 		},
