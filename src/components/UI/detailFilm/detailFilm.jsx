@@ -48,7 +48,7 @@ const DetailFilm = () => {
 						) : (
 							<img
 								className={classes.detail__card__image}
-								src={film.imageUrl ?? ''}
+								src={film.coverImageUrl ?? ''}
 								alt={film.title ?? ''}
 								title={film.title ?? ''}
 								loading='lazy'

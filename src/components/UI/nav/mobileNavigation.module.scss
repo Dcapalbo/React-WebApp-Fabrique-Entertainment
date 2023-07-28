@@ -46,7 +46,7 @@
 
 	.clicked__mobile__navigation {
 		animation-duration: 1s;
-		height: fit-content;
+		max-height: fit-content;
 		transition: 1s;
 	}
 }

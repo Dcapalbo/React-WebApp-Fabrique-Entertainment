@@ -250,6 +250,30 @@ h6 {
 		font-size: 14px;
 	}
 }
+//fourth button
+.fourth__button {
+	background-color: $firstColor;
+	border-color: $secondColor;
+	color: $thirdColor;
+	border: 1px solid;
+	margin: 20px 0px;
+	transition: 0.4s;
+	font-size: 18px;
+	border: none;
+	height: 25px;
+	width: 25px;
+	&:hover,
+	&:active {
+		background-color: $thirdColor;
+		border: 1px solid $secondColor;
+		color: $secondColor;
+		transition: 0.4s;
+		cursor: pointer;
+	}
+	@media (max-width: $screen-sm-min) {
+		font-size: 14px;
+	}
+}
 
 // generic margin
 .generic__margin__top {

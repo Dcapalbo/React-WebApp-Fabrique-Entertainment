@@ -155,7 +155,6 @@ const FilmForm = () => {
 			if (response.status === 200) {
 				console.log(response);
 				dispatch(dataFilmActions.removeImageKey(imageKey));
-				console.log('siamo al top');
 			} else {
 				console.log('Error deleting image:', response.data.message);
 			}
@@ -332,8 +331,11 @@ const FilmForm = () => {
 			formData.append('_id', dataUpdateFilm?._id);
 		}
 
-		formData.append('coverImage', coverImage);
-		formData.append('pressBookPdf', pressBookPdf);
+		formData.append('coverImage', coverImage ?? dataUpdateFilm?.coverImageKey);
+		formData.append(
+			'pressBookPdf',
+			pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey
+		);
 
 		if (formData !== {}) {
 			setIsLoading(true);
@@ -368,7 +370,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						navigate('/admin/films');
+						//	navigate('/admin/films');
 					});
 			}
 		}
@@ -1286,7 +1288,7 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(dataUpdateFilm?.coverImageKey)
 									}
-									className={classes.secondary__button}
+									className={classes.fourth__button}
 									type='button'>
 									X
 								</button>
@@ -1321,7 +1323,7 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(dataUpdateFilm?.pressBookPdfKey)
 									}
-									className={classes.secondary__button}
+									className={classes.fourth__button}
 									type='button'>
 									X
 								</button>
