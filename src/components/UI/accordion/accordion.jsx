@@ -10,16 +10,16 @@ const Accordion = () => {
 
 	const accordionData = [
 		{
+			headline: t('company'),
+			description: t('companyDescription'),
+		},
+		{
 			headline: t('vision'),
 			description: t('visionDescription'),
 		},
 		{
 			headline: t('ethics'),
 			description: t('ethicsDescription'),
-		},
-		{
-			headline: t('company'),
-			description: t('companyDescription'),
 		},
 	];
 
