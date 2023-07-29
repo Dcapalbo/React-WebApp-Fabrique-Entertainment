@@ -222,7 +222,9 @@ const AboutContactForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(
 											dataUpdateContact?.contactImageKey,
-											apiUrl
+											apiUrl,
+											dispatch,
+											dataContactActions.removeImageKey
 										)
 									}
 									className={classes.fourth__button}

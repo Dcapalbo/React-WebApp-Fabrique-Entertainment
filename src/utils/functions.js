@@ -1,5 +1,7 @@
 /** @format */
 
+import axios from 'axios';
+
 const decodeToken = (token) => {
 	let base64Url = token.split('.')[1];
 	let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -29,7 +31,12 @@ const handlePressBookDownload = (url) => {
 	document.body.removeChild(link);
 };
 
-const handleSingleImageDelete = async (imageKey, url) => {
+const handleSingleImageDelete = async (
+	imageKey,
+	url,
+	dispatch,
+	reduxAction
+) => {
 	try {
 		const response = await axios.delete(
 			`${url}/delete-image?image_key=${imageKey}`
@@ -37,7 +44,7 @@ const handleSingleImageDelete = async (imageKey, url) => {
 
 		if (response.status === 200) {
 			console.log(response);
-			dispatch(dataFilmActions.removeImageKey(imageKey));
+			dispatch(reduxAction(imageKey));
 		} else {
 			console.log('Error deleting image:', response.data.message);
 		}

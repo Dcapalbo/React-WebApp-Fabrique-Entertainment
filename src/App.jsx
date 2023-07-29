@@ -26,6 +26,7 @@ import Film from './pages/Film';
 import About from './pages/About';
 import Films from './pages/Films';
 import NewFilm from './pages/NewFilm';
+import Contacts from './pages/Contacts';
 import LoginForm from './pages/LoginForm';
 import UpdateFilm from './pages/UpdateFilm';
 import AuthSignUp from './pages/AuthSignUp';
@@ -80,6 +81,10 @@ const App = () => {
 				<Route
 					path='/films'
 					element={<Films />}
+				/>
+				<Route
+					path='/contacts'
+					element={<Contacts />}
 				/>
 				<Route
 					path='/film/:id'

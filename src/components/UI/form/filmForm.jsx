@@ -1274,7 +1274,9 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(
 											dataUpdateFilm?.coverImageKey,
-											apiUrl
+											apiUrl,
+											dispatch,
+											dataFilmActions.removeImageKey
 										)
 									}
 									className={classes.fourth__button}
@@ -1312,7 +1314,9 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(
 											dataUpdateFilm?.pressBookPdfKey,
-											apiUrl
+											apiUrl,
+											dispatch,
+											dataFilmActions.removeImageKey
 										)
 									}
 									className={classes.fourth__button}
