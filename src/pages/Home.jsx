@@ -9,6 +9,7 @@ import Footer from '../components/footer/footer';
 import Hero from '../components/hero/hero';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import React from 'react';
 
 const Home = () => {
 	const [type, setType] = useState('');

@@ -7,6 +7,7 @@ import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import React from 'react';
 
 const About = () => {
 	const dispatch = useDispatch();

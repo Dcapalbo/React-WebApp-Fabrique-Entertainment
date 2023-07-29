@@ -3,6 +3,7 @@
 import MobileNavigation from './MobileNavigation';
 import classes from './navBar.module.scss';
 import Navigation from './Navigation';
+import React from 'react';
 
 const NavBar = () => {
 	return (

@@ -10,6 +10,7 @@ import classes from './genericForm.module.scss';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 const LoginForm = () => {

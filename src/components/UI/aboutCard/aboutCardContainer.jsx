@@ -7,6 +7,7 @@ import StateGetHook from '../../../hooks/stateGetHook';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import { useDispatch } from 'react-redux';
 import AboutCard from './aboutCard';
+import React from 'react';
 
 const AboutAuthCardContainer = () => {
 	let uriLocation = window.location.href;

@@ -6,6 +6,7 @@ import classes from './cardContainer.module.scss';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FilmCard from './filmCard';
+import React from 'react';
 
 const FilmCardContainer = () => {
 	const { films, error, loading } = ApiGetHook(

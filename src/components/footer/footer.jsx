@@ -3,6 +3,7 @@
 import { BiLogoFacebookCircle } from 'react-icons/bi';
 import { BsInstagram } from 'react-icons/bs';
 import classes from './footer.module.scss';
+import React from 'react';
 
 const Footer = () => {
 	return (

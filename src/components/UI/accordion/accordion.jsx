@@ -3,6 +3,7 @@
 import classes from './accordion.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import React from 'react';
 
 const Accordion = () => {
 	const { t } = useTranslation();
