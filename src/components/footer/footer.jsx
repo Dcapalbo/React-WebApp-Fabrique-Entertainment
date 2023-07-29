@@ -1,24 +1,50 @@
-import classes from "./footer.module.scss";
+/** @format */
+
+import { BiLogoFacebookCircle } from 'react-icons/bi';
+import { BsInstagram } from 'react-icons/bs';
+import classes from './footer.module.scss';
 
 const Footer = () => {
-  return (
-    <footer className={classes.footer}>
-      <div className={classes.footer__container}>
-        <div className={classes.footer__container__elm}>
-          <h2>Dati Fatturazione</h2>
-          <p>Partita Iva: 364667737727</p>
-          <p>Codice Adesione: jjfhhry773</p>
-          <p>Sede Legale: piazza euclide</p>
-        </div>
-        <div className={classes.footer__container__elm}>
-          <h2>Dati societari</h2>
-          <p>Partita Iva</p>
-          <p>Codice Adesione</p>
-          <p>Sede Legale</p>
-        </div>
-      </div>
-    </footer>
-  );
+	return (
+		<footer className={classes.footer}>
+			<div className={classes.footer__container}>
+				<div className={classes.footer__container__elm}>
+					<h2>Dati Finanziari</h2>
+					<p>Fabrique Entertainment S.r.l.</p>
+					<p>Codice fiscale e P.IVA: 12753751002</p>
+					<p>Cap. sociale interamente versato 50.000€</p>
+				</div>
+				<div className={classes.footer__container__elm}>
+					<h2>Recapiti Aziendali</h2>
+					<p>Sede Legale: ROMA (RM) Via Paolo Emilio 34, CAP 00192</p>
+					<p>Sede Operativa: ROMA (RM) Via Petrarca 8, CAP 00185</p>
+					<p>
+						email aziendale:
+						<a href='mailto:"fabriquesrl@gmail.com"'>fabriquesrl@gmail.com</a>
+					</p>
+					<p>
+						pec aziendale:
+						<a href='mailto:fabriquesrl@pec.it'>fabriquesrl@pec.it</a>
+					</p>
+				</div>
+				<div className={classes.footer__container__elm}>
+					<h2>Link Social</h2>
+					<a
+						href=''
+						target='_blank'
+						rel='noreferrer'>
+						<BsInstagram size={30} />
+					</a>
+					<a
+						href=''
+						target='_blank'
+						rel='noreferrer'>
+						<BiLogoFacebookCircle size={30} />
+					</a>
+				</div>
+			</div>
+		</footer>
+	);
 };
 
 export default Footer;

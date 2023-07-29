@@ -12,13 +12,13 @@ const translationIt = {
 	forgotPassword: 'Reimposta la password',
 	vision: 'Visione',
 	visionDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
+		'Fabrique Entertainment nasce a Febbraio del 2014. L’obiettivo della società è quello di valutare progetti in linea con il cinema d’autore italiano ed europeo. In tale direzione sono stati sviluppati e realizzati ad oggi progetti che hanno caratterizzato la sua vocazione autoriale.',
 	ethics: 'Etica',
 	ethicsDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
-	team: 'Il team',
-	teamDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
+		'L’etica della nostra società è legata profondamente al rispetto dei valori umani nelle relazioni di lavoro, mettendo sempre al centro il rispetto delle idee, dell’arte, dell’ambiente, della cultura e in particolare dell’esplorazione della multiculturalità nel mondo cinematografico contemporaneo.',
+	company: 'la società',
+	companyDescription:
+		'Fabrique Entertainment nasce a Febbraio del 2014. L’obiettivo della società è quello di valutare progetti in linea con il cinema d’autore italiano ed europeo. In tale direzione sono stati sviluppati ad oggi progetti che hanno caratterizzato la sua vocazione autoriale. Attualmente Fabrique Entertainment è in fase di post-produzione con il documentario “Fela, il mio Dio Vivente” per la regia di Daniele Vicari, con voce narrante di Claudio Santamaria e musiche di Teho Teardo, co-prodotto con Cinecittà - Luce, Lokafilm (Slovenia), Grasshopper Films (UK) e in collaborazione con Rai Cinema ed è in fase di sviluppo per il film “Flaminio Zoo” (per la sceneggiatura di Heidrun Schleef e Guerino Di Leone e ispirato a una storia vera) e per il documentario “Bobò, l’angelo che mi ha salvato la vita”, film che sarà co-prodotto con Cinecittà - Luce e Casa Azul Films (Svizzera), per la regia di Pippo Delbono.',
 	genericInfo: {
 		name: 'Nome',
 		surname: 'Cognome',

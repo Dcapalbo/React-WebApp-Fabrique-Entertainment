@@ -269,8 +269,14 @@ const FilmForm = () => {
 			}
 		}
 
-		formData.append('distributor', data.distributor);
-		formData.append('salesAgent', data.salesAgent);
+		if (data.distributor) {
+			formData.append('distributor', data.distributor);
+		}
+
+		if (data.salesAgent) {
+			formData.append('salesAgent', data.salesAgent);
+		}
+
 		formData.append('firstAssistantDirector', data.firstAssistantDirector);
 		formData.append('synopsis', data.synopsis);
 

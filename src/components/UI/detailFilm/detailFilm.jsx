@@ -213,18 +213,23 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.executiveProducers && (
-									<>
-										<p>{t('executiveProducers')}</p>
-										{film.executiveProducers.map((executiveProducer, index) => (
-											<div
-												key={index}
-												className={classes.detail__card__info__wrapper}>
-												<p>{executiveProducer.executiveProducerName ?? ''}</p>
-											</div>
-										))}
-									</>
-								)}
+								{film?.executiveProducers &&
+									film?.executiveProducers.length > 0 && (
+										<>
+											<p>{t('executiveProducers')}</p>
+											{film.executiveProducers.map(
+												(executiveProducer, index) => (
+													<div
+														key={index}
+														className={classes.detail__card__info__wrapper}>
+														<p>
+															{executiveProducer.executiveProducerName ?? ''}
+														</p>
+													</div>
+												)
+											)}
+										</>
+									)}
 								{film?.productions && (
 									<>
 										<p>{t('productions')}</p>
@@ -249,7 +254,7 @@ const DetailFilm = () => {
 										))}
 									</>
 								)}
-								{film?.coProductions && (
+								{film?.coProductions && film?.coProductions.length > 0 && (
 									<>
 										<p>{t('coProductions')}</p>
 										{film.coProductions.map((coProduction, index) => (
@@ -261,7 +266,7 @@ const DetailFilm = () => {
 										))}
 									</>
 								)}
-								{film?.coProducers && (
+								{film?.coProducers && film?.coProducers.length > 0 && (
 									<>
 										<p>{t('coProducers')}</p>
 										{film.coProducers.map((coProducer, index) => (

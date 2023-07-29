@@ -12,13 +12,13 @@ const translationEn = {
 	forgotPassword: 'Reset Password',
 	vision: 'Vision',
 	visionDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
+		"Fabrique Entertainment was founded in February 2014. The company's objective is to evaluate projects in line with Italian and European art-house cinema. In this direction, projects have been developed and realized to date, which have characterized its authorial vocation.",
 	ethics: 'Ethics',
 	ethicsDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
-	team: 'The team',
-	teamDescription:
-		'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make',
+		'The ethics of our company are deeply linked to the respect for human values in work relationships, always placing the respect for ideas, art, the environment, culture, and especially the exploration of multiculturalism in the contemporary film world at the center.',
+	company: 'The company',
+	companyDescription:
+		"Fabrique Entertainment was established in February 2014. The company's objective is to assess projects in line with Italian and European art-house cinema. To this day, they have developed projects that have embodied their authorial calling. Currently, Fabrique Entertainment is in the post-production phase of the documentary 'Fela, My Living God,' directed by Daniele Vicari, featuring the narration of Claudio Santamaria and music by Teho Teardo. The documentary is co-produced in collaboration with Cinecittà - Luce, Lokafilm (Slovenia), Grasshopper Films (UK), and Rai Cinema. Additionally, the company is in the development phase of the film 'Flaminio Zoo' (based on the screenplay by Heidrun Schleef and Guerino Di Leone and inspired by a true story) and the documentary 'Bobò, the Angel Who Saved My Life.' This film will be co-produced with Cinecittà - Luce and Casa Azul Films (Switzerland) and directed by Pippo Delbono.",
 	genericInfo: {
 		name: 'Name',
 		surname: 'Surname',

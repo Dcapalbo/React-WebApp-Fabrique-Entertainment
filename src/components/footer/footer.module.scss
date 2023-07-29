@@ -1,32 +1,45 @@
-@import "../../assets/variables.scss";
-@import "../../assets/mixin.scss";
+/** @format */
+
+@import '../../assets/variables.scss';
+@import '../../assets/mixin.scss';
 footer {
-  background-color: $secondColor;
-  margin-top: 150px;
-  width: 100%;
-  .footer__container {
-    @include flex-around;
-    height: 100%;
-    margin: auto;
-    width: 90%;
-    @media (max-width: $screen-sm-min) {
-      justify-content: space-between;
-    }
-    .footer__container__elm {
-      padding: 10px;
-      p,
-      li {
-        color: $firstColor;
-        padding: 0;
-      }
-      a {
-        transition: 0.4s;
-        color: $firstColor;
-        &:hover {
-          color: $thirdColor;
-          transition: 0.4s;
-        }
-      }
-    }
-  }
+	background-color: $secondColor;
+	margin-top: 150px;
+	width: 100%;
+	.footer__container {
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		display: flex;
+		height: 100%;
+		margin: auto;
+		width: 90%;
+		@media (max-width: $screen-sm-min) {
+			justify-content: space-between;
+		}
+		.footer__container__elm {
+			padding: 10px;
+			h2 {
+				font-size: 18px;
+			}
+			p,
+			li {
+				font-size: 16px;
+				color: $firstColor;
+				padding: 0;
+			}
+			a {
+				transition: 0.4s;
+				color: $firstColor;
+				&:hover {
+					color: $thirdColor;
+					transition: 0.4s;
+				}
+				svg {
+					margin-right: 10px;
+					height: 20px;
+				}
+			}
+		}
+	}
 }
