@@ -20,24 +20,24 @@ const Footer = () => {
 					<p>Sede Legale: ROMA (RM) Via Paolo Emilio 34, CAP 00192</p>
 					<p>Sede Operativa: ROMA (RM) Via Petrarca 8, CAP 00185</p>
 					<p>
-						email aziendale:
+						email aziendale:{' '}
 						<a href='mailto:"fabriquesrl@gmail.com"'>fabriquesrl@gmail.com</a>
 					</p>
 					<p>
-						pec aziendale:
+						pec aziendale:{' '}
 						<a href='mailto:fabriquesrl@pec.it'>fabriquesrl@pec.it</a>
 					</p>
 				</div>
 				<div className={classes.footer__container__elm}>
 					<h2>Link Social</h2>
 					<a
-						href=''
+						href='https://www.instagram.com/fabrique_entertainment/?hl=it'
 						target='_blank'
 						rel='noreferrer'>
 						<BsInstagram size={30} />
 					</a>
 					<a
-						href=''
+						href='https://www.facebook.com/FabriqueEntertainment/?locale=it_IT'
 						target='_blank'
 						rel='noreferrer'>
 						<BiLogoFacebookCircle size={30} />

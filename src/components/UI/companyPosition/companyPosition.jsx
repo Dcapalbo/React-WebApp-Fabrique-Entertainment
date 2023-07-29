@@ -1,26 +1,25 @@
 /** @format */
-import ReactMapboxGl from 'react-mapbox-gl';
+
+import ReactMapGl, { Marker } from 'react-map-gl';
 import React from 'react';
 
-const Map = ReactMapboxGl({
-	accessToken: 'IL_TUO_TOKEN_DI_ACCESSO_A_MAPBOX',
-});
-
 const CompanyPosition = () => {
-	const mapStyle = 'mapbox://styles/mapbox/streets-v11';
-	const positions = {
-		longitude: 44,
-		latitude: -80,
-		zoomLevel: 10,
-	};
-	const center = [positions.longitude, positions.latitude];
-
 	return (
-		<Map
-			style={mapStyle}
-			containerStyle={{ height: '400px', width: '100%' }}
-			center={center}
-			zoom={[positions.zoomLevel]}></Map>
+		<ReactMapGl
+			initialViewState={{
+				longitude: 12.50512,
+				latitude: 41.89211,
+				zoom: 16,
+			}}
+			style={{ width: '100%', height: '400px' }}
+			mapStyle='mapbox://styles/mapbox/streets-v9'
+			transitionDuration='200'
+			mapboxAccessToken={process.env.REACT_APP_TOKEN}>
+			<Marker
+				longitude={12.50512}
+				latitude={41.89211}
+			/>
+		</ReactMapGl>
 	);
 };
 
