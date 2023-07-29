@@ -72,11 +72,11 @@ const AboutCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.imageUrl && (
+			{props.contactImageUrl && (
 				<img
 					onClick={sendContactDetailHanlder}
 					className={classes.card__image}
-					src={props.imageUrl}
+					src={props.contactImageUrl}
 					alt={props.name}
 					name={props.name}
 					loading='lazy'

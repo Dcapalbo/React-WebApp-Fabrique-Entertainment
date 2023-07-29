@@ -4,7 +4,6 @@ import { dataContactActions } from '../../../store/data-contact-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from './aboutCardContainer.module.scss';
 import StateGetHook from '../../../hooks/stateGetHook';
-import base64ArrayBuffer from '../../../utils/base64';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import { useDispatch } from 'react-redux';
 import AboutCard from './aboutCard';
@@ -57,7 +56,7 @@ const AboutAuthCardContainer = () => {
 								email={contact.email}
 								phoneNumber={contact.phoneNumber}
 								slug={contact.slug}
-								imageUrl={`data:image/png;base64,${base64ArrayBuffer(contact)}`}
+								contactImageUrl={contact.contactImageUrl}
 								key={contact._id}
 								_id={contact._id}
 							/>
