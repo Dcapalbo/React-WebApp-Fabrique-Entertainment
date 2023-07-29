@@ -56,7 +56,8 @@ const AboutAuthCardContainer = () => {
 								email={contact.email}
 								phoneNumber={contact.phoneNumber}
 								slug={contact.slug}
-								contactImageUrl={contact.contactImageUrl}
+								contactImageKey={contact?.profileCover?.contactImageKey}
+								contactImageUrl={contact?.profileCover?.contactImageUrl}
 								key={contact._id}
 								_id={contact._id}
 							/>

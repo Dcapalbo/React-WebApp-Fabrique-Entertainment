@@ -28,6 +28,8 @@ const AboutContactForm = () => {
 		(state) => state.dataContact.contactData ?? ''
 	);
 
+	console.log(dataUpdateContact);
+
 	useEffect(() => {
 		if (apiUrl.includes('/admin/update-contact')) {
 			setIsUpdate(true);
@@ -133,7 +135,10 @@ const AboutContactForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbContact')}</h4>
 					)}
-					<label htmlFor='Name'>{t('genericInfo.name')}</label>
+					<label htmlFor='Name'>
+						{t('genericInfo.name')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.name ?? ''}
 						{...register('name')}
@@ -143,7 +148,10 @@ const AboutContactForm = () => {
 					{errors.name?.message && <small>{errors.name?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Surname'>{t('genericInfo.surname')}</label>
+					<label htmlFor='Surname'>
+						{t('genericInfo.surname')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.surname ?? ''}
 						{...register('surname')}
@@ -153,7 +161,10 @@ const AboutContactForm = () => {
 					{errors.surname?.message && <small>{errors.surname?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Role'>{t('role')}</label>
+					<label htmlFor='Role'>
+						{t('role')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.role ?? ''}
 						{...register('role')}
@@ -163,7 +174,10 @@ const AboutContactForm = () => {
 					{errors.role?.message && <small>{errors.role?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Bio'>{t('bio')}</label>
+					<label htmlFor='Bio'>
+						{t('bio')}
+						<span>*</span>
+					</label>
 					<textarea
 						defaultValue={formState.defaultValues?.payload?.bio ?? ''}
 						{...register('bio')}
@@ -172,7 +186,10 @@ const AboutContactForm = () => {
 					{errors.bio?.message && <small>{errors.bio?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Email'>{t('genericInfo.email')}</label>
+					<label htmlFor='Email'>
+						{t('genericInfo.email')}
+						<span>*</span>
+					</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.email ?? ''}
 						{...register('email')}
@@ -194,7 +211,7 @@ const AboutContactForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateContact?.contactImageUrl && (
+					{!dataUpdateContact?.contactImageUrl ? (
 						<>
 							<label htmlFor='ContactImage'>
 								{t('profileCover')}
@@ -208,31 +225,31 @@ const AboutContactForm = () => {
 								required
 							/>
 						</>
-					)}
-
-					{dataUpdateContact?.contactImageUrl && (
-						<div className={classes.form__container__item__images}>
-							<img
-								title={dataUpdateContact?.name}
-								alt={dataUpdateContact?.name}
-								src={dataUpdateContact?.contactImageUrl}
-							/>
-							<div className={classes.flex__button__images__delete}>
-								<button
-									onClick={() =>
-										handleSingleImageDelete(
-											dataUpdateContact?.contactImageKey,
-											apiUrl,
-											dispatch,
-											dataContactActions.removeImageKey
-										)
-									}
-									className={classes.fourth__button}
-									type='button'>
-									X
-								</button>
+					) : (
+						dataUpdateContact?.contactImageUrl && (
+							<div className={classes.form__container__item__images}>
+								<img
+									title={dataUpdateContact?.name}
+									alt={dataUpdateContact?.name}
+									src={dataUpdateContact?.contactImageUrl}
+								/>
+								<div className={classes.flex__button__images__delete}>
+									<button
+										onClick={() =>
+											handleSingleImageDelete(
+												dataUpdateContact?.contactImageKey,
+												apiUrl,
+												dispatch,
+												dataContactActions.removeImageKey
+											)
+										}
+										className={classes.fourth__button}
+										type='button'>
+										X
+									</button>
+								</div>
 							</div>
-						</div>
+						)
 					)}
 				</div>
 				<div className={classes.form__container__item}>
