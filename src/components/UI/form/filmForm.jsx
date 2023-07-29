@@ -1276,7 +1276,8 @@ const FilmForm = () => {
 											dataUpdateFilm?.coverImageKey,
 											apiUrl,
 											dispatch,
-											dataFilmActions.removeImageKey
+											dataFilmActions.removeImageKey,
+											'delete-film-image'
 										)
 									}
 									className={classes.fourth__button}
@@ -1316,7 +1317,8 @@ const FilmForm = () => {
 											dataUpdateFilm?.pressBookPdfKey,
 											apiUrl,
 											dispatch,
-											dataFilmActions.removeImageKey
+											dataFilmActions.removeImageKey,
+											'delete-film-image'
 										)
 									}
 									className={classes.fourth__button}

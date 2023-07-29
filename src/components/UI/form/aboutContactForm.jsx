@@ -239,7 +239,8 @@ const AboutContactForm = () => {
 												dataUpdateContact?.contactImageKey,
 												apiUrl,
 												dispatch,
-												dataContactActions.removeImageKey
+												dataContactActions.removeImageKey,
+												'delete-contact-image'
 											)
 										}
 										className={classes.fourth__button}
