@@ -3,10 +3,6 @@
 import { dataContactActions } from '../../../store/data-contact-slice';
 import { contactSchema } from '../../../schema/conctactSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
-import {
-	handleSingleImageDelete,
-	slugCreation,
-} from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import classes from './genericForm.module.scss';
@@ -16,9 +12,14 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
+import {
+	handleSingleImageDelete,
+	slugCreation,
+} from '../../../utils/functions';
 
 const AboutContactForm = () => {
 	const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
+	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -28,13 +29,13 @@ const AboutContactForm = () => {
 	);
 
 	useEffect(() => {
-		if (uriLocation.includes('/admin/update-contact')) {
+		if (apiUrl.includes('/admin/update-contact')) {
 			setIsUpdate(true);
 		} else {
 			dispatch(dataContactActions.resetContactData());
 			setIsUpdate(false);
 		}
-	}, [uriLocation, dispatch]);
+	}, [apiUrl, dispatch]);
 
 	const { register, formState, setValue, handleSubmit, trigger } = useForm({
 		defaultValues: dataUpdateContact ?? '',
@@ -97,7 +98,7 @@ const AboutContactForm = () => {
 				axios
 					.request({
 						method: requestUrl.includes('add-contact') ? 'post' : 'put',
-						url: endpoint,
+						url: requestUrl,
 						data: formData,
 					})
 					.then((res) => {
@@ -193,7 +194,7 @@ const AboutContactForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateFilm?.coverImageUrl && (
+					{!dataUpdateContact?.contactImageUrl && (
 						<>
 							<label htmlFor='ContactImage'>
 								{t('profileCover')}
