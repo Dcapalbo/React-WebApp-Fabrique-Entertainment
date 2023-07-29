@@ -38,6 +38,7 @@ const handleSingleImageDelete = async (
 	reduxAction,
 	deleteType
 ) => {
+	dispatch(reduxAction(imageKey));
 	try {
 		const response = await axios.delete(
 			`${url}/${deleteType}?image_key=${imageKey}`
@@ -45,7 +46,6 @@ const handleSingleImageDelete = async (
 
 		if (response.status === 200) {
 			console.log(response);
-			dispatch(reduxAction(imageKey));
 		} else {
 			console.log('Error deleting image:', response.data.message);
 		}

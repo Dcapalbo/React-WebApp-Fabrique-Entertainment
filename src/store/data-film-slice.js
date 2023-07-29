@@ -19,23 +19,14 @@ const dataFilmSlice = createSlice({
 		},
 		removeImageKey(state, action) {
 			const imageKeyToRemove = action.payload;
-			state.filmsData = state.filmsData.map((film) => {
-				if (film.coverImageKey === imageKeyToRemove) {
-					return {
-						...film,
-						coverImageKey: null,
-						coverImageUrl: null,
-					};
-				}
-				if (film.pressBookPdfKey === imageKeyToRemove) {
-					return {
-						...film,
-						pressBookPdfKey: null,
-						pressBookPdfUrl: null,
-					};
-				}
-				return film;
-			});
+			if (state.filmData.coverImageKey === imageKeyToRemove) {
+				state.filmData.coverImageKey = null;
+				state.filmData.coverImageUrl = null;
+			}
+			if (state.filmData.pressBookPdfKey === imageKeyToRemove) {
+				state.filmData.pressBookPdfKey = null;
+				state.filmData.pressBookPdfUrl = null;
+			}
 		},
 		resetFilmData(state) {
 			state.filmData = {};
