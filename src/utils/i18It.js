@@ -24,6 +24,7 @@ const translationIt = {
 		surname: 'Cognome',
 		email: 'Email',
 		number: 'Numero di telefono',
+		ideas: 'Diamo valore alle idee',
 	},
 	password: 'Password',
 	confirmPassword: 'Conferma password',
