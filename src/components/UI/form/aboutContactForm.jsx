@@ -19,6 +19,7 @@ import {
 } from '../../../utils/functions';
 
 const AboutContactForm = () => {
+	console.log();
 	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
