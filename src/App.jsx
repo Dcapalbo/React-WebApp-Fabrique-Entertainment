@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';
 import { translationEn } from './utils/i18En';
+import { serverUrl } from './utils/constants';
 import ApiGetHook from './hooks/apiGetHook';
 import i18n from 'i18next';
 // redux states
@@ -53,9 +54,7 @@ i18n.use(initReactI18next).init({
 const App = () => {
 	const dispatch = useDispatch();
 
-	const { contacts } = ApiGetHook(
-		`${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
-	);
+	const { contacts } = ApiGetHook(`${serverUrl}/get-contacts`);
 
 	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
 	const token = useSelector((state) => state.userLogin.token);

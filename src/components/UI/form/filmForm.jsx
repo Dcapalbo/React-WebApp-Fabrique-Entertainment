@@ -11,6 +11,7 @@ import { slugCreation } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
+import { serverUrl } from '../../../utils/constants';
 import { AiOutlineFilePdf } from 'react-icons/ai';
 import classes from './genericForm.module.scss';
 import GenreSelect from '../select/genreSelect';
@@ -22,7 +23,6 @@ import axios from 'axios';
 import React from 'react';
 
 const FilmForm = () => {
-	const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
 	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -332,8 +332,8 @@ const FilmForm = () => {
 		if (formData !== {}) {
 			setIsLoading(true);
 
-			const addFilmUrl = `${apiUrl}/add-film`;
-			const updateFilmUrl = `${apiUrl}/update-film`;
+			const addFilmUrl = `${serverUrl}/add-film`;
+			const updateFilmUrl = `${serverUrl}/update-film`;
 			const requestUrl = uriLocation.includes('admin/add-new-film')
 				? addFilmUrl
 				: uriLocation.includes('/admin/update-film')
@@ -1280,7 +1280,7 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(
 											dataUpdateFilm?.coverImageKey,
-											apiUrl,
+											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,
 											'delete-film-image'
@@ -1321,7 +1321,7 @@ const FilmForm = () => {
 									onClick={() =>
 										handleSingleImageDelete(
 											dataUpdateFilm?.pressBookPdfKey,
-											apiUrl,
+											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,
 											'delete-film-image'

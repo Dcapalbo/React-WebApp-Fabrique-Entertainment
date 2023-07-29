@@ -5,6 +5,7 @@ import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { loginSchema } from '../../../schema/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
+import { serverUrl } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import classes from './genericForm.module.scss';
 import { useDispatch } from 'react-redux';
@@ -41,7 +42,7 @@ const LoginForm = () => {
 
 		setIsLoading(true);
 		axios
-			.post(`${process.env.REACT_APP_API_LOCAL_PORT}/login`, formData)
+			.post(`${serverUrl}/login`, formData)
 			.then((res) => {
 				dispatch(
 					dataUserActions.login({

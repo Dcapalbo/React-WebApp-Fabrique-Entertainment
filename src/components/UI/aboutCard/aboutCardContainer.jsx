@@ -4,6 +4,7 @@ import { dataContactActions } from '../../../store/data-contact-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import classes from './aboutCardContainer.module.scss';
 import StateGetHook from '../../../hooks/stateGetHook';
+import { serverUrl } from '../../../utils/constants';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import { useDispatch } from 'react-redux';
 import AboutCard from './aboutCard';
@@ -18,9 +19,7 @@ const AboutAuthCardContainer = () => {
 	let error;
 
 	if (uriLocation.includes('/admin/contacts')) {
-		const apiData = ApiGetHook(
-			`${process.env.REACT_APP_API_LOCAL_PORT}/get-contacts`
-		);
+		const apiData = ApiGetHook(`${serverUrl}/get-contacts`);
 
 		contacts = apiData.contacts;
 		loading = apiData.loading;

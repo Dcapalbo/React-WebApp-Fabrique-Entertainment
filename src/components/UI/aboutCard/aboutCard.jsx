@@ -4,6 +4,7 @@ import { dataContactActions } from '../../../store/data-contact-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
+import { serverUrl } from '../../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
@@ -52,7 +53,7 @@ const AboutCard = (props) => {
 		};
 
 		axios
-			.delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-contact`, {
+			.delete(`${serverUrl}/delete-contact`, {
 				data: contactId,
 			})
 			.then((res) => {

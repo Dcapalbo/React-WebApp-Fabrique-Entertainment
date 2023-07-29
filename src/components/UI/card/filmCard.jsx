@@ -4,6 +4,7 @@ import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
+import { serverUrl } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -48,7 +49,7 @@ const FilmCard = (props) => {
 		};
 
 		axios
-			.delete(`${process.env.REACT_APP_API_LOCAL_PORT}/delete-film`, {
+			.delete(`${serverUrl}/delete-film`, {
 				data: filmId,
 			})
 			.then((res) => {

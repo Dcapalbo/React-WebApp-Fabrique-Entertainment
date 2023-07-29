@@ -5,6 +5,7 @@ import { contactSchema } from '../../../schema/conctactSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { clientURL, clientUrl, serverUrl } from '../../../utils/constants';
 import classes from './genericForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +19,6 @@ import {
 } from '../../../utils/functions';
 
 const AboutContactForm = () => {
-	const apiUrl = process.env.REACT_APP_API_LOCAL_PORT;
 	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -31,12 +31,12 @@ const AboutContactForm = () => {
 	console.log(dataUpdateContact);
 
 	useEffect(() => {
-		if (apiUrl.includes('/admin/update-contact')) {
+		if (clientUrl.includes('/admin/update-contact')) {
 			setIsUpdate(true);
 		} else {
 			setIsUpdate(false);
 		}
-	}, [apiUrl, dispatch]);
+	}, [clientUrl, dispatch]);
 
 	const { register, formState, setValue, handleSubmit, trigger } = useForm({
 		defaultValues: dataUpdateContact ?? '',
@@ -88,8 +88,8 @@ const AboutContactForm = () => {
 		if (formData !== {}) {
 			setIsLoading(true);
 
-			const addContactUrl = `${apiUrl}/add-contact`;
-			const updateContactUrl = `${apiUrl}/update-contact`;
+			const addContactUrl = `${serverUrl}/add-contact`;
+			const updateContactUrl = `${serverUrl}/update-contact`;
 			const requestUrl = uriLocation.includes('admin/add-new-contact')
 				? addContactUrl
 				: uriLocation.includes('/admin/update-contact')
@@ -237,7 +237,7 @@ const AboutContactForm = () => {
 										onClick={() =>
 											handleSingleImageDelete(
 												dataUpdateContact?.contactImageKey,
-												apiUrl,
+												serverUrl,
 												dispatch,
 												dataContactActions.removeImageKey,
 												'delete-contact-image'

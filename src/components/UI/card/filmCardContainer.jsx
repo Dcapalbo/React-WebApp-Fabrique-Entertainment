@@ -1,6 +1,7 @@
 /** @format */
 
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import { serverUrl } from '../../../utils/constants';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import classes from './cardContainer.module.scss';
 import { useEffect, useState } from 'react';
@@ -9,9 +10,7 @@ import FilmCard from './filmCard';
 import React from 'react';
 
 const FilmCardContainer = () => {
-	const { films, error, loading } = ApiGetHook(
-		`${process.env.REACT_APP_API_LOCAL_PORT}/get-films`
-	);
+	const { films, error, loading } = ApiGetHook(`${serverUrl}/get-films`);
 
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
 	const [filteredData, setFilteredData] = useState([]);
