@@ -34,7 +34,6 @@ const AboutContactForm = () => {
 		if (apiUrl.includes('/admin/update-contact')) {
 			setIsUpdate(true);
 		} else {
-			dispatch(dataContactActions.resetContactData());
 			setIsUpdate(false);
 		}
 	}, [apiUrl, dispatch]);
@@ -62,7 +61,7 @@ const AboutContactForm = () => {
 		}
 	};
 
-	const handleCoverImageChange = (event) => {
+	const handleProfileCover = (event) => {
 		const contactImage = event.target.files[0];
 		setContactImage(contactImage);
 	};
@@ -218,7 +217,7 @@ const AboutContactForm = () => {
 								<span>*</span>
 							</label>
 							<input
-								onChange={handleCoverImageChange}
+								onChange={handleProfileCover}
 								type='file'
 								name='contactImage'
 								accept='.png, .jpg, .jpeg'
