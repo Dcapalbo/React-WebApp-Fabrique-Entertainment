@@ -154,6 +154,10 @@ const translationIt = {
 		contactErrorDelete:
 			'Non è stato possibile cancellare il contatto, riprovare',
 		filmErrorDelete: 'Non è stato possibile cancellare il film, riprovare',
+		filmExistenceError:
+			'Non sono presenti film per questa ricerca, provare a effettuarne un altra, oppure ricaricare la pagina',
+		contactExistenceError:
+			'Non sono presenti contatti per questa ricerca, provare a effettuarne un altra, oppure ricaricare la pagina',
 	},
 };
 

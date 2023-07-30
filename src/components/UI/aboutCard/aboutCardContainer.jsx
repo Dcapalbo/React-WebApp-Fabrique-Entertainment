@@ -63,10 +63,7 @@ const AboutAuthCardContainer = () => {
 							/>
 						))
 					) : (
-						<h1>
-							Non ci sono elementi per questa ricerca, inserirli manualmente
-							presso la sezione del Database dedicata ai contatti
-						</h1>
+						<h1>{t('errors.contactExistenceError')}</h1>
 					)}
 				</div>
 			</section>

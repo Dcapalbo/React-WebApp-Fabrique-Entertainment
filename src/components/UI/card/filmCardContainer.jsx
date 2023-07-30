@@ -89,10 +89,7 @@ const FilmCardContainer = () => {
 							/>
 						))
 					) : (
-						<h1>
-							Non ci sono elementi per questa ricerca, inserirli manualmente
-							presso la sezione del Database dedicata ai film
-						</h1>
+						<h1>{t('errors.filmExistenceError')}</h1>
 					)}
 				</div>
 			</section>

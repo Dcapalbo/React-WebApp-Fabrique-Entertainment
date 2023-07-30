@@ -151,6 +151,10 @@ const translationEn = {
 			'The contact selected was not found, go back to the previous page',
 		contactErrorDelete: 'Wan not possible to delete the contact, try again',
 		filmErrorDelete: 'Was not possible to delete the film, try again',
+		filmExistenceError:
+			'There are not films for this research, try to make it an other one or refresh the page',
+		contactExistenceError:
+			'There are not contacts for this research, try to make it an other one or refresh the page',
 	},
 };
 
