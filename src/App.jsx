@@ -102,10 +102,10 @@ const App = () => {
 					path='/reset-password'
 					element={<ResetPasswordForm />}
 				/>
-				<Route
+				{/* <Route
 					path='/sign-up'
 					element={<AuthSignUp />}
-				/>
+				/> */}
 
 				{/* authenticated Routes  */}
 				<Route
