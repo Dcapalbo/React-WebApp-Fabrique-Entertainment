@@ -19,7 +19,6 @@ import {
 } from '../../../utils/functions';
 
 const AboutContactForm = () => {
-	console.log();
 	const uriLocation = window.location.href;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -28,8 +27,6 @@ const AboutContactForm = () => {
 	let dataUpdateContact = useSelector(
 		(state) => state.dataContact.contactData ?? ''
 	);
-
-	console.log(dataUpdateContact);
 
 	useEffect(() => {
 		if (clientUrl.includes('/admin/update-contact')) {

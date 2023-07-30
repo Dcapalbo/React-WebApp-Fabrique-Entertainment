@@ -324,10 +324,13 @@ const FilmForm = () => {
 		}
 
 		formData.append('coverImage', coverImage ?? dataUpdateFilm?.coverImageKey);
-		formData.append(
-			'pressBookPdf',
-			pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey
-		);
+
+		if (pressBookPdf || dataUpdateFilm?.pressBookPdfKey) {
+			formData.append(
+				'pressBookPdf',
+				pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey
+			);
+		}
 
 		if (formData !== {}) {
 			setIsLoading(true);
