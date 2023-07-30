@@ -118,7 +118,7 @@ const AboutContactForm = () => {
 					.finally(() => {
 						dispatch(dataContactActions.resetContactData());
 						setIsLoading(false);
-						navigate('/admin/contacts');
+						//navigate('/admin/contacts');
 					});
 			}
 		}
