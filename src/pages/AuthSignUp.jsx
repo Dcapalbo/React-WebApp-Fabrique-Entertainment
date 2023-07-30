@@ -6,7 +6,13 @@ import Header from '../components/header/header';
 import React from 'react';
 
 const AuthSignUp = () => {
-	return <>ciao</>;
+	return (
+		<>
+			<Header />
+			<SignUp />
+			<Footer />
+		</>
+	);
 };
 
 export default AuthSignUp;
