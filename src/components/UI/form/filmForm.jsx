@@ -362,7 +362,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						navigate('/admin/films');
+						//navigate('/admin/films');
 					});
 			}
 		}
@@ -379,6 +379,9 @@ const FilmForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbFilm')}</h4>
 					)}
+					<small className={classes.obligatory}>
+						Campi contrassegnati con (*) sono obbligatori
+					</small>
 					<label htmlFor='Title'>
 						{t('title')}
 						<span>*</span>
@@ -1362,9 +1365,6 @@ const FilmForm = () => {
 						)
 					)}
 				</div>
-				<small className={classes.obligatory}>
-					Campi contrassegnati con (*) sono obbligatori
-				</small>
 				{isLoading && <LoadingSpinner />}
 			</form>
 		</section>

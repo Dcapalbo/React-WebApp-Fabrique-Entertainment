@@ -135,6 +135,9 @@ const AboutContactForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbContact')}</h4>
 					)}
+					<small className={classes.obligatory}>
+						Campi contrassegnati con (*) sono obbligatori
+					</small>
 					<label htmlFor='Name'>
 						{t('genericInfo.name')}
 						<span>*</span>
@@ -280,9 +283,6 @@ const AboutContactForm = () => {
 						)
 					)}
 				</div>
-				<small className={classes.obligatory}>
-					Campi contrassegnati con (*) sono obbligatori
-				</small>
 				{isLoading && <LoadingSpinner />}
 			</form>
 		</section>
