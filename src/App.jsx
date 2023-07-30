@@ -31,7 +31,7 @@ import NewFilm from './pages/NewFilm';
 import Contacts from './pages/Contacts';
 import LoginForm from './pages/LoginForm';
 import UpdateFilm from './pages/UpdateFilm';
-import AuthSignUp from './pages/AuthSignUp';
+// import AuthSignUp from './pages/AuthSignUp';
 import NewContact from './pages/NewContact';
 import AllAuthFilms from './pages/AllAuthFilms';
 import AboutContact from './pages/AboutContact';
@@ -102,10 +102,10 @@ const App = () => {
 					path='/reset-password'
 					element={<ResetPasswordForm />}
 				/>
-				<Route
+				{/* <Route
 					path='/sign-up'
 					element={<AuthSignUp />}
-				/>
+				/> */}
 
 				{/* authenticated Routes  */}
 				<Route
