@@ -362,7 +362,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						//navigate('/admin/films');
+						navigate('/admin/films');
 					});
 			}
 		}

@@ -6,6 +6,7 @@ import classes from './aboutCardContainer.module.scss';
 import StateGetHook from '../../../hooks/stateGetHook';
 import { serverUrl } from '../../../utils/constants';
 import ApiGetHook from '../../../hooks/apiGetHook';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import AboutCard from './aboutCard';
 import React from 'react';
@@ -13,6 +14,7 @@ import React from 'react';
 const AboutAuthCardContainer = () => {
 	let uriLocation = window.location.href;
 	const dispatch = useDispatch();
+	const { t } = useTranslation();
 
 	let contacts;
 	let loading;

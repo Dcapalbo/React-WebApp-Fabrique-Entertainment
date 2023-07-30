@@ -4,12 +4,14 @@ import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { serverUrl } from '../../../utils/constants';
 import ApiGetHook from '../../../hooks/apiGetHook';
 import classes from './cardContainer.module.scss';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FilmCard from './filmCard';
 import React from 'react';
 
 const FilmCardContainer = () => {
+	const { t } = useTranslation();
 	const { films, error, loading } = ApiGetHook(`${serverUrl}/get-films`);
 
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
