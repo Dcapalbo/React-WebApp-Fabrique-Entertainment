@@ -78,7 +78,7 @@ const NavLinks = () => {
 					<p onClick={logout}>Logout</p>
 				</li>
 			)}
-			{i18n.language === 'it' ? (
+			{/* {i18n.language === 'it' ? (
 				<li>
 					<FaFlagUsa
 						onClick={() => i18n.changeLanguage('en')}
@@ -90,7 +90,7 @@ const NavLinks = () => {
 						onClick={() => i18n.changeLanguage('it')}
 					/>
 				</li>
-			)}
+			)} */}
 		</ul>
 	);
 };
