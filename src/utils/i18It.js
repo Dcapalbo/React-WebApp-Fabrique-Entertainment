@@ -151,6 +151,9 @@ const translationIt = {
 			'Il film selezionato non è stato trovato, tornare alla pagina precedente',
 		contactError:
 			'Il contatto selezionato non è stato trovato, tornare alla pagina precedente',
+		contactErrorDelete:
+			'Non è stato possibile cancellare il contatto, riprovare',
+		filmErrorDelete: 'Non è stato possibile cancellare il film, riprovare',
 	},
 };
 

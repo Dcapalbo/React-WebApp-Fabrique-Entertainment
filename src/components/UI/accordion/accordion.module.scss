@@ -14,6 +14,9 @@
 	.accordion {
 		margin: auto;
 		width: 70%;
+		@media (max-width: $screen-sm-min) {
+			width: 90%;
+		}
 		& :nth-child(even) {
 			align-items: flex-end;
 			@include flex-column;

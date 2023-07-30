@@ -115,7 +115,7 @@ const AboutCard = (props) => {
 			{isLoading && <LoadingSpinner />}
 			{error && (
 				<small className={classes.error}>
-					{t('errors.errorContactDelete')}
+					{t('errors.contactErrorDelete')}
 				</small>
 			)}
 		</div>

@@ -118,7 +118,7 @@ const FilmCard = (props) => {
 			)}
 			{isLoading && <LoadingSpinner />}
 			{error && (
-				<small className={classes.error}>{t('errors.errorSweetDelete')}</small>
+				<small className={classes.error}>{t('errors.filmErrorDelete')}</small>
 			)}
 		</div>
 	);

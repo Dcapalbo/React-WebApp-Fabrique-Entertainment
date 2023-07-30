@@ -149,6 +149,8 @@ const translationEn = {
 		filmError: 'The film selected was not found, go back to the previous page',
 		contactError:
 			'The contact selected was not found, go back to the previous page',
+		contactErrorDelete: 'Wan not possible to delete the contact, try again',
+		filmErrorDelete: 'Was not possible to delete the film, try again',
 	},
 };
 
