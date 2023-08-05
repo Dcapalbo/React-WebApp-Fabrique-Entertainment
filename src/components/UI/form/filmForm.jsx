@@ -44,6 +44,13 @@ const FilmForm = () => {
 		{ coProducerName: '' },
 	];
 
+	const collaborationsData = dataUpdateFilm?.productions || [
+		{ collaborationName: '' },
+	];
+
+	const contributesData = dataUpdateFilm?.productions || [
+		{ contributeName: '' },
+	];
 	const actorsData = dataUpdateFilm?.actors || [
 		{ actorName: '', actorRole: '' },
 	];
@@ -81,8 +88,10 @@ const FilmForm = () => {
 		executiveProducersData
 	);
 
+	const [collaborations, setCollaborations] = useState(collaborationsData);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [coProductions, setCoProductions] = useState(coProductionsData);
+	const [contributes, setContribues] = useState(contributesData);
 	const [coProducers, setCoProducers] = useState(coProducersData);
 	const [productions, setProductions] = useState(productionsData);
 	const [producers, setProducers] = useState(producersData);
@@ -106,7 +115,7 @@ const FilmForm = () => {
 		try {
 			await trigger(name);
 		} catch (error) {
-			console.log('validation error', error);
+			console.error('validation error', error);
 		}
 	};
 
@@ -208,6 +217,32 @@ const FilmForm = () => {
 		}
 
 		if (
+			collaborations.length > 0 &&
+			collaborations.length[0] !== '' &&
+			data.collaborations[0].collaborationName !== ''
+		) {
+			for (let i = 0; i < collaborations.length; i++) {
+				formData.append(
+					`collaborations[${i}][collaborationName]`,
+					data.collaborations[i].collaborationName
+				);
+			}
+		}
+
+		if (
+			contributes.length > 0 &&
+			contributes.length[0] !== '' &&
+			data.contributes[0].contributeName !== ''
+		) {
+			for (let i = 0; i < contributes.length; i++) {
+				formData.append(
+					`contributes[${i}][contributeName]`,
+					data.contributes[i].contributeName
+				);
+			}
+		}
+
+		if (
 			actors.length > 0 &&
 			actors.length[0] !== '' &&
 			data.actors[0].actorName !== '' &&
@@ -246,15 +281,32 @@ const FilmForm = () => {
 		}
 
 		formData.append('genre', data.genre);
+		formData.append('projectState', data.projectState);
 		formData.append('directorOfPhotography', data.directorOfPhotography);
 		formData.append('editing', data.editing);
-		formData.append('scenography', data.scenography);
-		formData.append('costumes', data.costumes);
+
+		if (data.scenography) {
+			formData.append('scenography', data.scenography);
+		}
+
+		if (data.costumes) {
+			formData.append('costumes', data.costumes);
+		}
+
 		formData.append('music', data.music);
 		formData.append('sound', data.sound);
-		formData.append('soundDesign', data.soundDesign);
-		formData.append('casting', data.casting);
-		formData.append('lineProducer', data.lineProducer);
+
+		if (data.soundDesign) {
+			formData.append('soundDesign', data.soundDesign);
+		}
+
+		if (data.casting) {
+			formData.append('casting', data.casting);
+		}
+
+		if (data.lineProducer) {
+			formData.append('lineProducer', data.lineProducer);
+		}
 
 		if (
 			executiveProducers.length > 0 &&
@@ -277,11 +329,18 @@ const FilmForm = () => {
 			formData.append('salesAgent', data.salesAgent);
 		}
 
-		formData.append('firstAssistantDirector', data.firstAssistantDirector);
+		if (data.firstAssistantDirector) {
+			formData.append('firstAssistantDirector', data.firstAssistantDirector);
+		}
+
 		formData.append('synopsis', data.synopsis);
 
 		if (data.productionNotes) {
 			formData.append('productionNotes', data.productionNotes);
+		}
+
+		if (data.directorNotes) {
+			formData.append('directorNotes', data.directorNotes);
 		}
 
 		formData.append('duration', data.duration);
@@ -382,9 +441,7 @@ const FilmForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbFilm')}</h4>
 					)}
-					<small className={classes.obligatory}>
-						Campi contrassegnati con (*) sono obbligatori
-					</small>
+					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Title'>
 						{t('title')}
 						<span>*</span>

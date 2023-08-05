@@ -129,6 +129,7 @@ const translationEn = {
 		modifyDbFilm: 'Modify a film inside the database',
 		addDbContact: 'Add a contact inside the database',
 		modifyDbContact: 'Modify a contact inside the database',
+		obligatory: 'Fields marked with (*) are mandatory',
 	},
 	linksLabels: {
 		trailer: 'Trailer',

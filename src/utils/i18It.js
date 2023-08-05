@@ -129,6 +129,7 @@ const translationIt = {
 		modifyDbFilm: 'Modificare un film del database',
 		addDbContact: 'Aggiungere un contatto al database',
 		modifyDbContact: 'Modificare un contatto del database',
+		obligatory: 'Campi contrassegnati con (*) sono obbligatori',
 	},
 	linksLabels: {
 		trailer: 'Trailer',

@@ -92,9 +92,6 @@ const AboutCard = (props) => {
 				<div className={classes.card__external__informations__item}>
 					{props.role && <p>{props.role}</p>}
 				</div>
-				<div className={classes.card__external__informations__item}>
-					{props.email && <p>{props.email}</p>}
-				</div>
 			</div>
 			{isAuthenticated && (
 				<>

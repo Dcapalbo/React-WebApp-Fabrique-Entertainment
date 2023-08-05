@@ -16,7 +16,6 @@
 	border-radius: 20px;
 	padding: 10px 10px;
 	position: relative;
-	min-height: 470px;
 	display: flex;
 	margin: 24px;
 	&:hover {
@@ -93,6 +92,7 @@
 			opacity: 0;
 		}
 	}
+
 	.card__button__wrapper {
 		@include flex-around;
 		width: 100%;
@@ -101,7 +101,8 @@
 			padding: 0px 15px;
 		}
 	}
-	@media (max-width: $screen-lg-min) {
+
+	@media (max-width: $screen-xl-min) {
 		width: calc(100% / 2 - 48px);
 		margin: 16px;
 	}
@@ -110,6 +111,7 @@
 		margin: 12px;
 		width: 100%;
 	}
+
 	.card__button__quantity__wrapper {
 		justify-content: space-between;
 		flex-direction: column;
@@ -139,6 +141,7 @@
 		}
 	}
 }
+
 .auth__card {
 	width: calc(100% / 2 - 48px);
 	@media (max-width: $screen-lg-min) {
@@ -146,6 +149,7 @@
 		margin: 12px;
 	}
 }
+
 .card__cta {
 	border: 1px solid $firstColor;
 	background-color: $thirdColor;

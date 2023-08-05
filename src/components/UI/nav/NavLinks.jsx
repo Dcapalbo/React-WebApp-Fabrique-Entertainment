@@ -70,9 +70,6 @@ const NavLinks = () => {
 					</li>
 				</>
 			)}
-			<li>
-				<Link to='/login'>{t('login')}</Link>
-			</li>
 			{isAuthenticated && (
 				<li>
 					<p onClick={logout}>Logout</p>

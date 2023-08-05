@@ -42,7 +42,6 @@ const DetailAboutContact = () => {
 							<div className={classes.detail__card__left}>
 								{contact?.name && contact?.surname && (
 									<>
-										<p>{t('genericInfo.name')}</p>
 										<div className={classes.detail__card__info__wrapper}>
 											<p>{contact?.name + ' ' + contact?.surname}</p>
 										</div>

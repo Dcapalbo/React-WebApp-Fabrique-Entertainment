@@ -87,11 +87,11 @@ const App = () => {
 					element={<Contacts />}
 				/>
 				<Route
-					path='/film/:id'
+					path='/film/:slug'
 					element={<Film />}
 				/>
 				<Route
-					path='/about/:id'
+					path='/about/:slug'
 					element={<AboutContact />}
 				/>
 				<Route
@@ -197,6 +197,15 @@ const App = () => {
 								replace
 							/>
 						)
+					}
+				/>
+				<Route
+					path='*'
+					element={
+						<Navigate
+							to='/'
+							replace
+						/>
 					}
 				/>
 			</Routes>

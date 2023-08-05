@@ -65,6 +65,7 @@ const AboutContactForm = () => {
 	};
 
 	const confirmHandler = (data) => {
+		console.log(data);
 		const formData = new FormData();
 
 		formData.append('name', data.name);
@@ -72,8 +73,12 @@ const AboutContactForm = () => {
 		formData.append('role', data.role);
 		formData.append('bio', data.bio);
 		formData.append('email', data.email);
-		formData.append('phoneNumber', data.phoneNumber);
-		formData.append('slug', slugCreation(data.name));
+
+		if (data.phoneNumber !== '') {
+			formData.append('phoneNumber', data.phoneNumber);
+		}
+
+		formData.append('slug', slugCreation(data.name + data.surname));
 		formData.append(
 			'contactImage',
 			contactImage ?? dataUpdateContact?.contactImageKey
@@ -132,9 +137,7 @@ const AboutContactForm = () => {
 					) : (
 						isUpdate && <h4>{t('labels.modifyDbContact')}</h4>
 					)}
-					<small className={classes.obligatory}>
-						Campi contrassegnati con (*) sono obbligatori
-					</small>
+					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Name'>
 						{t('genericInfo.name')}
 						<span>*</span>
@@ -202,7 +205,9 @@ const AboutContactForm = () => {
 					<label htmlFor='PhoneNumber'>{t('genericInfo.number')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.phoneNumber ?? ''}
-						{...register('phoneNumber', { valueAsNumber: true })}
+						{...register('phoneNumber', {
+							setValueAs: (v) => (v === '' ? '' : parseInt(v, 10)),
+						})}
 						type='number'
 						onChange={handleInputChange}
 					/>

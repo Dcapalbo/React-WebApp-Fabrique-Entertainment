@@ -77,6 +77,38 @@ const filmSchema = z.object({
 			]),
 		})
 	),
+	collaborations: z.array(
+		z.object({
+			collaborationName: z.union([
+				z
+					.string()
+					.min(6, {
+						message: 'il nome deve essere di almeno 6 caratteri',
+					})
+					.max(40, {
+						message: 'il nome non può superare i 40 caratteri',
+					})
+					.nullish(),
+				z.literal(''),
+			]),
+		})
+	),
+	contributes: z.array(
+		z.object({
+			contributeName: z.union([
+				z
+					.string()
+					.min(6, {
+						message: 'il nome deve essere di almeno 6 caratteri',
+					})
+					.max(40, {
+						message: 'il nome non può superare i 40 caratteri',
+					})
+					.nullish(),
+				z.literal(''),
+			]),
+		})
+	),
 	actors: z.array(
 		z.object({
 			actorName: z
@@ -126,6 +158,7 @@ const filmSchema = z.object({
 		})
 	),
 	genre: z.string().nonempty({ message: 'Inserire almeno un genere' }),
+	projectState: z.string().nonempty({ message: 'Inserire almeno uno stato' }),
 	directorOfPhotography: z
 		.string()
 		.nonempty({ message: 'campo obbligatorio' })
@@ -144,24 +177,30 @@ const filmSchema = z.object({
 		.max(40, {
 			message: 'il nome non può superare i 40 caratteri',
 		}),
-	scenography: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
-	costumes: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
+	scenography: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
+	costumes: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
 	music: z
 		.string()
 		.nonempty({ message: 'campo obbligatorio' })
@@ -180,33 +219,42 @@ const filmSchema = z.object({
 		.max(40, {
 			message: 'il nome non può superare i 40 caratteri',
 		}),
-	soundDesign: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
-	casting: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
-	lineProducer: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
+	soundDesign: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
+	casting: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
+	lineProducer: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
 	executiveProducers: z.array(
 		z.object({
 			executiveProducerName: z
@@ -244,15 +292,18 @@ const filmSchema = z.object({
 			.nullish(),
 		z.literal(''),
 	]),
-	firstAssistantDirector: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
+	firstAssistantDirector: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
 	synopsis: z
 		.string()
 		.nonempty({ message: 'La sinossi è obbligatoria' })
@@ -273,6 +324,19 @@ const filmSchema = z.object({
 			.max(300, {
 				message:
 					'le note di produzione non possono essere superiori ai 300 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
+	directorNotes: z.union([
+		z
+			.string()
+			.min(10, {
+				message: 'le note di regia devono essere di almeno 10 caratteri',
+			})
+			.max(300, {
+				message:
+					'le note di regia non possono essere superiori ai 300 caratteri',
 			})
 			.nullish(),
 		z.literal(''),

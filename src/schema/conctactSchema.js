@@ -35,23 +35,18 @@ const contactSchema = z.object({
 		})
 		.min(10, { message: "l'email deve essere almeno di 10 caratteri" })
 		.max(40, { message: "l'email non deve esuperare i 40 caratteri" }),
-	phoneNumber: z
-		.number()
-		.positive({ message: 'Il numero deve essere superiore a 0' })
-		.min(1000000000, {
-			message: 'Il numero di telefono deve essere di almeno 10 cifre',
-		})
-		.max(999999999999999, {
-			message: 'Il numero di telefono non può superare le 15 cifre',
-		})
-		.int()
-		.refine(
-			(value) => {
-				const phoneNumberLength = Math.floor(Math.log10(value)) + 1;
-				return phoneNumberLength >= 10 && phoneNumberLength <= 15;
-			},
-			{ message: 'Il numero di telefono non è valido' }
-		),
+	phoneNumber: z.union([
+		z
+			.number()
+			.min(1000000000, {
+				message: 'Il numero di telefono deve essere di almeno 10 cifre',
+			})
+			.max(999999999999999, {
+				message: 'Il numero di telefono non può superare le 15 cifre',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
 });
 
 export { contactSchema };

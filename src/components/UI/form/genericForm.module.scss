@@ -13,6 +13,9 @@
 	@media (max-width: $screen-lg-min) {
 		width: 90%;
 	}
+	label {
+		margin-top: 20px;
+	}
 }
 .form__container {
 	background-color: $secondColor;
@@ -23,7 +26,7 @@
 	width: 100%;
 	h4 {
 		text-align: center;
-		margin: 10px;
+		margin: 10px 0px;
 	}
 	small {
 		color: $thirdColor;
@@ -52,29 +55,6 @@
 			color: $thirdColor;
 			display: block;
 			cursor: pointer;
-		}
-		.genres__checkboxes__container {
-			@include flex-center;
-			.genres__checkboxes__internal__wrapper {
-				@include flex-column;
-				label {
-					font-size: 12px;
-					margin: 10px;
-				}
-				input {
-					border: 1px solid #ccc;
-					border-radius: 3px;
-					appearance: none;
-					height: 20px;
-					&:checked {
-						background-color: $thirdColor;
-					}
-					&:focus {
-						box-shadow: 0 0 3px 2px $thirdColor;
-						outline: none;
-					}
-				}
-			}
 		}
 		.form__container__item__images {
 			@include flex-column;

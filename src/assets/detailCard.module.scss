@@ -14,7 +14,7 @@
 		width: 60%;
 	}
 	@media (max-width: $screen-sm-min) {
-		width: 90%;
+		width: 100%;
 	}
 	.detail__card__container {
 		box-shadow: 2px 4px 10px rgba(141, 42, 70);
@@ -35,9 +35,16 @@
 			width: 100%;
 		}
 		.detail__card__image {
-			object-fit: contain;
 			border-radius: 10px;
+			object-fit: cover;
+			height: 700px;
 			width: 100%;
+			@media (max-width: $screen-lg-min) {
+				height: 600px;
+			}
+			@media (max-width: $screen-sm-min) {
+				height: 400px;
+			}
 		}
 		.detail__card__info__flex {
 			justify-content: flex-start;
