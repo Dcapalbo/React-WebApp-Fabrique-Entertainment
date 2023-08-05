@@ -38,6 +38,7 @@ const translationIt = {
 	subject: 'Soggetto',
 	screenwriter: 'Sceneggiatura',
 	genres: 'Genere',
+	projectState: 'Stato progetto',
 	directorOfPhotography: 'Fotografia',
 	editing: 'Montaggio',
 	scenography: 'Scenografia',
@@ -81,6 +82,16 @@ const translationIt = {
 		coProducer: 'Co-produttore',
 		addCoProducer: 'Aggiungi co-produttore',
 		deleteCoProducer: 'Cancella co-produttore',
+	},
+	collaborationsLabels: {
+		collaboration: 'Collaborazione',
+		addCollaboration: 'Aggiungi collaborazione',
+		deleteCollaboration: 'Cancella collaborazione',
+	},
+	contributesLabels: {
+		contributes: 'Contributo',
+		addContributes: 'Aggiungi contributo',
+		deleteContributes: 'Cancella contributo',
 	},
 	actorsLabels: {
 		actor: 'Attore',

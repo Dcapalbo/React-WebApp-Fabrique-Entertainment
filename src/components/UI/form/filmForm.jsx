@@ -6,6 +6,7 @@ import {
 } from '../../../utils/functions';
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import ProjectStateSelect from '../select/projectStateSelect';
 import { filmSchema } from '../../../schema/filmSchema';
 import { slugCreation } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,9 +92,9 @@ const FilmForm = () => {
 	const [collaborations, setCollaborations] = useState(collaborationsData);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
 	const [coProductions, setCoProductions] = useState(coProductionsData);
-	const [contributes, setContribues] = useState(contributesData);
 	const [coProducers, setCoProducers] = useState(coProducersData);
 	const [productions, setProductions] = useState(productionsData);
+	const [contributes, setContributes] = useState(contributesData);
 	const [producers, setProducers] = useState(producersData);
 	const [festivals, setFestivals] = useState(festivalsData);
 	const [pressBookPdf, setPressBookPdf] = useState(null);
@@ -693,6 +694,120 @@ const FilmForm = () => {
 						{t('coProducersLabels.addCoProducer')}
 					</button>
 				</div>
+				{collaborations.map((collaboration, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='collaborationName'>
+							{t('collaborationsLabels.collaboration')}
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.collaboration?.[index]
+									?.collaborationName ?? ''
+							}
+							{...register(`collaborations.${index}.collaborationName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'collaborationName',
+									collaborations,
+									setCollaborations
+								)
+							}
+						/>
+						{errors.collaborations?.[index]?.collaborationName?.message && (
+							<small>
+								{errors.collaborations?.[index]?.collaborationName.message}
+							</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(
+										index,
+										collaborations,
+										setCollaborations
+									)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('collaborationsLabels.deleteCollaboration')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(collaborations, setCollaborations, {
+								collaborationName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('collaborationsLabels.addCollaboration')}
+					</button>
+				</div>
+				{contributes.map((contribute, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='contributeName'>
+							{t('contributesLabels.contribute')}
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.contribute?.[index]
+									?.contributeName ?? ''
+							}
+							{...register(`contributes.${index}.contributeName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'contributeName',
+									contributes,
+									setContributes
+								)
+							}
+						/>
+						{errors.contributes?.[index]?.contributeName?.message && (
+							<small>
+								{errors.contributes?.[index]?.contributeName.message}
+							</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, contributes, setContributes)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('contributesLabels.deleteContribute')}
+							</button>
+						)}
+					</div>
+				))}
+				<div className={classes.form__container__item}>
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(contributes, setContributes, {
+								contributeName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('contributesLabels.addContribute')}
+					</button>
+				</div>
 				{actors.map((actor, index) => (
 					<div
 						className={classes.form__container__item}
@@ -909,6 +1024,28 @@ const FilmForm = () => {
 					{errors.genre?.message && <small>{errors.genre?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
+					<label htmlFor='ProjectState'>
+						{t('projectState')}
+						<span>*</span>
+					</label>
+					<Controller
+						name='projectState'
+						control={control}
+						defaultValue={''}
+						render={({ field }) => (
+							<ProjectStateSelect
+								onChange={(selectedValue) => {
+									field.onChange(handleSelectChange(selectedValue));
+								}}
+								value={field.value}
+							/>
+						)}
+					/>
+					{errors.projectState?.message && (
+						<small>{errors.projectState?.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorOfPhotography'>
 						{t('directorOfPhotography')}
 						<span>*</span>
@@ -939,10 +1076,7 @@ const FilmForm = () => {
 					{errors.editing?.message && <small>{errors.editing?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='Scenography'>
-						{t('scenography')}
-						<span>*</span>
-					</label>
+					<label htmlFor='Scenography'>{t('scenography')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.scenography ?? ''}
 						{...register('scenography')}
@@ -954,10 +1088,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='costumes'>
-						{t('costumes')}
-						<span>*</span>
-					</label>
+					<label htmlFor='costumes'>{t('costumes')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.costumes ?? ''}
 						{...register('costumes')}
@@ -995,10 +1126,7 @@ const FilmForm = () => {
 					{errors.sound?.message && <small>{errors.sound?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='soundDesign'>
-						{t('soundDesign')}
-						<span>*</span>
-					</label>
+					<label htmlFor='soundDesign'>{t('soundDesign')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.soundDesign ?? ''}
 						{...register('soundDesign')}
@@ -1010,10 +1138,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='casting'>
-						{t('casting')}
-						<span>*</span>
-					</label>
+					<label htmlFor='casting'>{t('casting')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.casting ?? ''}
 						{...register('casting')}
@@ -1023,10 +1148,7 @@ const FilmForm = () => {
 					{errors.casting?.message && <small>{errors.casting?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='lineProducer'>
-						{t('lineProducer')}
-						<span>*</span>
-					</label>
+					<label htmlFor='lineProducer'>{t('lineProducer')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.lineProducer ?? ''}
 						{...register('lineProducer')}
@@ -1128,7 +1250,6 @@ const FilmForm = () => {
 				<div className={classes.form__container__item}>
 					<label htmlFor='FirstAssistantDirector'>
 						{t('firstAssistantDirector')}
-						<span>*</span>
 					</label>
 					<input
 						defaultValue={
@@ -1167,6 +1288,17 @@ const FilmForm = () => {
 						onChange={handleInputChange}></textarea>
 					{errors.productionNotes?.message && (
 						<small>{errors.productionNotes?.message}</small>
+					)}
+				</div>
+				<div className={classes.form__container__item}>
+					<label htmlFor='DirectorNotes'>{t('directorNotes')}</label>
+					<textarea
+						defaultValue={formState.defaultValues?.payload?.directorNotes ?? ''}
+						{...register('directorNotes')}
+						type='text'
+						onChange={handleInputChange}></textarea>
+					{errors.directorNotes?.message && (
+						<small>{errors.directorNotes?.message}</small>
 					)}
 				</div>
 				<div className={classes.form__container__item}>
