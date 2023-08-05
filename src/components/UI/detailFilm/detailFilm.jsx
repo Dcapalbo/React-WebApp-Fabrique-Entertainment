@@ -73,45 +73,53 @@ const DetailFilm = () => {
 								)}
 								{film?.director && (
 									<>
-										<p>{t('director')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('director')}</h6>
 											<p>{film?.director ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.actors && (
 									<>
-										<p>{t('actors')}</p>
+										<h6>{t('actors')}</h6>
 										{film.actors.map((actor, index) => (
 											<div
 												key={index}
 												className={classes.detail__card__info__wrapper}>
-												<small>
+												<p>
 													{actor.actorRole ?? ''} | {actor.actorName ?? ''}
-												</small>
+												</p>
 											</div>
 										))}
 									</>
 								)}
 								{film?.synopsis && (
 									<>
-										<p>{t('synopsis')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('synopsis')}</h6>
 											<p>{film?.synopsis ?? ''}</p>
+										</div>
+									</>
+								)}
+								{film?.directorNotes && (
+									<>
+										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('directorNotes')}</h6>
+											<p>{film?.directorNotes ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.productionNotes && (
 									<>
-										<p>{t('productionNotes')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('productionNotes')}</h6>
 											<p>{film?.productionNotes ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.subjects && (
 									<>
-										<p>{t('subject')}</p>
+										<h6>{t('subject')}</h6>
 										{film.subjects.map((subject, index) => (
 											<div
 												key={index}
@@ -123,7 +131,7 @@ const DetailFilm = () => {
 								)}
 								{film?.screenwriters && (
 									<>
-										<p>{t('screenwriter')}</p>
+										<h6>{t('screenwriter')}</h6>
 										{film.screenwriters.map((screenwriter, index) => (
 											<div
 												key={index}
@@ -135,80 +143,80 @@ const DetailFilm = () => {
 								)}
 								{film?.directorOfPhotography && (
 									<>
-										<p>{t('directorOfPhotography')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('directorOfPhotography')}</h6>
 											<p>{film?.directorOfPhotography ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.editing && (
 									<>
-										<p>{t('editing')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('editing')}</h6>
 											<p>{film?.editing ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.scenography && (
 									<>
-										<p>{t('scenography')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('scenography')}</h6>
 											<p>{film?.scenography ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.costumes && (
 									<>
-										<p>{t('costumes')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('costumes')}</h6>
 											<p>{film?.costumes ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.music && (
 									<>
-										<p>{t('music')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('music')}</h6>
 											<p>{film?.music ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.sound && (
 									<>
-										<p>{t('sound')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('sound')}</h6>
 											<p>{film?.sound ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.soundDesign && (
 									<>
-										<p>{t('soundDesign')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('soundDesign')}</h6>
 											<p>{film?.soundDesign ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.casting && (
 									<>
-										<p>{t('casting')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('casting')}</h6>
 											<p>{film?.casting ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.firstAssistantDirector && (
 									<>
-										<p>{t('firstAssistantDirector')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('firstAssistantDirector')}</h6>
 											<p>{film?.firstAssistantDirector ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.lineProducer && (
 									<>
-										<p>{t('lineProducer')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('lineProducer')}</h6>
 											<p>{film?.lineProducer ?? ''}</p>
 										</div>
 									</>
@@ -216,7 +224,7 @@ const DetailFilm = () => {
 								{film?.executiveProducers &&
 									film?.executiveProducers.length > 0 && (
 										<>
-											<p>{t('executiveProducers')}</p>
+											<h6>{t('executiveProducers')}</h6>
 											{film.executiveProducers.map(
 												(executiveProducer, index) => (
 													<div
@@ -232,7 +240,7 @@ const DetailFilm = () => {
 									)}
 								{film?.productions && (
 									<>
-										<p>{t('productions')}</p>
+										<h6>{t('productions')}</h6>
 										{film.productions.map((production, index) => (
 											<div
 												key={index}
@@ -244,7 +252,7 @@ const DetailFilm = () => {
 								)}
 								{film?.producers && (
 									<>
-										<p>{t('producers')}</p>
+										<h6>{t('producers')}</h6>
 										{film.producers.map((producer, index) => (
 											<div
 												key={index}
@@ -256,7 +264,7 @@ const DetailFilm = () => {
 								)}
 								{film?.coProductions && film?.coProductions.length > 0 && (
 									<>
-										<p>{t('coProductions')}</p>
+										<h6>{t('coProductions')}</h6>
 										{film.coProductions.map((coProduction, index) => (
 											<div
 												key={index}
@@ -268,7 +276,7 @@ const DetailFilm = () => {
 								)}
 								{film?.coProducers && film?.coProducers.length > 0 && (
 									<>
-										<p>{t('coProducers')}</p>
+										<h6>{t('coProducers')}</h6>
 										{film.coProducers.map((coProducer, index) => (
 											<div
 												key={index}
@@ -278,18 +286,42 @@ const DetailFilm = () => {
 										))}
 									</>
 								)}
+								{film?.collaborations && film?.collaborations.length > 0 && (
+									<>
+										<h6>{t('collaborations')}</h6>
+										{film.collaborations.map((collaboration, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<p>{collaboration.collaborationName ?? ''}</p>
+											</div>
+										))}
+									</>
+								)}
+								{film?.contributes && film?.contributes.length > 0 && (
+									<>
+										<h6>{t('contributes')}</h6>
+										{film.contributes.map((contribute, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<p>{contribute.contributeName ?? ''}</p>
+											</div>
+										))}
+									</>
+								)}
 								{film?.distributor && (
 									<>
-										<p>{t('distributor')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('distributor')}</h6>
 											<p>{film?.distributor ?? ''}</p>
 										</div>
 									</>
 								)}
 								{film?.salesAgent && (
 									<>
-										<p>{t('salesAgent')}</p>
 										<div className={classes.detail__card__info__wrapper}>
+											<h6>{t('salesAgent')}</h6>
 											<p>{film?.salesAgent ?? ''}</p>
 										</div>
 									</>
@@ -298,7 +330,7 @@ const DetailFilm = () => {
 							<div className={classes.detail__card__right}>
 								{film?.type && (
 									<>
-										<p>{t('typology')}</p>
+										<h6>{t('typology')}</h6>
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<small>{film?.type}</small>
@@ -306,9 +338,19 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.genre && (
+								{film?.projectState && (
 									<>
-										<p>{t('genres')}</p>
+										<h6>{t('projectState')}</h6>
+										<div className={classes.detail__card__right__container}>
+											<div className={classes.detail__card__right__item}>
+												<small>{film?.projectState}</small>
+											</div>
+										</div>
+									</>
+								)}
+								{film?.projectState && (
+									<>
+										<h6>{t('genres')}</h6>
 										<div className={classes.detail__card__right__container}>
 											<div className={classes.detail__card__right__item}>
 												<small>{film?.genre}</small>
@@ -318,7 +360,7 @@ const DetailFilm = () => {
 								)}
 								{film?.festivals && (
 									<>
-										<p>{t('festivals')}</p>
+										<h6>{t('festivals')}</h6>
 										<div className={classes.detail__card__right__container}>
 											{film?.festivals.map((festival, index) => (
 												<div
@@ -332,7 +374,7 @@ const DetailFilm = () => {
 								)}
 								{film?.imdb && film?.instagram && film?.facebook && (
 									<>
-										<p>{t('links')}</p>
+										<h6>{t('links')}</h6>
 										<div className={classes.detail__card__right__links}>
 											<a
 												href={film.imdb ?? ''}

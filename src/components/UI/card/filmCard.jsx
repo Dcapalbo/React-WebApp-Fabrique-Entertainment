@@ -2,6 +2,7 @@
 
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import TruncatedText from '../truncatedText/truncatedText';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
@@ -81,7 +82,12 @@ const FilmCard = (props) => {
 			)}
 			<div className={classes.card__internal__description}>
 				{props.title && <h2>{props.title ?? ''}</h2>}
-				{props.synopsis && <p>{props.synopsis ?? ''}</p>}
+				{props.synopsis && (
+					<TruncatedText
+						text={props.synopsis}
+						maxLength={300}
+					/>
+				)}{' '}
 			</div>
 			<div className={classes.card__external__informations}>
 				{props.director && <h2>{props.director ?? ''}</h2>}

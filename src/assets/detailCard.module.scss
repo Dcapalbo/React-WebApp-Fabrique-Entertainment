@@ -55,9 +55,9 @@
 				flex-direction: column;
 			}
 			.detail__card__left {
-				padding: 0px 10px 10px 10px;
+				padding: 0px 10px 0px 10px;
 				max-height: 700px;
-				margin: 10px 0px;
+				margin-top: 10px;
 				overflow-y: auto;
 				text-align: left;
 				width: 100%;
@@ -66,7 +66,6 @@
 				}
 				.detail__card__info__wrapper {
 					margin: 5px 0px;
-					display: flex;
 					width: 100%;
 					@media (max-width: $screen-lg-min) {
 						justify-content: center;
@@ -79,13 +78,13 @@
 						text-align: right;
 					}
 					p,
-					h3,
 					small {
 						color: $firstColor;
 					}
 				}
 				h2,
 				h3,
+				h6,
 				p {
 					@media (max-width: $screen-lg-min) {
 						text-align: center;
@@ -94,18 +93,23 @@
 			}
 		}
 		.detail__card__right {
-			padding: 0px 10px 10px 10px;
-			margin: 10px 0px;
+			padding: 10px;
 			width: 100%;
-			p {
-				margin-bottom: 5px;
+			@media (max-width: $screen-lg-min) {
+				padding: 0px 10px 10px 10px;
+			}
+			h6 {
+				color: $secondColor;
+				margin-top: 5px;
+			}
+			p,
+			h6 {
 				@media (max-width: $screen-lg-min) {
 					text-align: center;
 				}
 			}
 			.detail__card__right__container {
 				@include flex-between;
-				margin-top: 5px;
 				width: 100%;
 				@media (max-width: $screen-lg-min) {
 					@include flex-center;
@@ -113,12 +117,15 @@
 				p {
 					color: $firstColor;
 				}
+				button {
+					margin-bottom: 5px;
+				}
 				.detail__card__right__item {
 					background-color: $firstColor;
 					text-transform: capitalize;
 					@include flex-center;
 					border-radius: 50px;
-					margin-bottom: 10px;
+					margin-bottom: 5px;
 					width: fit-content;
 					padding: 0px 12px;
 					height: 30px;
@@ -154,19 +161,26 @@
 			}
 			.detail__card__right__links {
 				@include flex-start;
-				margin-top: 10px;
+				margin: 5px 0px;
 				width: 100%;
 				@media (max-width: $screen-lg-min) {
 					@include flex-center;
 				}
-				svg {
-					color: $firstColor;
+				a {
+					display: block;
+					height: 30px;
+					width: 30px;
 					margin-right: 5px;
-					transition: 0.2s;
-					&:hover {
-						color: $secondColor;
+					svg {
+						color: $firstColor;
 						transition: 0.2s;
-						cursor: pointer;
+						height: 100%;
+						width: 100%;
+						&:hover {
+							color: $secondColor;
+							transition: 0.2s;
+							cursor: pointer;
+						}
 					}
 				}
 			}

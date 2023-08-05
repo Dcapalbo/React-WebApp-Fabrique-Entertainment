@@ -167,8 +167,7 @@ h3 {
 }
 
 h4,
-h5,
-h6 {
+h5 {
 	line-height: 32px;
 	font-size: 22px;
 	@media (max-width: $screen-lg-min) {
@@ -176,6 +175,18 @@ h6 {
 	}
 	@media (max-width: $screen-sm-min) {
 		font-size: 14px;
+	}
+}
+
+h6 {
+	color: $secondColor;
+	line-height: 32px;
+	font-size: 18px;
+	@media (max-width: $screen-lg-min) {
+		font-size: 16px;
+	}
+	@media (max-width: $screen-sm-min) {
+		font-size: 16px;
 	}
 }
 
@@ -234,7 +245,6 @@ h6 {
 	width: fit-content;
 	padding: 0px 20px;
 	border: 1px solid;
-	margin: 20px 0px;
 	transition: 0.4s;
 	font-size: 18px;
 	height: 45px;

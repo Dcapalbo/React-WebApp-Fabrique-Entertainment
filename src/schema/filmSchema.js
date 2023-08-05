@@ -311,9 +311,9 @@ const filmSchema = z.object({
 			message:
 				'la descrizione del prodotto audiovisivo deve essere di almeno 10 caratteri',
 		})
-		.max(300, {
+		.max(1500, {
 			message:
-				'la descrizione del prodotto audiovisivo non può superare i 300 caratteri',
+				'la descrizione del prodotto audiovisivo non può superare i 1500 caratteri',
 		}),
 	productionNotes: z.union([
 		z
@@ -321,9 +321,9 @@ const filmSchema = z.object({
 			.min(10, {
 				message: 'le note di produzione devono essere di almeno 10 caratteri',
 			})
-			.max(300, {
+			.max(1500, {
 				message:
-					'le note di produzione non possono essere superiori ai 300 caratteri',
+					'le note di produzione non possono essere superiori ai 1500 caratteri',
 			})
 			.nullish(),
 		z.literal(''),
@@ -334,9 +334,9 @@ const filmSchema = z.object({
 			.min(10, {
 				message: 'le note di regia devono essere di almeno 10 caratteri',
 			})
-			.max(300, {
+			.max(1500, {
 				message:
-					'le note di regia non possono essere superiori ai 300 caratteri',
+					'le note di regia non possono essere superiori ai 1500 caratteri',
 			})
 			.nullish(),
 		z.literal(''),
