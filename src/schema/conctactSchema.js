@@ -24,8 +24,8 @@ const contactSchema = z.object({
 		.min(10, {
 			message: 'la biografia del contatto deve essere di almeno 10 caratteri',
 		})
-		.max(300, {
-			message: 'la biografia del contatto non può superare i 300 caratteri',
+		.max(500, {
+			message: 'la biografia del contatto non può superare i 500 caratteri',
 		}),
 	email: z
 		.string()

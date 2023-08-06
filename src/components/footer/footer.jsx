@@ -27,6 +27,9 @@ const Footer = () => {
 						pec aziendale:{' '}
 						<a href='mailto:fabriquesrl@pec.it'>fabriquesrl@pec.it</a>
 					</p>
+					<p>
+						Recapito telefonico: <a href='tel:+393337066526'>+39|3337066526</a>
+					</p>
 				</div>
 				<div className={classes.footer__container__elm}>
 					<h2>Link Social</h2>

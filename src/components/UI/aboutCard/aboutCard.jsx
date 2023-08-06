@@ -2,6 +2,7 @@
 
 import { dataContactActions } from '../../../store/data-contact-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import TruncatedText from '../truncatedText/truncatedText';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
@@ -84,9 +85,15 @@ const AboutCard = (props) => {
 				/>
 			)}
 			<div className={classes.card__internal__description}>
-				{props.name && <h2>{props.name}</h2>}
-				{props.surname && <h2>{props.surname}</h2>}
-				{props.bio && <p>{props.bio}</p>}
+				{props.name && props.surname && (
+					<h2>{props?.name + ' ' + props?.surname}</h2>
+				)}
+				{props.bio && (
+					<TruncatedText
+						text={props.bio}
+						maxLength={200}
+					/>
+				)}{' '}
 			</div>
 			<div className={classes.card__external__informations}>
 				<div className={classes.card__external__informations__item}>
