@@ -7,7 +7,7 @@ import React from 'react';
 
 const Accordion = () => {
 	const { t } = useTranslation();
-	const [selected, setSelected] = useState(0);
+	const [selected, setSelected] = useState(1);
 
 	const accordionData = [
 		{

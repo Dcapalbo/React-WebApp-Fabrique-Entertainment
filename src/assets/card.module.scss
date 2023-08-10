@@ -7,7 +7,6 @@
 	box-shadow: 2px 4px 10px rgb(243, 212, 195);
 	border: 1px solid $firstColor;
 	background-color: $thirdColor;
-	max-height: calc(100% - 40px);
 	width: calc(100% / 3 - 100px);
 	justify-content: flex-start;
 	transition: transform 0.2s;

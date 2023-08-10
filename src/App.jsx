@@ -19,6 +19,7 @@ import ApiGetHook from './hooks/apiGetHook';
 import i18n from 'i18next';
 // redux states
 import { dataContactActions } from './store/data-contact-slice';
+import ScrollTop from './components/UI/scrollTop/scrollTop';
 // scss files
 import './assets/typography.scss';
 import './assets/reset.scss';
@@ -68,6 +69,7 @@ const App = () => {
 
 	return (
 		<Router>
+			<ScrollTop />
 			<Routes>
 				{/* not authenticated Routes  */}
 				<Route
@@ -106,7 +108,6 @@ const App = () => {
 					path='/sign-up'
 					element={<AuthSignUp />}
 				/> */}
-
 				{/* authenticated Routes  */}
 				<Route
 					path='/admin/films'
