@@ -45,18 +45,18 @@ const FilmForm = () => {
 		{ coProducerName: '' },
 	];
 
-	const collaborationsData = dataUpdateFilm?.productions || [
+	const collaborationsData = dataUpdateFilm?.collaborations || [
 		{ collaborationName: '' },
 	];
 
-	const contributesData = dataUpdateFilm?.productions || [
+	const contributesData = dataUpdateFilm?.contributes || [
 		{ contributeName: '' },
 	];
 	const actorsData = dataUpdateFilm?.actors || [
 		{ actorName: '', actorRole: '' },
 	];
 
-	const subjectData = dataUpdateFilm?.subject || [{ subjectName: '' }];
+	const subjectData = dataUpdateFilm?.subjects || [{ subjectName: '' }];
 
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },

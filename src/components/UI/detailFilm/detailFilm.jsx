@@ -372,31 +372,36 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.imdb && film?.instagram && film?.facebook && (
-									<>
-										<h6>{t('links')}</h6>
-										<div className={classes.detail__card__right__links}>
-											<a
-												href={film.imdb ?? ''}
-												target='_blank'
-												rel='noreferrer'>
-												<SiImdb size={30} />
-											</a>
-											<a
-												href={film.instagram ?? ''}
-												target='_blank'
-												rel='noreferrer'>
-												<BsInstagram size={30} />
-											</a>
-											<a
-												href={film.facebook ?? ''}
-												target='_blank'
-												rel='noreferrer'>
-												<BiLogoFacebookCircle size={30} />
-											</a>
-										</div>
-									</>
+								{(film?.imdb || film?.instagram || film?.facebook) && (
+									<h6>{t('links')}</h6>
 								)}
+								<div className={classes.detail__card__right__links}>
+									{film?.imdb && (
+										<a
+											href={film.imdb ?? ''}
+											target='_blank'
+											rel='noreferrer'>
+											<SiImdb size={30} />
+										</a>
+									)}
+									{film?.instagram && (
+										<a
+											href={film.instagram ?? ''}
+											target='_blank'
+											rel='noreferrer'>
+											<BsInstagram size={30} />
+										</a>
+									)}
+									{film?.facebook && (
+										<a
+											href={film.facebook ?? ''}
+											target='_blank'
+											rel='noreferrer'>
+											<BiLogoFacebookCircle size={30} />
+										</a>
+									)}
+								</div>
+
 								{film?.pressBookPdfUrl && (
 									<>
 										<div className={classes.detail__card__right__container}>
