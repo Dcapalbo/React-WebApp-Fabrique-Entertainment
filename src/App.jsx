@@ -66,7 +66,6 @@ const App = () => {
 		setIsAuthenticated(isLoggedIn);
 		dispatch(dataContactActions.setContactsData(contacts));
 	}, [isLoggedIn, token, dispatch, contacts]);
-
 	return (
 		<Router>
 			<ScrollTop />

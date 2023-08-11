@@ -3,6 +3,8 @@
 const translationIt = {
 	home: 'Home',
 	about: 'Il team',
+	aboutDescription:
+		"Fabrique Entertainment e' formata da Renata Di Leone e Giovanni Capalbo. La società non e' strettamente strutturata nei settori. I progetti seguono le idee dei singoli esponenti, i quali si adattano a interpretare funzioni diverse in base alla paternità delle idee. Ciò nonostante, i produttori, sono uniti e operativi nello sviluppo delle storie per poi definire i loro ambiti nella fase di produzione. Renata Di Leone , ha l'istinto nel scegliere le storie che sono connesse con il suo mondo africano, essendo lei etiope. Giovanni Capalbo lavora sulle strategie economiche e finanziarie.",
 	films: 'Filmografia',
 	contacts: 'Contatti',
 	filmsList: 'Lista dei film',
@@ -111,6 +113,11 @@ const translationIt = {
 		screenwriter: 'Sceneggiatore',
 		addScreenwriter: 'Aggiungi sceneggiatore',
 		deleteScreenwriter: 'Cancella sceneggiatore',
+	},
+	musicsLabels: {
+		music: 'Musicista',
+		addMusic: 'Aggiungi Musicista',
+		deleteMusic: 'Cancella Musicista',
 	},
 	executiveProducersLabels: {
 		executiveProducer: 'Produttore esecutivo',

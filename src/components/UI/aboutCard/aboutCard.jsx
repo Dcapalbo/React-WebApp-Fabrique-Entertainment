@@ -91,7 +91,7 @@ const AboutCard = (props) => {
 				{props.bio && (
 					<TruncatedText
 						text={props.bio}
-						maxLength={200}
+						maxLength={500}
 					/>
 				)}{' '}
 			</div>

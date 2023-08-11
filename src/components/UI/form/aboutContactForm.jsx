@@ -78,7 +78,7 @@ const AboutContactForm = () => {
 			formData.append('phoneNumber', data.phoneNumber);
 		}
 
-		formData.append('slug', slugCreation(data.name + data.surname));
+		formData.append('slug', slugCreation(data.name + ' ' + data.surname));
 		formData.append(
 			'contactImage',
 			contactImage ?? dataUpdateContact?.contactImageKey

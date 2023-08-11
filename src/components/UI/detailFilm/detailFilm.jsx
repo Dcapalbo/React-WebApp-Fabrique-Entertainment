@@ -173,12 +173,16 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.music && (
+								{film?.musics && film?.musics.length && (
 									<>
-										<div className={classes.detail__card__info__wrapper}>
-											<h6>{t('music')}</h6>
-											<p>{film?.music ?? ''}</p>
-										</div>
+										<h6>{t('music')}</h6>
+										{film.musics.map((music, index) => (
+											<div
+												key={index}
+												className={classes.detail__card__info__wrapper}>
+												<p>{music.musicName ?? ''}</p>
+											</div>
+										))}
 									</>
 								)}
 								{film?.sound && (

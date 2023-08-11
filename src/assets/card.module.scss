@@ -7,7 +7,7 @@
 	box-shadow: 2px 4px 10px rgb(243, 212, 195);
 	border: 1px solid $firstColor;
 	background-color: $thirdColor;
-	width: calc(100% / 3 - 100px);
+	width: calc(100% / 3 - 10px);
 	justify-content: flex-start;
 	transition: transform 0.2s;
 	flex-direction: column;
@@ -77,7 +77,7 @@
 		object-fit: cover;
 		transition: 0.2s;
 		cursor: pointer;
-		height: 300px;
+		height: 650px;
 		width: 100%;
 		z-index: 1;
 		opacity: 1;
@@ -102,12 +102,12 @@
 	}
 
 	@media (max-width: $screen-xl-min) {
-		width: calc(100% / 2 - 48px);
+		width: calc(100% / 2);
 		margin: 16px;
 	}
 
 	@media (max-width: $screen-sm-min) {
-		margin: 12px;
+		margin: 12px 0px;
 		width: 100%;
 	}
 

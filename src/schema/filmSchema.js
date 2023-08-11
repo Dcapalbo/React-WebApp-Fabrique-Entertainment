@@ -201,24 +201,31 @@ const filmSchema = z.object({
 			.nullish(),
 		z.literal(''),
 	]),
-	music: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
+	music: z.array(
+		z.object({
+			musicName: z
+				.string()
+				.nonempty({ message: 'Inserire almeno un musicista' })
+				.min(6, {
+					message: 'il nome deve essere di almeno 6 caratteri',
+				})
+				.max(40, {
+					message: 'il nome non può superare i 40 caratteri',
+				}),
 		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
-	sound: z
-		.string()
-		.nonempty({ message: 'campo obbligatorio' })
-		.min(6, {
-			message: 'il nome deve essere di almeno 6 caratteri',
-		})
-		.max(40, {
-			message: 'il nome non può superare i 40 caratteri',
-		}),
+	),
+	sound: z.union([
+		z
+			.string()
+			.min(6, {
+				message: 'il nome deve essere di almeno 6 caratteri',
+			})
+			.max(40, {
+				message: 'il nome non può superare i 40 caratteri',
+			})
+			.nullish(),
+		z.literal(''),
+	]),
 	soundDesign: z.union([
 		z
 			.string()

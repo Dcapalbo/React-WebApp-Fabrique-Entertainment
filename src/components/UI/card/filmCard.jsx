@@ -85,18 +85,14 @@ const FilmCard = (props) => {
 				{props.synopsis && (
 					<TruncatedText
 						text={props.synopsis}
-						maxLength={300}
+						maxLength={700}
 					/>
 				)}{' '}
 			</div>
 			<div className={classes.card__external__informations}>
 				{props.director && <h2>{props.director ?? ''}</h2>}
 				{props.productions && (
-					<>
-						{props?.productions.map((production, index) => (
-							<p key={index}>{production.productionName ?? ''}</p>
-						))}
-					</>
+					<p>{props.productions[0].productionName ?? ''}</p>
 				)}
 				<div className={classes.card__external__informations__item}>
 					{props.type && (

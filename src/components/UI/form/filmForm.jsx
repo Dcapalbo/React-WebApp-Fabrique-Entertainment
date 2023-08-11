@@ -52,6 +52,7 @@ const FilmForm = () => {
 	const contributesData = dataUpdateFilm?.contributes || [
 		{ contributeName: '' },
 	];
+
 	const actorsData = dataUpdateFilm?.actors || [
 		{ actorName: '', actorRole: '' },
 	];
@@ -61,6 +62,8 @@ const FilmForm = () => {
 	const screenwritersData = dataUpdateFilm?.screenwriters || [
 		{ screenwriterName: '' },
 	];
+
+	const musicData = dataUpdateFilm?.music || [{ musicName: '' }];
 
 	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
 		{ executiveProducerName: '' },
@@ -102,8 +105,11 @@ const FilmForm = () => {
 	const [coverImage, setCoverImage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [actors, setActors] = useState(actorsData);
+	const [musics, setMusics] = useState(musicData);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
+
+	console.log(musics);
 
 	const handleSelectChange = (selectedValue) => {
 		return selectedValue;
@@ -294,8 +300,19 @@ const FilmForm = () => {
 			formData.append('costumes', data.costumes);
 		}
 
-		formData.append('music', data.music);
-		formData.append('sound', data.sound);
+		if (
+			musics.length > 0 &&
+			musics.length[0] !== '' &&
+			data.musics[0].musicName !== ''
+		) {
+			for (let i = 0; i < musics.length; i++) {
+				formData.append(`music[${i}][musicName]`, data.musics[i].musicName);
+			}
+		}
+
+		if (data.sound) {
+			formData.append('sound', data.sound);
+		}
 
 		if (data.soundDesign) {
 			formData.append('soundDesign', data.soundDesign);
@@ -1099,24 +1116,62 @@ const FilmForm = () => {
 						<small>{errors.costumes?.message}</small>
 					)}
 				</div>
+				{musics.map((music, index) => (
+					<div
+						className={classes.form__container__item}
+						key={index}>
+						<label htmlFor='musicName'>
+							{t('musicsLabels.music')}
+							<span>*</span>
+						</label>
+						<input
+							defaultValue={
+								formState.defaultValues?.payload?.musics?.[index]?.musicName ??
+								''
+							}
+							{...register(`musics.${index}.musicName`)}
+							type='text'
+							onChange={(e) =>
+								handleDynamicFieldChange(
+									e,
+									index,
+									'musicName',
+									musics,
+									setMusics
+								)
+							}
+						/>
+						{errors.musics?.[index]?.musicName?.message && (
+							<small>{errors.musics?.[index]?.musicName.message}</small>
+						)}
+						{index !== 0 && (
+							<button
+								onClick={() =>
+									handleDynamicFieldDelete(index, musics, setMusics)
+								}
+								className={
+									classes.secondary__button + ' ' + classes.extra__margin__top
+								}
+								type='button'>
+								{t('musicsLabels.deleteMusic')}
+							</button>
+						)}
+					</div>
+				))}
 				<div className={classes.form__container__item}>
-					<label htmlFor='music'>
-						{t('music')}
-						<span>*</span>
-					</label>
-					<input
-						defaultValue={formState.defaultValues?.payload?.music ?? ''}
-						{...register('music')}
-						type='text'
-						onChange={handleInputChange}
-					/>
-					{errors.music?.message && <small>{errors.music?.message}</small>}
+					<button
+						onClick={() =>
+							handleDynamicFieldAdd(musics, setMusics, {
+								musicName: '',
+							})
+						}
+						className={classes.secondary__button}
+						type='button'>
+						{t('musicsLabels.addMusic')}
+					</button>
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='sound'>
-						{t('sound')}
-						<span>*</span>
-					</label>
+					<label htmlFor='sound'>{t('sound')}</label>
 					<input
 						defaultValue={formState.defaultValues?.payload?.sound ?? ''}
 						{...register('sound')}

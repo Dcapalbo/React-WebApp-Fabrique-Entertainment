@@ -65,7 +65,7 @@ const FilmCardContainer = () => {
 								editing={film.editing}
 								scenography={film?.scenography ?? ''}
 								costumes={film?.costumes ?? ''}
-								music={film.music}
+								musics={film.musics}
 								sound={film.sound}
 								soundDesign={film?.soundDesign ?? ''}
 								casting={film?.casting ?? ''}
