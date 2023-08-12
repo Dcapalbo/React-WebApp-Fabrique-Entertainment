@@ -22,6 +22,7 @@ import TypeSelect from '../select/typeSelect';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
+import DynamicInput from './dynamicInput/dynamicInput';
 
 const FilmForm = () => {
 	const uriLocation = window.location.href;
@@ -489,48 +490,29 @@ const FilmForm = () => {
 					)}
 				</div>
 				{productions.map((production, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.production?.[index]
+								.productionName ?? ''
+						}
+						isRequired={true}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('productionsLabels.production')}
+						fieldName='productionName'
+						name={'productions'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='ProductionName'>
-							{t('productionsLabels.production')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.production?.[index]
-									?.productionName ?? ''
-							}
-							{...register(`productions.${index}.productionName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'productionName',
-									productions,
-									setProductions
-								)
-							}
-						/>
-						{errors.productions?.[index]?.productionName?.message && (
-							<small>
-								{errors.productions?.[index]?.productionName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, productions, setProductions)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('productionsLabels.deleteProduction')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={productions}
+						setState={setProductions}
+						deleteButtonLabel={t('productionsLabels.deleteProduction')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -545,46 +527,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{producers.map((producer, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.producer?.[index]
+								.producerName ?? ''
+						}
+						isRequired={true}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('producersLabels.producer')}
+						fieldName='producerName'
+						name={'producers'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='ProducerName'>
-							{t('producersLabels.producer')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.production?.[index]
-									?.productionName ?? ''
-							}
-							{...register(`producers.${index}.producerName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'producerName',
-									producers,
-									setProducers
-								)
-							}
-						/>
-						{errors.producers?.[index]?.producerName?.message && (
-							<small>{errors.producers?.[index]?.producerName.message}</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, producers, setProducers)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('producersLabels.deleteProducer')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={producers}
+						setState={setProducers}
+						deleteButtonLabel={t('producersLabels.deleteProducer')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -599,51 +564,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{coProductions.map((coProduction, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.coProduction?.[index]
+								.coProductionName ?? ''
+						}
+						isRequired={false}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('coProductionsLabels.coProduction')}
+						fieldName='coProductionName'
+						name={'coProductions'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='CoProductionName'>
-							{t('coProductionsLabels.coProduction')}
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.coProduction?.[index]
-									?.coProductionName ?? ''
-							}
-							{...register(`coProductions.${index}.coProductionName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'coProductionName',
-									coProductions,
-									setCoProductions
-								)
-							}
-						/>
-						{errors.coProductions?.[index]?.coProductionName?.message && (
-							<small>
-								{errors.coProductions?.[index]?.coProductionName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(
-										index,
-										coProductions,
-										setCoProductions
-									)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('coProductionsLabels.deleteCoProduction')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={coProductions}
+						setState={setCoProductions}
+						deleteButtonLabel={t('coProductionsLabels.deleteCoProduction')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -658,47 +601,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{coProducers.map((coProducer, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.coProducer?.[index]
+								.coProducerName ?? ''
+						}
+						isRequired={false}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('coProducersLabels.coProducer')}
+						fieldName='coProducerName'
+						name={'coProducers'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='CoProducerName'>
-							{t('coProducersLabels.coProducer')}
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.coProducer?.[index]
-									?.coProducerName ?? ''
-							}
-							{...register(`coProducers.${index}.coProducerName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'coProducerName',
-									coProducers,
-									setCoProducers
-								)
-							}
-						/>
-						{errors.coProducers?.[index]?.coProducerName?.message && (
-							<small>
-								{errors.coProducers?.[index]?.coProducerName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, coProducers, setCoProducers)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('coProducersLabels.deleteCoProducer')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={coProducers}
+						setState={setCoProducers}
+						deleteButtonLabel={t('coProducersLabels.deleteCoProducer')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -713,51 +638,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{collaborations.map((collaboration, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.collaboration?.[index]
+								.collaborationName ?? ''
+						}
+						isRequired={false}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('collaborationsLabels.collaboration')}
+						fieldName='collaborationName'
+						name={'collaborations'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='collaborationName'>
-							{t('collaborationsLabels.collaboration')}
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.collaboration?.[index]
-									?.collaborationName ?? ''
-							}
-							{...register(`collaborations.${index}.collaborationName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'collaborationName',
-									collaborations,
-									setCollaborations
-								)
-							}
-						/>
-						{errors.collaborations?.[index]?.collaborationName?.message && (
-							<small>
-								{errors.collaborations?.[index]?.collaborationName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(
-										index,
-										collaborations,
-										setCollaborations
-									)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('collaborationsLabels.deleteCollaboration')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={collaborations}
+						setState={setCollaborations}
+						deleteButtonLabel={t('collaborationsLabels.deleteCollaboration')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -772,47 +675,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{contributes.map((contribute, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.contribute?.[index]
+								.contributeName ?? ''
+						}
+						isRequired={false}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('contributesLabels.contribute')}
+						fieldName='contributeName'
+						name={'contributes'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='contributeName'>
-							{t('contributesLabels.contribute')}
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.contribute?.[index]
-									?.contributeName ?? ''
-							}
-							{...register(`contributes.${index}.contributeName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'contributeName',
-									contributes,
-									setContributes
-								)
-							}
-						/>
-						{errors.contributes?.[index]?.contributeName?.message && (
-							<small>
-								{errors.contributes?.[index]?.contributeName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, contributes, setContributes)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('contributesLabels.deleteContribute')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={contributes}
+						setState={setContributes}
+						deleteButtonLabel={t('contributesLabels.deleteContribute')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -908,46 +793,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{subjects.map((subject, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.subject?.[index].subjectName ??
+							''
+						}
+						isRequired={true}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('subjectsLabels.subject')}
+						fieldName='subjectName'
+						name={'subjects'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='SubjectName'>
-							{t('subjectsLabels.subject')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.subject?.[index]
-									?.subjectName ?? ''
-							}
-							{...register(`subjects.${index}.subjectName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'subjectName',
-									subjects,
-									setSubjects
-								)
-							}
-						/>
-						{errors.subjects?.[index]?.subjectName?.message && (
-							<small>{errors.subjects?.[index]?.subjectName.message}</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, subjects, setSubjects)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('subjectsLabels.deleteSubject')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={subjects}
+						setState={setSubjects}
+						deleteButtonLabel={t('subjectsLabels.deleteSubject')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -962,52 +830,29 @@ const FilmForm = () => {
 					</button>
 				</div>
 				{screenwriters.map((screenwriter, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.screenwriter?.[index]
+								.screenwriterName ?? ''
+						}
+						isRequired={true}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('screenwritersLabels.screenwriter')}
+						fieldName='screenwriterName'
+						name={'screenwriters'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='ScreenwriterName'>
-							{t('screenwritersLabels.screenwriter')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.screenwriter?.[index]
-									?.screenwriterName ?? ''
-							}
-							{...register(`screenwriters.${index}.screenwriterName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'screenwriterName',
-									screenwriters,
-									setScreenwriters
-								)
-							}
-						/>
-						{errors.screenwriters?.[index]?.screenwriterName?.message && (
-							<small>
-								{errors.screenwriters?.[index]?.screenwriterName.message}
-							</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(
-										index,
-										screenwriters,
-										setScreenwriters
-									)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('screenwritersLabels.deleteScreenwriter')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={screenwriters}
+						setState={setScreenwriters}
+						deleteButtonLabel={t('screenwritersLabels.deleteScreenwriter')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -1118,46 +963,28 @@ const FilmForm = () => {
 					)}
 				</div>
 				{musics.map((music, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.music?.[index].musicName ?? ''
+						}
+						isRequired={true}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('musicsLabels.music')}
+						fieldName='musicName'
+						name={'musics'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='musicName'>
-							{t('musicsLabels.music')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.musics?.[index]?.musicName ??
-								''
-							}
-							{...register(`musics.${index}.musicName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'musicName',
-									musics,
-									setMusics
-								)
-							}
-						/>
-						{errors.musics?.[index]?.musicName?.message && (
-							<small>{errors.musics?.[index]?.musicName.message}</small>
-						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, musics, setMusics)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('musicsLabels.deleteMusic')}
-							</button>
-						)}
-					</div>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={musics}
+						setState={setMusics}
+						deleteButtonLabel={t('musicsLabels.deleteMusic')}
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
@@ -1216,56 +1043,31 @@ const FilmForm = () => {
 					)}
 				</div>
 				{executiveProducers.map((executiveProducer, index) => (
-					<div
+					<DynamicInput
+						key={index}
+						index={index}
+						fieldValue={
+							formState.defaultValues?.payload?.executiveProducer?.[index]
+								.executiveProducerName ?? ''
+						}
+						isRequired={false}
+						register={register}
+						handleDynamicFieldChange={handleDynamicFieldChange}
+						handleDynamicFieldDelete={handleDynamicFieldDelete}
+						errors={errors}
+						label={t('executiveProducersLabels.executiveProducer')}
+						fieldName='executiveProducerName'
+						name={'executiveProducers'}
 						className={classes.form__container__item}
-						key={index}>
-						<label htmlFor='ExecutiveProducerName'>
-							{t('executiveProducersLabels.executiveProducer')}
-							<span>*</span>
-						</label>
-						<input
-							defaultValue={
-								formState.defaultValues?.payload?.executiveProducer?.[index]
-									?.executiveProducerName ?? ''
-							}
-							{...register(`executiveProducers.${index}.executiveProducerName`)}
-							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'executiveProducerName',
-									executiveProducers,
-									setExecutiveProducers
-								)
-							}
-						/>
-						{errors.executiveProducers?.[index]?.executiveProducerName
-							?.message && (
-							<small>
-								{
-									errors.executiveProducers?.[index]?.executiveProducerName
-										.message
-								}
-							</small>
+						buttonClassName={
+							classes.secondary__button + ' ' + classes.extra__margin__top
+						}
+						stateArray={executiveProducers}
+						setState={setExecutiveProducers}
+						deleteButtonLabel={t(
+							'executiveProducersLabels.deleteExecutiveProducer'
 						)}
-						{index !== 0 && (
-							<button
-								onClick={() =>
-									handleDynamicFieldDelete(
-										index,
-										executiveProducers,
-										setExecutiveProducers
-									)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
-								type='button'>
-								{t('executiveProducersLabels.deleteExecutiveProducer')}
-							</button>
-						)}
-					</div>
+					/>
 				))}
 				<div className={classes.form__container__item}>
 					<button
