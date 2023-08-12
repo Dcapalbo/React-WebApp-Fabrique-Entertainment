@@ -1,11 +1,11 @@
 /** @format */
 
 import { dataContactActions } from '../../../store/data-contact-slice';
-import { clientUrl, serverUrl } from '../../../utils/constants';
 import { contactSchema } from '../../../schema/conctactSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { serverUrl } from '../../../utils/constants';
 import classes from './genericForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -29,12 +29,13 @@ const AboutContactForm = () => {
 	);
 
 	useEffect(() => {
-		if (clientUrl.includes('/admin/update-contact')) {
+		if (uriLocation.includes('/admin/update-contact')) {
 			setIsUpdate(true);
 		} else {
+			dispatch(dataContactActions.resetContactData());
 			setIsUpdate(false);
 		}
-	}, [dispatch]);
+	}, [uriLocation, dispatch]);
 
 	const { register, formState, setValue, handleSubmit, trigger } = useForm({
 		defaultValues: dataUpdateContact ?? '',

@@ -201,7 +201,7 @@ const filmSchema = z.object({
 			.nullish(),
 		z.literal(''),
 	]),
-	music: z.array(
+	musics: z.array(
 		z.object({
 			musicName: z
 				.string()

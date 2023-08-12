@@ -31,6 +31,8 @@ const FilmForm = () => {
 
 	const dataUpdateFilm = useSelector((state) => state.dataFilm.filmData ?? '');
 
+	console.log(dataUpdateFilm);
+
 	const productionsData = dataUpdateFilm?.productions || [
 		{ productionName: '' },
 	];
@@ -63,7 +65,7 @@ const FilmForm = () => {
 		{ screenwriterName: '' },
 	];
 
-	const musicData = dataUpdateFilm?.music || [{ musicName: '' }];
+	const musicData = dataUpdateFilm?.musics || [{ musicName: '' }];
 
 	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
 		{ executiveProducerName: '' },
@@ -108,8 +110,6 @@ const FilmForm = () => {
 	const [musics, setMusics] = useState(musicData);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [error, setError] = useState(null);
-
-	console.log(musics);
 
 	const handleSelectChange = (selectedValue) => {
 		return selectedValue;
@@ -166,6 +166,7 @@ const FilmForm = () => {
 	};
 
 	const confirmHandler = (data) => {
+		console.log(data);
 		const formData = new FormData();
 
 		formData.append('title', data.title);
@@ -306,7 +307,7 @@ const FilmForm = () => {
 			data.musics[0].musicName !== ''
 		) {
 			for (let i = 0; i < musics.length; i++) {
-				formData.append(`music[${i}][musicName]`, data.musics[i].musicName);
+				formData.append(`musics[${i}][musicName]`, data.musics[i].musicName);
 			}
 		}
 
