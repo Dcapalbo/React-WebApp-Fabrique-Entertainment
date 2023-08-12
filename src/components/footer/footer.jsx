@@ -32,7 +32,7 @@ const Footer = () => {
 					</p>
 				</div>
 				<div className={classes.footer__container__elm}>
-					<h2>Link Social</h2>
+					<h2>Social</h2>
 					<a
 						href='https://www.instagram.com/fabrique_entertainment/?hl=it'
 						target='_blank'
