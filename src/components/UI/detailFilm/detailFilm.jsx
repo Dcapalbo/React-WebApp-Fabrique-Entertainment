@@ -18,6 +18,8 @@ const DetailFilm = () => {
 	const [error, setError] = useState(null);
 	const { t } = useTranslation();
 
+	console.log(film);
+
 	useEffect(() => {
 		setIsLoading(true);
 		if (film) {
@@ -362,20 +364,42 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.festivals && (
+								{film?.festivals && film?.festivals.length > 0 && (
 									<>
 										<h6>{t('festivals')}</h6>
 										<div className={classes.detail__card__right__container}>
 											{film?.festivals.map((festival, index) => (
 												<div
 													key={index}
-													className={classes.detail__card__right__item}>
-													<small>{festival.festivalName ?? ''}</small>
+													className={classes.flex__festivals__containers}>
+													<p>{festival.festivalName}</p>
+													{festival.festivalRoles.map(
+														(festivalRole, festivalRoleIndex) => (
+															<div
+																key={festivalRoleIndex}
+																className={classes.detail__card__right__item}>
+																<small
+																	className={
+																		classes.flex__festivals__informations
+																	}>
+																	{festivalRole.festivalRoleName}
+																	<FaMedal
+																		className={
+																			festival.festivalType === 'selezione'
+																				? classes.selection
+																				: classes.victory
+																		}
+																	/>
+																</small>
+															</div>
+														)
+													)}
 												</div>
 											))}
 										</div>
 									</>
 								)}
+
 								{(film?.imdb || film?.instagram || film?.facebook) && (
 									<h6>{t('links')}</h6>
 								)}
@@ -420,7 +444,7 @@ const DetailFilm = () => {
 										</div>
 									</>
 								)}
-								{film?.festivals && (
+								{film?.festivals && film?.festivals.length > 0 && (
 									<>
 										<div className={classes.detail__card__right__legends}>
 											<p>

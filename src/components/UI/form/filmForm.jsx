@@ -445,8 +445,6 @@ const FilmForm = () => {
 		console.log(data.festivals);
 
 		if (
-			festivals.length > 0 &&
-			festivals.length[0] !== '' &&
 			data.festivals[0].festivalName !== '' &&
 			data.festivals[0].festivalType !== '' &&
 			data.festivals[0].festivalRoles[0].festivalRoleName !== '' &&
@@ -545,7 +543,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						//navigate('/admin/films');
+						navigate('/admin/films');
 					});
 			}
 		}
@@ -1360,15 +1358,17 @@ const FilmForm = () => {
 										)
 									}
 								/>
-								{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]
+								{errors.festivals?.[index]?.festivalRoles?.[festivalRoleIndex]
 									?.festivalRoleName?.message && (
 									<small>
 										{
-											errors.festival?.festivalRoles?.[festivalRoleIndex]
-												?.festivalRoleName.message
+											errors.festivals?.[index]?.festivalRoles?.[
+												festivalRoleIndex
+											]?.festivalRoleName.message
 										}
 									</small>
 								)}
+
 								<label
 									className={classes.margin__top}
 									htmlFor='festivalPersonName'>
@@ -1395,8 +1395,9 @@ const FilmForm = () => {
 									?.festivalPersonName?.message && (
 									<small>
 										{
-											errors.festival?.festivalRoles?.[festivalRoleIndex]
-												?.festivalPersonName.message
+											errors.festivals?.[index].festivalRoles?.[
+												festivalRoleIndex
+											]?.festivalPersonName.message
 										}
 									</small>
 								)}
@@ -1433,9 +1434,6 @@ const FilmForm = () => {
 							Aggiungi Ruolo
 						</button>
 
-						{errors.festivals?.[index]?.festivalName?.message && (
-							<small>{errors.festivals?.[index]?.festivalName.message}</small>
-						)}
 						{index !== 0 && (
 							<button
 								onClick={() =>

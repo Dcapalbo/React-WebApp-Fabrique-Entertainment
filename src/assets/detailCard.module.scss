@@ -56,7 +56,7 @@
 			}
 			.detail__card__left {
 				padding: 0px 10px 0px 10px;
-				max-height: 700px;
+				max-height: 800px;
 				margin-top: 10px;
 				overflow-y: auto;
 				text-align: left;
@@ -153,13 +153,6 @@
 				}
 				p {
 					color: $firstColor;
-					.victory {
-						color: gold;
-					}
-
-					.selection {
-						color: silver;
-					}
 				}
 			}
 			.detail__card__right__links {
@@ -192,4 +185,27 @@
 			background-color: $firstColor;
 		}
 	}
+}
+
+.victory {
+	color: gold !important;
+}
+
+.selection {
+	color: silver !important;
+}
+
+.flex__festivals__containers {
+	flex-direction: column;
+	align-items: start;
+	flex-wrap: wrap;
+	display: flex;
+	width: 100%;
+	@media (max-width: $screen-lg-min) {
+		align-items: center;
+	}
+}
+
+.flex__festivals__informations {
+	@include flex-center;
 }
