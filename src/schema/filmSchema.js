@@ -374,6 +374,36 @@ const filmSchema = z.object({
 					.nullish(),
 				z.literal(''),
 			]),
+			festivalType: z.union([z.string(), z.literal('')]),
+			festivalRoles: z.union([
+				z
+					.array(
+						z.object(
+							{
+								festivalRoleName: z
+									.string()
+									.min(6, {
+										message: 'il nome deve esser di almeno 6 caratteri',
+									})
+									.max(40, {
+										message: 'il nome del ruolo deve essere di massimo 40',
+									}),
+							},
+							{
+								festivalPersonName: z
+									.string()
+									.min(6, {
+										message: 'il nome deve esser di almeno 6 caratteri',
+									})
+									.max(40, {
+										message: 'il nome del ruolo deve essere di massimo 40',
+									}),
+							}
+						)
+					)
+					.nullish(),
+				z.literal(''),
+			]),
 		})
 	),
 	type: z.string().nonempty({ message: 'Inserire almeno un valore' }),

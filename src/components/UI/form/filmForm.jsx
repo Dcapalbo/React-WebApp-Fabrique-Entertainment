@@ -23,6 +23,7 @@ import TypeSelect from '../select/typeSelect';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
+import FestivalTypeSelect from '../select/festivalTypeSelect';
 
 const FilmForm = () => {
 	const uriLocation = window.location.href;
@@ -32,6 +33,7 @@ const FilmForm = () => {
 
 	const dataUpdateFilm = useSelector((state) => state.dataFilm.filmData ?? '');
 
+	console.log('redux updateFilm', dataUpdateFilm);
 	const productionsData = dataUpdateFilm?.productions || [
 		{ productionName: '' },
 	];
@@ -71,7 +73,11 @@ const FilmForm = () => {
 	];
 
 	const festivalsData = dataUpdateFilm?.festivals || [
-		{ festivalName: '', festivalType: '', roles: [] },
+		{
+			festivalName: '',
+			festivalType: '',
+			festivalRoles: [{ festivalRoleName: '', festivalPersonName: '' }],
+		},
 	];
 
 	useEffect(() => {
@@ -113,6 +119,7 @@ const FilmForm = () => {
 	const [error, setError] = useState(null);
 
 	const handleSelectChange = (selectedValue) => {
+		console.log(selectedValue);
 		return selectedValue;
 	};
 
@@ -146,7 +153,7 @@ const FilmForm = () => {
 	};
 
 	const handleDynamicFieldAdd = (stateArray, setState, newField) => {
-		setState((prevState) => [...prevState, { ...newField, roles: [] }]);
+		setState((prevState) => [...prevState, { ...newField }]);
 	};
 
 	const handleDynamicFieldDelete = (index, stateArray, setState) => {
@@ -159,7 +166,7 @@ const FilmForm = () => {
 	const handleDynamicRoleChange = (
 		event,
 		festivalIndex,
-		roleIndex,
+		festivalRoleIndex,
 		fieldName,
 		stateArray,
 		setState
@@ -167,9 +174,19 @@ const FilmForm = () => {
 		const { value } = event.target;
 		setState((prevState) => {
 			const updatedArray = [...prevState];
-			updatedArray[festivalIndex].roles[roleIndex] = {
-				...updatedArray[festivalIndex].roles[roleIndex],
-				[fieldName]: value,
+			updatedArray[festivalIndex] = {
+				...updatedArray[festivalIndex],
+				festivalRoles: updatedArray[festivalIndex].festivalRoles.map(
+					(role, index) => {
+						if (index === festivalRoleIndex) {
+							return {
+								...role,
+								[fieldName]: value,
+							};
+						}
+						return role;
+					}
+				),
 			};
 			return updatedArray;
 		});
@@ -178,20 +195,38 @@ const FilmForm = () => {
 	const handleDynamicRoleAdd = (festivalIndex, stateArray, setState) => {
 		setState((prevState) => {
 			const updatedArray = [...prevState];
-			updatedArray[festivalIndex].roles.push({ roleName: '' });
+			const updatedFestival = { ...updatedArray[festivalIndex] };
+			updatedFestival.festivalRoles = [...updatedFestival.festivalRoles];
+			updatedFestival.festivalRoles.push({
+				festivalRoleName: '',
+				festivalPersonName: '',
+			});
+			updatedArray[festivalIndex] = updatedFestival;
 			return updatedArray;
 		});
 	};
 
 	const handleDynamicRoleDelete = (
 		festivalIndex,
-		roleIndex,
+		festivalRoleIndex,
 		stateArray,
 		setState
 	) => {
 		setState((prevState) => {
-			const updatedArray = [...prevState];
-			updatedArray[festivalIndex].roles.splice(roleIndex, 1);
+			const updatedArray = prevState.map((festival, index) => {
+				if (index !== festivalIndex) {
+					return festival;
+				}
+				const updatedFestival = {
+					...festival,
+					festivalRoles: festival.festivalRoles.filter(
+						(_, idx) => idx !== festivalRoleIndex
+					),
+				};
+
+				return updatedFestival;
+			});
+
 			return updatedArray;
 		});
 	};
@@ -207,6 +242,8 @@ const FilmForm = () => {
 	};
 
 	const confirmHandler = (data) => {
+		console.log('here the data at the confirm', data);
+		console.log('here the festivals data at the confirm', data.festivals);
 		const formData = new FormData();
 
 		formData.append('title', data.title);
@@ -405,16 +442,41 @@ const FilmForm = () => {
 		formData.append('duration', data.duration);
 		formData.append('year', data.year);
 
+		console.log(data.festivals);
+
 		if (
 			festivals.length > 0 &&
 			festivals.length[0] !== '' &&
-			data.festivals[0].festivalName !== ''
+			data.festivals[0].festivalName !== '' &&
+			data.festivals[0].festivalType !== '' &&
+			data.festivals[0].festivalRoles[0].festivalRoleName !== '' &&
+			data.festivals[0].festivalRoles[0].festivalPersonName !== ''
 		) {
 			for (let i = 0; i < festivals.length; i++) {
 				formData.append(
 					`festivals[${i}][festivalName]`,
 					data.festivals[i].festivalName
 				);
+				formData.append(
+					`festivals[${i}][festivalType]`,
+					data.festivals[i].festivalType
+				);
+
+				if (
+					festivals[i].festivalRoles &&
+					festivals[i].festivalRoles.length > 0
+				) {
+					for (let j = 0; j < festivals[i].festivalRoles.length; j++) {
+						formData.append(
+							`festivals[${i}][festivalRoles][${j}][festivalRoleName]`,
+							festivals[i].festivalRoles[j].festivalRoleName
+						);
+						formData.append(
+							`festivals[${i}][festivalRoles][${j}][festivalPersonName]`,
+							festivals[i].festivalRoles[j].festivalPersonName
+						);
+					}
+				}
 			}
 		}
 
@@ -483,7 +545,7 @@ const FilmForm = () => {
 					.finally(() => {
 						dispatch(dataFilmActions.resetFilmData());
 						setIsLoading(false);
-						navigate('/admin/films');
+						//navigate('/admin/films');
 					});
 			}
 		}
@@ -913,7 +975,7 @@ const FilmForm = () => {
 					<Controller
 						name='genre'
 						control={control}
-						defaultValue={''}
+						defaultValue=''
 						render={({ field }) => (
 							<GenreSelect
 								onChange={(selectedValue) => {
@@ -933,7 +995,7 @@ const FilmForm = () => {
 					<Controller
 						name='projectState'
 						control={control}
-						defaultValue={''}
+						defaultValue=''
 						render={({ field }) => (
 							<ProjectStateSelect
 								onChange={(selectedValue) => {
@@ -1250,71 +1312,113 @@ const FilmForm = () => {
 								)
 							}
 						/>
+						{errors.festivals?.[index]?.festivalName?.message && (
+							<small>{errors.festivals?.[index]?.festivalName.message}</small>
+						)}
 						<label
 							className={classes.margin__top}
 							htmlFor='festivalType'>
 							Seleziona riconoscimento
 						</label>
-						<select
-							defaultValue={
-								formState.defaultValues?.payload?.festival?.[index]
-									?.festivalType ?? ''
-							}
-							{...register(`festivals.${index}.festivalType`)}
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'festivalType',
-									festivals,
-									setFestivals
-								)
-							}>
-							<option value=''></option>
-							<option value='selection'>Selezione</option>
-							<option value='award'>Premio</option>
-						</select>
-
-						{festival.roles.map((role, roleIndex) => (
-							<div key={roleIndex}>
+						<Controller
+							name={`festivals.${index}.festivalType`}
+							control={control}
+							defaultValue={festival.festivalType}
+							render={({ field }) => (
+								<FestivalTypeSelect
+									onChange={(selectedValue) => {
+										field.onChange(handleSelectChange(selectedValue));
+									}}
+									value={field.value}
+								/>
+							)}
+						/>
+						{errors.festivals?.[index]?.festivalType?.message && (
+							<small>{errors.festivals?.[index]?.festivalType.message}</small>
+						)}
+						{festival.festivalRoles.map((festivalRole, festivalRoleIndex) => (
+							<div key={festivalRoleIndex}>
 								<label
 									className={classes.margin__top}
-									htmlFor='roleName'>
+									htmlFor='festivalRoleName'>
 									Ruolo
 								</label>
 								<input
-									defaultValue={role.roleName || ''}
+									defaultValue={festivalRole.festivalRoleName ?? ''}
 									{...register(
-										`festivals.${index}.roles.${roleIndex}.roleName`
+										`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalRoleName`
 									)}
 									type='text'
-									placeholder='Role'
 									onChange={(e) =>
 										handleDynamicRoleChange(
 											e,
 											index,
-											roleIndex,
-											'roleName',
+											festivalRoleIndex,
+											'festivalRoleName',
 											festivals,
 											setFestivals
 										)
 									}
 								/>
-								<button
-									className={
-										classes.secondary__button + ' ' + classes.extra__margin__top
-									}
-									onClick={() =>
-										handleDynamicRoleDelete(
+								{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]
+									?.festivalRoleName?.message && (
+									<small>
+										{
+											errors.festival?.festivalRoles?.[festivalRoleIndex]
+												?.festivalRoleName.message
+										}
+									</small>
+								)}
+								<label
+									className={classes.margin__top}
+									htmlFor='festivalPersonName'>
+									Nome
+								</label>
+								<input
+									defaultValue={festivalRole.festivalPersonName ?? ''}
+									{...register(
+										`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalPersonName`
+									)}
+									type='text'
+									onChange={(e) =>
+										handleDynamicRoleChange(
+											e,
 											index,
-											roleIndex,
+											festivalRoleIndex,
+											'festivalPersonName',
 											festivals,
 											setFestivals
 										)
 									}
-									type='button'>
-									Delete Role
-								</button>
+								/>
+								{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]
+									?.festivalPersonName?.message && (
+									<small>
+										{
+											errors.festival?.festivalRoles?.[festivalRoleIndex]
+												?.festivalPersonName.message
+										}
+									</small>
+								)}
+								{festivalRoleIndex !== 0 && (
+									<button
+										className={
+											classes.secondary__button +
+											' ' +
+											classes.extra__margin__top
+										}
+										onClick={() =>
+											handleDynamicRoleDelete(
+												index,
+												festivalRoleIndex,
+												festivals,
+												setFestivals
+											)
+										}
+										type='button'>
+										Cancella Ruolo
+									</button>
+								)}
 							</div>
 						))}
 
@@ -1326,7 +1430,7 @@ const FilmForm = () => {
 								handleDynamicRoleAdd(index, festivals, setFestivals)
 							}
 							type='button'>
-							Add Role
+							Aggiungi Ruolo
 						</button>
 
 						{errors.festivals?.[index]?.festivalName?.message && (
@@ -1351,6 +1455,10 @@ const FilmForm = () => {
 						onClick={() =>
 							handleDynamicFieldAdd(festivals, setFestivals, {
 								festivalName: '',
+								festivalType: '',
+								festivalRoles: [
+									{ festivalRoleName: '', festivalPersonName: '' },
+								],
 							})
 						}
 						className={classes.secondary__button}
