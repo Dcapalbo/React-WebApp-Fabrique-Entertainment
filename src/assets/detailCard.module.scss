@@ -96,6 +96,9 @@
 			}
 		}
 		.detail__card__right {
+			max-height: 800px;
+			margin-top: 10px;
+			overflow-y: auto;
 			padding: 10px;
 			width: 100%;
 			@media (max-width: $screen-lg-min) {
