@@ -103,6 +103,10 @@ const App = () => {
 					path='/reset-password'
 					element={<ResetPasswordForm />}
 				/>
+				<Route
+					path='/forgot-password'
+					element={<ForgotPasswordForm />}
+				/>
 				{/* <Route
 					path='/sign-up'
 					element={<AuthSignUp />}
@@ -178,19 +182,6 @@ const App = () => {
 					element={
 						isAuthenticated ? (
 							<UpdateContact />
-						) : (
-							<Navigate
-								to='/'
-								replace
-							/>
-						)
-					}
-				/>
-				<Route
-					path='/forgot-password'
-					element={
-						isAuthenticated ? (
-							<ForgotPasswordForm />
 						) : (
 							<Navigate
 								to='/'
