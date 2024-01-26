@@ -26,6 +26,7 @@ import './assets/reset.scss';
 // pages
 import Home from './pages/Home';
 import Film from './pages/Film';
+import News from './pages/News';
 import About from './pages/About';
 import Films from './pages/Films';
 import NewFilm from './pages/NewFilm';
@@ -78,6 +79,10 @@ const App = () => {
 				<Route
 					path='/about'
 					element={<About />}
+				/>
+				<Route
+					path='/news'
+					element={<News />}
 				/>
 				<Route
 					path='/films'

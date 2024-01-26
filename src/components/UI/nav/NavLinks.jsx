@@ -51,6 +51,9 @@ const NavLinks = () => {
 			<li>
 				<Link to='/contacts'>{t('contacts')}</Link>
 			</li>
+			<li>
+				<Link to='/news'>{t('news')}</Link>
+			</li>
 			{isAuthenticated && (
 				<>
 					<li>

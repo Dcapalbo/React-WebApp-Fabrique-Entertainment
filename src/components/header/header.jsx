@@ -1,10 +1,8 @@
 /** @format */
 
+import React, { useEffect, useState } from 'react';
 import classes from './header.module.scss';
 import NavBar from '../UI/nav/Navbar';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import React from 'react';
 
 const Header = () => {
 	const [sticky, setSticky] = useState(false);

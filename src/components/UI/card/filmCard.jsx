@@ -8,9 +8,8 @@ import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React from 'react';
 
 const FilmCard = (props) => {
 	const dispatch = useDispatch();
