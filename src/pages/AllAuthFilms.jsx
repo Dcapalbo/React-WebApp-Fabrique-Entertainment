@@ -1,6 +1,6 @@
 /** @format */
 
-import FilmCardContainer from '../components/UI/card/filmCardContainer';
+import FilmCardContainer from '../components/UI/filmCard/filmCardContainer';
 import { dataFilmActions } from '../store/data-film-slice';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';

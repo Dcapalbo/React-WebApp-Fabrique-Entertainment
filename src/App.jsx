@@ -41,6 +41,8 @@ import UpdateContact from './pages/UpdateContact';
 import AllAuthContacts from './pages/AllAuthContacts';
 import ResetPasswordForm from './pages/ResetPassword';
 import ForgotPasswordForm from './pages/ForgotPassword';
+import NewArticle from './pages/NewArticle';
+import UpdateArticle from './pages/UpdateArticle';
 
 // initialize the react traductions
 i18n.use(initReactI18next).init({
@@ -187,6 +189,32 @@ const App = () => {
 					element={
 						isAuthenticated ? (
 							<UpdateContact />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/add-new-article'
+					element={
+						isAuthenticated ? (
+							<NewArticle />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/update-article'
+					element={
+						isAuthenticated ? (
+							<UpdateArticle />
 						) : (
 							<Navigate
 								to='/'

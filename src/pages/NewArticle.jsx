@@ -1,18 +1,18 @@
 /** @format */
 
-import FilmCardContainer from '../components/UI/filmCard/filmCardContainer';
+import ArticleForm from '../components/UI/form/articleForm';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 import React from 'react';
 
-const News = () => {
+const NewArticle = () => {
 	return (
 		<>
 			<Header />
-			<FilmCardContainer />
+			<ArticleForm />
 			<Footer />
 		</>
 	);
 };
 
-export default News;
+export default NewArticle;

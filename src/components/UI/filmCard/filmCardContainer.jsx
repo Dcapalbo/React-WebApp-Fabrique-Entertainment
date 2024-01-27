@@ -1,9 +1,9 @@
 /** @format */
 
+import classes from '../../../assets/cardContainer.module.scss';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { serverUrl } from '../../../utils/constants';
 import ApiGetHook from '../../../hooks/apiGetHook';
-import classes from './cardContainer.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
