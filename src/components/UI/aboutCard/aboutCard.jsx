@@ -73,11 +73,11 @@ const AboutCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.contactImageUrl && (
+			{props.profileCover && props.profileCover.contactImageUrl && (
 				<img
 					onClick={sendContactDetailHanlder}
 					className={classes.card__image}
-					src={props.contactImageUrl}
+					src={props.profileCover.contactImageUrl}
 					alt={props.name}
 					name={props.name}
 					loading='lazy'

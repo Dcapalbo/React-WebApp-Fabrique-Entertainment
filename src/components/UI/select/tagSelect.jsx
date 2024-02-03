@@ -4,7 +4,7 @@ import React from 'react';
 
 const TagSelect = ({ onChange, value }) => {
 	const options = [
-		{ value: '', label: '' },
+		{ value: '', label: 'Seleziona un opzione' },
 		{ value: 'fela. il mio dio vivente', label: 'Fela, il mio dio vivente' },
 		{ value: 'lucania', label: 'Lucania' },
 	];

@@ -3,16 +3,15 @@
 import { dataArticleActions } from '../../../store/data-article-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import TruncatedText from '../truncatedText/truncatedText';
-import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const ArticleCard = (props) => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -27,18 +26,7 @@ const ArticleCard = (props) => {
 	}, [isLoggedIn, dispatch]);
 
 	const sendArticleFormHandler = () => {
-		dispatch(
-			dataArticleActions.setArticleData({
-				...props,
-				_id: props._id,
-			})
-		);
 		navigate('/admin/update-article');
-	};
-
-	const sendArticleDetails = () => {
-		dispatch(dataArticleActions.setArticleData(props));
-		navigate(`/article/${props.slug}`);
 	};
 
 	const deleteArticleHandler = () => {

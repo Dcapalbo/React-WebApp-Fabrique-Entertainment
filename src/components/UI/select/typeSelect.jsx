@@ -2,23 +2,23 @@ import React from "react";
 
 const TypeSelect = ({ onChange, value }) => {
   const options = [
-    {
-      value: "",
-      label: "",
-    },
-    {
-      value: "Lungometraggio",
-      label: "Lungometraggio",
-    },
-    {
-      value: "Cortometraggio",
-      label: "Cortometraggio",
-    },
-    {
-      value: "Documentario",
-      label: "Documentario",
-    },
-  ];
+		{
+			value: '',
+			label: 'Seleziona una tipologia',
+		},
+		{
+			value: 'Lungometraggio',
+			label: 'Lungometraggio',
+		},
+		{
+			value: 'Cortometraggio',
+			label: 'Cortometraggio',
+		},
+		{
+			value: 'Documentario',
+			label: 'Documentario',
+		},
+	];
 
   return (
     <select onChange={onChange} value={value}>

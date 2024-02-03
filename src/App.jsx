@@ -7,9 +7,8 @@ import {
 	Route,
 	Navigate,
 } from 'react-router-dom';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // importing the react traductions functions
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';

@@ -4,7 +4,7 @@ import React from 'react';
 
 const GenreSelect = ({ onChange, value }) => {
 	const options = [
-		{ value: '', label: '' },
+		{ value: '', label: 'Inserisci un genere' },
 		{ value: 'azione', label: 'Azione' },
 		{ value: 'commedia', label: 'Commedia' },
 		{ value: 'drammatico', label: 'Drammatico' },

@@ -1,52 +1,30 @@
-import { useReducer, useEffect } from "react";
-import axios from "axios";
+/** @format */
 
-const initialState = {
-  films: [],
-  contacts: [],
-  loading: false,
-  error: null,
+import {useEffect, useState} from "react";
+import axios from 'axios';
+
+const useApiGetHook = (url) => {
+	const [data, setData] = useState(null);
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		axios
+			.get(url)
+			.then((response) => {
+				setData(response.data);
+				setError(null);
+			})
+			.catch((error) => {
+				console.error('Error fetching data:', error);
+				setError(error);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [url]);
+
+	return { data, error, loading };
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "FETCH_START":
-      return { ...state, loading: true };
-    case "FETCH_SUCCESS":
-      return {
-        ...state,
-        films: action.payload,
-        contacts: action.payload,
-        loading: false,
-      };
-    case "FETCH_ERROR":
-      return {
-        ...state,
-        error: action.payload,
-        contacts: action.payload,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-};
-
-const ApiGetHook = (url) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    dispatch({ type: "FETCH_START" });
-    axios
-      .get(url)
-      .then((res) => {
-        dispatch({ type: "FETCH_SUCCESS", payload: res.data });
-      })
-      .catch((err) => {
-        dispatch({ type: "FETCH_ERROR", payload: err });
-      });
-  }, [url]);
-
-  return state;
-};
-
-export default ApiGetHook;
+export default useApiGetHook;

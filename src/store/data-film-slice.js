@@ -9,6 +9,9 @@ const dataFilmSlice = createSlice({
 		filmsData: [],
 	},
 	reducers: {
+		setFilmsData(state, action) {
+			state.filmsData = action.payload;
+		},
 		setFilmData(state, action) {
 			state.filmData = action.payload;
 		},

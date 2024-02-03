@@ -1,15 +1,16 @@
 /** @format */
 
-import FilmCardContainer from '../components/UI/filmCard/filmCardContainer';
 import FilterDataSelect from '../components/UI/select/filterDataSelect';
+import CardContainer from '../components/UI/cardContainer/cardContainer';
 import { dataSelectActions } from '../store/data-select-slice';
 import Accordion from '../components/UI/accordion/accordion';
+import FilmCard from '../components/UI/filmCard/filmCard';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
+import { serverUrl } from '../utils/constants';
 import Hero from '../components/hero/hero';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Home = () => {
 	const [type, setType] = useState('');
@@ -30,7 +31,10 @@ const Home = () => {
 				onChange={sendTypeHandler}
 				type={type}
 			/>
-			<FilmCardContainer />
+			<CardContainer
+				component={FilmCard}
+				fetchDataUrl={`${serverUrl}/get-films`}
+			/>
 			<Footer />
 		</>
 	);

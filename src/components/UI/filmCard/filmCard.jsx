@@ -6,9 +6,9 @@ import TruncatedText from '../truncatedText/truncatedText';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const FilmCard = (props) => {
@@ -69,16 +69,16 @@ const FilmCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.coverImageUrl && (
+			{props.cover && props.cover.coverImageUrl &&
 				<img
 					onClick={sendFilmDetails}
 					className={classes.card__image}
-					src={props.coverImageUrl ?? ''}
+					src={props.cover.coverImageUrl ?? ''}
 					alt={props.title ?? ''}
 					title={props.title ?? ''}
 					loading='lazy'
 				/>
-			)}
+			}
 			<div className={classes.card__internal__description}>
 				{props.title && <h2>{props.title ?? ''}</h2>}
 				{props.synopsis && (
