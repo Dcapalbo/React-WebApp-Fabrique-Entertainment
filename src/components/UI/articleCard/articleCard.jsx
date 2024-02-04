@@ -4,14 +4,16 @@ import { dataArticleActions } from '../../../store/data-article-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import TruncatedText from '../truncatedText/truncatedText';
 import classes from '../../../assets/card.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const ArticleCard = (props) => {
+	console.log(props);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -42,7 +44,7 @@ const ArticleCard = (props) => {
 			})
 			.then((res) => {
 				dispatch(dataArticleActions.removeArticleData({ _id: props._id }));
-				window.location.replace('/admin/articles');
+				window.location.replace('/news');
 				setIsLoading(false);
 			})
 			.catch((err) => {
@@ -57,11 +59,11 @@ const ArticleCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.coverImageUrl && (
+			{props.articleCover.articleImageUrl && (
 				<img
-					onClick={sendArticleDetails}
+					
 					className={classes.card__image}
-					src={props.coverImageUrl ?? ''}
+					src={props.articleCover.articleImageUrl ?? ''}
 					alt={props.title ?? ''}
 					title={props.title ?? ''}
 					loading='lazy'

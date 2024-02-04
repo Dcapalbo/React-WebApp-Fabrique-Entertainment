@@ -69,6 +69,9 @@ const NavLinks = () => {
 						<Link to='/admin/add-new-contact'>{t('addContact')}</Link>
 					</li>
 					<li>
+						<Link to='/admin/add-new-article'>{t('addArticle')}</Link>
+					</li>
+					<li>
 						<Link to='/forgot-password'>{t('forgotPassword')}</Link>
 					</li>
 				</>

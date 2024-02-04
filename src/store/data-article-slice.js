@@ -27,7 +27,7 @@ const dataArticleSlice = createSlice({
 				state.articleData.articleImageUrl = null;
 			}
 		},
-		resetarticleData(state) {
+		resetArticleData(state) {
 			state.articleData = {};
 		},
 	},

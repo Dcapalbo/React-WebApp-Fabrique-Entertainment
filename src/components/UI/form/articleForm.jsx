@@ -117,7 +117,7 @@ const ArticleForm = () => {
 					.finally(() => {
 						dispatch(dataArticleActions.resetArticleData());
 						setIsLoading(false);
-						navigate('/admin/articles');
+						//navigate('/news');
 					});
 			}
 		}
@@ -155,7 +155,7 @@ const ArticleForm = () => {
 					<input
 						defaultValue={formState.defaultValues?.payload?.date ?? ''}
 						{...register('date')}
-						type='text'
+						type='date'
 						onChange={handleInputChange}
 					/>
 					{errors.date?.message && <small>{errors.date?.message}</small>}
