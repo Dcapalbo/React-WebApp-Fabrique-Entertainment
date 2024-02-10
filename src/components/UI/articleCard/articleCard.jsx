@@ -112,15 +112,15 @@ const ArticleCard = (props) => {
 							className={classes.article__cta}>
 							{t('remove')}
 						</button>
+						{isLoading && <LoadingSpinner />}
+						{error && (
+							<small className={classes.error}>
+								{t('errors.ArticleErrorDelete')}
+							</small>
+						)}
 					</div>
 				)}
 			</div>
-			{isLoading && <LoadingSpinner />}
-			{error && (
-				<small className={classes.error}>
-					{t('errors.ArticleErrorDelete')}
-				</small>
-			)}
 		</div>
 	);
 };
