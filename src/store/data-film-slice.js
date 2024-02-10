@@ -22,13 +22,13 @@ const dataFilmSlice = createSlice({
 		},
 		removeImageKey(state, action) {
 			const imageKeyToRemove = action.payload;
-			if (state.filmData.coverImageKey === imageKeyToRemove) {
-				state.filmData.coverImageKey = null;
-				state.filmData.coverImageUrl = null;
+			if (state.filmData.cover.coverImageKey === imageKeyToRemove) {
+				state.filmData.cover.coverImageKey = null;
+				state.filmData.cover.coverImageUrl = null;
 			}
-			if (state.filmData.pressBookPdfKey === imageKeyToRemove) {
-				state.filmData.pressBookPdfKey = null;
-				state.filmData.pressBookPdfUrl = null;
+			if (state.filmData.pressBook.pressBookPdfKey === imageKeyToRemove) {
+				state.filmData.pressBook.pressBookPdfKey = null;
+				state.filmData.pressBook.pressBookPdfUrl = null;
 			}
 		},
 		resetFilmData(state) {

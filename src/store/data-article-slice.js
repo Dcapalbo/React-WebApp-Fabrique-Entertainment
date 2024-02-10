@@ -23,8 +23,8 @@ const dataArticleSlice = createSlice({
 		removeImageKey(state, action) {
 			const imageKeyToRemove = action.payload;
 			if (imageKeyToRemove) {
-				state.articleData.articleImageKey = null;
-				state.articleData.articleImageUrl = null;
+				state.articleData.articleCover.articleImageKey = null;
+				state.articleData.articleCover.articleImageUrl = null;
 			}
 		},
 		resetArticleData(state) {

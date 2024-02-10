@@ -23,8 +23,8 @@ const dataContactSlice = createSlice({
 		removeImageKey(state, action) {
 			const imageKeyToRemove = action.payload;
 			if (imageKeyToRemove) {
-				state.contactData.contactImageKey = null;
-				state.contactData.contactImageUrl = null;
+				state.contactData.profileCover.contactImageKey = null;
+				state.contactData.profileCover.contactImageUrl = null;
 			}
 		},
 		resetContactData(state) {

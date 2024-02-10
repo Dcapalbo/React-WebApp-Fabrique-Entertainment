@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const dataSelectSlice = createSlice({
-  name: "filmTypeData",
+  name: "filterData",
   initialState: {
     dataType: "",
   },
