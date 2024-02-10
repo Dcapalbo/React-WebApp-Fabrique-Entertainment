@@ -57,8 +57,12 @@ const handleSingleImageDelete = async (
 	}
 };
 
-const convertToDate = (dateString) => {
+const convertToDateToPrint = (dateString) => {
 	return moment(dateString).format('DD/MM/YYYY');
+};
+
+const convertToDateForInput = (dateString) => {
+	return moment(dateString).format('YYYY-MM-DD');
 };
 
 export {
@@ -66,5 +70,6 @@ export {
 	slugCreation,
 	handlePressBookDownload,
 	handleSingleImageDelete,
-	convertToDate,
+	convertToDateToPrint,
+	convertToDateForInput,
 };

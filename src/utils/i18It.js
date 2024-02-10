@@ -9,6 +9,7 @@ const translationIt = {
 	contacts: 'Contatti',
 	filmsList: 'Lista dei film',
 	addFilm: 'Aggiungi un film',
+	addArticle: 'Aggiungi un articolo',
 	contactsList: 'Lista dei contatti',
 	addContact: 'Aggiungi un contatto',
 	forgotPassword: 'Reimposta la password',

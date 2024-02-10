@@ -9,6 +9,7 @@ const translationEn = {
 	contacts: 'Contacts',
 	filmsList: 'List of films',
 	addFilm: 'Add film',
+	addArticle: 'Add article',
 	contactsList: 'List of contacts',
 	addContact: 'Add contact',
 	forgotPassword: 'Reset Password',

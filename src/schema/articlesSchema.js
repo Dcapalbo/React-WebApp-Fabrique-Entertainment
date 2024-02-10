@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 const articlesSchema = z.object({
 	title: z
 		.string()
@@ -12,7 +15,10 @@ const articlesSchema = z.object({
 		.string()
 		.nonempty({ message: 'Data non valida' })
 		.regex(/^\d{4}-\d{2}-\d{2}$/, 'Data non valida')
-		.transform((val) => new Date(val)),
+		.transform((val) => new Date(val))
+		.refine((val) => val <= today, {
+			message: 'La data non può essere superiore ad oggi',
+		}),
 	tag: z.string().nonempty({ message: 'Inserire almeno un valore' }),
 	description: z
 		.string()

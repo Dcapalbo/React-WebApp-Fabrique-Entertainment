@@ -9,7 +9,7 @@ const serverUrl =
 	process.env.NODE_ENV === 'production'
 		? process.env.REACT_APP_API_PRODUCTION_URL
 		: process.env.REACT_APP_API_LOCAL_PORT;
-		
+
 const optionsFilms = [
 	{
 		value: '',
@@ -35,8 +35,8 @@ const optionsArticles = [
 		label: 'Tutti',
 	},
 	{
-		value: 'Fela. il mio dio vivente',
-		label: 'Fela. il mio dio vivente',
+		value: 'Fela, il mio dio vivente',
+		label: 'Fela, il mio dio vivente',
 	},
 	{
 		value: 'Lucania',
