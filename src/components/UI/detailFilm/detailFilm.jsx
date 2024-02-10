@@ -18,8 +18,6 @@ const DetailFilm = () => {
 	const [error, setError] = useState(null);
 	const { t } = useTranslation();
 
-	console.log(film);
-
 	useEffect(() => {
 		setIsLoading(true);
 		if (film) {

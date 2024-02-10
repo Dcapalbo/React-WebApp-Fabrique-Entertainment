@@ -1,7 +1,6 @@
 /** @format */
 
 import { dataArticleActions } from '../../../store/data-article-slice';
-import { handleSingleImageDelete } from '../../../utils/functions';
 import { articlesSchema } from '../../../schema/articlesSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +13,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import TagSelect from '../select/tagSelect';
 import axios from 'axios';
+import {
+	handleSingleImageDelete,
+	convertToDateForInput,
+} from '../../../utils/functions';
 
 const ArticleForm = () => {
 	const uriLocation = window.location.href;
@@ -36,7 +39,10 @@ const ArticleForm = () => {
 
 	const { register, control, formState, setValue, handleSubmit, trigger } =
 		useForm({
-			defaultValues: dataUpdateArticle ?? '',
+			defaultValues: {
+				...dataUpdateArticle,
+				date: convertToDateForInput(dataUpdateArticle?.date),
+			},
 			resolver: zodResolver(articlesSchema),
 		});
 
@@ -117,7 +123,7 @@ const ArticleForm = () => {
 					.finally(() => {
 						dispatch(dataArticleActions.resetArticleData());
 						setIsLoading(false);
-						//navigate('/news');
+						navigate('/news');
 					});
 			}
 		}
@@ -140,7 +146,7 @@ const ArticleForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={formState.defaultValues?.payload?.title ?? ''}
+						defaultValue={formState.defaultValues?.title ?? ''}
 						{...register('title')}
 						type='text'
 						onChange={handleInputChange}
@@ -153,7 +159,7 @@ const ArticleForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={formState.defaultValues?.payload?.date ?? ''}
+						defaultValue={formState.defaultValues?.date ?? ''}
 						{...register('date')}
 						type='date'
 						onChange={handleInputChange}
@@ -186,7 +192,7 @@ const ArticleForm = () => {
 						<span>*</span>
 					</label>
 					<textarea
-						defaultValue={formState.defaultValues?.payload?.description ?? ''}
+						defaultValue={formState.defaultValues?.description ?? ''}
 						{...register('description')}
 						type='text'
 						onChange={handleInputChange}></textarea>
@@ -197,7 +203,7 @@ const ArticleForm = () => {
 				<div className={classes.form__container__item}>
 					<label htmlFor='Link'>{t('linksLabels.articleLink')}</label>
 					<input
-						defaultValue={formState.defaultValues?.payload?.link ?? ''}
+						defaultValue={formState.defaultValues?.link ?? ''}
 						{...register('link')}
 						type='text'
 						onChange={handleInputChange}

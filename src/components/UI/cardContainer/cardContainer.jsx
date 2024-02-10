@@ -18,28 +18,19 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 		if (data) {
 			const newData = typeData
 				? data.filter((item) => {
-					if(item.type) {
-						return item.type === typeData
-					} else if(item.tag) {
-						return (
-							//make it better mind the name of the tag in BE
-							item.tag
-								.trim()
-								.toLowerCase() 
-							=== typeData
-							.trim()
-							.toLowerCase()
-						);
-					}
-				})
+						if (item.type) {
+							return item.type === typeData;
+						} else if (item.tag) {
+							return (
+								//make it better mind the name of the tag in BE
+								item.tag.trim().toLowerCase() === typeData.trim().toLowerCase()
+							);
+						}
+				  })
 				: data;
 			setFilteredData(newData);
 		}
 	}, [typeData, data]);
-
-	useEffect(() => {
-		console.log(filteredData, "testing");
-	}, [filteredData]);
 
 	if (loading) {
 		return <LoadingSpinner />;

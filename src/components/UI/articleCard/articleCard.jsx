@@ -3,7 +3,7 @@
 import { dataArticleActions } from '../../../store/data-article-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import TruncatedText from '../truncatedText/truncatedText';
-import { convertToDate } from '../../../utils/functions';
+import { convertToDateToPrint } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
@@ -64,25 +64,31 @@ const ArticleCard = (props) => {
 
 	return (
 		<div className={classes.article}>
-			{props.articleCover.articleImageUrl && (
-				<img
-					className={classes.article__image}
-					src={props.articleCover.articleImageUrl ?? ''}
-					alt={props.title ?? ''}
-					title={props.title ?? ''}
-					loading='lazy'
-				/>
-			)}
-			<div className={classes.article__internal__description}>
-				{props.title && <h2>{props.title ?? ''}</h2>}
-				{props.description && (
-					<TruncatedText
-						text={props.description}
-						maxLength={700}
+			<div className={classes.article__image__container}>
+				{props.articleCover.articleImageUrl && (
+					<img
+						className={classes.article__image}
+						src={props.articleCover.articleImageUrl ?? ''}
+						alt={props.title ?? ''}
+						title={props.title ?? ''}
+						loading='lazy'
 					/>
-				)}{' '}
+				)}
+				<div className={classes.article__internal__description}>
+					{props.title && <h2>{props.title ?? ''}</h2>}
+					{props.description && (
+						<TruncatedText
+							text={props.description}
+							maxLength={700}
+						/>
+					)}{' '}
+				</div>
 			</div>
 			<div className={classes.article__external__informations}>
+				{props.date && <p>{convertToDateToPrint(props.date)}</p>}
+				<div className={classes.article__external__informations__item}>
+					{props.tag && <small>{props.tag ?? ''}</small>}
+				</div>
 				{props.link && (
 					<p>
 						Vai all'articolo completo |{' '}
@@ -94,10 +100,6 @@ const ArticleCard = (props) => {
 						</a>
 					</p>
 				)}
-				<div className={classes.article__external__informations__item}>
-					{props.tag && <small>{props.tag ?? ''}</small>}
-				</div>
-				{props.date && <p>{convertToDate(props.date)}</p>}
 				{isAuthenticated && (
 					<div className={classes.article__button__wrapper}>
 						<button
