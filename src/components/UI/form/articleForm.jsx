@@ -25,8 +25,6 @@ const ArticleForm = () => {
 		(state) => state.dataArticle.articleData ?? ''
 	);
 
-	console.log(dataUpdateArticle.articleImageKey);
-
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-article')) {
 			setIsUpdate(true);
