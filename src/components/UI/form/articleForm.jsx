@@ -25,6 +25,8 @@ const ArticleForm = () => {
 		(state) => state.dataArticle.articleData ?? ''
 	);
 
+	console.log(dataUpdateArticle.articleImageKey);
+
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-article')) {
 			setIsUpdate(true);
@@ -136,7 +138,7 @@ const ArticleForm = () => {
 					)}
 					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Title'>
-						{t('genericInfo.title')}
+						{t('title')}
 						<span>*</span>
 					</label>
 					<input
@@ -149,7 +151,7 @@ const ArticleForm = () => {
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='date'>
-						{t('genericInfo.date')}
+						{t('dateArticle')}
 						<span>*</span>
 					</label>
 					<input
@@ -162,7 +164,7 @@ const ArticleForm = () => {
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Tag'>
-						{t('tags')}
+						{t('tag')}
 						<span>*</span>
 					</label>
 					<Controller
@@ -205,10 +207,10 @@ const ArticleForm = () => {
 					{errors.link?.message && <small>{errors.link.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateArticle?.articleImageUrl ? (
+					{!dataUpdateArticle?.articleCover?.articleImageUrl && (
 						<>
 							<label htmlFor='articleImage'>
-								{t('profileCover')}
+								{t('articleCover')}
 								<span>*</span>
 							</label>
 							<input
@@ -219,32 +221,32 @@ const ArticleForm = () => {
 								required
 							/>
 						</>
-					) : (
-						dataUpdateArticle?.articleImageUrl && (
-							<div className={classes.form__container__item__images}>
-								<img
-									title={dataUpdateArticle?.title}
-									alt={dataUpdateArticle?.title}
-									src={dataUpdateArticle?.articleImageUrl}
-								/>
-								<div className={classes.flex__button__images__delete}>
-									<button
-										onClick={() =>
-											handleSingleImageDelete(
-												dataUpdateArticle?.articleImageKey,
-												serverUrl,
-												dispatch,
-												dataArticleActions.removeImageKey,
-												'delete-article-image'
-											)
-										}
-										className={classes.fourth__button}
-										type='button'>
-										X
-									</button>
-								</div>
+					)}
+
+					{dataUpdateArticle?.articleCover?.articleImageUrl && (
+						<div className={classes.form__container__item__images}>
+							<img
+								title={dataUpdateArticle?.title}
+								alt={dataUpdateArticle?.title}
+								src={dataUpdateArticle?.articleCover.articleImageUrl}
+							/>
+							<div className={classes.flex__button__images__delete}>
+								<button
+									onClick={() =>
+										handleSingleImageDelete(
+											dataUpdateArticle?.articleCover.articleImageKey,
+											serverUrl,
+											dispatch,
+											dataArticleActions.removeImageKey,
+											'delete-article-image'
+										)
+									}
+									className={classes.fourth__button}
+									type='button'>
+									X
+								</button>
 							</div>
-						)
+						</div>
 					)}
 				</div>
 				<div className={classes.form__container__item}>

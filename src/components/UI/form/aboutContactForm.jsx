@@ -217,7 +217,7 @@ const AboutContactForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateContact?.contactImageUrl ? (
+					{!dataUpdateContact?.profileCover?.contactImageUrl ? (
 						<>
 							<label htmlFor='ContactImage'>
 								{t('profileCover')}
@@ -232,18 +232,18 @@ const AboutContactForm = () => {
 							/>
 						</>
 					) : (
-						dataUpdateContact?.contactImageUrl && (
+						dataUpdateContact?.profileCover?.contactImageUrl && (
 							<div className={classes.form__container__item__images}>
 								<img
 									title={dataUpdateContact?.name}
 									alt={dataUpdateContact?.name}
-									src={dataUpdateContact?.contactImageUrl}
+									src={dataUpdateContact?.profileCover?.contactImageUrl}
 								/>
 								<div className={classes.flex__button__images__delete}>
 									<button
 										onClick={() =>
 											handleSingleImageDelete(
-												dataUpdateContact?.contactImageKey,
+												dataUpdateContact?.profileCover?.contactImageKey,
 												serverUrl,
 												dispatch,
 												dataContactActions.removeImageKey,

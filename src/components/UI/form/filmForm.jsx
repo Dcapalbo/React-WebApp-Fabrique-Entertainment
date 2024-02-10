@@ -1526,7 +1526,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateFilm?.coverImageUrl && (
+					{!dataUpdateFilm?.cover?.coverImageUrl && (
 						<>
 							<label htmlFor='CoverImage'>
 								{t('cover')}
@@ -1542,18 +1542,18 @@ const FilmForm = () => {
 						</>
 					)}
 
-					{dataUpdateFilm?.coverImageUrl && (
+					{dataUpdateFilm?.cover?.coverImageUrl && (
 						<div className={classes.form__container__item__images}>
 							<img
 								title={dataUpdateFilm?.title}
 								alt={dataUpdateFilm?.title}
-								src={dataUpdateFilm?.coverImageUrl}
+								src={dataUpdateFilm?.cover?.coverImageUrl}
 							/>
 							<div className={classes.flex__button__images__delete}>
 								<button
 									onClick={() =>
 										handleSingleImageDelete(
-											dataUpdateFilm?.coverImageKey,
+											dataUpdateFilm?.cover?.coverImageKey,
 											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,
@@ -1569,7 +1569,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateFilm?.pressBookPdfUrl && (
+					{!dataUpdateFilm?.pressBook?.pressBookPdfUrl && (
 						<>
 							<label htmlFor='PressBookPdf'>Pressbook</label>
 							<input
@@ -1580,11 +1580,13 @@ const FilmForm = () => {
 							/>
 						</>
 					)}
-					{dataUpdateFilm?.pressBookPdfUrl && (
+					{dataUpdateFilm?.pressBook?.pressBookPdfUrl && (
 						<div className={classes.form__container__item__images}>
 							<AiOutlineFilePdf
 								onClick={() =>
-									handlePressBookDownload(dataUpdateFilm?.pressBookPdfUrl)
+									handlePressBookDownload(
+										dataUpdateFilm?.pressBook?.pressBookPdfUrl
+									)
 								}
 								target='__blank'
 								size={40}
@@ -1594,7 +1596,7 @@ const FilmForm = () => {
 								<button
 									onClick={() =>
 										handleSingleImageDelete(
-											dataUpdateFilm?.pressBookPdfKey,
+											dataUpdateFilm?.pressBook?.pressBookPdfKey,
 											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,
