@@ -4,10 +4,10 @@ import FilterDataSelect from '../components/UI/select/filterDataSelect';
 import CardContainer from '../components/UI/cardContainer/cardContainer';
 import { dataSelectActions } from '../store/data-select-slice';
 import Accordion from '../components/UI/accordion/accordion';
+import { optionsFilms,serverUrl } from '../utils/constants';
 import FilmCard from '../components/UI/filmCard/filmCard';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
-import { serverUrl } from '../utils/constants';
 import Hero from '../components/hero/hero';
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
@@ -28,7 +28,10 @@ const Home = () => {
 			<Hero />
 			<Accordion />
 			<FilterDataSelect
+				label={"Filtra per tipologia"}
 				onChange={sendTypeHandler}
+				headline={"Filmografia"}
+				options={optionsFilms}
 				type={type}
 			/>
 			<CardContainer
