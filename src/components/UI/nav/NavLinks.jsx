@@ -43,16 +43,16 @@ const NavLinks = () => {
 				<Link to='/'>{t('home')}</Link>
 			</li>
 			<li>
-				<Link to='/about'>{t('about')}</Link>
-			</li>
-			<li>
 				<Link to='/films'>{t('films')}</Link>
 			</li>
 			<li>
-				<Link to='/contacts'>{t('contacts')}</Link>
+				<Link to='/news'>{t('news')}</Link>
 			</li>
 			<li>
-				<Link to='/news'>{t('news')}</Link>
+				<Link to='/about'>{t('about')}</Link>
+			</li>
+			<li>
+				<Link to='/contacts'>{t('contacts')}</Link>
 			</li>
 			{isAuthenticated && (
 				<>
