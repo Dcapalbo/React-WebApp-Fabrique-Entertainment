@@ -17,11 +17,29 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 	useEffect(() => {
 		if (data) {
 			const newData = typeData
-				? data.filter((item) => item.type === typeData)
+				? data.filter((item) => {
+					if(item.type) {
+						return item.type === typeData
+					} else if(item.tag) {
+						return (
+							//make it better mind the name of the tag in BE
+							item.tag
+								.trim()
+								.toLowerCase() 
+							=== typeData
+							.trim()
+							.toLowerCase()
+						);
+					}
+				})
 				: data;
 			setFilteredData(newData);
 		}
 	}, [typeData, data]);
+
+	useEffect(() => {
+		console.log(filteredData, "testing");
+	}, [filteredData]);
 
 	if (loading) {
 		return <LoadingSpinner />;
@@ -37,8 +55,7 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 
 	return (
 		<section className={classes.wrapper__card__container}>
-			<div
-				className={classes.card__container}>
+			<div className={classes.card__container}>
 				{filteredData.length > 0 ? (
 					filteredData.map((item) => (
 						<CardComponent
@@ -47,7 +64,7 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 						/>
 					))
 				) : (
-					<h1>{t('errors.noDataError')}</h1>
+					<h1>{t('errors.dataExistenceError')}</h1>
 				)}
 			</div>
 		</section>

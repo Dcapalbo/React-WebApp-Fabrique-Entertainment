@@ -3,16 +3,16 @@
 import { dataArticleActions } from '../../../store/data-article-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import TruncatedText from '../truncatedText/truncatedText';
-import classes from '../../../assets/card.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { convertToDate } from '../../../utils/functions';
+import { useDispatch, useSelector } from 'react-redux';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
+import classes from './articleCard.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ArticleCard = (props) => {
-	console.log(props);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
@@ -28,12 +28,17 @@ const ArticleCard = (props) => {
 	}, [isLoggedIn, dispatch]);
 
 	const sendArticleFormHandler = () => {
+		dispatch(
+			dataArticleActions.setArticleData({
+				...props,
+				_id: props._id,
+			})
+		);
 		navigate('/admin/update-article');
 	};
 
 	const deleteArticleHandler = () => {
 		setIsLoading(true);
-
 		const ArticleId = {
 			_id: props._id,
 		};
@@ -43,7 +48,7 @@ const ArticleCard = (props) => {
 				data: ArticleId,
 			})
 			.then((res) => {
-				dispatch(dataArticleActions.removeArticleData({ _id: props._id }));
+				dispatch(dataArticleActions.removeArticleData(ArticleId));
 				window.location.replace('/news');
 				setIsLoading(false);
 			})
@@ -58,18 +63,17 @@ const ArticleCard = (props) => {
 	};
 
 	return (
-		<div className={classes.card}>
+		<div className={classes.article}>
 			{props.articleCover.articleImageUrl && (
 				<img
-					
-					className={classes.card__image}
+					className={classes.article__image}
 					src={props.articleCover.articleImageUrl ?? ''}
 					alt={props.title ?? ''}
 					title={props.title ?? ''}
 					loading='lazy'
 				/>
 			)}
-			<div className={classes.card__internal__description}>
+			<div className={classes.article__internal__description}>
 				{props.title && <h2>{props.title ?? ''}</h2>}
 				{props.description && (
 					<TruncatedText
@@ -78,7 +82,7 @@ const ArticleCard = (props) => {
 					/>
 				)}{' '}
 			</div>
-			<div className={classes.card__external__informations}>
+			<div className={classes.article__external__informations}>
 				{props.link && (
 					<p>
 						Vai all'articolo completo |{' '}
@@ -90,30 +94,25 @@ const ArticleCard = (props) => {
 						</a>
 					</p>
 				)}
-				<div className={classes.card__external__informations__item}>
-					{props.tag && (
-						<>
-							<small>{props.tag ?? ''}</small>
-						</>
-					)}
+				<div className={classes.article__external__informations__item}>
+					{props.tag && <small>{props.tag ?? ''}</small>}
 				</div>
-			</div>
-			{isAuthenticated && (
-				<>
-					<div className={classes.card__button__wrapper}>
+				{props.date && <p>{convertToDate(props.date)}</p>}
+				{isAuthenticated && (
+					<div className={classes.article__button__wrapper}>
 						<button
 							onClick={sendArticleFormHandler}
-							className={classes.card__cta}>
+							className={classes.article__cta}>
 							{t('modify')}
 						</button>
 						<button
 							onClick={deleteArticleHandler}
-							className={classes.card__cta}>
+							className={classes.article__cta}>
 							{t('remove')}
 						</button>
 					</div>
-				</>
-			)}
+				)}
+			</div>
 			{isLoading && <LoadingSpinner />}
 			{error && (
 				<small className={classes.error}>

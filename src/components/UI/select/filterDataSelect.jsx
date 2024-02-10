@@ -1,33 +1,13 @@
 import classes from "./filterDataSelect.module.scss";
 import React from "react";
 
-const FilterDataSelect = ({ onChange, value }) => {
-  const options = [
-    {
-      value: "",
-      label: "Tutti",
-    },
-    {
-      value: "Lungometraggio",
-      label: "Lungometraggio",
-    },
-    {
-      value: "Cortometraggio",
-      label: "Cortometraggio",
-    },
-    {
-      value: "Documentario",
-      label: "Documentario",
-    },
-  ];
-
+const FilterDataSelect = ({ onChange, options, label, headline }) => {
   return (
     <div className={classes.wrapper__filter__data__select}>
-      <label>Filtra i risultati</label>
+      <label>{label}</label>
       <select
         className={classes.filter__data__select}
         onChange={onChange}
-        value={value}
       >
         {options.map((option, index) => (
           <option key={index} value={option.value}>
@@ -35,7 +15,7 @@ const FilterDataSelect = ({ onChange, value }) => {
           </option>
         ))}
       </select>
-      <h3>Filmografia</h3>
+      <h3>{headline}</h3>
     </div>
   );
 };
