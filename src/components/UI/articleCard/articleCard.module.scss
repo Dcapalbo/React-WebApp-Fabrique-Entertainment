@@ -23,6 +23,7 @@
 	}
 	.article__image__container {
 		position: relative;
+		height: 250px;
 		width: 100%;
 		.article__internal__description {
 			transform: translate(-50%, 0%);
@@ -95,7 +96,7 @@
 		object-fit: cover;
 		transition: 0.2s;
 		cursor: pointer;
-		height: 250px;
+		height: 100%;
 		width: 100%;
 		z-index: 1;
 		opacity: 1;
@@ -145,5 +146,12 @@
 		height: fit-content;
 		margin: 12px 0px;
 		width: 100%;
+	}
+}
+
+.hover__article__link {
+	&:hover {
+		color: $firstColor;
+		cursor: pointer;
 	}
 }

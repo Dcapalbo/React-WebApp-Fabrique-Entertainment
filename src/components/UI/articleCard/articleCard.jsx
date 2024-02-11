@@ -93,6 +93,7 @@ const ArticleCard = (props) => {
 					<p>
 						Vai all'articolo completo |{' '}
 						<a
+							className={classes.hover__article__link}
 							href={props.link}
 							target='_blank'
 							rel='noreferrer'>
