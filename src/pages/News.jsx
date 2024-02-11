@@ -33,6 +33,7 @@ const News = () => {
 			<CardContainer
 				component={ArticleCard}
 				fetchDataUrl={`${serverUrl}/get-articles`}
+				childComponentType={'Article'}
 			/>
 			<Footer />
 		</>

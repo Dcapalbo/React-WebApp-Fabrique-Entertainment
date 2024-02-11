@@ -76,7 +76,7 @@ const ArticleForm = () => {
 	const confirmHandler = (data) => {
 		const formData = new FormData();
 
-		formData.append('title', data.title);
+		formData.append('author', data.author);
 		formData.append('date', data.date);
 		formData.append('tag', data.tag);
 		formData.append('description', data.description);
@@ -141,17 +141,17 @@ const ArticleForm = () => {
 						isUpdate && <h4>{t('labels.modifyDbArticle')}</h4>
 					)}
 					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
-					<label htmlFor='Title'>
-						{t('title')}
+					<label htmlFor='Author'>
+						{t('author')}
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={formState.defaultValues?.title ?? ''}
-						{...register('title')}
+						defaultValue={formState.defaultValues?.author ?? ''}
+						{...register('author')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.title?.message && <small>{errors.title?.message}</small>}
+					{errors.author?.message && <small>{errors.author?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='date'>
@@ -230,8 +230,8 @@ const ArticleForm = () => {
 					{dataUpdateArticle?.articleCover?.articleImageUrl && (
 						<div className={classes.form__container__item__images}>
 							<img
-								title={dataUpdateArticle?.title}
-								alt={dataUpdateArticle?.title}
+								author={dataUpdateArticle?.author}
+								alt={dataUpdateArticle?.author}
 								src={dataUpdateArticle?.articleCover.articleImageUrl}
 							/>
 							<div className={classes.flex__button__images__delete}>

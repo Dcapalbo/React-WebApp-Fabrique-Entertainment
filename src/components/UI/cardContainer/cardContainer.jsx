@@ -7,12 +7,24 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
+const CardContainer = ({
+	component: CardComponent,
+	fetchDataUrl,
+	childComponentType,
+}) => {
 	const { t } = useTranslation();
 
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
 	const { data, error, loading } = useApiGetHook(fetchDataUrl);
 	const [filteredData, setFilteredData] = useState([]);
+
+	let cardContainerStyle = classes.card__container;
+
+	if (childComponentType === 'Article') {
+		cardContainerStyle += ` ${classes.width__article__card}`;
+	} else {
+		cardContainerStyle += ` ${classes.width__generic__card}`;
+	}
 
 	useEffect(() => {
 		if (data) {
@@ -46,7 +58,7 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 
 	return (
 		<section className={classes.wrapper__card__container}>
-			<div className={classes.card__container}>
+			<div className={cardContainerStyle}>
 				{filteredData.length > 0 ? (
 					filteredData.map((item) => (
 						<CardComponent

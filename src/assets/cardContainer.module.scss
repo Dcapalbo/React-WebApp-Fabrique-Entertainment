@@ -16,7 +16,7 @@
 		display: flex;
 		margin: auto;
 		height: 100%;
-		width: 90%;
+
 		@media (max-width: $screen-lg-min) {
 			@include flex-center;
 			padding: 24px 12px;
@@ -29,4 +29,12 @@
 			width: 100%;
 		}
 	}
+}
+
+.width__article__card {
+	width: 60%;
+}
+
+.width__generic__card {
+	width: 90%;
 }

@@ -33,6 +33,7 @@ const translationIt = {
 	password: 'Password',
 	confirmPassword: 'Conferma password',
 	title: 'Titolo',
+	author: 'Autore',
 	tag: 'Tag',
 	dateArticle: 'Data uscita articolo',
 	director: 'Regia',

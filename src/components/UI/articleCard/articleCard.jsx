@@ -69,13 +69,13 @@ const ArticleCard = (props) => {
 					<img
 						className={classes.article__image}
 						src={props.articleCover.articleImageUrl ?? ''}
-						alt={props.title ?? ''}
-						title={props.title ?? ''}
+						alt={props.author ?? ''}
+						title={props.author ?? ''}
 						loading='lazy'
 					/>
 				)}
 				<div className={classes.article__internal__description}>
-					{props.title && <h2>{props.title ?? ''}</h2>}
+					{props.author && <h2>{props.author ?? ''}</h2>}
 					{props.description && (
 						<TruncatedText
 							text={props.description}
@@ -91,7 +91,7 @@ const ArticleCard = (props) => {
 				</div>
 				{props.link && (
 					<p>
-						Vai all'articolo completo |{' '}
+						Vai all'articolo completo di {props.author} |{' '}
 						<a
 							className={classes.hover__article__link}
 							href={props.link}

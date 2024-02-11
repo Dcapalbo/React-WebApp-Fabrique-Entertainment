@@ -6,7 +6,7 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const articlesSchema = z.object({
-	title: z
+	author: z
 		.string()
 		.nonempty({ message: 'campo obbligatorio' })
 		.min(3, { message: 'Il nome deve contenere almeno 3 caratteri' })

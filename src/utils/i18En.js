@@ -33,6 +33,7 @@ const translationEn = {
 	password: 'Password',
 	confirmPassword: 'Confirm password',
 	title: 'Title',
+	author: 'Author',
 	tag: 'Tag',
 	dateArticle: 'Date release article',
 	director: 'A film by',
