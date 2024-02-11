@@ -39,7 +39,7 @@ const CardContainer = ({ component: CardComponent, fetchDataUrl }) => {
 	if (error) {
 		return (
 			<h1 className={classes.text__align__center}>
-				{t('errors.genericError')}
+				{t('errors.dataExistenceError')}
 			</h1>
 		);
 	}

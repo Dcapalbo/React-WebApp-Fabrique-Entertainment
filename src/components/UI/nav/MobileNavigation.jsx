@@ -4,9 +4,8 @@ import logo from '../../../assets/img/LOGO_Fabrique_Entertainment_White_PNG.png'
 import classes from './mobileNavigation.module.scss';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import NavLinks from './NavLinks';
-import { useState } from 'react';
-import React from 'react';
 
 const MobileNavigation = () => {
 	const [isOpen, setIsOpen] = useState(false);

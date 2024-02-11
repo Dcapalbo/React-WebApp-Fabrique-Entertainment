@@ -6,6 +6,7 @@ const translationEn = {
 	aboutDescription:
 		'Fabrique Entertainment is composed of Renata Di Leone and Giovanni Capalbo. The company is not strictly structured into specific sectors. Projects follow the ideas of the individual members, who adapt to various roles based on the origin of the ideas. Nevertheless, the producers collaborate and work together in the development of the stories, and later define their areas of expertise during the production phase. Renata Di Leone has an instinct for selecting stories that are connected to her African background, as she is Ethiopian. Giovanni Capalbo focuses on economic and financial strategies.',
 	films: 'Filmography',
+	news: 'News',
 	contacts: 'Contacts',
 	filmsList: 'List of films',
 	addFilm: 'Add film',

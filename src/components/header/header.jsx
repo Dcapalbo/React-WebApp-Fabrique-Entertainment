@@ -9,7 +9,7 @@ const Header = () => {
 
 	useEffect(() => {
 		const isSticky = () => {
-			if (window.scrollY >= 170) {
+			if (window.scrollY >= 100) {
 				setSticky(true);
 			} else {
 				setSticky(false);
