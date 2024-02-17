@@ -1,16 +1,16 @@
 /** @format */
 
-import FilterDataSelect from '../components/UI/select/filterDataSelect';
 import CardContainer from '../components/UI/cardContainer/cardContainer';
+import FilterDataSelect from '../components/UI/select/filterDataSelect';
 import { dataSelectActions } from '../store/data-select-slice';
 import Accordion from '../components/UI/accordion/accordion';
 import { optionsFilms, serverUrl } from '../utils/constants';
 import FilmCard from '../components/UI/filmCard/filmCard';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 import Hero from '../components/hero/hero';
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
 
 const Home = () => {
 	const [type, setType] = useState('');
@@ -21,6 +21,12 @@ const Home = () => {
 		dispatch(dataSelectActions.setDataType(value));
 		setType(value);
 	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(dataSelectActions.setDataType(''));
+		};
+	}, [dispatch]);
 
 	return (
 		<>
@@ -37,6 +43,7 @@ const Home = () => {
 			<CardContainer
 				component={FilmCard}
 				fetchDataUrl={`${serverUrl}/get-films`}
+				useFilter={true}
 			/>
 			<Footer />
 		</>

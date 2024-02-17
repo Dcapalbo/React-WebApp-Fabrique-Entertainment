@@ -11,11 +11,11 @@ const CardContainer = ({
 	component: CardComponent,
 	fetchDataUrl,
 	childComponentType,
+	useFilter = false,
 }) => {
 	const { t } = useTranslation();
-
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
-	const { data, error, loading } = useApiGetHook(fetchDataUrl);
+	const { data, loading } = useApiGetHook(fetchDataUrl);
 	const [filteredData, setFilteredData] = useState([]);
 
 	let cardContainerStyle = classes.card__container;
@@ -27,14 +27,13 @@ const CardContainer = ({
 	}
 
 	useEffect(() => {
-		if (data) {
+		if (data && useFilter) {
 			const newData = typeData
 				? data.filter((item) => {
 						if (item.type) {
 							return item.type === typeData;
 						} else if (item.tag) {
 							return (
-								//make it better mind the name of the tag in BE
 								item.tag.trim().toLowerCase() === typeData.trim().toLowerCase()
 							);
 						}
@@ -42,34 +41,34 @@ const CardContainer = ({
 				: data;
 			setFilteredData(newData);
 		}
-	}, [typeData, data]);
+	}, [typeData, data, useFilter]);
 
 	if (loading) {
 		return <LoadingSpinner />;
 	}
 
-	if (error) {
-		return (
-			<h1 className={classes.text__align__center}>
-				{t('errors.dataExistenceError')}
-			</h1>
-		);
+	let contentToDisplay;
+	if (useFilter && filteredData.length > 0) {
+		contentToDisplay = filteredData.map((item) => (
+			<CardComponent
+				{...item}
+				key={item._id}
+			/>
+		));
+	} else if (!useFilter && data && data.length > 0) {
+		contentToDisplay = data.map((item) => (
+			<CardComponent
+				{...item}
+				key={item._id}
+			/>
+		));
+	} else {
+		contentToDisplay = <h1>{t('errors.dataExistenceError')}</h1>;
 	}
 
 	return (
 		<section className={classes.wrapper__card__container}>
-			<div className={cardContainerStyle}>
-				{filteredData.length > 0 ? (
-					filteredData.map((item) => (
-						<CardComponent
-							{...item}
-							key={item._id}
-						/>
-					))
-				) : (
-					<h1>{t('errors.dataExistenceError')}</h1>
-				)}
-			</div>
+			<div className={cardContainerStyle}>{contentToDisplay}</div>
 		</section>
 	);
 };

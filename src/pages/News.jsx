@@ -5,10 +5,10 @@ import FilterDataSelect from '../components/UI/select/filterDataSelect';
 import ArticleCard from '../components/UI/articleCard/articleCard';
 import { optionsArticles, serverUrl } from '../utils/constants';
 import { dataSelectActions } from '../store/data-select-slice';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
 
 const News = () => {
 	const [type, setType] = useState('');
@@ -19,6 +19,12 @@ const News = () => {
 		dispatch(dataSelectActions.setDataType(value));
 		setType(value);
 	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(dataSelectActions.setDataType(''));
+		};
+	}, [dispatch]);
 
 	return (
 		<>
@@ -34,6 +40,7 @@ const News = () => {
 				component={ArticleCard}
 				fetchDataUrl={`${serverUrl}/get-articles`}
 				childComponentType={'Article'}
+				useFilter={true}
 			/>
 			<Footer />
 		</>
