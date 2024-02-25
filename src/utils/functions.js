@@ -1,5 +1,6 @@
 /** @format */
 
+import moment from 'moment';
 import axios from 'axios';
 
 const decodeToken = (token) => {
@@ -41,6 +42,7 @@ const handleSingleImageDelete = async (
 ) => {
 	dispatch(reduxAction(imageKey));
 	try {
+		console.log(imageKey);
 		const response = await axios.delete(
 			`${url}/${deleteType}?image_key=${imageKey}`
 		);
@@ -55,9 +57,19 @@ const handleSingleImageDelete = async (
 	}
 };
 
+const convertToDateToPrint = (dateString) => {
+	return moment(dateString).format('DD/MM/YYYY');
+};
+
+const convertToDateForInput = (dateString) => {
+	return moment(dateString).format('YYYY-MM-DD');
+};
+
 export {
 	decodeToken,
 	slugCreation,
 	handlePressBookDownload,
 	handleSingleImageDelete,
+	convertToDateToPrint,
+	convertToDateForInput,
 };

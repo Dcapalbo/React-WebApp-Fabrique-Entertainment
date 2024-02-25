@@ -1,12 +1,13 @@
 /** @format */
 
-import AboutCardContainer from '../components/UI/aboutCard/aboutCardContainer';
+import CardContainer from '../components/UI/cardContainer/cardContainer';
 import { dataContactActions } from '../store/data-contact-slice';
+import AboutCard from '../components/UI/aboutCard/aboutCard';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
+import { serverUrl } from '../utils/constants';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const AllAuthContacts = () => {
 	const dispatch = useDispatch();
@@ -18,7 +19,10 @@ const AllAuthContacts = () => {
 	return (
 		<>
 			<Header />
-			<AboutCardContainer />
+			<CardContainer
+				component={AboutCard}
+				fetchDataUrl={`${serverUrl}/get-contacts`}
+			/>
 			<Footer />
 		</>
 	);

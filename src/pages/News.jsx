@@ -2,17 +2,15 @@
 
 import CardContainer from '../components/UI/cardContainer/cardContainer';
 import FilterDataSelect from '../components/UI/select/filterDataSelect';
+import ArticleCard from '../components/UI/articleCard/articleCard';
+import { optionsArticles, serverUrl } from '../utils/constants';
 import { dataSelectActions } from '../store/data-select-slice';
-import Accordion from '../components/UI/accordion/accordion';
-import { optionsFilms, serverUrl } from '../utils/constants';
-import FilmCard from '../components/UI/filmCard/filmCard';
 import React, { useEffect, useState } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
-import Hero from '../components/hero/hero';
 import { useDispatch } from 'react-redux';
 
-const Home = () => {
+const News = () => {
 	const [type, setType] = useState('');
 	const dispatch = useDispatch();
 
@@ -31,18 +29,17 @@ const Home = () => {
 	return (
 		<>
 			<Header />
-			<Hero />
-			<Accordion />
 			<FilterDataSelect
-				label={'Filtra per tipologia'}
+				label={'Filtra per progetto'}
 				onChange={sendTypeHandler}
-				headline={'Filmografia'}
-				options={optionsFilms}
+				options={optionsArticles}
+				headline={'Articoli'}
 				type={type}
 			/>
 			<CardContainer
-				component={FilmCard}
-				fetchDataUrl={`${serverUrl}/get-films`}
+				component={ArticleCard}
+				fetchDataUrl={`${serverUrl}/get-articles`}
+				childComponentType={'Article'}
 				useFilter={true}
 			/>
 			<Footer />
@@ -50,4 +47,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default News;

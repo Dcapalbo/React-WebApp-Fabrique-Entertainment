@@ -10,15 +10,15 @@ const Footer = () => {
 		<footer className={classes.footer}>
 			<div className={classes.footer__container}>
 				<div className={classes.footer__container__elm}>
-					<h2>Dati Finanziari</h2>
+					<h2>Dati finanziari</h2>
 					<p>Fabrique Entertainment S.r.l.</p>
 					<p>Codice fiscale e P.IVA: 12753751002</p>
 					<p>Cap. sociale interamente versato 50.000€</p>
 				</div>
 				<div className={classes.footer__container__elm}>
-					<h2>Recapiti Aziendali</h2>
-					<p>Sede Legale: ROMA (RM) Via Paolo Emilio 34, CAP 00192</p>
-					<p>Sede Operativa: ROMA (RM) Via Petrarca 8, CAP 00185</p>
+					<h2>Recapiti aziendali</h2>
+					<p>Sede legale: ROMA (RM) via Paolo Emilio 34, CAP 00192</p>
+					<p>Sede operativa: ROMA (RM) via Petrarca 8, CAP 00185</p>
 					<p>
 						email aziendale:{' '}
 						<a href='mailto:"fabriquesrl@gmail.com"'>fabriquesrl@gmail.com</a>

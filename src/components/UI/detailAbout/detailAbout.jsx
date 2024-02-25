@@ -33,7 +33,7 @@ const DetailAboutContact = () => {
 					<div className={classes.detail__card__container}>
 						<img
 							className={classes.detail__card__image}
-							src={contact.contactImageUrl ?? ''}
+							src={contact.profileCover.contactImageUrl ?? ''}
 							alt={contact.name ?? ''}
 							name={contact.name ?? ''}
 							loading='lazy'

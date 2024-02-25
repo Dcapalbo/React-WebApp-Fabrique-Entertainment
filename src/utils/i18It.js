@@ -6,9 +6,11 @@ const translationIt = {
 	aboutDescription:
 		"Fabrique Entertainment e' formata da Renata Di Leone e Giovanni Capalbo. La società non e' strettamente strutturata nei settori. I progetti seguono le idee dei singoli esponenti, i quali si adattano a interpretare funzioni diverse in base alla paternità delle idee. Ciò nonostante, i produttori, sono uniti e operativi nello sviluppo delle storie per poi definire i loro ambiti nella fase di produzione. Renata Di Leone , ha l'istinto nel scegliere le storie che sono connesse con il suo mondo africano, essendo lei etiope. Giovanni Capalbo lavora sulle strategie economiche e finanziarie.",
 	films: 'Filmografia',
+	news: 'News',
 	contacts: 'Contatti',
 	filmsList: 'Lista dei film',
 	addFilm: 'Aggiungi un film',
+	addArticle: 'Aggiungi un articolo',
 	contactsList: 'Lista dei contatti',
 	addContact: 'Aggiungi un contatto',
 	forgotPassword: 'Reimposta la password',
@@ -31,6 +33,9 @@ const translationIt = {
 	password: 'Password',
 	confirmPassword: 'Conferma password',
 	title: 'Titolo',
+	author: 'Autore',
+	tag: 'Tag',
+	dateArticle: 'Data uscita articolo',
 	director: 'Regia',
 	productions: 'Produzione',
 	producers: 'Produttori',
@@ -131,6 +136,7 @@ const translationIt = {
 	},
 	cover: 'Copertina del film',
 	profileCover: 'Foto del profilo',
+	articleCover: 'Foto articolo',
 	role: 'Ruolo',
 	bio: 'Biografia',
 	insertAction: 'Inserisci',
@@ -140,6 +146,7 @@ const translationIt = {
 	createAccount: 'Crea account',
 	modify: 'Modifica',
 	remove: 'Rimuovi',
+	description: 'Descrizione articolo',
 	labels: {
 		signUpLabel: 'Crea il tuo account',
 		loginLabel: 'Login',
@@ -150,6 +157,8 @@ const translationIt = {
 		modifyDbFilm: 'Modificare un film del database',
 		addDbContact: 'Aggiungere un contatto al database',
 		modifyDbContact: 'Modificare un contatto del database',
+		addDbArticle: 'Aggiungere un articolo al database',
+		modifyDbArticle: 'Modificare un articolo del database',
 		obligatory: 'Campi contrassegnati con (*) sono obbligatori',
 	},
 	linksLabels: {
@@ -157,6 +166,7 @@ const translationIt = {
 		imdb: 'Link imdb',
 		instagram: 'Link instagram',
 		facebook: 'Link facebook',
+		articleLink: 'Link articolo',
 	},
 	errors: {
 		dbCrud:
@@ -176,8 +186,8 @@ const translationIt = {
 		contactErrorDelete:
 			'Non è stato possibile cancellare il contatto, riprovare',
 		filmErrorDelete: 'Non è stato possibile cancellare il film, riprovare',
-		filmExistenceError:
-			'Non sono presenti film per questa ricerca, provare a effettuarne un altra, oppure ricaricare la pagina',
+		dataExistenceError:
+			'Non sono presenti valori per questa ricerca, provare a effettuarne un altra, oppure ricaricare la pagina',
 		contactExistenceError:
 			'Non sono presenti contatti per questa ricerca, provare a effettuarne un altra, oppure ricaricare la pagina',
 	},

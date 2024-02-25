@@ -6,11 +6,10 @@ import TruncatedText from '../truncatedText/truncatedText';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import React from 'react';
 
 const AboutCard = (props) => {
 	const dispatch = useDispatch();
@@ -74,11 +73,11 @@ const AboutCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.contactImageUrl && (
+			{props.profileCover && props.profileCover.contactImageUrl && (
 				<img
 					onClick={sendContactDetailHanlder}
 					className={classes.card__image}
-					src={props.contactImageUrl}
+					src={props.profileCover.contactImageUrl}
 					alt={props.name}
 					name={props.name}
 					loading='lazy'

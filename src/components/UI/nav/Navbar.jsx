@@ -7,12 +7,10 @@ import React from 'react';
 
 const NavBar = () => {
 	return (
-		<>
-			<div className={classes.flex__wrapper}>
-				<Navigation />
-				<MobileNavigation />
-			</div>
-		</>
+		<div className={classes.flex__wrapper}>
+			<Navigation />
+			<MobileNavigation />
+		</div>
 	);
 };
 

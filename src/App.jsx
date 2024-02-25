@@ -7,9 +7,8 @@ import {
 	Route,
 	Navigate,
 } from 'react-router-dom';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // importing the react traductions functions
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';
@@ -26,6 +25,7 @@ import './assets/reset.scss';
 // pages
 import Home from './pages/Home';
 import Film from './pages/Film';
+import News from './pages/News';
 import About from './pages/About';
 import Films from './pages/Films';
 import NewFilm from './pages/NewFilm';
@@ -40,6 +40,8 @@ import UpdateContact from './pages/UpdateContact';
 import AllAuthContacts from './pages/AllAuthContacts';
 import ResetPasswordForm from './pages/ResetPassword';
 import ForgotPasswordForm from './pages/ForgotPassword';
+import NewArticle from './pages/NewArticle';
+import UpdateArticle from './pages/UpdateArticle';
 
 // initialize the react traductions
 i18n.use(initReactI18next).init({
@@ -78,6 +80,10 @@ const App = () => {
 				<Route
 					path='/about'
 					element={<About />}
+				/>
+				<Route
+					path='/news'
+					element={<News />}
 				/>
 				<Route
 					path='/films'
@@ -182,6 +188,32 @@ const App = () => {
 					element={
 						isAuthenticated ? (
 							<UpdateContact />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/add-new-article'
+					element={
+						isAuthenticated ? (
+							<NewArticle />
+						) : (
+							<Navigate
+								to='/'
+								replace
+							/>
+						)
+					}
+				/>
+				<Route
+					path='/admin/update-article'
+					element={
+						isAuthenticated ? (
+							<UpdateArticle />
 						) : (
 							<Navigate
 								to='/'

@@ -4,7 +4,7 @@ import React from 'react';
 
 const ProjectStateSelect = ({ onChange, value }) => {
 	const options = [
-		{ value: '', label: '' },
+		{ value: '', label: 'Inserisci un valore' },
 		{ value: 'pre-produzione', label: 'Pre-produzione' },
 		{ value: 'post-produzione', label: 'Post-produzione' },
 		{ value: 'completato', label: 'Completato' },

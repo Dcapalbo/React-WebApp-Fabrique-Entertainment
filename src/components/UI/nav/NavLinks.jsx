@@ -43,10 +43,13 @@ const NavLinks = () => {
 				<Link to='/'>{t('home')}</Link>
 			</li>
 			<li>
-				<Link to='/about'>{t('about')}</Link>
+				<Link to='/films'>{t('films')}</Link>
 			</li>
 			<li>
-				<Link to='/films'>{t('films')}</Link>
+				<Link to='/news'>{t('news')}</Link>
+			</li>
+			<li>
+				<Link to='/about'>{t('about')}</Link>
 			</li>
 			<li>
 				<Link to='/contacts'>{t('contacts')}</Link>
@@ -64,6 +67,9 @@ const NavLinks = () => {
 					</li>
 					<li>
 						<Link to='/admin/add-new-contact'>{t('addContact')}</Link>
+					</li>
+					<li>
+						<Link to='/admin/add-new-article'>{t('addArticle')}</Link>
 					</li>
 					<li>
 						<Link to='/forgot-password'>{t('forgotPassword')}</Link>

@@ -1,12 +1,9 @@
 /** @format */
 
-import {
-	handlePressBookDownload,
-	handleSingleImageDelete,
-} from '../../../utils/functions';
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import ProjectStateSelect from '../select/projectStateSelect';
+import FestivalTypeSelect from '../select/festivalTypeSelect';
 import { filmSchema } from '../../../schema/filmSchema';
 import { slugCreation } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,16 +11,18 @@ import DynamicInput from './dynamicInput/dynamicInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { serverUrl } from '../../../utils/constants';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineFilePdf } from 'react-icons/ai';
 import classes from './genericForm.module.scss';
 import GenreSelect from '../select/genreSelect';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import TypeSelect from '../select/typeSelect';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import React from 'react';
-import FestivalTypeSelect from '../select/festivalTypeSelect';
+import {
+	handlePressBookDownload,
+	handleSingleImageDelete,
+} from '../../../utils/functions';
 
 const FilmForm = () => {
 	const uriLocation = window.location.href;
@@ -33,7 +32,6 @@ const FilmForm = () => {
 
 	const dataUpdateFilm = useSelector((state) => state.dataFilm.filmData ?? '');
 
-	console.log('redux updateFilm', dataUpdateFilm);
 	const productionsData = dataUpdateFilm?.productions || [
 		{ productionName: '' },
 	];
@@ -119,7 +117,6 @@ const FilmForm = () => {
 	const [error, setError] = useState(null);
 
 	const handleSelectChange = (selectedValue) => {
-		console.log(selectedValue);
 		return selectedValue;
 	};
 
@@ -1529,7 +1526,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateFilm?.coverImageUrl && (
+					{!dataUpdateFilm?.cover?.coverImageUrl && (
 						<>
 							<label htmlFor='CoverImage'>
 								{t('cover')}
@@ -1545,18 +1542,18 @@ const FilmForm = () => {
 						</>
 					)}
 
-					{dataUpdateFilm?.coverImageUrl && (
+					{dataUpdateFilm?.cover?.coverImageUrl && (
 						<div className={classes.form__container__item__images}>
 							<img
 								title={dataUpdateFilm?.title}
 								alt={dataUpdateFilm?.title}
-								src={dataUpdateFilm?.coverImageUrl}
+								src={dataUpdateFilm?.cover?.coverImageUrl}
 							/>
 							<div className={classes.flex__button__images__delete}>
 								<button
 									onClick={() =>
 										handleSingleImageDelete(
-											dataUpdateFilm?.coverImageKey,
+											dataUpdateFilm?.cover?.coverImageKey,
 											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,
@@ -1572,7 +1569,7 @@ const FilmForm = () => {
 					)}
 				</div>
 				<div className={classes.form__container__item}>
-					{!dataUpdateFilm?.pressBookPdfUrl && (
+					{!dataUpdateFilm?.pressBook?.pressBookPdfUrl && (
 						<>
 							<label htmlFor='PressBookPdf'>Pressbook</label>
 							<input
@@ -1583,11 +1580,13 @@ const FilmForm = () => {
 							/>
 						</>
 					)}
-					{dataUpdateFilm?.pressBookPdfUrl && (
+					{dataUpdateFilm?.pressBook?.pressBookPdfUrl && (
 						<div className={classes.form__container__item__images}>
 							<AiOutlineFilePdf
 								onClick={() =>
-									handlePressBookDownload(dataUpdateFilm?.pressBookPdfUrl)
+									handlePressBookDownload(
+										dataUpdateFilm?.pressBook?.pressBookPdfUrl
+									)
 								}
 								target='__blank'
 								size={40}
@@ -1597,7 +1596,7 @@ const FilmForm = () => {
 								<button
 									onClick={() =>
 										handleSingleImageDelete(
-											dataUpdateFilm?.pressBookPdfKey,
+											dataUpdateFilm?.pressBook?.pressBookPdfKey,
 											serverUrl,
 											dispatch,
 											dataFilmActions.removeImageKey,

@@ -6,9 +6,11 @@ const translationEn = {
 	aboutDescription:
 		'Fabrique Entertainment is composed of Renata Di Leone and Giovanni Capalbo. The company is not strictly structured into specific sectors. Projects follow the ideas of the individual members, who adapt to various roles based on the origin of the ideas. Nevertheless, the producers collaborate and work together in the development of the stories, and later define their areas of expertise during the production phase. Renata Di Leone has an instinct for selecting stories that are connected to her African background, as she is Ethiopian. Giovanni Capalbo focuses on economic and financial strategies.',
 	films: 'Filmography',
+	news: 'News',
 	contacts: 'Contacts',
 	filmsList: 'List of films',
 	addFilm: 'Add film',
+	addArticle: 'Add article',
 	contactsList: 'List of contacts',
 	addContact: 'Add contact',
 	forgotPassword: 'Reset Password',
@@ -31,6 +33,9 @@ const translationEn = {
 	password: 'Password',
 	confirmPassword: 'Confirm password',
 	title: 'Title',
+	author: 'Author',
+	tag: 'Tag',
+	dateArticle: 'Date release article',
 	director: 'A film by',
 	productions: 'Production',
 	producers: 'Producers',
@@ -131,6 +136,7 @@ const translationEn = {
 	},
 	cover: 'Film cover',
 	profileCover: 'Profile picture',
+	articleCover: 'Article cover',
 	role: 'Role',
 	bio: 'Biography',
 	insertAction: 'Insert',
@@ -140,6 +146,7 @@ const translationEn = {
 	createAccount: 'Create account',
 	modify: 'Modify',
 	remove: 'Remove',
+	description: 'Article description',
 	labels: {
 		signUpLabel: 'Create your account',
 		loginLabel: 'Login',
@@ -150,6 +157,8 @@ const translationEn = {
 		modifyDbFilm: 'Modify a film inside the database',
 		addDbContact: 'Add a contact inside the database',
 		modifyDbContact: 'Modify a contact inside the database',
+		addDbArticle: 'Add an article inside the database',
+		modifyDbArticle: 'Modify an article inside the database',
 		obligatory: 'Fields marked with (*) are mandatory',
 	},
 	linksLabels: {
@@ -157,6 +166,7 @@ const translationEn = {
 		imdb: 'Link imdb',
 		instagram: 'Link instagram',
 		facebook: 'Link facebook',
+		articleLink: 'Link article',
 	},
 	errors: {
 		dbCrud:
@@ -173,8 +183,8 @@ const translationEn = {
 			'The contact selected was not found, go back to the previous page',
 		contactErrorDelete: 'Wan not possible to delete the contact, try again',
 		filmErrorDelete: 'Was not possible to delete the film, try again',
-		filmExistenceError:
-			'There are not films for this research, try to make it an other one or refresh the page',
+		dataExistenceError:
+			'There are no values for this research, try to make it an other one or refresh the page',
 		contactExistenceError:
 			'There are not contacts for this research, try to make it an other one or refresh the page',
 	},
