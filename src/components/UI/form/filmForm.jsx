@@ -1,5 +1,6 @@
 /** @format */
 
+import { handlePressBookDownload, handleSingleImageDelete } from '../../../utils/functions';
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import ProjectStateSelect from '../select/projectStateSelect';
@@ -19,10 +20,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import TypeSelect from '../select/typeSelect';
 import axios from 'axios';
-import {
-	handlePressBookDownload,
-	handleSingleImageDelete,
-} from '../../../utils/functions';
 
 const FilmForm = () => {
 	const uriLocation = window.location.href;
@@ -32,43 +29,27 @@ const FilmForm = () => {
 
 	const dataUpdateFilm = useSelector((state) => state.dataFilm.filmData ?? '');
 
-	const productionsData = dataUpdateFilm?.productions || [
-		{ productionName: '' },
-	];
+	const productionsData = dataUpdateFilm?.productions || [{ productionName: '' }];
 
 	const producersData = dataUpdateFilm?.producers || [{ producerName: '' }];
 
-	const coProductionsData = dataUpdateFilm?.coProductions || [
-		{ coProductionName: '' },
-	];
+	const coProductionsData = dataUpdateFilm?.coProductions || [{ coProductionName: '' }];
 
-	const coProducersData = dataUpdateFilm?.coProducers || [
-		{ coProducerName: '' },
-	];
+	const coProducersData = dataUpdateFilm?.coProducers || [{ coProducerName: '' }];
 
-	const collaborationsData = dataUpdateFilm?.collaborations || [
-		{ collaborationName: '' },
-	];
+	const collaborationsData = dataUpdateFilm?.collaborations || [{ collaborationName: '' }];
 
-	const contributesData = dataUpdateFilm?.contributes || [
-		{ contributeName: '' },
-	];
+	const contributesData = dataUpdateFilm?.contributes || [{ contributeName: '' }];
 
-	const actorsData = dataUpdateFilm?.actors || [
-		{ actorName: '', actorRole: '' },
-	];
+	const actorsData = dataUpdateFilm?.actors || [{ actorName: '', actorRole: '' }];
 
 	const subjectData = dataUpdateFilm?.subjects || [{ subjectName: '' }];
 
-	const screenwritersData = dataUpdateFilm?.screenwriters || [
-		{ screenwriterName: '' },
-	];
+	const screenwritersData = dataUpdateFilm?.screenwriters || [{ screenwriterName: '' }];
 
 	const musicData = dataUpdateFilm?.musics || [{ musicName: '' }];
 
-	const executiveProducersData = dataUpdateFilm?.executiveProducers || [
-		{ executiveProducerName: '' },
-	];
+	const executiveProducersData = dataUpdateFilm?.executiveProducers || [{ executiveProducerName: '' }];
 
 	const festivalsData = dataUpdateFilm?.festivals || [
 		{
@@ -87,17 +68,14 @@ const FilmForm = () => {
 		}
 	}, [uriLocation, dispatch]);
 
-	const { register, control, formState, setValue, handleSubmit, trigger } =
-		useForm({
-			defaultValues: dataUpdateFilm ?? '',
-			resolver: zodResolver(filmSchema),
-		});
+	const { register, control, formState, setValue, handleSubmit, trigger } = useForm({
+		defaultValues: dataUpdateFilm ?? '',
+		resolver: zodResolver(filmSchema),
+	});
 
 	const { errors } = formState;
 
-	const [executiveProducers, setExecutiveProducers] = useState(
-		executiveProducersData
-	);
+	const [executiveProducers, setExecutiveProducers] = useState(executiveProducersData);
 
 	const [collaborations, setCollaborations] = useState(collaborationsData);
 	const [screenwriters, setScreenwriters] = useState(screenwritersData);
@@ -131,13 +109,7 @@ const FilmForm = () => {
 		}
 	};
 
-	const handleDynamicFieldChange = (
-		event,
-		index,
-		fieldName,
-		stateArray,
-		setState
-	) => {
+	const handleDynamicFieldChange = (event, index, fieldName, stateArray, setState) => {
 		const { value } = event.target;
 		setState((prevState) => {
 			const updatedArray = [...prevState];
@@ -160,30 +132,21 @@ const FilmForm = () => {
 		});
 	};
 
-	const handleDynamicRoleChange = (
-		event,
-		festivalIndex,
-		festivalRoleIndex,
-		fieldName,
-		stateArray,
-		setState
-	) => {
+	const handleDynamicRoleChange = (event, festivalIndex, festivalRoleIndex, fieldName, stateArray, setState) => {
 		const { value } = event.target;
 		setState((prevState) => {
 			const updatedArray = [...prevState];
 			updatedArray[festivalIndex] = {
 				...updatedArray[festivalIndex],
-				festivalRoles: updatedArray[festivalIndex].festivalRoles.map(
-					(role, index) => {
-						if (index === festivalRoleIndex) {
-							return {
-								...role,
-								[fieldName]: value,
-							};
-						}
-						return role;
+				festivalRoles: updatedArray[festivalIndex].festivalRoles.map((role, index) => {
+					if (index === festivalRoleIndex) {
+						return {
+							...role,
+							[fieldName]: value,
+						};
 					}
-				),
+					return role;
+				}),
 			};
 			return updatedArray;
 		});
@@ -203,12 +166,7 @@ const FilmForm = () => {
 		});
 	};
 
-	const handleDynamicRoleDelete = (
-		festivalIndex,
-		festivalRoleIndex,
-		stateArray,
-		setState
-	) => {
+	const handleDynamicRoleDelete = (festivalIndex, festivalRoleIndex, stateArray, setState) => {
 		setState((prevState) => {
 			const updatedArray = prevState.map((festival, index) => {
 				if (index !== festivalIndex) {
@@ -216,9 +174,7 @@ const FilmForm = () => {
 				}
 				const updatedFestival = {
 					...festival,
-					festivalRoles: festival.festivalRoles.filter(
-						(_, idx) => idx !== festivalRoleIndex
-					),
+					festivalRoles: festival.festivalRoles.filter((_, idx) => idx !== festivalRoleIndex),
 				};
 
 				return updatedFestival;
@@ -246,119 +202,58 @@ const FilmForm = () => {
 		formData.append('title', data.title);
 		formData.append('director', data.director);
 
-		if (
-			productions.length > 0 &&
-			productions.length[0] !== '' &&
-			data.productions[0].producerName !== ''
-		) {
+		if (productions.length > 0 && productions.length[0] !== '' && data.productions[0].producerName !== '') {
 			for (let i = 0; i < productions.length; i++) {
-				formData.append(
-					`productions[${i}][productionName]`,
-					data.productions[i].productionName
-				);
+				formData.append(`productions[${i}][productionName]`, data.productions[i].productionName);
 			}
 		}
 
-		if (
-			producers.length > 0 &&
-			producers.length[0] !== '' &&
-			data.producers[0].producerName !== ''
-		) {
+		if (producers.length > 0 && producers.length[0] !== '' && data.producers[0].producerName !== '') {
 			for (let i = 0; i < producers.length; i++) {
-				formData.append(
-					`producers[${i}][producerName]`,
-					data.producers[i].producerName
-				);
+				formData.append(`producers[${i}][producerName]`, data.producers[i].producerName);
 			}
 		}
 
-		if (
-			coProductions.length > 0 &&
-			coProductions.length[0] !== '' &&
-			data.coProductions[0].coProductionName !== ''
-		) {
+		if (coProductions.length > 0 && coProductions.length[0] !== '' && data.coProductions[0].coProductionName !== '') {
 			for (let i = 0; i < coProductions.length; i++) {
-				formData.append(
-					`coProductions[${i}][coProductionName]`,
-					data.coProductions[i].coProductionName
-				);
+				formData.append(`coProductions[${i}][coProductionName]`, data.coProductions[i].coProductionName);
 			}
 		}
 
-		if (
-			coProducers.length > 0 &&
-			coProducers.length[0] !== '' &&
-			data.coProducers[0].coProducerName !== ''
-		) {
+		if (coProducers.length > 0 && coProducers.length[0] !== '' && data.coProducers[0].coProducerName !== '') {
 			for (let i = 0; i < coProducers.length; i++) {
-				formData.append(
-					`coProducers[${i}][coProducerName]`,
-					data.coProducers[i].coProducerName
-				);
+				formData.append(`coProducers[${i}][coProducerName]`, data.coProducers[i].coProducerName);
 			}
 		}
 
-		if (
-			collaborations.length > 0 &&
-			collaborations.length[0] !== '' &&
-			data.collaborations[0].collaborationName !== ''
-		) {
+		if (collaborations.length > 0 && collaborations.length[0] !== '' && data.collaborations[0].collaborationName !== '') {
 			for (let i = 0; i < collaborations.length; i++) {
-				formData.append(
-					`collaborations[${i}][collaborationName]`,
-					data.collaborations[i].collaborationName
-				);
+				formData.append(`collaborations[${i}][collaborationName]`, data.collaborations[i].collaborationName);
 			}
 		}
 
-		if (
-			contributes.length > 0 &&
-			contributes.length[0] !== '' &&
-			data.contributes[0].contributeName !== ''
-		) {
+		if (contributes.length > 0 && contributes.length[0] !== '' && data.contributes[0].contributeName !== '') {
 			for (let i = 0; i < contributes.length; i++) {
-				formData.append(
-					`contributes[${i}][contributeName]`,
-					data.contributes[i].contributeName
-				);
+				formData.append(`contributes[${i}][contributeName]`, data.contributes[i].contributeName);
 			}
 		}
 
-		if (
-			actors.length > 0 &&
-			actors.length[0] !== '' &&
-			data.actors[0].actorName !== '' &&
-			data.actors[0].actorRole !== ''
-		) {
+		if (actors.length > 0 && actors.length[0] !== '' && data.actors[0].actorName !== '' && data.actors[0].actorRole !== '') {
 			for (let i = 0; i < actors.length; i++) {
 				formData.append(`actors[${i}][actorName]`, data.actors[i].actorName);
 				formData.append(`actors[${i}][actorRole]`, data.actors[i].actorRole);
 			}
 		}
 
-		if (
-			subjects.length > 0 &&
-			subjects.length[0] !== '' &&
-			data.subjects[0].subjectName !== ''
-		) {
+		if (subjects.length > 0 && subjects.length[0] !== '' && data.subjects[0].subjectName !== '') {
 			for (let i = 0; i < subjects.length; i++) {
-				formData.append(
-					`subjects[${i}][subjectName]`,
-					data.subjects[i].subjectName
-				);
+				formData.append(`subjects[${i}][subjectName]`, data.subjects[i].subjectName);
 			}
 		}
 
-		if (
-			screenwriters.length > 0 &&
-			screenwriters.length[0] !== '' &&
-			data.screenwriters[0].screenwriterName !== ''
-		) {
+		if (screenwriters.length > 0 && screenwriters.length[0] !== '' && data.screenwriters[0].screenwriterName !== '') {
 			for (let i = 0; i < screenwriters.length; i++) {
-				formData.append(
-					`screenwriters[${i}][screenwriterName]`,
-					data.screenwriters[i].screenwriterName
-				);
+				formData.append(`screenwriters[${i}][screenwriterName]`, data.screenwriters[i].screenwriterName);
 			}
 		}
 
@@ -375,11 +270,7 @@ const FilmForm = () => {
 			formData.append('costumes', data.costumes);
 		}
 
-		if (
-			musics.length > 0 &&
-			musics.length[0] !== '' &&
-			data.musics[0].musicName !== ''
-		) {
+		if (musics.length > 0 && musics.length[0] !== '' && data.musics[0].musicName !== '') {
 			for (let i = 0; i < musics.length; i++) {
 				formData.append(`musics[${i}][musicName]`, data.musics[i].musicName);
 			}
@@ -401,16 +292,9 @@ const FilmForm = () => {
 			formData.append('lineProducer', data.lineProducer);
 		}
 
-		if (
-			executiveProducers.length > 0 &&
-			executiveProducers.length[0] !== '' &&
-			data.executiveProducers[0].executiveProducerName !== ''
-		) {
+		if (executiveProducers.length > 0 && executiveProducers.length[0] !== '' && data.executiveProducers[0].executiveProducerName !== '') {
 			for (let i = 0; i < executiveProducers.length; i++) {
-				formData.append(
-					`executiveProducers[${i}][executiveProducerName]`,
-					data.executiveProducers[i].executiveProducerName
-				);
+				formData.append(`executiveProducers[${i}][executiveProducerName]`, data.executiveProducers[i].executiveProducerName);
 			}
 		}
 
@@ -448,28 +332,13 @@ const FilmForm = () => {
 			data.festivals[0].festivalRoles[0].festivalPersonName !== ''
 		) {
 			for (let i = 0; i < festivals.length; i++) {
-				formData.append(
-					`festivals[${i}][festivalName]`,
-					data.festivals[i].festivalName
-				);
-				formData.append(
-					`festivals[${i}][festivalType]`,
-					data.festivals[i].festivalType
-				);
+				formData.append(`festivals[${i}][festivalName]`, data.festivals[i].festivalName);
+				formData.append(`festivals[${i}][festivalType]`, data.festivals[i].festivalType);
 
-				if (
-					festivals[i].festivalRoles &&
-					festivals[i].festivalRoles.length > 0
-				) {
+				if (festivals[i].festivalRoles && festivals[i].festivalRoles.length > 0) {
 					for (let j = 0; j < festivals[i].festivalRoles.length; j++) {
-						formData.append(
-							`festivals[${i}][festivalRoles][${j}][festivalRoleName]`,
-							festivals[i].festivalRoles[j].festivalRoleName
-						);
-						formData.append(
-							`festivals[${i}][festivalRoles][${j}][festivalPersonName]`,
-							festivals[i].festivalRoles[j].festivalPersonName
-						);
+						formData.append(`festivals[${i}][festivalRoles][${j}][festivalRoleName]`, festivals[i].festivalRoles[j].festivalRoleName);
+						formData.append(`festivals[${i}][festivalRoles][${j}][festivalPersonName]`, festivals[i].festivalRoles[j].festivalPersonName);
 					}
 				}
 			}
@@ -501,10 +370,7 @@ const FilmForm = () => {
 		formData.append('coverImage', coverImage ?? dataUpdateFilm?.coverImageKey);
 
 		if (pressBookPdf || dataUpdateFilm?.pressBookPdfKey) {
-			formData.append(
-				'pressBookPdf',
-				pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey
-			);
+			formData.append('pressBookPdf', pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey);
 		}
 
 		if (formData !== {}) {
@@ -512,11 +378,7 @@ const FilmForm = () => {
 
 			const addFilmUrl = `${serverUrl}/add-film`;
 			const updateFilmUrl = `${serverUrl}/update-film`;
-			const requestUrl = uriLocation.includes('admin/add-new-film')
-				? addFilmUrl
-				: uriLocation.includes('/admin/update-film')
-				? updateFilmUrl
-				: '';
+			const requestUrl = uriLocation.includes('admin/add-new-film') ? addFilmUrl : uriLocation.includes('/admin/update-film') ? updateFilmUrl : '';
 
 			if (requestUrl !== '') {
 				axios
@@ -529,12 +391,7 @@ const FilmForm = () => {
 						console.log(res.data);
 					})
 					.catch((err) => {
-						console.error(
-							`There is an error for ${
-								requestUrl.includes('add-film') ? 'adding' : 'updating'
-							} a film:`,
-							err
-						);
+						console.error(`There is an error for ${requestUrl.includes('add-film') ? 'adding' : 'updating'} a film:`, err);
 						setError(err);
 					})
 					.finally(() => {
@@ -552,11 +409,7 @@ const FilmForm = () => {
 				onSubmit={handleSubmit(confirmHandler)}
 				className={classes.form__container}>
 				<div className={classes.form__container__item}>
-					{!isUpdate ? (
-						<h4>{t('labels.addDbFilm')}</h4>
-					) : (
-						isUpdate && <h4>{t('labels.modifyDbFilm')}</h4>
-					)}
+					{!isUpdate ? <h4>{t('labels.addDbFilm')}</h4> : isUpdate && <h4>{t('labels.modifyDbFilm')}</h4>}
 					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Title'>
 						{t('title')}
@@ -581,18 +434,13 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.director?.message && (
-						<small>{errors.director?.message}</small>
-					)}
+					{errors.director?.message && <small>{errors.director?.message}</small>}
 				</div>
 				{productions.map((production, index) => (
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.production?.[index]
-								.productionName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.production?.[index].productionName ?? ''}
 						isRequired={true}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -602,9 +450,7 @@ const FilmForm = () => {
 						fieldName='productionName'
 						name={'productions'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={productions}
 						setState={setProductions}
 						deleteButtonLabel={t('productionsLabels.deleteProduction')}
@@ -626,10 +472,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.producer?.[index]
-								.producerName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.producer?.[index].producerName ?? ''}
 						isRequired={true}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -639,9 +482,7 @@ const FilmForm = () => {
 						fieldName='producerName'
 						name={'producers'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={producers}
 						setState={setProducers}
 						deleteButtonLabel={t('producersLabels.deleteProducer')}
@@ -663,10 +504,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.coProduction?.[index]
-								.coProductionName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.coProduction?.[index].coProductionName ?? ''}
 						isRequired={false}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -676,9 +514,7 @@ const FilmForm = () => {
 						fieldName='coProductionName'
 						name={'coProductions'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={coProductions}
 						setState={setCoProductions}
 						deleteButtonLabel={t('coProductionsLabels.deleteCoProduction')}
@@ -700,10 +536,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.coProducer?.[index]
-								.coProducerName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.coProducer?.[index].coProducerName ?? ''}
 						isRequired={false}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -713,9 +546,7 @@ const FilmForm = () => {
 						fieldName='coProducerName'
 						name={'coProducers'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={coProducers}
 						setState={setCoProducers}
 						deleteButtonLabel={t('coProducersLabels.deleteCoProducer')}
@@ -737,10 +568,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.collaboration?.[index]
-								.collaborationName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.collaboration?.[index].collaborationName ?? ''}
 						isRequired={false}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -750,9 +578,7 @@ const FilmForm = () => {
 						fieldName='collaborationName'
 						name={'collaborations'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={collaborations}
 						setState={setCollaborations}
 						deleteButtonLabel={t('collaborationsLabels.deleteCollaboration')}
@@ -774,10 +600,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.contribute?.[index]
-								.contributeName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.contribute?.[index].contributeName ?? ''}
 						isRequired={false}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -787,9 +610,7 @@ const FilmForm = () => {
 						fieldName='contributeName'
 						name={'contributes'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={contributes}
 						setState={setContributes}
 						deleteButtonLabel={t('contributesLabels.deleteContribute')}
@@ -816,25 +637,12 @@ const FilmForm = () => {
 							<span>*</span>
 						</label>
 						<input
-							defaultValue={
-								formState.defaultValues?.payload?.actor?.[index]?.actorName ??
-								''
-							}
+							defaultValue={formState.defaultValues?.payload?.actor?.[index]?.actorName ?? ''}
 							{...register(`actors.${index}.actorName`)}
 							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'actorName',
-									actors,
-									setActors
-								)
-							}
+							onChange={(e) => handleDynamicFieldChange(e, index, 'actorName', actors, setActors)}
 						/>
-						{errors.actors?.[index]?.actorName?.message && (
-							<small>{errors.actors?.[index]?.actorName.message}</small>
-						)}
+						{errors.actors?.[index]?.actorName?.message && <small>{errors.actors?.[index]?.actorName.message}</small>}
 						<label
 							className={classes.margin__top}
 							htmlFor='ActorRole'>
@@ -842,33 +650,16 @@ const FilmForm = () => {
 							<span>*</span>
 						</label>
 						<input
-							defaultValue={
-								formState.defaultValues?.payload?.actor?.[index]?.actorRole ??
-								''
-							}
+							defaultValue={formState.defaultValues?.payload?.actor?.[index]?.actorRole ?? ''}
 							{...register(`actors.${index}.actorRole`)}
 							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'actorRole',
-									actors,
-									setActors
-								)
-							}
+							onChange={(e) => handleDynamicFieldChange(e, index, 'actorRole', actors, setActors)}
 						/>
-						{errors.actors?.[index]?.actorRole?.message && (
-							<small>{errors.actors?.[index]?.actorRole.message}</small>
-						)}
+						{errors.actors?.[index]?.actorRole?.message && <small>{errors.actors?.[index]?.actorRole.message}</small>}
 						{index !== 0 && (
 							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, actors, setActors)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
+								onClick={() => handleDynamicFieldDelete(index, actors, setActors)}
+								className={classes.secondary__button + ' ' + classes.extra__margin__top}
 								type='button'>
 								{t('actorsLabels.deleteActor')}
 							</button>
@@ -892,10 +683,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.subject?.[index].subjectName ??
-							''
-						}
+						fieldValue={formState.defaultValues?.payload?.subject?.[index].subjectName ?? ''}
 						isRequired={true}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -905,9 +693,7 @@ const FilmForm = () => {
 						fieldName='subjectName'
 						name={'subjects'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={subjects}
 						setState={setSubjects}
 						deleteButtonLabel={t('subjectsLabels.deleteSubject')}
@@ -929,10 +715,7 @@ const FilmForm = () => {
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.screenwriter?.[index]
-								.screenwriterName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.screenwriter?.[index].screenwriterName ?? ''}
 						isRequired={true}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -942,9 +725,7 @@ const FilmForm = () => {
 						fieldName='screenwriterName'
 						name={'screenwriters'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={screenwriters}
 						setState={setScreenwriters}
 						deleteButtonLabel={t('screenwritersLabels.deleteScreenwriter')}
@@ -1000,9 +781,7 @@ const FilmForm = () => {
 							/>
 						)}
 					/>
-					{errors.projectState?.message && (
-						<small>{errors.projectState?.message}</small>
-					)}
+					{errors.projectState?.message && <small>{errors.projectState?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorOfPhotography'>
@@ -1010,16 +789,12 @@ const FilmForm = () => {
 						<span>*</span>
 					</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.directorOfPhotography ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.directorOfPhotography ?? ''}
 						{...register('directorOfPhotography')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.directorOfPhotography?.message && (
-						<small>{errors.directorOfPhotography?.message}</small>
-					)}
+					{errors.directorOfPhotography?.message && <small>{errors.directorOfPhotography?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Editing'>
@@ -1042,9 +817,7 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.scenography?.message && (
-						<small>{errors.scenography?.message}</small>
-					)}
+					{errors.scenography?.message && <small>{errors.scenography?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='costumes'>{t('costumes')}</label>
@@ -1054,17 +827,13 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.costumes?.message && (
-						<small>{errors.costumes?.message}</small>
-					)}
+					{errors.costumes?.message && <small>{errors.costumes?.message}</small>}
 				</div>
 				{musics.map((music, index) => (
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.music?.[index].musicName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.music?.[index].musicName ?? ''}
 						isRequired={true}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -1074,9 +843,7 @@ const FilmForm = () => {
 						fieldName='musicName'
 						name={'musics'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={musics}
 						setState={setMusics}
 						deleteButtonLabel={t('musicsLabels.deleteMusic')}
@@ -1112,9 +879,7 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.soundDesign?.message && (
-						<small>{errors.soundDesign?.message}</small>
-					)}
+					{errors.soundDesign?.message && <small>{errors.soundDesign?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='casting'>{t('casting')}</label>
@@ -1134,18 +899,13 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.lineProducer?.message && (
-						<small>{errors.lineProducer?.message}</small>
-					)}
+					{errors.lineProducer?.message && <small>{errors.lineProducer?.message}</small>}
 				</div>
 				{executiveProducers.map((executiveProducer, index) => (
 					<DynamicInput
 						key={index}
 						index={index}
-						fieldValue={
-							formState.defaultValues?.payload?.executiveProducer?.[index]
-								.executiveProducerName ?? ''
-						}
+						fieldValue={formState.defaultValues?.payload?.executiveProducer?.[index].executiveProducerName ?? ''}
 						isRequired={false}
 						register={register}
 						handleDynamicFieldChange={handleDynamicFieldChange}
@@ -1155,14 +915,10 @@ const FilmForm = () => {
 						fieldName='executiveProducerName'
 						name={'executiveProducers'}
 						className={classes.form__container__item}
-						buttonClassName={
-							classes.secondary__button + ' ' + classes.extra__margin__top
-						}
+						buttonClassName={classes.secondary__button + ' ' + classes.extra__margin__top}
 						stateArray={executiveProducers}
 						setState={setExecutiveProducers}
-						deleteButtonLabel={t(
-							'executiveProducersLabels.deleteExecutiveProducer'
-						)}
+						deleteButtonLabel={t('executiveProducersLabels.deleteExecutiveProducer')}
 					/>
 				))}
 				<div className={classes.form__container__item}>
@@ -1185,9 +941,7 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.distributor?.message && (
-						<small>{errors.distributor?.message}</small>
-					)}
+					{errors.distributor?.message && <small>{errors.distributor?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='SalesAgent'>{t('salesAgent')}</label>
@@ -1197,25 +951,17 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.salesAgent?.message && (
-						<small>{errors.salesAgent?.message}</small>
-					)}
+					{errors.salesAgent?.message && <small>{errors.salesAgent?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
-					<label htmlFor='FirstAssistantDirector'>
-						{t('firstAssistantDirector')}
-					</label>
+					<label htmlFor='FirstAssistantDirector'>{t('firstAssistantDirector')}</label>
 					<input
-						defaultValue={
-							formState.defaultValues?.payload?.firstAssistantDirector ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.firstAssistantDirector ?? ''}
 						{...register('firstAssistantDirector')}
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.firstAssistantDirector?.message && (
-						<small>{errors.firstAssistantDirector?.message}</small>
-					)}
+					{errors.firstAssistantDirector?.message && <small>{errors.firstAssistantDirector?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Synopsis'>
@@ -1227,22 +973,16 @@ const FilmForm = () => {
 						{...register('synopsis')}
 						type='text'
 						onChange={handleInputChange}></textarea>
-					{errors.synopsis?.message && (
-						<small>{errors.synopsis?.message}</small>
-					)}
+					{errors.synopsis?.message && <small>{errors.synopsis?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='ProductionNotes'>{t('productionNotes')}</label>
 					<textarea
-						defaultValue={
-							formState.defaultValues?.payload?.productionNotes ?? ''
-						}
+						defaultValue={formState.defaultValues?.payload?.productionNotes ?? ''}
 						{...register('productionNotes')}
 						type='text'
 						onChange={handleInputChange}></textarea>
-					{errors.productionNotes?.message && (
-						<small>{errors.productionNotes?.message}</small>
-					)}
+					{errors.productionNotes?.message && <small>{errors.productionNotes?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='DirectorNotes'>{t('directorNotes')}</label>
@@ -1251,9 +991,7 @@ const FilmForm = () => {
 						{...register('directorNotes')}
 						type='text'
 						onChange={handleInputChange}></textarea>
-					{errors.directorNotes?.message && (
-						<small>{errors.directorNotes?.message}</small>
-					)}
+					{errors.directorNotes?.message && <small>{errors.directorNotes?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Duration'>
@@ -1266,9 +1004,7 @@ const FilmForm = () => {
 						type='number'
 						onChange={handleInputChange}
 					/>
-					{errors.duration?.message && (
-						<small>{errors.duration?.message}</small>
-					)}
+					{errors.duration?.message && <small>{errors.duration?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Year'>
@@ -1287,29 +1023,14 @@ const FilmForm = () => {
 					<div
 						className={classes.form__container__item}
 						key={index}>
-						<label htmlFor={`festivals.${index}.festivalName`}>
-							{t('festivalsLabels.festival')}
-						</label>
+						<label htmlFor={`festivals.${index}.festivalName`}>{t('festivalsLabels.festival')}</label>
 						<input
-							defaultValue={
-								formState.defaultValues?.payload?.festival?.[index]
-									?.festivalName ?? ''
-							}
+							defaultValue={formState.defaultValues?.payload?.festival?.[index]?.festivalName ?? ''}
 							{...register(`festivals.${index}.festivalName`)}
 							type='text'
-							onChange={(e) =>
-								handleDynamicFieldChange(
-									e,
-									index,
-									'festivalName',
-									festivals,
-									setFestivals
-								)
-							}
+							onChange={(e) => handleDynamicFieldChange(e, index, 'festivalName', festivals, setFestivals)}
 						/>
-						{errors.festivals?.[index]?.festivalName?.message && (
-							<small>{errors.festivals?.[index]?.festivalName.message}</small>
-						)}
+						{errors.festivals?.[index]?.festivalName?.message && <small>{errors.festivals?.[index]?.festivalName.message}</small>}
 						<label
 							className={classes.margin__top}
 							htmlFor='festivalType'>
@@ -1328,9 +1049,7 @@ const FilmForm = () => {
 								/>
 							)}
 						/>
-						{errors.festivals?.[index]?.festivalType?.message && (
-							<small>{errors.festivals?.[index]?.festivalType.message}</small>
-						)}
+						{errors.festivals?.[index]?.festivalType?.message && <small>{errors.festivals?.[index]?.festivalType.message}</small>}
 						{festival.festivalRoles.map((festivalRole, festivalRoleIndex) => (
 							<div key={festivalRoleIndex}>
 								<label
@@ -1340,30 +1059,12 @@ const FilmForm = () => {
 								</label>
 								<input
 									defaultValue={festivalRole.festivalRoleName ?? ''}
-									{...register(
-										`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalRoleName`
-									)}
+									{...register(`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalRoleName`)}
 									type='text'
-									onChange={(e) =>
-										handleDynamicRoleChange(
-											e,
-											index,
-											festivalRoleIndex,
-											'festivalRoleName',
-											festivals,
-											setFestivals
-										)
-									}
+									onChange={(e) => handleDynamicRoleChange(e, index, festivalRoleIndex, 'festivalRoleName', festivals, setFestivals)}
 								/>
-								{errors.festivals?.[index]?.festivalRoles?.[festivalRoleIndex]
-									?.festivalRoleName?.message && (
-									<small>
-										{
-											errors.festivals?.[index]?.festivalRoles?.[
-												festivalRoleIndex
-											]?.festivalRoleName.message
-										}
-									</small>
+								{errors.festivals?.[index]?.festivalRoles?.[festivalRoleIndex]?.festivalRoleName?.message && (
+									<small>{errors.festivals?.[index]?.festivalRoles?.[festivalRoleIndex]?.festivalRoleName.message}</small>
 								)}
 
 								<label
@@ -1373,46 +1074,17 @@ const FilmForm = () => {
 								</label>
 								<input
 									defaultValue={festivalRole.festivalPersonName ?? ''}
-									{...register(
-										`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalPersonName`
-									)}
+									{...register(`festivals.${index}.festivalRoles.${festivalRoleIndex}.festivalPersonName`)}
 									type='text'
-									onChange={(e) =>
-										handleDynamicRoleChange(
-											e,
-											index,
-											festivalRoleIndex,
-											'festivalPersonName',
-											festivals,
-											setFestivals
-										)
-									}
+									onChange={(e) => handleDynamicRoleChange(e, index, festivalRoleIndex, 'festivalPersonName', festivals, setFestivals)}
 								/>
-								{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]
-									?.festivalPersonName?.message && (
-									<small>
-										{
-											errors.festivals?.[index].festivalRoles?.[
-												festivalRoleIndex
-											]?.festivalPersonName.message
-										}
-									</small>
+								{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]?.festivalPersonName?.message && (
+									<small>{errors.festivals?.[index].festivalRoles?.[festivalRoleIndex]?.festivalPersonName.message}</small>
 								)}
 								{festivalRoleIndex !== 0 && (
 									<button
-										className={
-											classes.secondary__button +
-											' ' +
-											classes.extra__margin__top
-										}
-										onClick={() =>
-											handleDynamicRoleDelete(
-												index,
-												festivalRoleIndex,
-												festivals,
-												setFestivals
-											)
-										}
+										className={classes.secondary__button + ' ' + classes.extra__margin__top}
+										onClick={() => handleDynamicRoleDelete(index, festivalRoleIndex, festivals, setFestivals)}
 										type='button'>
 										Cancella Ruolo
 									</button>
@@ -1421,24 +1093,16 @@ const FilmForm = () => {
 						))}
 
 						<button
-							className={
-								classes.secondary__button + ' ' + classes.extra__margin__top
-							}
-							onClick={() =>
-								handleDynamicRoleAdd(index, festivals, setFestivals)
-							}
+							className={classes.secondary__button + ' ' + classes.extra__margin__top}
+							onClick={() => handleDynamicRoleAdd(index, festivals, setFestivals)}
 							type='button'>
 							Aggiungi Ruolo
 						</button>
 
 						{index !== 0 && (
 							<button
-								onClick={() =>
-									handleDynamicFieldDelete(index, festivals, setFestivals)
-								}
-								className={
-									classes.secondary__button + ' ' + classes.extra__margin__top
-								}
+								onClick={() => handleDynamicFieldDelete(index, festivals, setFestivals)}
+								className={classes.secondary__button + ' ' + classes.extra__margin__top}
 								type='button'>
 								{t('festivalsLabels.deleteFestival')}
 							</button>
@@ -1451,9 +1115,7 @@ const FilmForm = () => {
 							handleDynamicFieldAdd(festivals, setFestivals, {
 								festivalName: '',
 								festivalType: '',
-								festivalRoles: [
-									{ festivalRoleName: '', festivalPersonName: '' },
-								],
+								festivalRoles: [{ festivalRoleName: '', festivalPersonName: '' }],
 							})
 						}
 						className={classes.secondary__button}
@@ -1509,9 +1171,7 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.instagram?.message && (
-						<small>{errors.instagram?.message}</small>
-					)}
+					{errors.instagram?.message && <small>{errors.instagram?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Facebook'>{t('linksLabels.facebook')}</label>
@@ -1521,9 +1181,7 @@ const FilmForm = () => {
 						type='text'
 						onChange={handleInputChange}
 					/>
-					{errors.facebook?.message && (
-						<small>{errors.facebook?.message}</small>
-					)}
+					{errors.facebook?.message && <small>{errors.facebook?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					{!dataUpdateFilm?.cover?.coverImageUrl && (
@@ -1552,13 +1210,7 @@ const FilmForm = () => {
 							<div className={classes.flex__button__images__delete}>
 								<button
 									onClick={() =>
-										handleSingleImageDelete(
-											dataUpdateFilm?.cover?.coverImageKey,
-											serverUrl,
-											dispatch,
-											dataFilmActions.removeImageKey,
-											'delete-film-image'
-										)
+										handleSingleImageDelete(dataUpdateFilm?.cover?.coverImageKey, serverUrl, dispatch, dataFilmActions.removeImageKey, 'delete-film-image')
 									}
 									className={classes.fourth__button}
 									type='button'>
@@ -1583,11 +1235,7 @@ const FilmForm = () => {
 					{dataUpdateFilm?.pressBook?.pressBookPdfUrl && (
 						<div className={classes.form__container__item__images}>
 							<AiOutlineFilePdf
-								onClick={() =>
-									handlePressBookDownload(
-										dataUpdateFilm?.pressBook?.pressBookPdfUrl
-									)
-								}
+								onClick={() => handlePressBookDownload(dataUpdateFilm?.pressBook?.pressBookPdfUrl)}
 								target='__blank'
 								size={40}
 								color='#cc0000'
@@ -1619,9 +1267,7 @@ const FilmForm = () => {
 								type='submit'>
 								{t('insertAction')}
 							</button>
-							<div className={classes.generic__margin__top}>
-								{error && <small>{t('errors.dbCrud')}</small>}
-							</div>
+							<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 						</>
 					) : (
 						isUpdate && (
@@ -1631,9 +1277,7 @@ const FilmForm = () => {
 									type='submit'>
 									{t('modifyAction')}
 								</button>
-								<div className={classes.generic__margin__top}>
-									{error && <small>{t('errors.dbCrud')}</small>}
-								</div>
+								<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 							</>
 						)
 					)}
