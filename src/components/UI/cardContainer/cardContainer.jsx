@@ -7,12 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-const CardContainer = ({
-	component: CardComponent,
-	fetchDataUrl,
-	childComponentType,
-	useFilter = false,
-}) => {
+const CardContainer = ({ component: CardComponent, fetchDataUrl, childComponentType, useFilter = false }) => {
 	const { t } = useTranslation();
 	const typeData = useSelector((state) => state.dataType.dataType) || '';
 	const { data, loading } = useApiGetHook(fetchDataUrl);
@@ -33,10 +28,9 @@ const CardContainer = ({
 						if (item.type) {
 							return item.type === typeData;
 						} else if (item.tag) {
-							return (
-								item.tag.trim().toLowerCase() === typeData.trim().toLowerCase()
-							);
+							return item.tag.trim().toLowerCase() === typeData.trim().toLowerCase();
 						}
+						return null;
 				  })
 				: data;
 			setFilteredData(newData);

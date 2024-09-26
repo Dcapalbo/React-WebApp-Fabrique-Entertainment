@@ -1,13 +1,12 @@
 /** @format */
 
 import { dataUserActions } from '../../../store/data-user-slice';
-import { FaFlag, FaFlagUsa, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classes from './navLinks.module.scss';
-import i18n from 'i18next';
+import { FaUser } from 'react-icons/fa';
 
 const NavLinks = () => {
 	const { t } = useTranslation();
