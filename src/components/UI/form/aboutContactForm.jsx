@@ -1,5 +1,6 @@
 /** @format */
 
+import { handleSingleImageDelete, slugCreation } from '../../../utils/functions';
 import { dataContactActions } from '../../../store/data-contact-slice';
 import { contactSchema } from '../../../schema/conctactSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
@@ -13,10 +14,6 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
-import {
-	handleSingleImageDelete,
-	slugCreation,
-} from '../../../utils/functions';
 
 const AboutContactForm = () => {
 	const uriLocation = window.location.href;
@@ -24,9 +21,7 @@ const AboutContactForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	let dataUpdateContact = useSelector(
-		(state) => state.dataContact.contactData ?? ''
-	);
+	let dataUpdateContact = useSelector((state) => state.dataContact.contactData ?? '');
 
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-contact')) {
@@ -66,7 +61,6 @@ const AboutContactForm = () => {
 	};
 
 	const confirmHandler = (data) => {
-		console.log(data);
 		const formData = new FormData();
 
 		formData.append('name', data.name);
@@ -80,50 +74,36 @@ const AboutContactForm = () => {
 		}
 
 		formData.append('slug', slugCreation(data.name + ' ' + data.surname));
-		formData.append(
-			'contactImage',
-			contactImage ?? dataUpdateContact?.contactImageKey
-		);
+		formData.append('contactImage', contactImage ?? dataUpdateContact?.contactImageKey);
 
 		if (dataUpdateContact?._id) {
 			formData.append('_id', dataUpdateContact?._id);
 		}
 
-		if (formData !== {}) {
-			setIsLoading(true);
+		setIsLoading(true);
 
-			const addContactUrl = `${serverUrl}/add-contact`;
-			const updateContactUrl = `${serverUrl}/update-contact`;
-			const requestUrl = uriLocation.includes('admin/add-new-contact')
-				? addContactUrl
-				: uriLocation.includes('/admin/update-contact')
-				? updateContactUrl
-				: '';
-			if (requestUrl !== '') {
-				axios
-					.request({
-						method: requestUrl.includes('add-contact') ? 'post' : 'put',
-						url: requestUrl,
-						data: formData,
-					})
-					.then((res) => {
-						console.log(res.data);
-					})
-					.catch((err) => {
-						console.error(
-							`There is an error for ${
-								requestUrl.includes('add-contact') ? 'adding' : 'updating'
-							} a contact:`,
-							err
-						);
-						setError(err);
-					})
-					.finally(() => {
-						dispatch(dataContactActions.resetContactData());
-						setIsLoading(false);
-						navigate('/admin/contacts');
-					});
-			}
+		const addContactUrl = `${serverUrl}/add-contact`;
+		const updateContactUrl = `${serverUrl}/update-contact`;
+		const requestUrl = uriLocation.includes('admin/add-new-contact') ? addContactUrl : uriLocation.includes('/admin/update-contact') ? updateContactUrl : '';
+		if (requestUrl !== '') {
+			axios
+				.request({
+					method: requestUrl.includes('add-contact') ? 'post' : 'put',
+					url: requestUrl,
+					data: formData,
+				})
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.error(`There is an error for ${requestUrl.includes('add-contact') ? 'adding' : 'updating'} a contact:`, err);
+					setError(err);
+				})
+				.finally(() => {
+					dispatch(dataContactActions.resetContactData());
+					setIsLoading(false);
+					navigate('/admin/contacts');
+				});
 		}
 	};
 
@@ -133,11 +113,7 @@ const AboutContactForm = () => {
 				onSubmit={handleSubmit(confirmHandler)}
 				className={classes.form__container}>
 				<div className={classes.form__container__item}>
-					{!isUpdate ? (
-						<h4>{t('labels.addDbContact')}</h4>
-					) : (
-						isUpdate && <h4>{t('labels.modifyDbContact')}</h4>
-					)}
+					{!isUpdate ? <h4>{t('labels.addDbContact')}</h4> : isUpdate && <h4>{t('labels.modifyDbContact')}</h4>}
 					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Name'>
 						{t('genericInfo.name')}
@@ -212,9 +188,7 @@ const AboutContactForm = () => {
 						type='number'
 						onChange={handleInputChange}
 					/>
-					{errors.phoneNumber?.message && (
-						<small>{errors.phoneNumber?.message}</small>
-					)}
+					{errors.phoneNumber?.message && <small>{errors.phoneNumber?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					{!dataUpdateContact?.profileCover?.contactImageUrl ? (
@@ -267,9 +241,7 @@ const AboutContactForm = () => {
 								type='submit'>
 								{t('insertAction')}
 							</button>
-							<div className={classes.generic__margin__top}>
-								{error && <small>{t('errors.dbCrud')}</small>}
-							</div>
+							<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 						</>
 					) : (
 						isUpdate && (
@@ -279,9 +251,7 @@ const AboutContactForm = () => {
 									type='submit'>
 									{t('modifyAction')}
 								</button>
-								<div className={classes.generic__margin__top}>
-									{error && <small>{t('errors.dbCrud')}</small>}
-								</div>
+								<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 							</>
 						)
 					)}

@@ -1,6 +1,5 @@
 /** @format */
 
-import { dataUserActions } from '../../../store/data-user-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import { loginSchema } from '../../../schema/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,10 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { serverUrl } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import classes from './genericForm.module.scss';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
+
 import axios from 'axios';
 
 const LoginForm = () => {
@@ -27,7 +25,6 @@ const LoginForm = () => {
 	});
 
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -44,13 +41,9 @@ const LoginForm = () => {
 		axios
 			.post(`${serverUrl}/login`, formData)
 			.then((res) => {
-				dispatch(
-					dataUserActions.login({
-						userId: res.data.userId,
-						token: res.data.token,
-						name: res.data.name,
-					})
-				);
+				sessionStorage.setItem('token', res.data.token);
+				sessionStorage.setItem('name', res.data.name);
+				sessionStorage.setItem('userId', res.data.userId);
 				setIsLoading(false);
 				navigate('/');
 			})
@@ -90,9 +83,7 @@ const LoginForm = () => {
 						type='password'
 					/>
 				</div>
-				{errors.confirmPassword?.message && (
-					<small>{errors.confirmPassword?.message}</small>
-				)}
+				{errors.confirmPassword?.message && <small>{errors.confirmPassword?.message}</small>}
 				<div className={classes.form__container__item}>
 					<Link to='/forgot-password'>{t('labels.forgotLabel')}</Link>
 					<button

@@ -1,12 +1,7 @@
 /** @format */
 
 // importing the react router dom version 6
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 // importing the react traductions functions
@@ -42,6 +37,7 @@ import ResetPasswordForm from './pages/ResetPassword';
 import ForgotPasswordForm from './pages/ForgotPassword';
 import NewArticle from './pages/NewArticle';
 import UpdateArticle from './pages/UpdateArticle';
+import { settingAuthData } from './utils/functions';
 
 // initialize the react traductions
 i18n.use(initReactI18next).init({
@@ -59,15 +55,13 @@ const App = () => {
 
 	const { contacts } = ApiGetHook(`${serverUrl}/get-contacts`);
 
-	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
-	const token = useSelector((state) => state.userLogin.token);
-
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(null);
 
 	useEffect(() => {
-		setIsAuthenticated(isLoggedIn);
+		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
 		dispatch(dataContactActions.setContactsData(contacts));
-	}, [isLoggedIn, token, dispatch, contacts]);
+	}, [dispatch, contacts]);
+
 	return (
 		<Router>
 			<ScrollTop />

@@ -195,8 +195,6 @@ const FilmForm = () => {
 	};
 
 	const confirmHandler = (data) => {
-		console.log('here the data at the confirm', data);
-		console.log('here the festivals data at the confirm', data.festivals);
 		const formData = new FormData();
 
 		formData.append('title', data.title);
@@ -323,8 +321,6 @@ const FilmForm = () => {
 		formData.append('duration', data.duration);
 		formData.append('year', data.year);
 
-		console.log(data.festivals);
-
 		if (
 			data.festivals[0].festivalName !== '' &&
 			data.festivals[0].festivalType !== '' &&
@@ -373,33 +369,31 @@ const FilmForm = () => {
 			formData.append('pressBookPdf', pressBookPdf ?? dataUpdateFilm?.pressBookPdfKey);
 		}
 
-		if (formData !== {}) {
-			setIsLoading(true);
+		setIsLoading(true);
 
-			const addFilmUrl = `${serverUrl}/add-film`;
-			const updateFilmUrl = `${serverUrl}/update-film`;
-			const requestUrl = uriLocation.includes('admin/add-new-film') ? addFilmUrl : uriLocation.includes('/admin/update-film') ? updateFilmUrl : '';
+		const addFilmUrl = `${serverUrl}/add-film`;
+		const updateFilmUrl = `${serverUrl}/update-film`;
+		const requestUrl = uriLocation.includes('admin/add-new-film') ? addFilmUrl : uriLocation.includes('/admin/update-film') ? updateFilmUrl : '';
 
-			if (requestUrl !== '') {
-				axios
-					.request({
-						method: requestUrl.includes('add-film') ? 'post' : 'put',
-						url: requestUrl,
-						data: formData,
-					})
-					.then((res) => {
-						console.log(res.data);
-					})
-					.catch((err) => {
-						console.error(`There is an error for ${requestUrl.includes('add-film') ? 'adding' : 'updating'} a film:`, err);
-						setError(err);
-					})
-					.finally(() => {
-						dispatch(dataFilmActions.resetFilmData());
-						setIsLoading(false);
-						navigate('/admin/films');
-					});
-			}
+		if (requestUrl !== '') {
+			axios
+				.request({
+					method: requestUrl.includes('add-film') ? 'post' : 'put',
+					url: requestUrl,
+					data: formData,
+				})
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.error(`There is an error for ${requestUrl.includes('add-film') ? 'adding' : 'updating'} a film:`, err);
+					setError(err);
+				})
+				.finally(() => {
+					dispatch(dataFilmActions.resetFilmData());
+					setIsLoading(false);
+					navigate('/admin/films');
+				});
 		}
 	};
 

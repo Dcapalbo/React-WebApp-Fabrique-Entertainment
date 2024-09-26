@@ -2,13 +2,14 @@
 
 import { dataContactActions } from '../../../store/data-contact-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import { settingAuthData } from '../../../utils/functions';
 import TruncatedText from '../truncatedText/truncatedText';
-import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const AboutCard = (props) => {
@@ -16,15 +17,13 @@ const AboutCard = (props) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
-	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
-
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		setIsAuthenticated(isLoggedIn);
-	}, [isLoggedIn, dispatch]);
+		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
+	}, [dispatch]);
 
 	const sendContactIdFormHandler = () => {
 		dispatch(
@@ -62,10 +61,7 @@ const AboutCard = (props) => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.error(
-					'there is an error for deleting the specific contact: ',
-					err
-				);
+				console.error('there is an error for deleting the specific contact: ', err);
 				setIsLoading(false);
 				setError(err);
 			});
@@ -84,9 +80,7 @@ const AboutCard = (props) => {
 				/>
 			)}
 			<div className={classes.card__internal__description}>
-				{props.name && props.surname && (
-					<h2>{props?.name + ' ' + props?.surname}</h2>
-				)}
+				{props.name && props.surname && <h2>{props?.name + ' ' + props?.surname}</h2>}
 				{props.bio && (
 					<TruncatedText
 						text={props.bio}
@@ -95,9 +89,7 @@ const AboutCard = (props) => {
 				)}{' '}
 			</div>
 			<div className={classes.card__external__informations}>
-				<div className={classes.card__external__informations__item}>
-					{props.role && <p>{props.role}</p>}
-				</div>
+				<div className={classes.card__external__informations__item}>{props.role && <p>{props.role}</p>}</div>
 			</div>
 			{isAuthenticated && (
 				<>
@@ -116,11 +108,7 @@ const AboutCard = (props) => {
 				</>
 			)}
 			{isLoading && <LoadingSpinner />}
-			{error && (
-				<small className={classes.error}>
-					{t('errors.contactErrorDelete')}
-				</small>
-			)}
+			{error && <small className={classes.error}>{t('errors.contactErrorDelete')}</small>}
 		</div>
 	);
 };

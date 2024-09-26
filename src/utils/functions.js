@@ -33,22 +33,12 @@ const handlePressBookDownload = (url) => {
 	document.body.removeChild(link);
 };
 
-const handleSingleImageDelete = async (
-	imageKey,
-	url,
-	dispatch,
-	reduxAction,
-	deleteType
-) => {
+const handleSingleImageDelete = async (imageKey, url, dispatch, reduxAction, deleteType) => {
 	dispatch(reduxAction(imageKey));
 	try {
-		console.log(imageKey);
-		const response = await axios.delete(
-			`${url}/${deleteType}?image_key=${imageKey}`
-		);
+		const response = await axios.delete(`${url}/${deleteType}?image_key=${imageKey}`);
 
 		if (response.status === 200) {
-			console.log(response);
 		} else {
 			console.log('Error deleting image:', response.data.message);
 		}
@@ -61,15 +51,19 @@ const convertToDateToPrint = (dateString) => {
 	return moment(dateString).format('DD/MM/YYYY');
 };
 
+const settingAuthData = () => {
+	const token = sessionStorage.getItem('token');
+	const name = sessionStorage.getItem('name');
+	const userId = sessionStorage.getItem('userId');
+
+	return {
+		isLoggedIn: token && name && userId ? true : false,
+		name: name || '',
+	};
+};
+
 const convertToDateForInput = (dateString) => {
 	return moment(dateString).format('YYYY-MM-DD');
 };
 
-export {
-	decodeToken,
-	slugCreation,
-	handlePressBookDownload,
-	handleSingleImageDelete,
-	convertToDateToPrint,
-	convertToDateForInput,
-};
+export { decodeToken, slugCreation, handlePressBookDownload, handleSingleImageDelete, convertToDateToPrint, convertToDateForInput, settingAuthData };

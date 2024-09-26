@@ -5,9 +5,9 @@ import { signUpSchema } from '../../../schema/signUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { serverUrl } from '../../../utils/constants';
 import classes from './genericForm.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
@@ -43,10 +43,7 @@ const SignUpForm = () => {
 				navigate('/login');
 			})
 			.catch((err) => {
-				console.error(
-					'there is an error for the creation of the user account, the user could be already been registered: ',
-					err
-				);
+				console.error('there is an error for the creation of the user account, the user could be already been registered: ', err);
 				setIsLoading(false);
 				setError(err);
 			});

@@ -1,9 +1,9 @@
 /** @format */
 
+import { convertToDateToPrint, settingAuthData } from '../../../utils/functions';
 import { dataArticleActions } from '../../../store/data-article-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
 import TruncatedText from '../truncatedText/truncatedText';
-import { convertToDateToPrint } from '../../../utils/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
@@ -17,15 +17,13 @@ const ArticleCard = (props) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
-	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
-
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		setIsAuthenticated(isLoggedIn);
-	}, [isLoggedIn, dispatch]);
+		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
+	}, [dispatch]);
 
 	const sendArticleFormHandler = () => {
 		dispatch(
@@ -53,10 +51,7 @@ const ArticleCard = (props) => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.error(
-					'there is an error for deleting the specific Article: ',
-					err.name
-				);
+				console.error('there is an error for deleting the specific Article: ', err.name);
 				setIsLoading(false);
 				setError(err);
 			});
@@ -86,9 +81,7 @@ const ArticleCard = (props) => {
 			</div>
 			<div className={classes.article__external__informations}>
 				{props.date && <p>{convertToDateToPrint(props.date)}</p>}
-				<div className={classes.article__external__informations__item}>
-					{props.tag && <small>{props.tag ?? ''}</small>}
-				</div>
+				<div className={classes.article__external__informations__item}>{props.tag && <small>{props.tag ?? ''}</small>}</div>
 				{props.link && (
 					<p>
 						Vai all'articolo completo di {props.author} |{' '}
@@ -114,11 +107,7 @@ const ArticleCard = (props) => {
 							{t('remove')}
 						</button>
 						{isLoading && <LoadingSpinner />}
-						{error && (
-							<small className={classes.error}>
-								{t('errors.ArticleErrorDelete')}
-							</small>
-						)}
+						{error && <small className={classes.error}>{t('errors.ArticleErrorDelete')}</small>}
 					</div>
 				)}
 			</div>

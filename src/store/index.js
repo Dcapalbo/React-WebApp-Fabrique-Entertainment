@@ -6,7 +6,6 @@ import dataArticleSlice from './data-article-slice';
 import dataContactSlice from './data-contact-slice';
 import dataSelectSlice from './data-select-slice';
 import storage from 'redux-persist/lib/storage';
-import userLoginSlice from './data-user-slice';
 import dataFilmSlice from './data-film-slice';
 
 const persistConfig = {
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
 	dataContact: dataContactSlice.reducer,
 	dataFilm: dataFilmSlice.reducer,
 	dataType: dataSelectSlice.reducer,
-	userLogin: userLoginSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

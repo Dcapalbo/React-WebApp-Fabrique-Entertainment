@@ -1,5 +1,6 @@
 /** @format */
 
+import { handleSingleImageDelete, convertToDateForInput } from '../../../utils/functions';
 import { dataArticleActions } from '../../../store/data-article-slice';
 import { articlesSchema } from '../../../schema/articlesSchema';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
@@ -13,10 +14,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import TagSelect from '../select/tagSelect';
 import axios from 'axios';
-import {
-	handleSingleImageDelete,
-	convertToDateForInput,
-} from '../../../utils/functions';
 
 const ArticleForm = () => {
 	const uriLocation = window.location.href;
@@ -24,9 +21,7 @@ const ArticleForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	let dataUpdateArticle = useSelector(
-		(state) => state.dataArticle.articleData ?? ''
-	);
+	let dataUpdateArticle = useSelector((state) => state.dataArticle.articleData ?? '');
 
 	useEffect(() => {
 		if (uriLocation.includes('/admin/update-article')) {
@@ -37,14 +32,13 @@ const ArticleForm = () => {
 		}
 	}, [uriLocation, dispatch]);
 
-	const { register, control, formState, setValue, handleSubmit, trigger } =
-		useForm({
-			defaultValues: {
-				...dataUpdateArticle,
-				date: convertToDateForInput(dataUpdateArticle?.date),
-			},
-			resolver: zodResolver(articlesSchema),
-		});
+	const { register, control, formState, setValue, handleSubmit, trigger } = useForm({
+		defaultValues: {
+			...dataUpdateArticle,
+			date: convertToDateForInput(dataUpdateArticle?.date),
+		},
+		resolver: zodResolver(articlesSchema),
+	});
 
 	const { errors } = formState;
 
@@ -82,50 +76,36 @@ const ArticleForm = () => {
 		formData.append('description', data.description);
 		formData.append('link', data.link);
 
-		formData.append(
-			'articleImage',
-			articleImage ?? dataUpdateArticle?.articleImageKey
-		);
+		formData.append('articleImage', articleImage ?? dataUpdateArticle?.articleImageKey);
 
 		if (dataUpdateArticle?._id) {
 			formData.append('_id', dataUpdateArticle?._id);
 		}
 
-		if (formData !== {}) {
-			setIsLoading(true);
+		setIsLoading(true);
 
-			const addArticleUrl = `${serverUrl}/add-article`;
-			const updateArticleUrl = `${serverUrl}/update-article`;
-			const requestUrl = uriLocation.includes('admin/add-new-article')
-				? addArticleUrl
-				: uriLocation.includes('/admin/update-article')
-				? updateArticleUrl
-				: '';
-			if (requestUrl !== '') {
-				axios
-					.request({
-						method: requestUrl.includes('add-article') ? 'post' : 'put',
-						url: requestUrl,
-						data: formData,
-					})
-					.then((res) => {
-						console.log(res.data);
-					})
-					.catch((err) => {
-						console.error(
-							`There is an error for ${
-								requestUrl.includes('add-article') ? 'adding' : 'updating'
-							} a article:`,
-							err
-						);
-						setError(err);
-					})
-					.finally(() => {
-						dispatch(dataArticleActions.resetArticleData());
-						setIsLoading(false);
-						navigate('/news');
-					});
-			}
+		const addArticleUrl = `${serverUrl}/add-article`;
+		const updateArticleUrl = `${serverUrl}/update-article`;
+		const requestUrl = uriLocation.includes('admin/add-new-article') ? addArticleUrl : uriLocation.includes('/admin/update-article') ? updateArticleUrl : '';
+		if (requestUrl !== '') {
+			axios
+				.request({
+					method: requestUrl.includes('add-article') ? 'post' : 'put',
+					url: requestUrl,
+					data: formData,
+				})
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.error(`There is an error for ${requestUrl.includes('add-article') ? 'adding' : 'updating'} a article:`, err);
+					setError(err);
+				})
+				.finally(() => {
+					dispatch(dataArticleActions.resetArticleData());
+					setIsLoading(false);
+					navigate('/news');
+				});
 		}
 	};
 
@@ -135,11 +115,7 @@ const ArticleForm = () => {
 				onSubmit={handleSubmit(confirmHandler)}
 				className={classes.form__container}>
 				<div className={classes.form__container__item}>
-					{!isUpdate ? (
-						<h4>{t('labels.addDbArticle')}</h4>
-					) : (
-						isUpdate && <h4>{t('labels.modifyDbArticle')}</h4>
-					)}
+					{!isUpdate ? <h4>{t('labels.addDbArticle')}</h4> : isUpdate && <h4>{t('labels.modifyDbArticle')}</h4>}
 					<small className={classes.obligatory}>{t('labels.obligatory')}</small>
 					<label htmlFor='Author'>
 						{t('author')}
@@ -196,9 +172,7 @@ const ArticleForm = () => {
 						{...register('description')}
 						type='text'
 						onChange={handleInputChange}></textarea>
-					{errors.description?.message && (
-						<small>{errors.description?.message}</small>
-					)}
+					{errors.description?.message && <small>{errors.description?.message}</small>}
 				</div>
 				<div className={classes.form__container__item}>
 					<label htmlFor='Link'>{t('linksLabels.articleLink')}</label>
@@ -261,9 +235,7 @@ const ArticleForm = () => {
 								type='submit'>
 								{t('insertAction')}
 							</button>
-							<div className={classes.generic__margin__top}>
-								{error && <small>{t('errors.dbCrud')}</small>}
-							</div>
+							<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 						</>
 					) : (
 						isUpdate && (
@@ -273,9 +245,7 @@ const ArticleForm = () => {
 									type='submit'>
 									{t('modifyAction')}
 								</button>
-								<div className={classes.generic__margin__top}>
-									{error && <small>{t('errors.dbCrud')}</small>}
-								</div>
+								<div className={classes.generic__margin__top}>{error && <small>{t('errors.dbCrud')}</small>}</div>
 							</>
 						)
 					)}

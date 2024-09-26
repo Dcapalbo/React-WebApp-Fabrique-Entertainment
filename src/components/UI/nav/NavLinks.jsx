@@ -1,7 +1,6 @@
 /** @format */
 
-import { dataUserActions } from '../../../store/data-user-slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { settingAuthData } from '../../../utils/functions';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,20 +10,16 @@ import { FaUser } from 'react-icons/fa';
 const NavLinks = () => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
-	const token = useSelector((state) => state.userLogin.token);
-	const name = useSelector((state) => state.userLogin.name);
-
 	useEffect(() => {
-		setIsAuthenticated(isLoggedIn);
-	}, [isLoggedIn, token]);
+		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
+	}, [settingAuthData]);
 
 	const logout = () => {
-		dispatch(dataUserActions.logout());
+		setIsAuthenticated(false);
+		sessionStorage.clear();
 		navigate('/login');
 	};
 
@@ -35,7 +30,7 @@ const NavLinks = () => {
 					<Link to='/admin/films'>
 						<FaUser />
 					</Link>
-					<p>{name}</p>
+					<p>{settingAuthData().name}</p>
 				</li>
 			)}
 			<li>

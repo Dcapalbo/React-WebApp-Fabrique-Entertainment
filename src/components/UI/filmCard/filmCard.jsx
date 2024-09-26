@@ -2,13 +2,14 @@
 
 import { dataFilmActions } from '../../../store/data-film-slice';
 import LoadingSpinner from '../loadingSpinner/loadingSpinner';
+import { settingAuthData } from '../../../utils/functions';
 import TruncatedText from '../truncatedText/truncatedText';
-import { useDispatch, useSelector } from 'react-redux';
 import classes from '../../../assets/card.module.scss';
 import { serverUrl } from '../../../utils/constants';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const FilmCard = (props) => {
@@ -16,15 +17,13 @@ const FilmCard = (props) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
-	const isLoggedIn = useSelector((state) => state.userLogin.isLoggedIn);
-
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		setIsAuthenticated(isLoggedIn);
-	}, [isLoggedIn, dispatch]);
+		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
+	}, [dispatch]);
 
 	const sendFilmFormHandler = () => {
 		dispatch(
@@ -58,10 +57,7 @@ const FilmCard = (props) => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.error(
-					'there is an error for deleting the specific film: ',
-					err.name
-				);
+				console.error('there is an error for deleting the specific film: ', err.name);
 				setIsLoading(false);
 				setError(err);
 			});
@@ -69,7 +65,7 @@ const FilmCard = (props) => {
 
 	return (
 		<div className={classes.card}>
-			{props.cover && props.cover.coverImageUrl &&
+			{props.cover && props.cover.coverImageUrl && (
 				<img
 					onClick={sendFilmDetails}
 					className={classes.card__image}
@@ -78,7 +74,7 @@ const FilmCard = (props) => {
 					title={props.title ?? ''}
 					loading='lazy'
 				/>
-			}
+			)}
 			<div className={classes.card__internal__description}>
 				{props.title && <h2>{props.title ?? ''}</h2>}
 				{props.synopsis && (
@@ -90,9 +86,7 @@ const FilmCard = (props) => {
 			</div>
 			<div className={classes.card__external__informations}>
 				{props.director && <h2>{props.director ?? ''}</h2>}
-				{props.productions && (
-					<p>{props.productions[0].productionName ?? ''}</p>
-				)}
+				{props.productions && <p>{props.productions[0].productionName ?? ''}</p>}
 				<div className={classes.card__external__informations__item}>
 					{props.type && (
 						<>
@@ -118,9 +112,7 @@ const FilmCard = (props) => {
 				</>
 			)}
 			{isLoading && <LoadingSpinner />}
-			{error && (
-				<small className={classes.error}>{t('errors.filmErrorDelete')}</small>
-			)}
+			{error && <small className={classes.error}>{t('errors.filmErrorDelete')}</small>}
 		</div>
 	);
 };
