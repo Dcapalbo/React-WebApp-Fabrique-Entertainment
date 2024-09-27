@@ -25,7 +25,7 @@ const CompanyPosition = () => {
 			style={{ width: '100%', height: '400px' }}
 			mapStyle='mapbox://styles/mapbox/streets-v9'
 			transitionDuration='200'
-			mapboxAccessToken={process.env.REACT_APP_TOKEN}>
+			mapboxAccessToken={import.meta.env.VITE_TOKEN}>
 			<Marker
 				onClick={handleMarkerClick}
 				longitude={12.50512}

@@ -1,8 +1,9 @@
 /** @format */
 
-const clientUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_CLIENT_PRODUCTION_URL : process.env.REACT_APP_CLIENT_LOCAL_PORT;
+// Accedi alle variabili d'ambiente usando import.meta.env
+const clientUrl = import.meta.env.VITE_NODE_ENV === 'production' ? import.meta.env.VITE_CLIENT_PRODUCTION_URL : import.meta.env.VITE_CLIENT_LOCAL_PORT;
 
-const serverUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_API_PRODUCTION_URL : process.env.REACT_APP_API_LOCAL_PORT;
+const serverUrl = import.meta.env.VITE_NODE_ENV === 'production' ? import.meta.env.VITE_API_PRODUCTION_URL : import.meta.env.VITE_API_LOCAL_PORT;
 
 const optionsFilms = [
 	{

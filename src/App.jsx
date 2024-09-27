@@ -2,8 +2,8 @@
 
 // importing the react router dom version 6
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 // importing the react traductions functions
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';
