@@ -8,12 +8,15 @@ import { serverUrl } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import classes from './genericForm.module.scss';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 
 import axios from 'axios';
+import { dataUserActions } from '../../../store/data-user-slice';
 
 const LoginForm = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const {
 		register,
@@ -43,7 +46,7 @@ const LoginForm = () => {
 			.then((res) => {
 				sessionStorage.setItem('token', res.data.token);
 				sessionStorage.setItem('name', res.data.name);
-				sessionStorage.setItem('userId', res.data.userId);
+				dispatch(dataUserActions.setAuth(true));
 				setIsLoading(false);
 				navigate('/');
 			})

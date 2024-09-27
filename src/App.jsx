@@ -3,7 +3,7 @@
 // importing the react router dom version 6
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // importing the react traductions functions
 import { initReactI18next } from 'react-i18next';
 import { translationIt } from './utils/i18It';
@@ -28,16 +28,15 @@ import Contacts from './pages/Contacts';
 import LoginForm from './pages/LoginForm';
 import UpdateFilm from './pages/UpdateFilm';
 // import AuthSignUp from './pages/AuthSignUp';
+import NewArticle from './pages/NewArticle';
 import NewContact from './pages/NewContact';
 import AllAuthFilms from './pages/AllAuthFilms';
 import AboutContact from './pages/AboutContact';
 import UpdateContact from './pages/UpdateContact';
+import UpdateArticle from './pages/UpdateArticle';
 import AllAuthContacts from './pages/AllAuthContacts';
 import ResetPasswordForm from './pages/ResetPassword';
 import ForgotPasswordForm from './pages/ForgotPassword';
-import NewArticle from './pages/NewArticle';
-import UpdateArticle from './pages/UpdateArticle';
-import { settingAuthData } from './utils/functions';
 
 // initialize the react traductions
 i18n.use(initReactI18next).init({
@@ -56,11 +55,12 @@ const App = () => {
 	const { contacts } = ApiGetHook(`${serverUrl}/get-contacts`);
 
 	const [isAuthenticated, setIsAuthenticated] = useState(null);
+	const isAuth = useSelector((state) => state.dataUser);
 
 	useEffect(() => {
-		setIsAuthenticated(settingAuthData().isLoggedIn ?? false);
+		setIsAuthenticated(isAuth);
 		dispatch(dataContactActions.setContactsData(contacts));
-	}, [dispatch, contacts]);
+	}, [dispatch, contacts, isAuth]);
 
 	return (
 		<Router>

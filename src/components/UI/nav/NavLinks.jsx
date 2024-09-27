@@ -5,11 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classes from './navLinks.module.scss';
+import { useDispatch } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
+import { dataUserActions } from '../../../store/data-user-slice';
 
 const NavLinks = () => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -19,6 +22,7 @@ const NavLinks = () => {
 
 	const logout = () => {
 		setIsAuthenticated(false);
+		dispatch(dataUserActions.setAuth(false));
 		sessionStorage.clear();
 		navigate('/login');
 	};

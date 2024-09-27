@@ -54,10 +54,9 @@ const convertToDateToPrint = (dateString) => {
 const settingAuthData = () => {
 	const token = sessionStorage.getItem('token');
 	const name = sessionStorage.getItem('name');
-	const userId = sessionStorage.getItem('userId');
 
 	return {
-		isLoggedIn: token && name && userId ? true : false,
+		isLoggedIn: token && name ? true : false,
 		name: name || '',
 	};
 };
