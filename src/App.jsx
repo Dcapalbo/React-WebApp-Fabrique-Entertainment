@@ -27,9 +27,6 @@ i18n.use(initReactI18next).init({
 	interpolation: { escapeValue: false },
 });
 
-// Importazione e configurazione di i18n omessa per brevità
-// ...
-
 const App = () => {
 	const dispatch = useDispatch();
 	const { contacts } = ApiGetHook(`${serverUrl}/get-contacts`);
