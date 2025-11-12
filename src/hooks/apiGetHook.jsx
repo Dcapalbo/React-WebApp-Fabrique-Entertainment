@@ -24,6 +24,7 @@ const useApiGetHook = (url) => {
 			});
 	}, [url]);
 
+	console.log();
 	return { data, error, loading };
 };
 
