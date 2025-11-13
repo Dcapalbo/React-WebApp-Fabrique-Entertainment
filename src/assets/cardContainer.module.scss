@@ -6,6 +6,8 @@
 
 .wrapper__card__container {
   background-color: $firstColor;
+  justify-content: center;
+  display: flex;
   height: auto;
   width: 100%;
   .card__container {
