@@ -61,7 +61,7 @@
     margin: 15px 0px;
     padding: 10px;
     height: 100%;
-    width: 100%;
+    width: 60%;
     @media (max-width: $screen-sm-min) {
       margin-top: 10px;
       padding: 0px;
@@ -107,6 +107,9 @@
       transform: scale(1.05);
       transition: 0.2s;
       opacity: 0;
+    }
+    @media (max-width: $screen-sm-min) {
+      border-radius: 20px 20px 0px 0px;
     }
   }
 
