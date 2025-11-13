@@ -13,10 +13,9 @@
   align-items: center;
   border-radius: 20px;
   position: relative;
-  padding: 10px;
   display: flex;
-  margin: 8px;
-  width: 27%;
+  margin: 20px;
+  width: 25%;
   &:hover {
     background-color: $thirdColor;
     transform: scale(1.05);
@@ -72,7 +71,7 @@
     }
   }
   .card__image {
-    border-radius: 20px;
+    border-radius: 20px 20px 0px 0px;
     position: relative;
     object-fit: cover;
     transition: 0.2s;
